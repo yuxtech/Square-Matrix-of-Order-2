@@ -1,0 +1,4817 @@
+\chapter{Cayley--Hamilton定理的应用}
+\begin{proverb}
+  { \itshape
+   The greatest mathematicians like Archimedes,
+   Newton, and Gauss have always been able
+   to combine theory and applications into one.
+  }
+
+\hfill Felix Klein（1849–1925）
+\end{proverb}
+
+\section{二阶矩阵的$n$次幂}
+
+在本节中，我们证明一个用矩阵$A$的元及其特征值来计算$A$的$n$次幂的定理.
+
+\begin{mybox}
+  \begin{theorem}
+    设$A\in\MM_2(\MC)$，且$\lambda_1,\lambda_2$是$A$的特征值.
+    \begin{enum}
+      \item 如果$\lambda_1\ne\lambda_2$，则对任意$n\ge1$，我们有$A^n=\lambda_1^nB+\lambda_2^nC$，其中
+          \[
+            B = \frac{A-\lambda_2I_2}{\lambda_1-\lambda_2}
+            \quad \text{且}\quad C = \frac{A-\lambda_1I_2}{\lambda_2-\lambda_1}.
+          \]
+      \item 如果$\lambda_1=\lambda_2=\lambda$，则对任意$n\ge1$，我们有$A^n=\lambda^nB+n\lambda^{n-1}C $，其中
+          \[
+            B=I_2 \quad \text{且}\quad
+            C = A - \lambda I_2.
+          \]
+    \end{enum}
+  \end{theorem}
+\end{mybox}
+
+\begin{proof}
+  设$A=\begin{pmatrix}
+    a & b \\
+    c & d
+  \end{pmatrix}$，则我们有$A^2-\Tr(A)A+(\det A)I_2=O_2$，其中$\Tr(A)=a+d$，且$\det A=ad-bc$. 我们在此等式两边乘以$A^{n-1}$，得到
+  \[
+    A^{n+1} - \Tr(A)A^n + (\det A)A^{n-1} = O_2,
+  \]
+  这意味着
+  \begin{equation}\label{eq3.1}
+    A^{n+1} = \Tr(A)A^n - (\det A)A^{n-1}.
+  \end{equation}
+
+  设$A^n=\begin{pmatrix}
+    a_n & b_n \\
+    c_n & d_n
+  \end{pmatrix}$，利用 \eqref{eq3.1} 我们得到，当$n\ge2$时，
+  \begin{gather*}
+    a_{n+1} = \Tr(A)a_n - (\det A)a_{n-1},\\
+    b_{n+1} = \Tr(A)b_n - (\det A)b_{n-1},\\
+    c_{n+1} = \Tr(A)c_n - (\det A)c_{n-1},\\
+    d_{n+1} = \Tr(A)d_n - (\det A)d_{n-1}.
+  \end{gather*}
+
+  因此，数列$(a_n)_{n\ge1},(b_n)_{n\ge1},(c_n)_{n\ge1}$和
+  $(d_n)_{n\ge1}$满足相同的递推关系
+  \[
+    x_{n+1} = \Tr(A)x_n - (\det A)x_{n-1},\; n\ge2,
+  \]
+  其特征方程为$\lambda^2-\Tr(A)\lambda+\det A=0$.
+
+  我们分下面两种情形.
+  \begin{itemize}
+    \item 如果$\lambda_1\ne\lambda_2$，我们得到$x_n=\alpha_x\lambda_1^n+\beta_x\lambda_2^n$，其中$\alpha_x,\beta_x\in\MC$，因此
+        \begin{gather*}
+          a_n = \alpha_a\lambda_1^n + \beta_a\lambda_2^n, \\
+          b_n = \alpha_b\lambda_1^n + \beta_b\lambda_2^n, \\
+          c_n = \alpha_c\lambda_1^n + \beta_c\lambda_2^n, \\
+          d_n = \alpha_d\lambda_1^n + \beta_d\lambda_2^n.
+        \end{gather*}
+        这些式子就意味着存在矩阵$B,C\in\MM_2(\MC)$，
+        \[
+          B = \begin{pmatrix}
+            \alpha_a & \alpha_b \\
+            \alpha_c & \alpha_d
+          \end{pmatrix} \quad \text{且} \quad
+          C = \begin{pmatrix}
+            \beta_a & \beta_b \\
+            \beta_c & \beta_d
+          \end{pmatrix},
+        \]
+  \end{itemize}
+  使得$A^n=\lambda_1^nB+\lambda_2^nC$.
+  \begin{itemize}
+    \item 如果$\lambda_1=\lambda_2=\lambda$，我们得到$x_n=\alpha_x\lambda^n+\beta_xn\lambda^{n-1} $，其中$\alpha_x,\beta_x\in\MC$. 因此
+        \begin{gather*}
+          a_n = \alpha_a\lambda^n + \beta_an\lambda^{n-1}, \\
+          b_n = \alpha_b\lambda^n + \beta_bn\lambda^{n-1}, \\
+          c_n = \alpha_c\lambda^n + \beta_cn\lambda^{n-1}, \\
+          d_n = \alpha_d\lambda^n + \beta_dn\lambda^{n-1}.
+        \end{gather*}
+        这些式子就意味着存在矩阵$B,C\in\MM_2(\MC)$，
+        \[
+          B = \begin{pmatrix}
+            \alpha_a & \alpha_b \\
+            \alpha_c & \alpha_d
+          \end{pmatrix} \quad \text{且} \quad
+          C = \begin{pmatrix}
+            \beta_a & \beta_b \\
+            \beta_c & \beta_d
+          \end{pmatrix},
+        \]
+  \end{itemize}
+  使得$A^n=\lambda^nB+\lambda^{n-1}nC$.
+
+  矩阵$B$和和$C$可以通过令$n=0$和1，解一个线性的矩阵方程组得到，这里$A^0=I_2$.
+\end{proof}
+
+\begin{remark}
+  定理 \ref{thm3.1} 有一种等价的描述.
+  \begin{mybox}
+    如果$n\in\MN,A\in\MM_2(\MC)$，且$\lambda_1,\lambda_2
+    $是$A$的特征值，则
+    \[
+      A = \begin{cases}
+          \frac{\lambda_1^n-\lambda_2^n}
+          {\lambda_1-\lambda_2}A - \det A \frac{\lambda_1^{n-1}-\lambda_2^{n-1}}
+          {\lambda_1-\lambda_2}I_2, & \lambda_1 \ne \lambda_2 \\
+          n\lambda^{n-1}A - (n - 1)\lambda^nI_2, & \lambda_1 = \lambda_2 = \lambda
+        \end{cases}.
+    \]
+  \end{mybox}
+\end{remark}
+
+\begin{theorem}
+  如果$A\in\MM_2(\MC)$，存在数列$(x_n)_{n\ge1}$和$(y_n)_{n\ge1}$，使得
+  \[
+    A^n = x_nA + y_nI_2,\; \forall n\in\MN,
+  \]
+  其中数列$(x_n)_ {n\ge1}$和$(y_n)_{n\ge1}$满足递推关系：
+  \begin{gather*}
+    x_{n+1} = \Tr(A)x_n - (\det A)x_{n-1},\; n\in\MN, \\
+    y_{n+1} = \Tr(A)y_n - (\det A)y_{n-1},\; n\in\MN.
+  \end{gather*}
+\end{theorem}
+
+\begin{proof}
+  如果$A=\alpha I_2$，则$A^n=\alpha^nI_2,\Tr(A)=2\alpha,\det A=\alpha^2$，于是我们可取$x_n=\alpha^n,y_n=0$.
+
+  如果$A\ne\alpha I_2$，由于$A^nA=AA^n$，我们应用定理 \ref{thm1.1}，有$A^n=x_nA+y_nI_2,n\in\MN$. 由$A^{n+1}=x_{n+1}A+y_{n+1}I_2$和
+  \[
+    A^{n+1} = A^nA = x_nA^2 + y_nA = x_n
+    [ \Tr(A)A - (\det A)I_2 ] + y_nA,
+  \]
+  我们得到$x_{n+1}=x_n\Tr(A)+y_n,y_{n+1}=-x_n\det A$. 由于$y_n=-x_{n-1}\det A$，我们有$x_{n+1}=x_n\Tr(A)-x_{n-1}\det A$. 类似地，我们得到数列$(y_n)_{n\ge1}$满足相同的递推关系.
+\end{proof}
+
+\begin{remark}
+  数列$(x_n)_{n\ge1}$和$(y_n)_{n\ge1}$的特征方程式矩阵$A$的特征方程
+  \[
+    \lambda^2 - \Tr(A)\lambda + \det A = 0,
+  \]
+  其根$\lambda_1,\lambda_2$是$A$的特征值.
+  \begin{itemize}
+    \item 如果$\lambda_1\ne\lambda_2$，计算可得
+    \[
+      x_n = \frac{\lambda_1^n-\lambda_2^n}{\lambda_1-\lambda_2}
+      \quad \text{且} \quad
+      y_n = - \det A \frac{\lambda_1^{n-1}-\lambda_2^{n-1}}
+      {\lambda_1-\lambda_2},\; n\ge1.
+    \]
+    \item 如果$\lambda_1=\lambda_2=\lambda$，我们有$x_n=n\lambda^{n-1}$且$y_n=-(n-1)\lambda^n,n\ge1$.
+  \end{itemize}
+\end{remark}
+
+\subsection{问题}
+\begin{problem}
+  设$A=\begin{pmatrix}
+    -2 & 4 \\
+    -5 & 7
+  \end{pmatrix}$，计算$A^n,n\in\MN$.
+\end{problem}
+
+\begin{problem}
+  设$A=\begin{pmatrix}
+    1 & 3 \\
+    -3 & -5
+  \end{pmatrix}$，计算$A^n,n\in\MN$.
+\end{problem}
+
+\begin{problem}
+  设$A=\begin{pmatrix}
+    1 & 3 \\
+    -1 & -2
+  \end{pmatrix}$，计算$A^n,n\in\MN$.
+\end{problem}
+
+\begin{problem}
+  设$A=\begin{pmatrix}
+    3 & -2 \\
+    2 & -1
+  \end{pmatrix}$，计算$A^n,n\in\MN$.
+\end{problem}
+
+\begin{problem}
+  设$A=\begin{pmatrix}
+    3 & 1 \\
+    -1 & 1
+  \end{pmatrix}$，计算$A^n,n\in\MN$.
+\end{problem}
+
+\begin{problem}
+  设$A=\begin{pmatrix}
+    1 + \ii & 2 - \ii \\
+    2 + \ii & 1 - \ii
+  \end{pmatrix}$，计算$A^n,n\in\MN$.
+\end{problem}
+
+\begin{problem}
+  设$A=\begin{pmatrix}
+    \hat4 & \hat2 \\
+    \hat2 & \hat2
+  \end{pmatrix}\in\MM_2(\MZ_5)$，计算$A^n,n\in\MN$.
+\end{problem}
+
+\begin{problem}
+  设$A=\begin{pmatrix}
+    1 & -1 \\
+    -1 & 1
+  \end{pmatrix}$.
+  \begin{enum}
+    \item 证明：$A^n=2^{n-1}A,\,\forall n\in\MN$.
+    \item 计算和式$A+A^2+\cdots+A^n$.
+  \end{enum}
+\end{problem}
+
+\begin{problem}
+  设$A=\begin{pmatrix}
+    a & 1 \\
+    0 & a
+  \end{pmatrix},a\in\MR$，计算$\det(A+A^2+\cdots+A^n),n\in\MN$.
+\end{problem}
+
+\begin{problem}
+  证明：
+  \[
+    \begin{pmatrix}
+      \sqrt3 & -1 \\
+      1 & \sqrt3
+    \end{pmatrix} ^{12} = 2^{12}\begin{pmatrix}
+      1 & 0 \\
+      0 & 1
+    \end{pmatrix}.
+  \]
+\end{problem}
+
+\begin{mybox}
+  \begin{problem}[循环矩阵盛宴.]
+    \begin{itemize}
+      \item 形如$C(a,b)=\begin{pmatrix}
+        a & b \\
+        b & a
+      \end{pmatrix},a,b\in\MC$的矩阵叫做{\kaishu 循环矩阵}\index{J!矩阵!循环矩阵}. 设$\mathscr C=\{C(a,b):a,b\in\mathscr C\}$是循环矩阵构成的集合，则：
+      \begin{enum}
+        \item $C(1,0)=I_2,C(0,1)=\begin{pmatrix}
+              0 & 1 \\
+              1 & 0
+            \end{pmatrix}=C,C^{2n}=I_2,C^{2n+1}=C,n\in\MN$，
+            且$C(a,b)=aI_2+bC,a,b\in\MC$.
+        \item $\mathscr C$在矩阵加法和乘法下保持封闭，即$A,B\in\mathscr C$，则$A+B\in\mathscr C,AB\in\mathscr C$，且成立公式
+            \begin{gather*}
+              C(a,b) + C(c,d) = C(a + c,b + d),\\
+              C(a,b)C(c,d) = C(ac + bd,ad + bc).
+            \end{gather*}
+        \item {\bfseries 循环矩阵的$n$次幂.} 我们有
+        \[
+          C^n(a,b) = C\left( \frac{(a+b)^n+ (a-b)^n}2,
+          \frac{(a+b)^n - (a-b)^n}2\right),\,n\in\MN.
+        \]
+        \item $C$的特征值为$\lambda_1=1,\lambda_2=-1$，而矩阵$C(a,b)$的特征值为$\mu_1=a+b,\mu_2=a-b$. 矩阵$C(a,b)$的Jordan标准形为$J_{C(a,b)}=
+            \begin{pmatrix}
+              a + b & 0 \\
+              0 & a - b
+            \end{pmatrix}$，且满足等式$J_{C(a,b)}=P^{-1}C(a,b)P$的可逆矩阵$P=\begin{pmatrix}
+              1 & -1 \\
+              1 & 1
+            \end{pmatrix}$.
+        \item 如果$n\in\MN$，且$A^n$是一个非$\alpha I_2,\alpha\in\MC$形式的循环矩阵，则$A$也是一个循环矩阵.
+        \item 矩阵$(Ca,b)$可逆当且仅当$a^2\ne b^2$，且
+            \[
+              C^{-1}(a,b) = C\left( \frac a{a^2-b^2}, -\frac b{a^2-b^2} \right).
+            \]
+        \item $(\mathscr C,+,\cdot)$是$\big(\MM_2(\MC),+,\cdot\big)$的一个含幺交换子环，其中可逆元$\big(U(\mathscr C),\cdot\big)$的群由可逆的循环矩阵构成.
+        \item 如果$X,Y\in\MM_2(\MC)$满足$XY=C(a,b),a^2\ne b^2$，则$X$与$Y$可交换当且仅当$X$和$Y$都是循环矩阵.
+        \item 群$(\mathscr C,+)$是$\MC$上的一个二维向量空间，且有标准基$\mathscr B_{\mathscr C}=\{I_2,C\}$.
+      \end{enum}
+      \item 设$a,b\in\MC$，且令$D(a,b)=\begin{pmatrix}
+            a & b \\
+            -b & -a
+          \end{pmatrix}=aD_1+bD_2$，其中$D_1=\begin{pmatrix}
+            1 & 0 \\
+            0 & -1
+          \end{pmatrix},D_2=\begin{pmatrix}
+            0 & 1 \\
+            -1 & 0
+          \end{pmatrix}$，再令$\mathscr D=\{D(a,b):a,b\in\MC\}$. 则：
+      \begin{enum}\setcounter{enumi}{9}
+        \item $D_1^2=I_2,D_2^2=-I_2,D_1D_2=C,D_2D_1=-C,
+            CD_1=-D_2,D_1C=D_2,CD_2=-D_1,D_2C=D_1$.
+        \item $D_1^{2n}=I_2,D_1^{2n+1}=D_1,D_2^{4n}=I_2,
+            D_2^{4n+1}=D_2,D_2^{4n+2}=-I_2,D_2^{4n+3}=-
+            D_2,n\in\MN$.
+        \item 矩阵$D(a,b)$可逆当且仅当$a^2\ne b^2$，且
+            \[
+              D^{-1}(a,b) = D \left( \frac a{a^2-b^2}, \frac b{a^2-b^2} \right).
+            \]
+        \item $(\mathscr D,+)$是$\MC$上的二维线性空间，且有标准基$\mathscr B_{\mathscr D}=\{D_1,D_2\}$.
+        \item 如果$A,B\in\mathscr D$，则$AB\in\mathscr C$.
+        \item\label{prob3.11o} 如果$A\in\mathscr C$且$B\in\mathscr D$，且$AB\in\mathscr D$且$BA\in\mathscr D$.
+        \item {\bfseries 一个直和.} $\MM_2(\MC)=\mathscr C\oplus\mathscr D$. 任意矩阵$A=\begin{pmatrix}
+          a & b \\
+          c & d
+        \end{pmatrix}\in\MM_2(\MC)$可以唯一写成$A=C(x,y)+D(z,t)$，其中$x=\frac{a+d}2,y=\frac{b+c}2,z=\frac{a-d}2,
+        t=\frac{b-c}2$.
+        \begin{nota}
+          任意矩阵$A\in\MM_2(\MC)$可以唯一表示成一个循环矩阵与一个迹为0的矩阵的和.
+        \end{nota}
+        \item {\bfseries 正交性.}\parindent=2em 函数$\langle\cdot,\cdot\rangle:\MM_2(\MC)\times\MM_2(\MC)
+        \to\MC$定义为$\langle A,B\rangle=\Tr(AB^\ast)$是$\MM_2(\MC)$上的线性函数，且$\big(\MM_2(\MC),\langle\cdot,\cdot\rangle\big)$是一个{\kaishu Euclide空间}.\index{E!Euclide空间}
+
+        如果$C(a,b)\in\mathscr C$且$D(c,d)\in\mathscr D$，则$D^\ast(c,d)=D(\bar c,-\bar d)$，且$\langle C(a,b),D(c,d)\rangle=0$. 因此，子空间$\mathscr C$和$\mathscr D$是{\kaishu 正交的}. 性质 \ref{prob3.11o} 意味着$\mathscr C$是$\mathscr D$在$\MM_2(\MC)$中的{\kaishu 正交补}， \index{Z!正交补}即$\mathscr C=\mathscr D^{\bot}$且$\mathscr D=\mathscr C^{\bot}$.
+
+        我们还有
+        \[
+          \mathscr C = \{ C\in\MM_2(\MC):\Tr(CD^\ast)=0,\,\forall D\in\mathscr D \},
+        \]
+        且
+        \[
+          \mathscr D = \{ D\in\MM_2(\MC):\Tr(CD^\ast)=0,\,\forall C\in\mathscr C \},
+        \]
+        
+        \begin{nota}
+          $\mathscr B_{\MM_2(\MC)}=\{I_2,C,D_1,D_2\}$是$\MM_2(\MC)$
+          的一个{\kaishu 正交基}\index{Z!正交基}，且$\|I_2\|=\|C\|=\|D_1\|=\|D_2\|=\sqrt2$.
+        \end{nota}
+      \end{enum}
+    \end{itemize}
+  \end{problem}
+\end{mybox}
+
+\begin{problem}[双随机矩阵.]
+  \begin{enum}
+    \item\label{prob3.12a} 证明：
+    \[
+      \begin{pmatrix}
+        a & 1 - a\\
+        1 - a & a
+      \end{pmatrix}^n = \frac12
+      \begin{pmatrix}
+        1 + (2a - 1)^n & 1 - (2a - 1)^n \\
+        1 - (2a - 1)^n & 1 + (2a + 1)^n
+      \end{pmatrix},\quad a\in[0,1].
+    \]
+    \item\label{prob3.12b} 设$\theta\in\MR$，证明：
+    \[
+      \begin{pmatrix}
+        \cos^2\theta & \sin^2\theta \\
+        \sin^2\theta & \cos^2\theta
+      \end{pmatrix}^n = \frac12
+      \begin{pmatrix}
+        1 + \cos^n(2\theta) & 1 - \cos^n(2\theta) \\
+        1 - \cos^n(2\theta) & 1 + \cos^n(2\theta)
+      \end{pmatrix}.
+    \]
+  \end{enum}
+  \begin{remark}
+    问题 \ref{problem3.12} 中 \ref{prob3.12a} 和 \ref{prob3.12b} 中的矩阵称为{\kaishu 双随机矩阵}\index{S!双随机矩阵}. 一个双随机矩阵的每一个元素都是非负的（表示一个概率），且每一行与每一列的和都等于1.
+  \end{remark}
+\end{problem}
+
+\begin{problem}
+  计算$A^n$，其中
+  \[
+    A = \begin{pmatrix}
+      1 + a & - a \\
+      -b & 1 + b
+    \end{pmatrix},\quad a,b\in\MR,n\in\MN.
+  \]
+\end{problem}
+
+\begin{problem}
+  设$\alpha\in\MR^\ast$，计算
+  \[
+    \begin{pmatrix}
+      1 & \alpha^2 \\
+      1 & 1
+    \end{pmatrix}^n,\; n\in\MN.
+  \]
+\end{problem}
+
+\begin{problem}
+  设$\alpha\in\MC$，计算
+  \[
+    \begin{pmatrix}
+      2a & -a^2 \\
+      1 & 0
+    \end{pmatrix}^n,\; n\in\MN.
+  \]
+\end{problem}
+
+\begin{problem}[L型矩阵的$n$次幂.]
+  设$a,b\in\MR$满足$a\ne b$且$ab>0$，计算$\begin{pmatrix}
+    a & b \\
+    a & b
+  \end{pmatrix}^n$.
+\end{problem}
+
+\begin{mybox}
+  \begin{problem}
+    设$a,b\in\MR$满足$ab>0$，证明：
+    \[
+      \begin{pmatrix}
+        1 & a \\
+        b & 1
+      \end{pmatrix}^n = \begin{pmatrix}
+        \frac{(1+\sqrt{ab})^n+(1-\sqrt{ab})^n}2
+        & \frac{a(1+\sqrt{ab})^n-a(1-\sqrt{ab})^n}
+        {2\sqrt{ab}} \\
+        \frac{b(1+\sqrt{ab})^n-b(1-\sqrt{ab})^n}
+        {2\sqrt{ab}} & \frac{(1+\sqrt{ab})^n+(1-\sqrt{ab})^n}2
+      \end{pmatrix}.
+    \]
+  \end{problem}
+\end{mybox}
+
+\begin{problem}
+  设$A=\begin{pmatrix}
+    a & b \\
+    c & d
+  \end{pmatrix}\in\MM_2(\MR)$满足$a\ne d,b\ne c,b\ne 0,c\ne0$. 如果$A^n=\begin{pmatrix}
+    a_n & b_n \\
+    c_n & d_n
+  \end{pmatrix},n\in\MN$，证明：$\frac{b_n}b=\frac{c_n}c=\frac{a_n-d_n}{a-d}$.
+\end{problem}
+
+\begin{problem}
+  设$A=\begin{pmatrix}
+    a & b \\
+    -b & a
+  \end{pmatrix}\in\MM_2(\MR)$满足$a^2+b^2<1$，证明：矩阵$A^n,n\in\MN$具有形式
+  \[
+    \begin{pmatrix}
+      a_n & b_n \\
+      -b_n & a_n
+    \end{pmatrix},
+  \]
+  其中$(a_n)_{n\ge1}$和$(b_n)_{n\ge1}$是收敛到0的数列.
+\end{problem}
+
+\begin{problem}
+  一组{\kaishu 勾股数}\footnote{用任意一对正整数$m,n,m>n$生成勾股数的公式是Eucild公式. 这个公式指出，正整数$a=m^2-n^2,b=2mn,c=m^2+n^2$构成一组勾股数.} \index{G!勾股数} 包含三个正整数$a,b,c$，满足$a^2+b^2=c^2$. 设$(a,b,c)$是一组勾股数，令
+  \[
+    A = \begin{pmatrix}
+      a & -b \\
+      b & a
+    \end{pmatrix} \in\MM_2(\MZ).
+  \]
+
+  设数列$(a_n)_{n\ge1}$和$(b_n)_{n\ge1}$定义为$A^n=\begin{pmatrix}
+    a_n & -b_n \\
+    b_n & a_n
+  \end{pmatrix},n\ge1$. 证明：$b_n\ne0$对任意$n\ge1$成立.
+\end{problem}
+
+\begin{problem}
+  对$a\in\MR$，我们令$X_a=\begin{pmatrix}
+    a & 1 \\
+    -1 & a
+  \end{pmatrix}$，且令
+  \[
+    X_a^n = \begin{pmatrix}
+      a_n & b_n \\
+      -b_n & a_n
+    \end{pmatrix},\; n\ge1.
+  \]
+  证明：存在$a\in\MR$，使得
+  \[
+    b_1 < a_1,\quad  b_2 < a_2,\quad  b_3 < a_3,\, \cdots,\quad  b_{2016} < a_{2016}\quad \text{且}\quad
+    b_{2017} > a_{2017}.
+  \]
+\end{problem}
+
+\begin{problem}
+  设实数$a,b,c,d$构成等差数列，如果
+  \[
+    A = \begin{pmatrix}
+      a & b \\
+      c & d
+    \end{pmatrix}\quad \text{且} \quad
+    A^n = \begin{pmatrix}
+      a_n & b_n \\
+      c_n & d_n
+    \end{pmatrix},\; n\in\MN,
+  \]
+  证明：实数$b_n-a_n,c_n-d_n$和$d_n-c_n$也构成等差数列.
+\end{problem}
+
+\begin{mybox}
+  \begin{problem}
+    设$A\in\MM_2(\MZ)$是一个可逆矩阵，且满足$A^{-1}\in\MM_2(\MZ)$. 令
+    \[
+      A^n = \begin{pmatrix}
+        a_n & b_n \\
+        c_n & d_n
+      \end{pmatrix},\; n\ge1.
+    \]
+    证明：$(a_n,b_n)=(a_n,c_n)=(b_n,d_n)=(c_n,d_n)=1$，其中$(x,y)$表示整数$x$和$y$的{\kaishu 最大公约数}. \index{Z!最大公约数}
+  \end{problem}
+\end{mybox}
+
+\begin{mybox}
+  \begin{problem}[另一个Fibonacci矩阵]
+
+    设$(F_n)_{n\ge0}$是Fibonacci数列，其递推关系为$F_0=0,F_1=1$且$F_{n+1}=F_n+F_{n-1},\,\forall n\ge1$，且令$A=\begin{pmatrix}
+      0 & 1 \\
+      1 & 1
+    \end{pmatrix}$. 证明：
+    \begin{enum}
+      \item $A^n=\begin{pmatrix}
+        F_{n-1} & F_n \\
+        F_n & F_{n+1}
+      \end{pmatrix},\,\forall n\ge1$.
+      \item {\kaishu Fibonacci数列的两条性质.}
+      \[
+        \begin{cases}
+            F_{n+m-1} = F_nF_m + F_{n-1}F_{m-1}, &\forall m,n\ge1 \\
+            F_{n-1}F_{n+1} - F_n^2 = (-1)^n, & n\ge1
+          \end{cases}.
+      \]
+      \item \label{prob3.24c}{\kaishu Fibonacci数列的第$n$项.}
+      \[
+        F_n = \frac1{\sqrt5} \left[
+          \left( \frac{1 + \sqrt5}2 \right)^n -
+          \left( \frac{1 - \sqrt5}2 \right)^n
+        \right],\; \forall n\ge0.
+      \]
+    \end{enum}
+  \end{problem}
+\end{mybox}
+
+\begin{problem}
+  设$A=\begin{pmatrix}
+    1 & 1 \\
+    1 & 2
+  \end{pmatrix}$，且设$(F_n)_{n\ge1}$是Fibonacci数列，定义为$F_1=1,F_2=2$且$F_{n+1}=F_n+F_{n-1},n\ge2$.
+  \begin{enum}
+    \item 证明：$A^n=\begin{pmatrix}
+      F_{2n-1} & F_{2n} \\
+      F_{2n} & F_{2n+1}
+    \end{pmatrix},n\ge1$.
+    \item 如果数列$(x_n)_{n\ge1}$和$(y_n)_{n\ge1}$满足递推关系$\begin{pmatrix}
+          x_{n+1} \\ y_{n+1}
+        \end{pmatrix}=A\begin{pmatrix}
+          x_n \\ y_n
+        \end{pmatrix},n\ge1$，且$\begin{pmatrix}
+          x_1 \\ y_1
+        \end{pmatrix}=\begin{pmatrix}
+          1 \\ 1
+        \end{pmatrix}$，证明：$x_{n+1}^2+x_{n+1}y_{n+1}-y_{n+1}^2=x_n^2+x_ny_n
+        -y_n^2,\,\forall n\ge1$.
+    \item 证明：如果自然数$x,y\in\MN$满足方程$x^2+xy-y^2=1$，则存在$n\in\MN$，使得$(x,y)=(F_{2n-1},F_{2n})$.
+  \end{enum}
+\end{problem}
+
+\begin{problem}
+  设$A=\begin{pmatrix}
+    1 & 1 \\
+    0 & 1
+  \end{pmatrix}$. 求数列$(x_n)_{n\ge1}$和$(y_n)_{n\ge1}$，使得$A^n=x_nA+y_nI_2,n\in\MN$，并计算$\lim_{n\to\infty}\frac{x_n}{y_n}$.
+\end{problem}
+
+\begin{problem}
+  设矩阵$A=\begin{pmatrix}
+    a & b \\
+    c & d
+  \end{pmatrix}\in\MM_2(\MR)$满足$|\det A|\ge1$，且令$A^n=\begin{pmatrix}
+    a_n & b_n \\
+    c_n & d_n
+  \end{pmatrix},n\ge1$. 证明：数列$(a_n)_{n\ge1},(b_n)_{n\ge1},(c_n)_{n\ge1}$和$(d_n)_{n\ge1}$收敛当且仅当$A=I_2$.
+\end{problem}
+
+\subsection{解答}
+\begin{solution}
+  $A$的特征方程为$\lambda^2-5\lambda+6=0$，这说明$\lambda_1=2,\lambda_2=3$. 于是$A^n=2^nB+3^nC$，其中$B,C\in\MM_2(\MR)$. 我们通过令$n=0$和$n=1$来定出矩阵$B$和$C$，可得
+  \[
+    B = \begin{pmatrix}
+      5 & -4 \\
+      5 & -4
+    \end{pmatrix} \quad \text{且} \quad
+    C = \begin{pmatrix}
+      -4 & 4 \\
+      -5 & 5
+    \end{pmatrix}.
+  \]
+  因此，
+  \[
+    A^n = \begin{pmatrix}
+      5\cdot2^n - 4\cdot 3^n & 4\cdot 3^n - 4\cdot 2^n \\
+      5\cdot 2^n - 5\cdot 3^n & 5\cdot 3^n - 5\cdot 2^n
+    \end{pmatrix},\; n\in\MN.
+  \]
+\end{solution}
+
+\begin{solution}
+  $A^n=(-2)^{n-1}\begin{pmatrix}
+    3n - 2 & 3n \\
+    -3n & -3n - 2
+  \end{pmatrix},\; n\in\MN$.
+\end{solution}
+
+\begin{solution}
+  $A$的特征多项式为$\lambda^2+\lambda+1=0$，所以$A^2+A+I_2=O_2$. 我们将此等式乘以$A-I_2$，可得$A^3=I_2$. 因此当$n=3k$时，$A^3=I_2$；当$n=3k+1$时，$A^n=A$；当$n=3k+2$时，$A^n=A^2$.
+\end{solution}
+
+\begin{solution}
+  $A^n=\begin{pmatrix}
+    2n + 1 & -2n \\
+    2n & -2n + 1
+  \end{pmatrix},\; n\in\MN$.
+\end{solution}
+
+\begin{solution}
+  $A$的特征多项式为$(\lambda-2)^2=0$，所以我们有$(A-2I_2)^2=O_2$.
+
+  令$B=A-2I_2=\begin{pmatrix}
+    1 & 1 \\
+    -1 & -1
+  \end{pmatrix}$，我们注意到$B^2=O_2$. 由二项式定理，我们有
+  \[
+    A^n = (2I_2 + B)^n = 2^nI_2 + n2^{2n-1}B =
+    \begin{pmatrix}
+      2^n + n2^{n-1} & n2^{n-1} \\
+      -n2^{n-1} & 2^n - n2^{n-1}
+    \end{pmatrix}.
+  \]
+\end{solution}
+
+\begin{solution}
+  $A=I_2+B$，其中$B=\begin{pmatrix}
+    \ii & 2 - \ii \\
+    2 + \ii & - \ii
+  \end{pmatrix}$，且$B^2=4I_2$. 计算可知，当整数$k\ge1$时，$B^{2k-1}=4^{k-1}B$且$B^{2k}=4^kI_2$. 我们有
+  \begin{align*}
+    A^{2n} & = \sum_{k=0}^{2n} \Binom{2n}k B^k \\
+    & = \sum_{i=0}^n\Binom{2n}{2i}B^{2i} + \sum_{i=1}^n\Binom{2n}{2i-1}B^{2i-1} \\
+    & = \sum_{i=0}^n\Binom{2n}{2i} 4^iI_2 + \sum_{i=1}^n\Binom{2n}{2i-1} 4^{i-1}B \\
+    & = \frac{3^{2n}+1}2I_2 + \frac{3^{2n}-1}4B ,
+  \end{align*}
+  且$A^{2n-1}=A^{2n-2}A,n\ge1$.
+\end{solution}
+
+\begin{solution}
+  $A^n=\begin{pmatrix}
+    \widehat{(2n+1)3^n} & \widehat{4n3^n} \\
+    \widehat{2n3^{n-1}} & \widehat{(4n+3)3^{n-1}}
+  \end{pmatrix},n\in\MN$.
+\end{solution}
+
+\begin{solution}
+  \begin{inparaenum}[(a)]
+    \item 这里可以通过数学归纳法或者直接计算得到.
+
+    \item 我们有
+    \begin{align*}
+      A + A^2 + \cdots + A^n & = A + 2A + 2^2A + \cdots + 2^{n-1}A \\
+      & = (1 + 2 + 2^2 + \cdots +2^{n-1})A \\
+      & = (2^n - 1)A.
+    \end{align*}
+  \end{inparaenum}
+\end{solution}
+
+\begin{solution}
+  我们有$A^n=\begin{pmatrix}
+    a^n & na^{n-1} \\
+    0 & a^n
+  \end{pmatrix}$. 如果$a=1$，则
+  \[
+    \sum_{i=1}^nA^i = \sum_{i=1}^n\begin{pmatrix}
+      1 & \ii \\
+      0 & 1
+    \end{pmatrix} = \begin{pmatrix}
+      n & \frac{n(n+1)}2 \\
+      0 & n
+    \end{pmatrix},
+  \]
+  这意味着$\det(A+A^2+\cdots+A^n)=n^2$.
+
+  如果$a\ne1$，则
+  \[
+    \sum_{i=1}^nA^i = \sum_{i=1}^n \begin{pmatrix}
+      a^i & ia^{i-1} \\
+      0 & a^i
+    \end{pmatrix} = \begin{pmatrix}
+      \sum_{i=1}^na^i & \sum_{i=1}^nia^{i-1} \\
+      0 & \sum_{i=1}^na^i
+    \end{pmatrix} = \begin{pmatrix}
+      \frac{a(1-a^n)}{1-a} & \sum_{i=1}^nia^{i-1} \\
+      0 & \frac{a(1-a^n)}{1-a}
+    \end{pmatrix},
+  \]
+  这意味着$\det(A+A^2+\cdots+A^n)=a^2\left(
+  \frac{1-a^n}{1-a}\right)^2$.
+\end{solution}
+
+\begin{solution}
+  我们有$\begin{pmatrix}
+    \sqrt3 & -1 \\
+    1 & \sqrt3
+  \end{pmatrix}=2\begin{pmatrix}
+    \cos\frac\pi6 & - \sin\frac\pi6 \\
+    \sin\frac\pi6 & \cos\frac\pi6
+  \end{pmatrix}$，于是
+  \[
+    \begin{pmatrix}
+    \sqrt3 & -1 \\
+    1 & \sqrt3
+  \end{pmatrix}^{12} = 2^{12}
+  \begin{pmatrix}
+    \cos2\pi & - \sin 2\pi \\
+    \sin2\pi & \cos 2\pi
+  \end{pmatrix} = 2^{12}I_2.
+  \]
+\end{solution}
+
+\begin{solution}
+  这些循环矩阵的性质可以直接通过计算验证.
+\end{solution}
+
+\begin{solution}
+  \ref{prob3.12a} 中的矩阵是一个循环矩阵，而 \ref{prob3.12b} 只需要在 \ref{prob3.12a} 中令$a=\cos^2\theta$即可.
+\end{solution}
+
+\begin{solution}
+  我们注意到$A=I_2+B$，其中$B=\begin{pmatrix}
+    a & - a\\
+    -b & b
+  \end{pmatrix}$. 当$a+b\ne0$时，我们有$B^2=(a+b)B$，且$B^k=(a+b)^{k-1}B,\forall k\ge1$. 因此
+  \begin{align*}
+    A^n & = (I_2 + B)^n \\
+    & = I_2 + \sum_{k=1}^n \Binom nk B^k \\
+    & = I_2 + \left[
+      \sum_{k=1}^n\Binom nk (a + b)^{k-1}
+    \right]B \\
+    & = I_2 + \frac{(a+b+1)^n-1}{a+b}B,
+  \end{align*}
+  如果$a+b=0$，我们有$A^n=I_2+nB$.
+\end{solution}
+
+\begin{solution}
+  我们有
+  \[
+    \begin{pmatrix}
+      1 & \alpha^2 \\
+      1 & 1
+    \end{pmatrix} = \frac{(1+\alpha)^n+(1-\alpha)^n}2I_2 +
+    \frac{(1+\alpha)^n-(1-\alpha)^n}{2\alpha}
+    \begin{pmatrix}
+      0 & \alpha^2 \\
+      1 & 0
+    \end{pmatrix}.
+  \]
+\end{solution}
+
+\begin{solution}
+  $\begin{pmatrix}
+    2a & -a^2 \\
+    1 & 0
+  \end{pmatrix}^n=a^{n-1}\begin{pmatrix}
+    a(n+1) & -na^2 \\
+    n & a(-n+1)
+  \end{pmatrix},n\in\MN$.
+\end{solution}
+
+\begin{solution}
+  注意到$\begin{pmatrix}
+    a & b \\
+    a & a
+  \end{pmatrix}=a\begin{pmatrix}
+    1 & \alpha^2 \\
+    1 & 1
+  \end{pmatrix}$，其中$\alpha^2=\frac ba$，然后利用问题 \ref{problem3.14} 即可.
+\end{solution}
+
+\setcounter{solution}{17}
+
+\begin{solution}
+  由于$A^nA=AA^n$，我们有
+  \[
+    \begin{pmatrix}
+      a_n & b_n \\
+      c_n & d_n
+    \end{pmatrix}\begin{pmatrix}
+      a & b \\
+      c & d
+    \end{pmatrix} = \begin{pmatrix}
+      a & b \\
+      c & d
+    \end{pmatrix}\begin{pmatrix}
+      a_n & b_n \\
+      c_n & d_n
+    \end{pmatrix},
+  \]
+  这意味着
+  \[
+    \left\{
+      \begin{aligned}
+        & aa_n + b_nc = aa_n + bc_n \\
+        & a_nb + b_nd = ab_n + bd_n \\
+        & c_na + d_nc = ca_n + dc_n \\
+        & c_nb + d_nd = cb_n + dd_n
+      \end{aligned}
+    \right.
+  \]
+  对任意$n\ge1$成立. 由第一个方程，我们得到$b_nc=bc_n$，这意味着$\frac{b_n}b=\frac{c_n}c,\forall n\ge1$. 第二个方程则意味着$\frac{a_n-d_n}{a-d}=\frac{b_n}b,\forall n\ge1$.
+
+\end{solution}
+
+\begin{solution}
+  注意到$A=\sqrt{a^2+b^2}\begin{pmatrix}
+    \cos\theta & \sin\theta \\
+    -\sin\theta & \cos \theta
+  \end{pmatrix}$，其中$\cos\theta=\frac a{\sqrt{a^2+b^2}}$且$\sin \theta=\frac b{\sqrt{a^2+b^2}}$. 由数学归纳法可得
+  \[
+    A^n = (a^2 + b^2)^{\frac n2}\begin{pmatrix}
+      \cos n\theta & \sin n\theta \\
+      -\sin n\theta & \cos n\theta
+    \end{pmatrix},\; n\ge1.
+  \]
+
+  因此，$a_n=(a^2+b^2)^{\frac n2}\cos n\theta$且$b_n=(a^2+b^2)^{\frac n2}\sin n\theta$. 且由于$a^2+b^2<1$，我们有$\lim_{n\to\infty}a_n=\lim_{n\to\infty}b_n=0$.
+\end{solution}
+
+\begin{solution}
+  设$B=\frac1cA=\begin{pmatrix}
+    x & -y\\
+    y & x
+  \end{pmatrix}$，其中$x=\frac ac,y=\frac bc$. 由于$a^2+b^2=c^2$，存在$t\in[0,2\pi)$，使得$x=\cos t\in\MQ$，且$y=\sin t\in\MQ$，这意味着
+  \[
+    A^n = c^n\begin{pmatrix}
+      \cos nt & -\sin nt\\
+      \sin nt & \cos nt
+    \end{pmatrix},
+  \]
+  因此$a_n=c^n\cos nt,b_n=c^n\sin nt$.
+
+  通过反证法，我们假定$b_n=0$. 这意味着$\sin nt=0$且$\cos nt=\pm1$，所有$\cos 2nt=2\cos^2nt-1=1$. 我们来证明，如果$\cos t\in\MQ$且$\cos nt=1$，则$\cos t\in\left\{0,\pm1,\pm\frac12\right\}$. 我们需要下面的引理：
+  \begin{mybox}
+    \begin{lemma}
+      存在一个次数为$n$的首一多项式$P_n\in\MZ[x]$，使得$2\cos nt=P_n(2\cos t),t\in\MR,n\in\MN$.
+    \end{lemma}
+  \end{mybox}
+  \begin{proof}
+    我们对$n$进行归纳. 如果$n=1$，我们令$P_1(x)=x$. 如果$n=2$，则$P_2(x)=x^2-2$. 利用公式
+    \[
+      2\cos(n+1)t + 2\cos(n-1)t = (2\cos t)(2\cos nt),
+    \]
+    我们得到$P_{n+1}(x)+P_{n-1}(x)=xP_n(x)$，且这说明如果$P_n$和$P_{n-1}$都是首一的多项式，则$P_{n+1}$也是首一的多项式. 这就证明了引理.
+  \end{proof}
+
+  根据前面的引理，方程$\cos(2nt)=1$意味着
+  \[
+    2\cos(2nt) = (2\cos t)^{2n} + \cdots = 2\quad \Leftrightarrow\quad x^{2n}+\cdots = 0,
+  \]
+  其中$x=2\cos t\in\MQ$. 由于首一整系数多项式的有理根是整根，我们得到$2\cos t\in\MZ$. 这意味着$2\cos t\in\{0,\pm1,\pm2\}\Leftrightarrow \cos t\in\left\{0,\pm1,\pm\frac12\right\}$.
+
+  \begin{itemize}
+    \item 如果$\cos t=\frac ac=0$，我们得到$a=0$，这与$a\ne0$矛盾.
+    \item 如果$\cos t=\pm\frac12$，我们得到$\sin t=\pm\frac{\sqrt3}2\notin\MQ$，这与$\sin t\in\MQ$矛盾.
+    \item 如果$\cos t=\pm1$，我们有$\sin t=0$. 由于$\sin t=\frac bc$，我们得到$b=0$，这与$b\ne0$矛盾.
+  \end{itemize}
+  因此，我们的假设$b_n=0$是不成立的，那么原问题解得到了证明.
+\end{solution}
+
+
+\begin{solution}
+  我们写成$X_a=\sqrt{1+a^2}\begin{pmatrix}
+    \cos t & \sin t \\
+    -\sin t & \cos t
+  \end{pmatrix}$，其中$t\in[0,2\pi)$，且$\cos t=\frac a{\sqrt{1+a^2}},\sin t=\frac1{\sqrt{1+a^2}}$. 这意味着
+  \[
+    X_a^n = (1 + a^{2})^{\frac n2}\begin{pmatrix}
+      \cos nt & \sin nt \\
+      -\sin nt & \cos nt
+    \end{pmatrix},
+  \]
+  那么题目的条件就变成了$\cos nt>\sin nt,n=1,2,\cdots,2016$，且$\cos 2017t<\sin 2017t$.
+
+  我们取$t=\frac\pi{8066}$，且令$b=\sin^2\frac\pi{8066}$. 由于$\sin t=\frac1{\sqrt{1+a^2}}$，我们得到$a=\sqrt{\frac{1-b}b}$.
+\end{solution}
+
+\begin{solution}
+  设$r$表示等差数列$a,b,c,d$的公差.
+
+  存在实数列$(\alpha_n)_{n\in\MN}$和$(\beta_n)_{n\in\MN}$，使得$A^n=\alpha_nA+\beta_nI_2$，这意味着
+  \[
+    \left\{
+      \begin{aligned}
+        & a_n = \alpha_na + \beta \\
+        & b_n = \alpha_nb \\
+        & c_n = \alpha_n c \\
+        & d_n = \alpha_nd + \beta_n
+      \end{aligned}
+    \right..
+  \]
+  因此，$b_n-a_n+d_n-c_n=(b_n+d_n)-(a_n+c_n)=
+  \alpha_n(b-a+d-c)=2r\alpha_n$，且$2(c_n-b_n)=2\alpha
+  _n(c-b)=2r\alpha_n,\,\forall n\ge1$.
+\end{solution}
+
+\begin{solution}
+  等式$AA^{-1}=I_2$意味着$\det A\det(A^{-1})=1$. 由于$\det A,\det(A^{-1})\in\MZ$，我们得到$\det A=\det(A^{-1})\in\{-1,1\}$. 我们有$\det(A^n)=\det{}^nA\in\{-1,1\}\Leftrightarrow a_nd_n-b_nc_n\in\{-1,1\}$. 如果$(a_n,b_n)=\alpha$，则$\alpha$整除$a_nd_n-b_nc_n$，所以$\alpha$整除1或$-1$，这意味着$\alpha=1$. 类似地，我们有$(a_n,c_n)=(b_n,d_n)=(c_n,d_n)=1$.
+\end{solution}
+
+\begin{solution}
+  \begin{inparaenum}[(a)]
+    \item 可以通过数学归纳法，或者直接计算证明（特征值的技巧）.
+
+    \item 由于$A^{n+m}=A^nA^m$，我们有
+    \[
+      \begin{pmatrix}
+        F_{n+m-1} & F_{n+m} \\
+        F_{n+m} & F_{n+m+1}
+      \end{pmatrix} =
+      \begin{pmatrix}
+        F_{n-1} & F_n \\
+        F_n & F_{n+1}
+      \end{pmatrix}
+      \begin{pmatrix}
+        F_{m-1} & F_m \\
+        F_m & F_{m+1}
+      \end{pmatrix}.
+    \]
+    我们来看这个等式中的$(1,1)$元，我们有$F_{n+m-1}=F_nF_m+F_{n-1}F_{m-1},\forall m,n\ge1$. 另一方面，$\det(A^n)=\det{}^nA\Rightarrow F_{n-1}F_{n+1}-F_n^2=(-1)^n,n\ge1$.
+
+    \item 计算可知$A$的特征值为$\alpha=\frac{1+\sqrt5}2$和$\beta=\frac{1-\sqrt5}2$.
+        由注 \ref{remark3.1}，可得
+        \[
+          \begin{pmatrix}
+            F_{n-1} & F_n \\
+            F_n & F_{n+1}
+          \end{pmatrix} =
+          \begin{pmatrix}
+            0 & 1 \\
+            1 & 1
+          \end{pmatrix}^n = \frac{\alpha^n-\beta^n}{\alpha-\beta}A +
+          \frac{\alpha^{n-1}-\beta^{n-1}}{\alpha-\beta}
+          I_2,\; n\ge1.
+        \]
+        观察这个等式中的$(1,2)$元，那么 \ref{prob3.24c} 就得到证明了.
+  \end{inparaenum}
+\end{solution}
+
+\begin{solution}
+  这里的问题就是关于解Diophantine方程$x^2+xy-y^2=1$. 这个方程可以等价地写成$(2x+y)^2-5y^2=5$，这是一个形如$x^2-dy^2=k$的Pell方程.
+\end{solution}
+
+\begin{solution}
+  由于$A=1A+0I_2$，我们有$x_1=1$且$y_1=0$. 并且$A^2-2A+I_2=O_2$，这意味着$A^2=2A-I_2$. 令$A^n=x_nA+y_nI_2$，我们有
+  \begin{align*}
+    A^{n+1} & = A^nA = (x_nA + y_nI_2)A = x_nA^2 + y_nA = x_n(2A - I_2) + y_nA \\
+    & = (2x_n + y_n)A - x_nI_2 = x_{n+1}A + y_{n+1}I_2.
+  \end{align*}
+  这意味着$x_{n+1}=2x_n+y_n,y_{n+1}=-x_n,\,\forall n\ge1$，于是可得$x_{n+1}-2x_n-x_{n-1}=0,\forall n\ge1$. 特征方程为$r^2-2r+1=0$，则$r=1$，所以$x_n=\alpha+\beta n,\alpha,\beta\in\MR$. 由于$x_1=1,x_2=2$，我们得到$\alpha=0,\beta=1$，这意味着$x_n=n$且$y_n=-n+1$. 因此，$\lim_{n\to\infty}\frac{x_n}{y_n}=-1$.
+\end{solution}
+
+\begin{solution}
+  如果数列$(a_n)_{n\ge1},(b_n)_{n\ge1},(c_n)_{n\ge1}$和$(d_n)_{n\ge1}$收敛，则以$a_nd_n-b_nc_n=\det{}^nA$为通项的数列也收敛，这意味着$\det A\in(-1,1]$，且由于$|\det A|\ge1$，我们得到$\det A=1$. 显然，$A$满足方程$A^2-(a+d)A+(\det A)I_2=O_2$，我们在此等式两边乘以$A^{n-1}$，得到$A^{n+1}-(a+d)A^n+(\det A)A^{n-1}=O_2$，这说明数列$(a_n)_ {n\ge1},(b_n)_{n\ge1},(c_n)_{n\ge1}$和$(d_n)_{n\ge1}$满足递推式$x_{n+1}-(a+d)x_n+(\det A)x_{n-1}=0$. 在此等式中取极限，我们得到$l_x(1-a-d+\det A)=0\Leftrightarrow l_x(2-a-d)=0$，其中$l_x=\lim_{n\to\infty}x_n$.
+
+  如果$a+d\ne2$，我们得到$l_x=0$，且这意味着数列$(a_n)_ {n\ge1},(b_n)_{n\ge1},(c_n)_{n\ge1}$和$(d_n)_{n\ge1}$都收敛到0，这与$\lim_{n\to\infty}(a_nd_n-b_nc_n)=\lim_{n\to\infty}(\det A)^n=1$矛盾.
+
+  因此，我们必有$a+d=2$，且有$A^{n+1}-2A^n+A^{n-1}=O_2,\forall n\ge1$. 等价地，$A^{n+1}-A^n=A^n-A^{n-1},\forall n\ge1$，这意味着$A^n=I_2+n(A-I_2),\forall n\ge1$. 因此，$a_n=1+n(a-1),b_n=nb,c_n=nc$，且$d_n=1+n(d-1)$. 这些数列收敛当且仅当$a=1,b=0,c=0$且$d=1$，所以$A=I_2$.
+\end{solution}
+
+\section{线性递推方程组定义的数列}
+
+在本节中，我们将介绍一种确定由线性递推方程组定义的序列的通项的方法.
+
+\begin{theorem}
+  令
+  \[
+    A = \begin{pmatrix}
+      a & b \\
+      c & d
+    \end{pmatrix} \in \MM_2(\MC),
+  \]
+  且设数列$(x_n)_{n\ge0}$和$(y_n)_{n\ge0}$由线性递推方程组
+  \begin{equation}\label{eq3.2}
+    \left\{
+      \begin{aligned}
+        & x_{n+1} = ax_n + by_n \\
+        & y_{n+1} = cx_n + dy_n
+      \end{aligned}
+    \right.,\; n\ge0.
+  \end{equation}
+  所定义，则
+  \[
+    \begin{pmatrix}
+      x_n \\ y_n
+    \end{pmatrix} = A^n\begin{pmatrix}
+      x_0 \\ y_0
+    \end{pmatrix},\; n\ge0.
+  \]
+
+  设$\lambda_1,\lambda_2$是$A$的特征值.
+  \begin{itemize}
+    \item 如果$\lambda_1\ne\lambda_2$，则
+    \[
+      \left\{
+        \begin{aligned}
+          & x_n = \alpha\lambda_1^n + \beta\lambda_2^n \\
+          & y_n = \gamma\lambda_1^n + \delta\lambda_2^n
+        \end{aligned}
+      \right.
+    \]
+    对某个$\alpha,\beta,\gamma,\delta\in\MC$成立.
+    \item 如果$\lambda_1=\lambda_2=\lambda$，则
+    \[
+      \left\{
+        \begin{aligned}
+          & x_n = \lambda^n(\alpha + \beta n) \\
+          & y_n = \lambda^n(\gamma + \delta n)
+        \end{aligned}
+      \right.
+    \]
+    对某个$\alpha,\beta,\gamma,\delta\in\MC$成立.
+  \end{itemize}
+\end{theorem}
+
+\begin{proof}
+  方程组 \eqref{eq3.2} 可以写成
+  \[
+    \begin{pmatrix}
+      x_{n+1} \\ y_{n+1}
+    \end{pmatrix} = \begin{pmatrix}
+      a & b \\
+      c & d
+    \end{pmatrix}\begin{pmatrix}
+      x_n \\ y_n
+    \end{pmatrix}\quad \text{或} \quad
+    \begin{pmatrix}
+      x_{n+1} \\ y_{n+1}
+    \end{pmatrix} = A\begin{pmatrix}
+      x_n \\ y_n
+    \end{pmatrix},\; \forall n\ge0.
+  \]
+
+  于是
+  \[
+    \begin{pmatrix}
+      x_{n+1} \\ y_{n+1}
+    \end{pmatrix} = A \begin{pmatrix}
+      x_n \\ y_n
+    \end{pmatrix} = A^2 \begin{pmatrix}
+      x_{n-1} \\ y_{n-1}
+    \end{pmatrix} = \cdots =
+    A^{n+1} \begin{pmatrix}
+      x_0 \\ y_0
+    \end{pmatrix}.
+  \]
+  则
+  \[
+    \begin{pmatrix}
+      x_n \\ y_n
+    \end{pmatrix} = A^n
+    \begin{pmatrix}
+      x_0 \\ y_0
+    \end{pmatrix},
+  \]
+  于是问题就约化为计算$A^n$.
+
+  定理的第二部分则由 \ref{thm3.1} 得到.
+\end{proof}
+
+\subsection{问题}
+\begin{problem}
+  求出由下列线性递推方程组定义的数列$(x_n)_{n\in\MN}$和$(y_n)_{n\in\MN}$的通项公式：
+  \[
+    \left\{
+      \begin{aligned}
+        & x_{n+1} = 3x_n + y_n \\
+        & y_{n+1} = -x_n + y_n
+      \end{aligned}
+    \right.,\; n\ge1,
+  \]
+  其中$x_1=1,y_1=-2$.
+\end{problem}
+
+\begin{problem}
+  求出由下列线性递推方程组定义的数列$(x_n)_{n\in\MN}$和$(y_n)_{n\in\MN}$的通项公式：
+  \[
+    \left\{
+      \begin{aligned}
+        & x_{n+1} = x_n + 2y_n \\
+        & y_{n+1} = -2x_n + 5y_n
+      \end{aligned}
+    \right.,\; n\ge0,
+  \]
+  其中$x_0=1,y_0=2$.
+\end{problem}
+
+\begin{problem}
+  证明：由下列方程组定义的数列$(x_n)_{n\in\MN}$和$(y_n)_{n\in\MN}$
+  \[
+    \left\{
+      \begin{aligned}
+        & 2x_n = \sqrt3x_{n-1} + y_{n-1} \\
+        & 2y_n = -x_{n-1} + \sqrt3y_{n-1}
+      \end{aligned}
+    \right.,\; n\ge1,
+  \]
+  是周期数列，且它们具有相同的周期.
+\end{problem}
+
+\begin{problem}
+  \begin{inparaenum}[(a)]
+    \item 求出由下列线性递推方程组定义的数列$(x_n)_{n\in\MN}$和$(y_n)_{n\in\MN}$的通项公式：
+    \[
+      \left\{
+        \begin{aligned}
+          & x_{n+1} = \frac{x_n+3y_n}4 \\
+          & y_{n+1} = \frac{3x_n+2y_n}5
+        \end{aligned}
+      \right.,
+    \]
+    其中$x_0,y_0\in\MR$.
+
+  \item 求$\lim_{n\to\infty}x_n$和$\lim_{n\to\infty}y_n$.
+  \end{inparaenum}
+\end{problem}
+
+\begin{problem}
+  设$(a_n)_{n\ge0}$和$(b_n)_{n\ge0}$定义为
+  \[
+    a_0 = 1,\quad  b_0=4,\quad  a_{n+1} = \frac{a_n+2b_n}3,\quad  b_{n+1} = \frac{a_n+3b_n}4,\; \forall n\ge0.
+  \]
+  证明：
+  \begin{enum}
+    \item\label{prob3.32a} 定义数列$(c_n)_{n\in\MN}$为$c_n=b_n-a_n$，则$(c_n)_{n\in\MN}$是等比数列；
+    \item\label{prob3.32b} 定义数列$(d_n)_{n\in\MN}$为$d_n=3a_n+8b_n$，则$(d_n)_{n\in\MN}$是常数列；
+    \item 计算$\lim_{n\to\infty}a_n$和$\lim_{n\to\infty}b_n$.
+  \end{enum}
+\end{problem}
+
+\begin{mybox}
+  \begin{problem}[一个等比数列.] 令$A=\begin{pmatrix}
+    a & b \\
+    c & d
+  \end{pmatrix}\in\MM_2(\MC)$，且设数列$(x_n)_{n\in\MN}$和$(y_n)_{n\in\MN}$定义为
+  \[
+    \left\{
+      \begin{aligned}
+        & x_{n+1} = ax_n + by_n \\
+        & y_{n+1} = cx_n + dy_n
+      \end{aligned}
+    \right.,\; n\in\MN.
+  \]
+  证明：如果$\lambda\in\MC$是$A\TT$的一个特征值，而$Z=\begin{pmatrix}
+    \alpha \\ \beta
+  \end{pmatrix}$是相应的特征向量，定义数列$(u_n)_{n\in\MN}$为$u_n=\alpha x_n+\beta y_n$，则$(u_n)_ {n\in\MN}$是等比数列.
+  \end{problem}
+\end{mybox}
+
+\begin{problem}
+  设数列$(x_n)_{n\ge1}$和$(y_n)_{n\ge1}$定义为
+  \[
+    \left\{
+      \begin{aligned}
+        & x_n = -3x_{n-1} - y_{n-1} + n \\
+        & y_n = x_{n-1} + y_{n-1} - 2
+      \end{aligned}
+    \right.,\; n\ge2,
+  \]
+  且$x_1=y_1=1$. 求出数列$(x_n)_{n\ge1}$和$(y_n)_{n\ge1}$的通项公式.
+\end{problem}
+
+\begin{problem}
+  设数列$(x_n)_{n\ge0}$和$(y_n)_{n\ge0}$定义为
+  \[
+    \left\{
+      \begin{aligned}
+        & x_{n+1} = (1 - a)x_n + ay_n \\
+        & y_{n+1} = bx_n + (1 - b)y_n
+      \end{aligned}
+    \right.,\; n\ge0,
+  \]
+  其中$a,b\in(0,1)$，且$x_0,y_0\in\MR$. 计算$\lim_{n\to\infty}x_n$和$\lim_{n\to\infty}y_n$.
+\end{problem}
+
+\begin{problem}
+  设数列$(x_n)_{n\ge0}$和$(y_n)_{n\ge0}$由下列线性递推方程组
+  \[
+    \left\{
+      \begin{aligned}
+        & x_n = ax_n - by_n \\
+        & y_n = bx_n + ay_n
+      \end{aligned}
+    \right.,
+  \]
+  所定义，其中$a,b,x_0,y_0\in\MR$，且$a^2+b^2\le1$，研究数列$(x_n)_{n\ge0}$和$(y_n)_{n\ge0}$的收敛性.
+\end{problem}
+
+\begin{problem}
+  设实数列$(t_n)_{n\ge0}$满足$t_n\in(0,1),\forall n\ge0$，且存在极限$\lim_{n\to\infty}t_n\in(0,1)$. 证明：由下列递推方程组
+  \[
+    \left\{
+      \begin{aligned}
+        & x_{n+1} = t_nx_n + (1 - t_n)y_n \\
+        & y_{n+1} = (1 - t_n)x_n + t_ny_n
+      \end{aligned}
+    \right.,\; \forall n\ge0,
+  \]
+  定义的数列$(x_n)_{n\ge0}$和$(y_n)_{n\ge0}$是收敛的，并求出它们的极限.
+\end{problem}
+
+\begin{problem}[\kaishu 一个IMO入围赛问题.]
+
+  设$n$是一个正整数，而$a_1,a_2,\cdots,a_{n-1}$是任意实数. 递归定义数列$u_0,u_1,\cdots,u_n$和$v_0,v_1,\cdots,u_n$和
+  $v_0,v_1,\cdots,v_n$为$u_0=u_1=v_0=v_1=1$，且$u_{k+1}
+  =u_k+a_ku_{k-1},v_{k+1}=v_k+a_{n-k}v_{k-1},k=1,2,\cdots,n-1$.证明$u_n=v_n$.
+\end{problem}
+
+\subsection{解答}
+\begin{solution}
+  $x_n=2^{n-1}-(n-1)2^{n-2},\,y_n=(n-1)2^{n-2}-2^n,\,\forall n\ge1$.
+\end{solution}
+
+\begin{solution}
+  $x_n=3^{n-1}(2n+3),\,y_n=3^{n-1}(2n+6),\,\forall n\ge0$.
+\end{solution}
+
+\begin{solution}
+  $x_n=\left(\cos\frac{n\pi}6\right)x_0
+  +\left(\sin\frac{n\pi}6\right)y_0,
+  \,y_n=-\left(\sin\frac{n\pi}6\right)x_0
+  +\left(\cos\frac{n\pi}6\right)y_0,n\ge0$. 由于$x_{n+12}=x_n$且$y_{n+12}=y_n,\,\forall n\ge0$，这两个数列都以12为周期.
+\end{solution}
+
+\begin{solution}
+  \begin{inparaenum}[(a)]
+    \item 计算可知
+    \begin{gather*}
+      x_n = \left[ \frac49 + \left( -\frac7{20} \right)^n\frac59 \right]x_0 + \left[ \frac59 - \left( -\frac7{20} \right)^n\frac59 \right]y_0 , \\
+      y_n = \left[ \frac49 - \left( -\frac7{20} \right)^n\frac49 \right]x_0 + \left[ \frac59 + \left( -\frac7{20} \right)^n\frac49 \right]y_0.
+    \end{gather*}
+    \item $\lim_{n\to\infty}x_n=\lim_{n\to\infty}y_n
+        =\frac{4x_0+5y_0}9$.
+  \end{inparaenum}
+\end{solution}
+
+\begin{solution}
+  {\kaishu 解法1.} 令$A=\begin{pmatrix}
+    \frac13 & \frac23 \\
+    \frac14 & \frac34
+  \end{pmatrix}$，我们有
+  \[
+    \begin{pmatrix}
+      a_n \\ b_n
+    \end{pmatrix} = A \begin{pmatrix}
+      a_{n-1} \\ b_{n-1}
+    \end{pmatrix} = \cdots =
+    A^n \begin{pmatrix}
+      a_0 \\ b_0
+    \end{pmatrix} = A^n \begin{pmatrix}
+      1 \\ 4
+    \end{pmatrix}.
+  \]
+  $A$的特征值为$\lambda_1=1,\lambda_2=\frac1{12}$，由定理 \ref{thm3.1}，我们有$A^n=B+\frac1{12^n}C,n\in\MN$，其中
+  \[
+    B = \frac1{11}\begin{pmatrix}
+      3 & 8 \\
+      3 & 8
+    \end{pmatrix} \quad \text{且} \quad
+    C = \frac1{11} \begin{pmatrix}
+      8 & -8 \\
+      -3 & 3
+    \end{pmatrix}.
+  \]
+  于是$a_n=\frac1{11}\left(35-\frac{24}{12^n}\right)$，且$b_n=\frac1{11}\left(
+  35+\frac9{12^n}\right)$.
+  \begin{enum}
+    \item $b_n-a_n=\frac3{12^n},n\ge0$，这是一个公比为$\frac1{12}$的等比数列.
+    \item $3a_n+8b_n=35,n\ge0$.
+    \item $\lim_{n\to\infty}a_n=\lim_{n\to\infty}b_n
+        =\frac{35}{11}$.
+  \end{enum}
+
+  {\kaishu 解法2.} \begin{inparaenum}[(a)]
+    \item 我们有
+    \[
+      \frac{c_{n+1}}{c_n} = \frac{b_{n+1}-a_{n+1}}
+      {b_n-a_n} = \frac{\frac14a_n+\frac34b_n-\frac13a_n-\frac23b_n}
+      {b_n-a_n} = \frac{\frac1{12}b_n-\frac1{12}a_n}{b_n-a_n}
+      = \frac1{12}.
+    \]
+
+    \item $d_{n+1}=3a_{n+1}+8b_{n+1}=a_n+2b_n+2a_n+6b_n
+        =3a_n+8b_n=d_n,\,\forall n\ge0$. 这意味着$d_n=d_0=3a_0+8b_0=35,\forall n\ge0$.
+
+    \item 由 \ref{prob3.32a}，我们有$c_n=b_n-a_n=\frac3{12^n}$，于是$\lim_{n\to\infty}a_n=\lim_{n\to\infty}b_n$. 再利用 \ref{prob3.32b}，我们得到$3\lim_{n\to\infty}a_n+8\lim_{n\to\infty}b_n=35$，于是我们有$\lim_{n\to\infty}a_n=\lim_{n\to\infty}b_n
+        =\frac{35}{11}$.
+  \end{inparaenum}
+\end{solution}
+
+\begin{solution}
+  我们有$A\TT Z=\lambda Z$，这意味着
+  \[
+    \left\{
+      \begin{aligned}
+        & a\alpha + c\beta = \lambda\alpha \\
+        & b\alpha + d\beta = \lambda\beta
+      \end{aligned}
+    \right..
+  \]
+  那么我们有
+  \begin{align*}
+    \frac{u_{n+1}}{u_n} & = \frac{\alpha x_{n+1}+\beta y_{n+1}}{\alpha x_n+\beta y_n} \\
+    & = \frac{\alpha(ax_n+by_n)+\beta(cx_n+dy_n)}
+    {\alpha x_n+\beta y_n} \\
+    & = \frac{(\alpha a+\beta c)x_n+(\alpha b+\beta d)y_n}{\alpha x_n+\beta y_n} \\
+    & = \frac{\lambda \alpha x_n + \lambda\beta y_n}{\alpha x_n+\beta y_n} \\
+    & = \lambda.
+  \end{align*}
+  因此，数列$(u_n)_{n\in\MN}$是等比数列，其公比$\lambda$是$A$的一个特征值.
+\end{solution}
+
+\begin{solution}
+  设$x_n=u_n+an+b,y_n=v_n+cn+d,n\ge1$. 计算可得$a=0,b=3,c=1,d=-11$，所以$x_n=u_n+3,y_n=v_n+n-11,n\ge11$. 递推方程组变为
+  \[
+    \left\{
+      \begin{aligned}
+        & u_n = -3u_{n-1} - v_{n-1} \\
+        & v_n = u_{n-1} + v_{n-1}
+      \end{aligned}
+    \right.,\,n\ge2.
+  \]
+  解此方程组，经过计算可得
+  \begin{gather*}
+    x_n = \frac{-2\sqrt3-7}{2\sqrt3}(\sqrt3-1)
+        ^{n-1}+\frac{7-2\sqrt3}{2\sqrt3}(-1-\sqrt3)
+        ^{n-1}+3, \\
+    y_n = \frac{20+11\sqrt3}{2\sqrt3} (\sqrt3-1)^{n-1} + \frac{11\sqrt3-20}{2\sqrt3}
+    (-1 - \sqrt3)^{n-1} + n - 11.
+  \end{gather*}
+\end{solution}
+
+\begin{solution}
+  我们将方程组写成矩阵形式
+  \[
+    \begin{pmatrix}
+      x_{n+1} \\ y_{n+1}
+    \end{pmatrix} = \begin{pmatrix}
+      1 - a & a \\
+      b & 1 - b
+    \end{pmatrix} \begin{pmatrix}
+      x_n \\ y_n
+    \end{pmatrix}\quad \text{或} \quad
+    \begin{pmatrix}
+      x_{n+1} \\ y_{n+1}
+    \end{pmatrix} = A \begin{pmatrix}
+      x_n \\ y_n
+    \end{pmatrix},
+  \]
+  其中
+  \[
+    A = \begin{pmatrix}
+      1 - a & a \\
+      b & 1 - b
+    \end{pmatrix}.
+  \]
+  于是$\begin{pmatrix}
+      x_n \\ y_n
+    \end{pmatrix}=A^n\begin{pmatrix}
+      x_0 \\ y_0
+    \end{pmatrix}$. 我们来计算$A^n$. $A$的特征值为$\lambda_1=1,\lambda_2=1-a-b$，且注意到$a+b\ne0$，于是$\lambda_1\ne\lambda_2$. 因此，$A^n=B+(1-a-b)^nC$，其中
+    \[
+      B = \frac1{a+b} \begin{pmatrix}
+        b & a \\
+        b & a
+      \end{pmatrix}\quad \text{且} \quad
+      C = \frac1{a+b} \begin{pmatrix}
+        a & -a \\
+        -b & b
+      \end{pmatrix}.
+    \]
+    因此，
+    \[
+      A^n = \frac1{a+b} \begin{pmatrix}
+        b + a(1 - a - b)^n & a - a(1 - a - b)^n \\
+        b - b(1 - a - b)^n & a + b(1 - a - b)^n
+      \end{pmatrix},
+    \]
+    这意味着
+    \begin{gather*}
+      x_n = \frac1{a+b} \big[ \big(
+      b + a(1 - a - b)^n\big)x_0 +
+      \big( a - a(1 - a - b)^n \big)y_0\big], \\
+      y_n = \frac1{a+b} \big[ \big(
+      b - b(1 - a - b)^n\big)x_0 +
+      \big( a + b(1 - a - b)^n \big)y_0\big].
+    \end{gather*}
+    由于$|1-a-b|<1$，计算可知$\lim_{n\to\infty}x_n
+    =\lim_{n\to\infty}y_n=\frac{bx_0+ay_0}{a+b}$.
+\end{solution}
+
+\begin{solution}
+  令$U_n=\begin{pmatrix}
+    x_n \\ y_n
+  \end{pmatrix},A=\begin{pmatrix}
+    a & -b \\
+    a & a
+  \end{pmatrix}$. 由于$U_{n+1}=AU_n$，我们得到$U_n=A^nU_0$. 令$r=\sqrt{a^2+b^2}$，且设$t\in[0,2\pi)$使得$a=r\cos t,b=r\sin t$. 于是
+  \[
+    A^n = r^n\begin{pmatrix}
+      \cos nt & -\sin nt \\
+      \sin nt & \cos nt
+    \end{pmatrix},
+  \]
+  这意味着$x_n=r^n(x_0\cos nt-y_0\sin nt)$，且
+  $y_n=r^n(x_0\sin nt+y_0\cos nt)$.
+  \begin{itemize}
+    \item 如果$r\in[0,1)$，则$(x_n)_{n\ge0}$和$(y_n)_{n\ge0}$收敛，且$\lim_{n\to\infty}x_n=\lim_{n\to\infty}y_n=0$.
+    \item 如果$r=1$且$t\in\pi \MQ$，则$(x_n)_ {n\ge0}$和$(y_n)_{n\ge0}$是周期数列. 如果$t=\frac pq\pi,(p,q)=1$，则数列$(x_n)_ {n\ge0}$和$(y_n)_{n\ge0}$有相同的周期$2q$.
+    \item 如果$r=1$且$t\in\pi(\MR\backslash\MQ)$，则$(x_n)_ {n\ge0}$和$(y_n)_{n\ge0}$在区间$\big[-\sqrt{x_0^2+y_0^2},\sqrt{x_0^2+y_0^2}
+        \big]$内是稠密的.
+  \end{itemize}
+\end{solution}
+
+\begin{solution}
+  令$U_n=\begin{pmatrix}
+    x_n \\ y_n
+  \end{pmatrix},A=\begin{pmatrix}
+    t_n & 1 - t_n \\
+    1 - t_n & t_n
+  \end{pmatrix}$. 由于$U_{n+1}=A_nU_n,n\ge0$，我们有$U_{n+1}=A_nA_{n-1}\cdots A_0U_0$. 我们来计算矩阵乘积
+  $A_nA_{n-1}\cdots A_0$. $A_n$的特征值为$\lambda_1=1,\lambda_2=2t_n-1$，且相应的特征向量为$X_1=\begin{pmatrix}
+    1 \\ 1
+  \end{pmatrix},X_2=\begin{pmatrix}
+    -1 \\ 1
+  \end{pmatrix}$（这对所有的$n$都是一样的）. 如果
+  \[
+    P = \begin{pmatrix}
+      1 & -1 \\
+      1 & 1
+    \end{pmatrix}\quad \Rightarrow \quad
+    A_n = P \begin{pmatrix}
+      1 & 0 \\
+      0 & 2t_n - 1
+    \end{pmatrix} P^{-1}.
+  \]
+  这意味着
+  \[
+    A_nA_{n-1} \cdots A_0 = P \begin{pmatrix}
+      1 & 0 \\
+      0 & s_n
+    \end{pmatrix} P^{-1},
+  \]
+  其中$s_n=\prod_{k=0}^n(2t_k-1)$.
+
+  如果数列$(t_n)_{n\ge0}$中有一项是$\frac12$，即$t_{n_0}=\frac12$，则$s_n=0,\forall n\ge n_0$. 如果$(t_n)_{n\ge0}$中的所有项都不是$\frac12$，由于$\lim_{n\to\infty}\frac{s_{n+1}}{s_n}=\lim_{n\to\infty}
+  (2t_{n+1}-1)\in(-1,1)$，我们得到$\lim_{n\to\infty}s_n=0$，且这意味着
+  \[
+    \lim_{n\to\infty}U_{n+1} = P\begin{pmatrix}
+      1 & 0 \\
+      0 & 0
+    \end{pmatrix} P^{-1}
+    \begin{pmatrix}
+      x_0 \\ y_0
+    \end{pmatrix}.
+  \]
+  因此，$\lim_{n\to\infty}x_n=\frac{x_0+y_0}2
+  =\lim_{n\to\infty}y_n$.
+\end{solution}
+
+\begin{solution}
+  对$k=1,2,\cdots,n-1$，令$x_{k+1}=u_{k+1}-u_k,y_{k+1}=v_{k+1}-v_k$，且令$A_k=\begin{pmatrix}
+    1 + a_k & - a_k \\
+    a_k & - a_k
+  \end{pmatrix}$，则有
+  \[
+    \begin{pmatrix}
+      u_{k+1} \\
+      x_{k+1}
+    \end{pmatrix} = A_k\begin{pmatrix}
+      u_k \\ x_k
+    \end{pmatrix} \quad \text{且} \quad
+    \begin{pmatrix}
+      v_{k+1} \\
+      y_{k+1}
+    \end{pmatrix} = A_{n-k}\begin{pmatrix}
+      v_k \\ y_k
+    \end{pmatrix}.
+  \]
+  于是
+  \begin{gather*}
+    \begin{pmatrix}
+      u_n \\ x_n
+    \end{pmatrix} = A_{n-1}A_{n-2}\cdots A_1
+    \begin{pmatrix}
+      u_1 \\ x_1
+    \end{pmatrix} = A_{n-1}A_{n-2}\cdots A_1
+    \begin{pmatrix}
+      1 \\ 0
+    \end{pmatrix}, \\
+    \begin{pmatrix}
+      v_n \\ y_n
+    \end{pmatrix} = A_{n-1}A_{n-2}\cdots A_1
+    \begin{pmatrix}
+      v_1 \\ y_1
+    \end{pmatrix} = A_{n-1}A_{n-2}\cdots A_1
+    \begin{pmatrix}
+      1 \\ 0
+    \end{pmatrix},
+  \end{gather*}
+  这就说明$u_n=v_n$.
+\end{solution}
+\begin{remark}
+  如果$a_1=a_2=\cdots=a_{n-1}=1$，则我们有$u_n=v_n=F_{n+1} $.
+\end{remark}
+
+\section{等交比递推关系定义的数列}
+在本节中，我们讨论由等交比递推关系定义的数列.
+
+\begin{definition}
+  函数$f:\MR\backslash\left\{-\frac dc\right\}\to\MR,f(x)=\frac{ax+b}{cx+d},a,b,c,d\in\MR$称为{\kaishu 等交比函数}\footnote{译者注：亦可称为分式线性变换，它保持交比不变.}\index{D!等交比函数}，且矩阵
+  \[
+    A_f = \begin{pmatrix}
+      a & b \\
+      c & d
+    \end{pmatrix}
+  \]
+  是$f$的{\kaishu 关联矩阵}.\index{J!矩阵!关联矩阵}
+\end{definition}
+
+\begin{itemize}
+  \item 如果$D\subset \MR$，且$f,g:D\to\MR$是一个等交比函数，则$f\circ g$和$f^n=\underbrace{f\circ f\circ\cdots\circ f}_{n\,\text{个}},n\in\MN$都是等交比函数，且它们的关联矩阵满足
+  \[
+    M_{f\circ g} = M_fM_g\quad \text{且} \quad
+    M_{f^n} = M_f^n,\; n\in\MN.
+  \]
+\end{itemize}
+
+\begin{definition}
+  设$f$是一个等交比函数，由递推关系$x_{n+1}=f(x_n)$定义的数列称为{\kaishu 等交比数列}\index{D!等交比数列}. 因此，一个等交比数列的递推公式为
+  \[
+    x_{n+1} = \frac{ax_n+b}{cx_n+d},\quad  n\ge0, \quad  a,b,c,d\in\MR.
+  \]
+\end{definition}
+
+\begin{itemize}
+  \item 如果$cx_n+d\ne0$对任意$n\ge0$成立，则数列$(x_n)_{n\in\MN}$是良定义的.
+  \item 如果$x_{n+1}=f(x_n),\forall n\ge0$，则$x_n=f^n(x_0)$，其中
+      \[
+        f^n(x_0) = \underbrace{f\circ f\circ\cdots\circ f}_{n\,\text{个}}(x_0).
+      \]
+  \item 如果
+  \[
+    f(x) = \frac{ax+b}{cx+d}\quad \text{且}\quad
+    \begin{pmatrix}
+      a & b \\
+      c & d
+    \end{pmatrix}^n = \begin{pmatrix}
+      a_n & b_n \\
+      c_n & d_n
+    \end{pmatrix},
+  \]
+  则
+  \[
+    f^n(x) = \frac{a_nx+b_n}{c_nx+d_n}.
+  \]
+  \item 如果$x_{n+1}=f(x_n),n\ge0$，则
+  \[
+    x_n = \frac{a_nx_0+b_n}{c_nx_0+d_n}.
+  \]
+  \item 如果给首项$x_0$加一些附加条件，则数列$(x_n)_{n\ge0}$是良定义的. 确切地说，我们可以利用$A^n$的表达式来确定数列$(x_n)_{n\ge0}$的存在条件，即$c_nx_0+d_n\ne0,\forall n\ge0$. 这意味着$x_0\ne-\frac{d_n}{c_n}$对任意$n\ge0$成立. 因此，我们需要求出集合
+      \[
+        S = \left\{ -\frac{d_n}{c_n}:n\ge0 \right\},
+      \]
+      那么数列$(x_n)_{n\ge0}$良定义的充要条件是$x_0\in\MR\backslash S$.
+  \item 要求出一个等交比递推关系定义的数列的通项，我们需要计算定义此递推关系的等交比函数的关联矩阵的$n$次幂.
+\end{itemize}
+
+\subsection{问题}
+\begin{problem}
+  设$f(x)=\frac{4x+1}{2x+3},x\in\MR$，使得函数
+  \[
+    f_n(x) = \underbrace{f\circ f\circ\cdots\circ f}_{n\,\text{个}}(x), \quad  \forall n\in\MN,
+  \]
+  是良定义的，求$f_n$.
+\end{problem}
+
+\begin{problem}
+  设$f:(0,+\infty)\to\MR,f(x)=\frac{2x+1}{x+2}$，计算
+  \[
+    f_n = \underbrace{f\circ f\circ\cdots\circ f}_{n\,\text{个}},\; \forall n\in\MN.
+  \]
+\end{problem}
+
+\begin{problem}
+  设数列$(x_n)_{n\ge1}$定义为
+  \[
+    x_1 = 1,\quad x_{n+1} = \frac{2+x_n}{1+x_n},\; \forall n\ge1.
+  \]
+  证明：数列$(x_n)_{n\ge1}$收敛，并求其极限.
+\end{problem}
+
+\begin{problem}
+  设数列$(x_n)_{n\ge0}$定义为
+  \[
+    x_0 = a > 0,\quad x_{n+1} = \frac{2x_n+1}{2x_n+3},\; \forall n\ge0.
+  \]
+  求数列$(x_n)_{n\ge0}$的通项，并计算$\lim_{n\to\infty}x_n$.
+\end{problem}
+
+\begin{problem}
+  设$a,x_0\in\MR$，且数列$(x_n)_{n\ge0}$定义为
+  \[
+    x_{n+1} = \frac{2ax_n}{x_n+a},\; \forall n\ge0.
+  \]
+  研究数列$(x_n)_{n\ge0}$当$a>0,x_0>0$时的收敛性.
+\end{problem}
+
+\begin{problem}
+  设数列$(x_n)_{n\ge0}$定义为
+  \[
+    x_0 > 0,\quad x_{n+1} = \frac4{x_n + 3},\quad  \forall n\ge0.
+  \]
+  求数列$(x_n)_{n\ge0}$的通项，并计算$\lim_{n\to\infty}x_n$.
+\end{problem}
+
+\begin{problem}
+  计算如下定义的数列的极限：
+  \[
+    x_1 = \frac1{\pi^2},\quad  x_{n+1} = \frac{n^2x_n}{x_n+n^2},\; \forall n\ge1.
+  \]
+\end{problem}
+
+\begin{problem}
+  研究如下数列的收敛性：
+  \[
+    x_0 = \MR\backslash\MQ,\quad x_{n+1} = 1 + \frac1{x_n},\; \forall n\ge0.
+  \]
+\end{problem}
+
+\begin{problem}
+  设$a\in\MR$，研究如下定义的数列的收敛性：
+  \[
+    x_0 = 1,\quad x_{n+1}x_n + a(x_{n+1} - x_n) + 1 = 0,\; \forall n\ge0.
+  \]
+\end{problem}
+
+\begin{problem}
+  设数列$(x_n)_{n\ge0}$定义为
+  \[
+    x_0 = 2 \quad \text{且} \quad
+    x_{n+1} = \frac{2x_n + 1}{x_n + 2},\; \forall n\ge0.
+  \]
+  证明：数列$(x_n)_{n\ge0}$和$(x_0+x_1+\cdots+x_n-n)_{n\ge0}$都收敛.
+\end{problem}
+
+\begin{problem}
+  设实数列$(a_n)_{n\ge1}$满足递推关系
+  \[
+    a_{n+1}a_n + 3a_{n+1} + a_n + 4 = 0,\; \forall n\ge1.
+  \]
+  求所有可能的$a_1$的值，使得$a_{2016}\le a_n$对任意$n\ge1$成立.
+\end{problem}
+
+\begin{problem}
+  设$A=\begin{pmatrix}
+    a & b \\
+    c & d
+  \end{pmatrix}\in\MM_2(\MQ)$满足$bc\ne0$，且存在$n\in\MN,n\ge2$使得$b_nc_n=0$，其中$A^n=\begin{pmatrix}
+    a_n & b_n \\
+    c_n & d_n
+  \end{pmatrix},n\in\MN$.
+  \begin{enum}
+    \item\label{prob3.50a} 证明：$a_n=d_n$.
+    \item 研究如下定义的数列$(x_n)_{n\ge0}$的收敛性：
+    \[
+      x_0 \in \MR\backslash \MQ,\quad x_{n+1} = \frac{ax_n+b}{cx_n+d},\; n\ge0.
+    \]
+  \end{enum}
+\end{problem}
+
+\begin{mybox}
+  \begin{problem}[一个特殊的反正切和的数列.]
+
+    设数列$(x_n)_{n\ge1}$定义为
+    \[
+      x_1 = 1,\quad x_n = \frac{x_{n-1}+n}{1-nx_{n-1}},\; n\ge2.
+    \]
+    证明：
+    \begin{enum}
+      \item $x_n=\tan\left(\sum_{k=1}^n\arctan k\right)$；
+      \item {\kaishu 猜想}. 对$n\ge5$，$x_n$的值不是整数 \cite[Conjecture1.2]{3}.
+    \end{enum}
+  \end{problem}
+\end{mybox}
+\begin{remark}
+  \cite{3} 中研究了这个数列，且证明了$1-nx_{n-1}\ne0$对$n>1$成立，所以$(x_n)_{n\ge1}$是良定义的. 这个数列的其他一些特殊性质已经远远超出了本书的内容，比如$x_n$仅在$n=3$时为0，$x_{n-1}$与$x_n$不可能同时为整数.
+\end{remark}
+
+\subsection{解答}
+\begin{solution}
+  $f_n(x)=\frac{(2^n+2\cdot5^n)x+5^n-2^n}
+  {(2\cdot5^n-2^{n+1})x+2^{n+1}+5^n},\,n\in\MN$.
+\end{solution}
+
+\begin{solution}
+  $f_n(x)=\frac{(3^n+1)x+3^n-1}{(3^n-1)x+3^n+1},\,n\in\MN$.
+\end{solution}
+
+\setcounter{solution}{41}
+
+\begin{solution}
+  $x_n=\frac{(2+4^n)x_0+4^n-1}{2(4^n-1)x_0+2\cdot4^n+1}$
+  且$\lim_{n\to\infty}x_n=\frac12$.
+\end{solution}
+
+\begin{solution}
+  $x_n=\frac{2^nax_0}{(2^n-1)x_0+a},\,\forall n\in\MN$，数列$(x_n)_{n\ge0}$收敛，且$\lim_{n\to\infty}x_n=a$.
+\end{solution}
+
+\begin{solution}
+  $x_n=\frac{[4^n+4(-1)^n]x_0+4^{n+1}-4(-1)^n}
+  {[4^n-(-1)^n]x_0+4^{n+1}+(-1)^n}$，且$\lim_{n\to\infty}x_n=1$.
+\end{solution}
+
+\begin{solution}
+  {\kaishu 解法1.} 如果$y_n=\frac1{x_n}$，则$y_{n+1}=\frac1{n^2}+y_n,\,\forall n\ge1$，于是
+  \[
+    y_n = 1 + \frac1{2^2} + \cdots + \frac1{n^2} + \pi^2,\quad x_n = \frac1{1+\frac1{2^2}
+    +\cdots + \frac1{(n-1)^2}+\pi^2},
+  \]
+  因此$\lim_{n\to\infty}x_n=\frac6{7\pi^2}$.
+
+  {\kaishu 解法2.} $x_{n+1}=f_n(x_n)=f_n\circ f_{n-1}(x_{n-1})=\cdots=f_n\circ f_{n-1}\circ\cdots\circ f_1(x_1)$，其中$f_n(x)=\frac{n^2x}{x+n^2}$. 令$A_n=\begin{pmatrix}
+    n^2 & 0 \\
+    1 & n^2
+  \end{pmatrix}$，我们有
+  \[
+    f_n \circ f_{n-1} \circ \cdots f_1(x_1) =
+    \frac{ax_1+b}{cx_1+d},
+  \]
+  其中
+  \[
+    \begin{pmatrix}
+      a & b \\
+      c & d
+    \end{pmatrix} = A_nA_{n-1}\cdots A_1 = (n!)^2
+    \begin{pmatrix}
+      1 & 0 \\
+      \sum_{k=1}^n\frac1{k^2} & 1
+    \end{pmatrix}.
+  \]
+  这意味着
+  \[
+    x_{n+1} = \frac{x_1}{x_1\sum_{k=1}^n\frac1{k^2}+1}
+    \Rightarrow \lim_{n\to\infty}x_{n+1}
+    =\frac{x_1}{\frac{\pi^2}6x_1+1} = \frac6{7\pi^2}.
+  \]
+\end{solution}
+
+\begin{solution}
+  $x_{n+1}=\frac{x_n+1}{x_n},\forall n\ge0$. 于是可得$x_n=\frac{F_{n+1}x_0+F_n}{F_nx_0+F_{n-1}},\forall n\ge1$，其中$(F_n)_{n\ge0}$表示Fibonacci数列. 计算可知$\lim_{n\to\infty}x_n=\frac{1+\sqrt5}2$，其中我们用到了
+  \[
+    F_n = \frac1{\sqrt5} \left[ \bigg(
+    \frac{1 + \sqrt5}2\bigg)^n - \bigg(
+    \frac{1 - \sqrt5}2\bigg)^n \right],\;n\ge0.
+  \]
+\end{solution}
+
+\begin{solution}
+  $x_{n+1}=\frac{ax_n-1}{x_n+a}\Rightarrow x_n=\frac{a_nx_0+b_n}{c_nx_0+d_n}$，其中
+  \[
+    \begin{pmatrix}
+      a_n & b_n \\
+      c_n & d_n
+    \end{pmatrix} = \begin{pmatrix}
+      a & - 1\\
+      1 & a
+    \end{pmatrix}^n = 
+    (1 + a^2)^{\frac n2}
+    \begin{pmatrix}
+      \cos nt & - \sin nt \\
+      \sin nt & \cos nt
+    \end{pmatrix},
+  \]
+  其中$\tan t=\frac1a,a\ne0$. 如果$a=0$，此数列是以2为周期的，$x_{2n+1}=-1,x_{2n}=1$对任意$n\ge0$成立. 于是
+  \[
+    x_n = \frac{\cos nt - \sin nt}{\cos nt + \sin nt } = \frac{1 - \tan nt}{1+ \tan nt}.
+  \]
+
+  如果$\frac t\pi\notin\MQ$，则集合$\{\tan nt,n\in\MN\}$在$\MR$中稠密，且函数$f(x)=\frac{1-x}{1+x}$的值域为$\MR\backslash\{-1\}$，所以数列$(x_n)_{n\in\MN}$在$\MR$中稠密.
+
+  因为$x_n\ne-a,\forall n\ge0$，所以表达式$x_{n+1}=\frac{ax_n-1}{x_n+a}$是良定义的. 否则，如果$x_n=-a$对某个$n$成立， 则$-ax_{n+1}+a(x_{n+1}+a)+1=0\Rightarrow a^2+1=0$，这与$a\in\MR$矛盾.
+\end{solution}
+
+\setcounter{solution}{49}
+
+\begin{solution}
+  \begin{inparaenum}[(a)]
+    \item 见问题 \ref{problem1.3} 的解答.
+
+    \item 由于$a,b,c,d\in\MQ$且$x_0\in\MR\backslash
+    \MQ$，我们得到$x_k\in\MR\backslash\MQ,\forall k\ge0$，且$cx_k+d\ne 0$. 设函数$f:\MR\backslash\MQ\to\MR\backslash\MQ$定义为$f(x)=\frac{ax+b}{cx+d}$. 递推关系$x_{k+1}=f(x_k)$意味着$x_k=f^k(x_0)$，其中$f^k=f\circ\cdots\circ f$. 当$k=n$时，由 \ref{prob3.50a}，我们有$a_n=d_n$，且我们知道$b_nc_n=0$意味着（见问题 \ref{problem3.1} 的解答）$b_n=c_n=0$. 我们得到$x_n=\frac{a_nx_0}{a_n}=x_0$，于是
+    \[
+      x_{n+1} = \frac{ax_n+b}{cx_n+d} = \frac{ax_0+b}{cx_0+d} = x_1,\;
+      x_{n+2} = \frac{ax_{n+1}+b}{cx_{n+1}+d}
+      = \frac{ax_1+b}{cx_1+d} = x_2,
+    \]
+    且$x_{n+k}=x_k,\forall k\in\MN$. 这样的数列收敛当且仅当它是常数列，所以
+    \[
+      x_0 = f(x_0) \Leftrightarrow
+    x_0 = \frac{ax_0 + b}{cx_0 + d} \Leftrightarrow
+    ax_0 + b = cx_0^2 + dx_0
+    \Leftrightarrow cx_0^2 + (d - a)x_0 - b = 0.
+    \]
+    此方程有解
+    \[
+      x_0 = \frac{a - d \pm\sqrt{(d-a)^2 + 4bc}}{2c},\; (d - a)^2 + 4bc >0.
+    \]
+    因此，此数列收敛当且仅当$(d-a)^2+4bc>0$，且$(d-a)^2+4bc$不是$q^2$的形式，这里$q\in\MQ$.
+  \end{inparaenum}
+\end{solution}
+
+\begin{solution}
+  \begin{inparaenum}[(a)]
+    \item 我们用数学归纳法证明这一部分的问题. 设$P(n)$表示命题$x_n=\tan\left(\sum_{k=1}^n\arctan k\right)$. 当$n=1$时，我们得到$x_1=\tan(\arctan1)=1$，所以$P(1)$成立. 我们来证明$P(n)\Rightarrow P(n+1)$. 我们有
+        \begin{align*}
+          x_{n+1} & = \frac{x_n + n + 1}{1 - (n + 1)x_n} \\
+          & = \frac{\tan \left( \sum_{k=1}^n\arctan k \right) + n + 1}
+          { 1 - (n + 1)\tan\left( \sum_{k=1}^n\arctan k \right) } \\
+          & = \frac{\tan\left( \sum_{k=1}^n\arctan k \right) + \tan[\arctan(n+1)]}
+          { 1 - \tan[\arctan(n+1)] \tan\left( \sum_{k=1}^n\arctan k \right)} \\
+          & = \tan \left( \sum_{k=1}^n\arctan k + \arctan (n + 1) \right) \\
+          & = \tan \left( \sum_{k=1}^{n+1}\arctan k \right).
+        \end{align*}
+
+        {\kaishu 注解与进一步探讨.} 我们要提及的是$x_n$可以用{\kaishu 第一类Stirling数}\index{S!Stirling数} 表示. 我们有
+        \[
+          x_n = f_n(x_{n-1}) = \cdots = f_n\circ f_{n-1} \circ \cdots \circ f_2(x_1) = f_n\circ f_{n-1}\circ \cdots \circ f_2(1),
+        \]
+        其中$f_n(x)=\frac{x+n}{-nx+1}$. 令$A=\begin{pmatrix}
+          1 & n \\
+          -n & 1
+        \end{pmatrix}$，则
+        \[
+           f_n\circ f_{n-1}\circ \cdots \circ f_2(x) = \frac{a_nx+b_n}{c_nx+d_n} \quad \text{且} \quad
+            f_n\circ f_{n-1}\circ \cdots \circ f_2(1) = \frac{a_n+b_n}{c_n+d_n},
+        \]
+        其中
+        \[
+          A_nA_{n-1}\cdots A_2 = \begin{pmatrix}
+            a_n & b_n \\
+            c_n & d_n
+          \end{pmatrix}.
+        \]
+        计算可知$A_n$的特征值为$1\pm n\ii$，进一步有
+        \[
+          A_n = \frac12\begin{pmatrix}
+            1 & \ii \\
+            \ii & 1
+          \end{pmatrix}
+          \begin{pmatrix}
+            1 + n\ii & 0 \\
+            0 & 1 - n\ii
+          \end{pmatrix}
+          \begin{pmatrix}
+            1 & - \ii \\
+            -\ii & 1
+          \end{pmatrix},
+        \]
+        这意味着
+        \begin{align*}
+          A_nA_{n-1}\cdots A_2 & = \frac12\begin{pmatrix}
+            1 & \ii \\
+            \ii & 1
+          \end{pmatrix}
+          \begin{pmatrix}
+            \alpha & 0 \\
+            0 & \beta
+          \end{pmatrix} \begin{pmatrix}
+            1 & - \ii \\
+            -\ii & 1
+          \end{pmatrix} \\
+          & = \frac12\begin{pmatrix}
+            \alpha + \beta & -\alpha \ii + \beta \ii \\
+            \alpha \ii - \beta \ii & \alpha + \beta
+          \end{pmatrix},
+        \end{align*}
+        其中
+        \[
+          \alpha = \prod_{k=2}^n(1 + k\ii) \quad \text{且} \quad
+          \beta = \prod_{k=2}^n(1 - k\ii).
+        \]
+        于是
+        \[
+          x_n = \frac{\alpha(1-\ii) + \beta(1+\ii)}
+          {\alpha(1+\ii) + \beta(1-\ii)} =
+          \frac{\beta_1 - \alpha_1}{\beta_1 + \alpha_1} \ii,
+        \]
+        其中
+        \[
+          \alpha_1 = \prod_{k=1}^n(1 + k\ii) \quad \text{且} \quad
+          \beta_1 = \prod_{k=1}^n(1 - k\ii).
+        \]
+
+        第一类Stirling数$s(n,k)$ \cite[p.56]{59} 定义为
+        \[
+          \prod_{k=1}^n (1 + kx) = \sum_{k=1}^{n+1}
+          (-x)^{n+1-k}s(n+1,k),
+        \]
+        这意味着
+        \[
+          \alpha_1 = \sum_{k=1}^{n+1}(-\ii)^{n+1-k}
+          s(n+1, k) \quad \text{且} \quad
+          \beta_1 = \prod_{k=1}^{n+1}\ii^{n+1-k}
+          s(n+1 , k).
+        \]
+        我们分别考虑当$n$是偶数和奇数的情形.
+  \end{inparaenum}
+  \begin{itemize}
+          \item $n=2p$时，我们有$x_{2p}=
+          \frac{\sum_{j=1}^p(-1)^{p-j+1}s(2p+1,2j)}
+          {\sum_{j=1}^{p+1}(-1)^{p-j+1}s(2p+1,2j-1)}$.
+          \item $n=2p-1$时，我们有$x_{2p-1}=
+          \frac{\sum_{j=1}^p(-1)^{p-j+1}s(2p,2j-1)}
+          {\sum_{j=1}^{p+1}(-1)^{p-j}s(2p,2j)}$.
+        \end{itemize}
+\end{solution}
+
+\section{二项式矩阵方程}
+在本节中，我们解决二项式方程$X^n=A$，其中$A\in\MM_2(\MC)$，且整数$n\ge2$.
+
+\begin{definition}
+  设$A\in\MM_2(\MC)$，且整数$n\ge2$，方程$X^n=A,X\in\MM_2(\MC)$称为{\kaishu 二项式矩阵方程}. \index{E!二项式矩阵方程}
+\end{definition}
+
+一般地，要解决二项式矩阵方程，我们需要接下来的引理中的一些简单性质.
+\begin{lemma}
+  下列结论成立.
+  \begin{enum}
+    \item\label{lemma3.2a} 如果$X\in\MM_2(\MC)$，且$\det X=0$，则$X^n=\Tr^{n-1}(X)X,n\ge1$.
+    \item\label{lemma3.2b} 如果$X^n=A$，则矩阵$A$与$X$可交换，$AX=AA^n=A^{n+1}=A^nA=XA$.
+    \item\label{lemma3.2c} 如果$A\in\MM_2(\MC),A\ne aI_2,a\in\MC$，则与$A$可交换的矩阵$X$形如$X=\alpha A+\beta I_2$.
+    \item\label{lemma3.2d} 如果$X\in\MM_2(\MC),X=\begin{pmatrix}
+      a & b \\
+      c & d
+    \end{pmatrix}$，则$X^2-(a+d)X+(ad-bc)I_2=O_2$.
+    \item\label{lemma3.2e} 如果$X\in\MM_2(\MC)$，且存在$n\ge2$，使得$X^n=O_2$，则$X^2=O_2$.
+    \item\label{lemma3.2f} 如果$A\in\MM_2(\MC)$有相异的特征值$\lambda_1\ne\lambda_2$，则存在非奇异矩阵$P$使得
+        \[
+          P^{-1}AP = \begin{pmatrix}
+            \lambda_1 & 0 \\
+            0 & \lambda_2
+          \end{pmatrix}.
+        \]
+  \end{enum}
+\end{lemma}
+
+\begin{proof}
+  这些性质的证明留给感兴趣的读者作为练习.
+\end{proof}
+
+\begin{theorem}[满足$\det A=0$的方程$X^n=A,n\ge2,A\in\MM_2(\MC)$.]
+
+设$A\in\MM_2(\MC)$满足$\det A=0$，且整数$n\ge2$.
+\begin{enumerate}[left=0cm,label=(\arabic*)]
+  \item 如果$\Tr(A)\ne0$，则方程$X^n=A$在$\MM_2(\MC)$中有$n$个解为
+      \[
+        X_k = \frac{z_k}{\Tr(A)}A,
+      \]
+      其中$z_k,k=1,2,\cdots,n$是方程$z^n=\Tr(A)$的解.
+  \item 如果$\Tr(A)=0$，则：
+  \begin{enum}
+    \item 如果$A\ne O_2$，则对$n\ge2$，方程$X^n=A$在$\MM_2(\MC)$中无解.
+    \item 如果$A=O_2$，则方程$X^n=A$的解为
+    \[
+      X_{a,b} = \begin{pmatrix}
+        a & b \\
+        -\frac{a^2}b & -a
+      \end{pmatrix},\;a\in\MC,b\in\MC^\ast\quad
+      \text{且} \quad
+      X_c = \begin{pmatrix}
+        0 & 0 \\
+        c & 0
+      \end{pmatrix},\;c\in\MC.
+    \]
+  \end{enum}
+\end{enumerate}
+
+\end{theorem}
+
+\begin{proof}
+  由于$X^n=A$，我们得到$\det{}^nX=\det A=0\Rightarrow \det X=0$. 于是由引理 \ref{lemma3.2} 的 \ref{lemma3.2a}，有$X^n=\Tr^{n-1}(X)X$. 我们得到$\Tr^{n-1}(X)X=A$，这意味着$\Tr^n(X)=\Tr(A)$.
+
+  我们分下面几种情形.
+  \begin{enumerate}[left=0cm,label=(\arabic*),listparindent=\parindent]
+   \item 如果$\Tr(A)\ne0$，由引理 \ref{lemma3.2} 的 \ref{lemma3.2d}，我们得到$A^2\ne O_2$，且方程$\Tr^n(X)=\Tr(A)$意味着$\Tr(X)\in\{t_1,t_2,\cdots,t_n\}$，其中$t_i,i=1,2,\cdots,n$是方程$z^n=\Tr(A)$的解.
+
+       因此，对$A\in\MM_2(\MC),A^2\ne O_2$且$\det A=0$，矩阵方程$X^n=A$的解为
+       \[
+         X_k = \frac{z_k}{\Tr(A)} A,
+       \]
+       其中$z_k,k=1,2,\cdots,n$是方程$z^n=\Tr(A)$的解.
+   \item 如果$\Tr(A)=0$，则$A^2=O_2$，且方程$X^n=A$意味着$X^{2n}=A^2=O_2$，结合引理 \ref{lemma3.2} 的 \ref{lemma3.2e}，说明$X^2=O_2$.
+       \begin{enum}
+         \item 如果$A\ne O_2$且$A^2=O_2$，则对$n\ge2$，方程$X^n=A$在$\MM_2(\MC)$中无解.
+         \item 如果$A=O_2$，则$X^n=O_2$意味着$X^2=O_2$，此方程有解（见问题 \ref{problem1.8}）.
+       \end{enum}
+       \[
+      X_{a,b} = \begin{pmatrix}
+        a & b \\
+        -\frac{a^2}b & -a
+      \end{pmatrix},\;a\in\MC,b\in\MC^\ast\quad
+      \text{且} \quad
+      X_c = \begin{pmatrix}
+        0 & 0 \\
+        c & 0
+      \end{pmatrix},\;c\in\MC.
+    \]
+  \end{enumerate}
+  定理得证.
+\end{proof}
+
+\begin{example}
+  我们解方程$X^4=\begin{pmatrix}
+    -1 & -2 \\
+    1 & 2
+  \end{pmatrix}$.
+
+  设$A=\begin{pmatrix}
+    -1 & -2 \\
+    1 & 2
+  \end{pmatrix}$，则$\det A=0,\Tr(A)=1$，且方程$z^4=1$有解，即四次单位根$\{1,-1,\ii,-\ii\}$. 因此，方程$X^4=A$的解为$\pm A,\pm\ii A$.
+\end{example}
+
+\begin{example}
+  现在我们证明，对$n\ge2$，方程$X^n=\begin{pmatrix}
+    0 & 1 \\
+    0 & 0
+  \end{pmatrix}$无解.
+
+  将方程两边平方，我们有$X^{2n}=O_2\Rightarrow X^2=O_2$，且由于$n\ge2$，我们得到
+  \[
+    X^n = O_2 \ne \begin{pmatrix}
+      0 & 1 \\
+      0 & 0
+    \end{pmatrix}.
+  \]
+\end{example}
+
+\begin{example}
+  我们来求出矩阵$X=\begin{pmatrix}
+    a & b \\
+    -c & -d
+  \end{pmatrix}\in\MM_2(\MZ)$，其中$a,b,c,d$是素数，使得$X^2=O_2$.
+
+  由方程$X^2=O_2$的一般解，我们得到
+  \[
+    X_{a,b} = \begin{pmatrix}
+      a & b \\
+      -\frac{a^2}b & -a
+    \end{pmatrix},
+  \]
+  而条件$\frac{a^2}b$为素数则说明$a=b$.
+
+  因此， 我们的方程的解为
+  \[
+    X = \begin{pmatrix}
+      p & p \\
+      -p & -p
+    \end{pmatrix} =
+    p \begin{pmatrix}
+      1 & 1 \\
+      -1 & -1
+    \end{pmatrix},
+  \]
+  其中$p$是一个素数.
+\end{example}
+
+\begin{theorem}[方程$X^n=aI_2,a\in\MC^\ast,n\ge2$.]
+
+  设$a\in\MC^\ast$，且整数$n\ge2$. 方程$X^n=aI_2$的解为
+  \[
+    X = P\begin{pmatrix}
+      a_i & 0 \\
+      0 & a_j
+    \end{pmatrix}P^{-1},
+  \]
+  其中$P$是任意可逆矩阵，且$a_i,i=1,2,\cdots,n$是方程$z^n=a$的解.
+\end{theorem}
+
+\begin{proof}
+  首先我们注意到，如果$X\in\MM_2(\MC)$是方程$X^n=aI_2$的一个解，则对任意可逆矩阵$P$，矩阵$X_P=P^{-1}XP$也是一个解. 这可以通过如下证明
+  \[
+    X_p^n = (P^{-1}XP)(P^{-1}XP)\cdots (P^{-1}XP) = P^{-1}X^nP = P^{-1}aI_2P = aI_2.
+  \]
+
+  我们分$X$的特征值是相同和不同的两种情形.
+  \begin{itemize}\parindent=2em
+    \item 如果$X$的特征值是不同的，则由引理 \ref{lemma3.2} 的 \ref{lemma3.2f}，我们有
+        \[
+          X_P = \begin{pmatrix}
+            \lambda_1 & 0 \\
+            0 & \lambda_2
+          \end{pmatrix},
+        \]
+        且矩阵方程变为
+        \[
+          \begin{pmatrix}
+            \lambda_1^n & 0 \\
+            0 & \lambda_2^n
+          \end{pmatrix} = \begin{pmatrix}
+            a & 0 \\
+            0 & a
+          \end{pmatrix}.
+        \]
+        这意味着$\lambda_1,\lambda_2\in\{a_1,a_2,\cdots,a_n\}$，其中$a_i,i=1,2,\cdots,n$是方程$z^n=a$的解.
+
+        因此，矩阵方程$X^n=aI_2$的部分解为
+        \[
+          X = P\begin{pmatrix}
+            a_i & 0 \\
+            0 & a_j
+          \end{pmatrix}P^{-1},
+        \]
+        其中$P$是任意可逆矩阵，且$a_i,i=1,2,\cdots,n$是方程$z^n=a$的解.
+    \item 如果$X$由相同的特征值$\lambda_1=\lambda_2=\lambda$，由引理 \ref{lemma3.2} 的 \ref{lemma3.2d}，我们有$(X-\lambda I_2)^2=O_2$. 如果$Y=X-\lambda I_2$，则$X=\lambda I_2+Y$，且$Y^2=O_2$. 我们有$X^n=\lambda^nI_2+n\lambda^{n-1}Y$，且方程$X^n=aI_2$变为$\lambda^nI_2+n\lambda^{n-1}Y=aI_2$，这意味着$n\lambda^{n-1}Y=(a-\lambda^n)I_2$.
+
+        由于$a\ne0$，我们得到$\lambda\ne0$且$Y^2=O_2$，结合$Y=\frac{a-\lambda^n}{n\lambda^{n-1}}I_2$，可知$a=\lambda^n$且$Y=O_2$. 所以$X=aI_2$，其中$i=1,2,\cdots,n$是方程$\lambda^n=a$的解.
+  \end{itemize}
+
+  综上所述，方程$X^n=aI_2$的解为
+  \[
+    X = P\begin{pmatrix}
+      a_i & 0 \\
+      0 & a_j
+    \end{pmatrix}P^{-1},
+  \]
+  其中$P$是任意可逆矩阵，且$a_i,i=1,2,\cdots,n$是方程$z^n=a$的解.
+
+\end{proof}
+
+\begin{lemma}[特殊对角阵的$n$次方根.]
+
+  设$\alpha,\beta\in\MC$满足$\alpha\ne\beta$，整数$n\ge2$. 方程$X^n=\begin{pmatrix}
+    \alpha & 0 \\
+    0 & \beta
+  \end{pmatrix}$的解为$X=\begin{pmatrix}
+    a & 0 \\
+    0 & d
+  \end{pmatrix}$，其中$a,d\in\MC$满足$a\ne d$，且$a^n=\alpha,d^n=\beta$.
+\end{lemma}
+
+\begin{proof}
+  设$X=\begin{pmatrix}
+    a & b \\
+    c & d
+  \end{pmatrix}\in\MM_2(\MC)$，使得$X^n=\begin{pmatrix}
+    \alpha & 0 \\
+    0 & \beta
+  \end{pmatrix}$. 由于$X$与$\begin{pmatrix}
+    \alpha & 0 \\
+    0 & \beta
+  \end{pmatrix}$可交换，我们得到$(\alpha-\beta)b=0$且$(\alpha-\beta)c=0$. 由于$\alpha\ne\beta$，这意味着$b=c=0$. 于是
+  \[
+    X^n = \begin{pmatrix}
+      a & 0 \\
+      0 & d
+    \end{pmatrix}^n = \begin{pmatrix}
+      a^n & 0 \\
+      0 & d^n
+    \end{pmatrix} =
+    \begin{pmatrix}
+      \alpha & 0 \\
+      0 & \beta
+    \end{pmatrix},
+  \]
+  引理得证.
+\end{proof}
+
+\begin{nota}
+  引理 \ref{lemma3.3} 指出，在特定条件下，一个对角阵的$n$次方根是对角阵.
+\end{nota}
+
+\begin{theorem}[当$A$有不同特征值时的方程$X^n=A$.]
+
+  设矩阵$A\in\MM_2(\MC)$有不同的特征值，则方程$X^n=A$的解为
+  \[
+    X = P_A\begin{pmatrix}
+      \alpha & 0 \\
+      0 & \beta
+    \end{pmatrix} P_A^{-1},
+  \]
+  其中$P_A$是可逆矩阵，且满足$P_A^{-1}AP_A=\begin{pmatrix}
+    \lambda_1 & 0 \\
+    0 & \lambda_2
+  \end{pmatrix}$，且$\alpha^n=\lambda_1,\beta^n=\lambda_2$，其中$\lambda_1\ne\lambda_2$是$A$的特征值.
+\end{theorem}
+
+\begin{proof}
+  设$\lambda_1\ne\lambda_2$是$A$的特征值，且可逆矩阵$P_A$满足
+  \[
+    P_A^ {-1}AP_A=\begin{pmatrix}
+      \lambda_1 & 0 \\
+      0 & \lambda_2
+    \end{pmatrix}.
+  \]
+  我们有
+  \[
+    (P_A^{-1}XP_A)^n = P_A^{-1}X^nP_A = P_A^{-1}AP_A = \begin{pmatrix}
+      \lambda_1 & 0 \\
+      0 & \lambda_2
+    \end{pmatrix}.
+  \]
+  由引理 \ref{lemma3.3}，矩阵$P_A^{-1}XP_A$是对角阵，即
+  \[
+    P_A^{-1}XP_A = \begin{pmatrix}
+      \alpha & 0 \\
+      0 & \beta
+    \end{pmatrix}.
+  \]
+  于是
+  \[
+    \begin{pmatrix}
+      \alpha & 0 \\
+      0 & \beta
+    \end{pmatrix}^n =
+    \begin{pmatrix}
+      \lambda_1 & 0 \\
+      0 & \lambda_2
+    \end{pmatrix},
+  \]
+  且这意味着$\alpha^n=\lambda_1,\beta^n=\lambda_2$.
+
+  因此，方程的解为
+  \[
+    X = P_A\begin{pmatrix}
+      \alpha & 0 \\
+      0 & \beta
+    \end{pmatrix} P_A^{-1},
+  \]
+  其中$P_A$是可逆矩阵，且满足$P_A^{-1}AP_A=J_A$，且$\alpha^n=\lambda_1,\beta^n=\lambda_2$，其中$\lambda_1\ne\lambda_2$是$A$的特征值.
+\end{proof}
+
+由引理 \ref{lemma3.2} 的 \ref{lemma3.2b} 和 \ref{lemma3.2c} 可得定理 \ref{thm3.6} 的另一种证法.
+
+\begin{mybox}
+  \begin{corollary}[反对角矩阵的$n$次方根.]
+
+    设$a,b\in\MR$满足$ab>0$，整数$n\ge2$. 方程
+    \[
+      X^n = \begin{pmatrix}
+        0 & a \\
+        b & 0
+      \end{pmatrix}
+    \]
+    在$\MM_2(\MC)$中的解为
+    \[
+      X_{k,j} = \frac{\sqrt[2n]{ab}}2 \begin{pmatrix}
+        \varepsilon_k + \mu_j & \frac a{\sqrt{ab}}(\varepsilon_k - \mu_j) \\
+        \frac{\sqrt{ab}}a (\varepsilon_k - \mu_j) & \varepsilon_k + \mu_j
+      \end{pmatrix},
+    \]
+    其中$\varepsilon_k=\ee^{\frac{2k\pi}n\ii}
+    ,k=0,1,\cdots,n-1$，是$n$次单位根，而$\mu_j=\ee^{\frac{(2j+1)\pi}n\ii},
+    j=0,1,\cdots,n-1$，是$-1$的$n$次方根.
+  \end{corollary}
+\end{mybox}
+
+\begin{theorem}[方程$X^n=A,a\ne aI_2,a\in\MC$.]
+
+  设$A\in\MM_2(\MC)$满足$A\ne aI_2,a\in\MC$，且整数$n\ge2$. 设$\lambda_1\ne\lambda_2$是$A$的特征值，且设$\mu_1,\mu_2\in\MC$是固定的数，且满足$\mu_1^n=\lambda_1,\mu_2^n=\lambda_2$. 方程$X^n=A$的解为
+  \[
+    X = \alpha A + \beta I_2,
+  \]
+  其中
+  \[
+    \alpha = \frac{\mu_1\varepsilon_k-\mu_2\varepsilon_p}{\lambda_1
+    -\lambda_2}\quad \text{且} \quad
+    \beta = \frac{\mu_2\varepsilon_p\lambda_1-\mu_1\varepsilon_k
+    \lambda_2}{\lambda_1-\lambda_2},\quad \lambda_1\ne\lambda_2,
+  \]
+  其中$\varepsilon_k,\varepsilon_p$是$n$次单位根.
+\end{theorem}
+
+\begin{proof}
+  我们知道满足方程$X^n=A$的矩阵$X$与$A$可交换. 由定理 \ref{lemma1.1}，这意味着$X=\alpha A+\beta I_2$对某个$\alpha,\beta\in\MC$成立. 如果$\lambda_1,\lambda_2$是$A$的特征值，则$X$的特征值是$\alpha\lambda_1+\beta$与$\alpha\lambda_2+\beta$，而$X^n$的特征值为$(\alpha\lambda_1+\beta)^n$与$(\alpha\lambda_2+\beta)^n$. 方程$X^n=A$意味着$(\alpha\lambda_1+\beta)^n=\lambda_1$且
+  $(\alpha\lambda_2+\beta)^n=\lambda_2$.
+
+  $\mu_1,\mu_2\in\MC$满足$\mu_1^n=\lambda_1,\mu_2^n=\lambda_2$，上面两个等式说明
+  \[
+    \left\{
+      \begin{aligned}
+        & \alpha \lambda_1 + \beta = \mu_1\varepsilon_k \\
+        & \alpha\lambda_2 + \beta = \mu_2\varepsilon_p
+      \end{aligned}
+    \right.,
+  \]
+  其中$\varepsilon_k,\varepsilon_p$是$n$次单位根. 解此方程组，我们得到$\alpha$和$\beta$如定理中所给，证毕.
+\end{proof}
+
+\begin{lemma}[Jordan块的$n$次方根.]
+
+  设$\lambda\in\MC^\ast$，整数$n\ge2$. 方程$X^n=\begin{pmatrix}
+    \lambda & 1 \\
+    0 & \lambda
+  \end{pmatrix}\in\MM_2(\MC)$的解为
+  \[
+    X = \begin{pmatrix}
+      a & \frac1{na^{n-1}} \\
+      0 & a
+    \end{pmatrix},
+  \]
+  其中$a\in\MC$满足$a^n=\lambda$.
+\end{lemma}
+
+\begin{proof}
+  设$X=\begin{pmatrix}
+    a & b \\
+    c & d
+  \end{pmatrix}$. 由于$X$与$\begin{pmatrix}
+    \lambda & 1 \\
+    0 & \lambda
+  \end{pmatrix}$可交换，经过简单计算可得$a=d$且$c=0$. 于是$X=\begin{pmatrix}
+    a & b \\
+    0 & a
+  \end{pmatrix}$，且方程
+  \[
+    X^n = \begin{pmatrix}
+      a^n & na^{n-1}b \\
+      0 & a^n
+    \end{pmatrix} =
+    \begin{pmatrix}
+    \lambda & 1 \\
+    0 & \lambda
+  \end{pmatrix}
+  \]
+  意味着$a^n=\lambda$且$na^{n-1}b=1$.
+\end{proof}
+
+\begin{nota}
+  引理 \ref{lemma3.4} 指出，在特定的条件下，三角矩阵的$n$次方根是三角矩阵.
+\end{nota}
+
+\begin{theorem}[当$X$有相同的非零特征值时的方程$X^n=A$.]
+
+  设矩阵$A\in\MM_2(\MC)$有相同的非零特征值，且$A\ne \alpha I_2,\alpha\in\MC$，整数$n\ge2$. 方程$X^n=A$的解为
+  \[
+    X = P_A \begin{pmatrix}
+      a & \frac1{na^{n-1}} \\
+      0 & a
+    \end{pmatrix} P_A^{-1},
+  \]
+  其中可逆矩阵$P_A$满足$P_A^{-1}AP_A=J_A$，且$a\in\MC$满足$a^n=\lambda$.
+\end{theorem}
+
+\begin{proof}
+  这个定理可以通过与定理 \ref{thm3.6} 中相同的方法证明，再结合引理 \ref{lemma3.4} 即可.
+\end{proof}
+
+\begin{theorem}[一个特殊的二次方程.]
+
+  设$a,b,c\in\MC,a\ne0$，且设$A\in\MM_2(\MC)$. 二次方程
+  \[
+  aX^2 + bX + cI_2 = A
+  \]
+  可以约化成$Y^2=B$，这里$B\in\MM_2(\MC)$.
+\end{theorem}
+
+\begin{proof}
+  方程$aX^2+bX+cI_2=A$意味着
+  \[
+    X^2 + \frac baX + \frac caI_2 \Leftrightarrow
+    \left( X + \frac b{2a}I_2 \right)^2 =
+    \frac1aA + \left( \frac{b^2}{4a^2} - \frac ca \right)I_2.
+  \]
+
+  如果矩阵$Y$和$B$分别为
+  \[
+    Y = X + \frac b{2a}I_2 \quad \text{和} \quad
+    B = \frac1aA + \frac{b^2-4ac}{4a^2}I_2,
+  \]
+  则待解的方程就化为了$Y^2=B$.
+\end{proof}
+
+下面的定理说明哪些实矩阵有实的平方根.
+
+\begin{theorem}
+  \cite{4} 给定矩阵$A\in\MM_2(\MR)$，存在矩阵$S\in\MM_2(\MR)$使得$S^2=A$当且仅当$\det A\ge0$，且或者$A=-\sqrt{\det A}I_2$，或者$\Tr(A)+2\sqrt{\det A}>0$. %显然，在后一种情形中，$\Tr(A)+2\sqrt{\det A}=0$.
+\end{theorem}
+
+\subsection{二项式方程的一种艺术性， $aI_2,a\in\MR^\ast$的实$n$次方根.}
+
+在本节中，我们在$\MM_2(\MR)$中解方程$X^n=aI_2$，其中$a\in\MR^\ast$且$n\in\MN$.
+
+设$X\in\MM_2(\MR)$是方程$X^n=aI_2$的一个解.
+\begin{itemize}
+  \item 首先我们考虑$X$的特征值都是实数的情形.
+  \begin{enum}
+    \item 如果$n$是奇数，则$X=\sqrt[n]aI_2$，由于矩阵$X$的Jordan标准形满足方程$X^n=aI_2$是一个对角阵，且其特征值满足方程$\lambda^n=a$，这个方程的唯一实数解为$\lambda=\sqrt[n]a$.
+    \item 如果$n$是偶数且$a>0$，则
+    \[
+      X_1 = \sqrt[n]aI_2,\quad X_2 = - \sqrt[n]aI_2\; \text{且}\; X_3 = \sqrt[n]aP\begin{pmatrix}
+        1 & 0 \\
+        0 & -1
+      \end{pmatrix} P^{-1},
+    \]
+    其中$P$是一个可逆矩阵. 我们注意到$X_3=\sqrt[n]aA,A^2=I_2$. $X_1$是对应于$X$的特征值为$\lambda_1=\lambda_2=\sqrt[n]a$的解，$X_2$相应于$\lambda_1=\lambda_2=-\sqrt[n]a$，而$X_3$相应于$\lambda_1=\sqrt[n]a$和$\lambda_2=-\sqrt[n]a$.
+  \end{enum}
+  \item\parindent=2em 现在我们考虑$\lambda_1,\lambda_2\in\MC\backslash\MR$的情形.
+
+      在这种情形下，$\lambda_1^n=\lambda_2^n=a$且
+      $\lambda_2=\bar{\lambda_1}$. $X$的复标准形是矩阵$\begin{pmatrix}
+        \lambda_1 & 0 \\
+        0 & \bar{\lambda_1}
+      \end{pmatrix}$，其中$\lambda_1=\alpha+\ii\beta,\alpha,\beta\in\MR,\beta\ne0$，且$X$的实标准形为$\begin{pmatrix}
+        \alpha & -\beta \\
+        \beta & \alpha
+      \end{pmatrix}$. 于是$X=P^{-1}\begin{pmatrix}
+        \alpha & -\beta \\
+        \beta & \alpha
+      \end{pmatrix}P$，其中$P\in\MM_2(\MR)$是可逆矩阵. 我们得到$X=\alpha I_2+\beta B$，其中$B\in\MM_2(\MR)$满足方程$B^2=-I_2$.
+
+      令$P=\begin{pmatrix}
+        a & b \\
+        c & d
+      \end{pmatrix}$，且设$\varDelta=ad-bc\ne0$，则
+      \[
+        P^{-1}\begin{pmatrix}
+        \alpha & -\beta \\
+        \beta & \alpha
+      \end{pmatrix} P = \alpha I_2 + \frac{\beta}{\varDelta} \begin{pmatrix}
+        -(ab + cd) & - (b^2 + d^2) \\
+        a^2 + c^2 & ab + cd
+      \end{pmatrix} = \alpha I_2 + \beta B,
+      \]
+      其中$B=\dfrac1{\varDelta} \begin{pmatrix}
+        -(ab + cd) & - (b^2 + d^2) \\
+        a^2 + c^2 & ab + cd
+      \end{pmatrix}$，且$B^2=-I_2$.
+
+      于是当$X$的特征值属于$\MC\backslash\MR$时，方程$X^n=aI_2$的解形如
+      \begin{enum}
+        \item\label{art3.4a} 当$n$为奇数或者$n$为偶数且$a>0$时，$X=\sqrt[n]a\left(\cos\frac{2k\pi}nI_2
+            +\sin\frac{2k\pi}nB\right),k\in\{1,2,\cdots,n-1\}
+            ,B\in\MM_2(\MR)$满足$B^2=-I_2$.
+        \item\label{art3.4b} 当$n$为偶数且$a<0$时，$X=\sqrt[n]{-a}\left(\cos\frac{(2k+1)\pi}nI_2
+            +\sin\frac{(2k+1)\pi}nB\right),k\in\{1,2,\cdots,n-1\}
+            ,B\in\MM_2(\MR)$满足$B^2=-I_2$.
+      \end{enum}
+
+      反过来，我们可以证明 \ref{art3.4a} 和 \ref{art3.4b} 满足方程$X^n=aI_2$.
+      \begin{enum}
+        \item 我们有
+        \begin{align*}
+          X^n = {}& a \left(\cos\frac{2k\pi}nI_2
+            +\sin\frac{2k\pi}nB\right)^n \\
+          = {}& a\sum_{j=0}^n\Binom nj\sin^j\frac{2k\pi}nB^j
+            \cos^{n-j}\frac{2k\pi}nI_2 \\
+          = {}& a\sum_{j=2l}\Binom nj\sin^j\frac{2k\pi}n (-1)^lB\cos^{n-j}\frac{2k\pi}nI_2 \\
+            & + a \sum_{j=2l-1}\Binom nj\sin^j\frac{2k\pi}n (-1)^{l-1}B\cos^{n-j}\frac{2k\pi}nI_2 \\
+          =  {}& a\Re\left[ \left(
+            \cos\frac{2k\pi}n + \ii \sin\frac{2k\pi}n
+          \right)^n \right]I_2 + a\Im\left[ \left(
+            \cos\frac{2k\pi}n + \ii \sin\frac{2k\pi}n
+          \right)^n \right]B \\
+          = {}& aI_2 + 0B \\
+          = {}& aI_2
+        \end{align*}
+      \item 与前面的情形类似，
+      \begin{align*}
+        X^n = {}& -a\Re\left[ \left(
+            \cos\frac{(2k+1)\pi}n + \ii \sin\frac{(2k+1)\pi}n
+          \right)^n \right]I_2 \\
+          & - a\Im\left[ \left(
+            \cos\frac{(2k+1)\pi}n + \ii \sin\frac{(2k+1)\pi}n
+          \right)^n \right]B \\
+          = {}& -a [(-1)I_2 + 0B] \\
+          = {}& aI_2.
+      \end{align*}
+      \end{enum}
+\end{itemize}
+
+当$a=1$时，我们有下面的推论.
+\begin{mybox}
+  \begin{corollary}[$I_2$的$n$次方根.]
+
+  方程$X^n=I_2$在$\MM_2(\MR)$中的解形如
+  \[
+    X = \cos\frac{2k\pi}nI_2 + \sin\frac{2k\pi}nB,\;k\in\{0,1,\cdots,n-1\},
+  \]
+  其中$B\in\MM_2(\MR)$满足$B^2=-I_2$. 且如果$n$是偶数，我们还有解$-I_2$，以及
+  \[
+   X = P\begin{pmatrix}
+     1 & 0 \\
+     0 & -1
+   \end{pmatrix}P^{-1},
+  \]
+  其中$P$是任意一个可逆矩阵.
+  \end{corollary}
+\end{mybox}
+
+\begin{remark}
+  注意到如果$X = P\begin{pmatrix}
+     1 & 0 \\
+     0 & -1
+   \end{pmatrix}P^{-1}$，则$X^2=I_2$，所以$X$是对合矩阵. 反过来，如果$n$是偶数，任意对合矩阵$X$都满足方程$X^n=I_2$. 于是对任意$n$，方程$X^n=I_2$的解为
+   \[
+     X = \cos \frac{2k\pi}nI_2 + \sin\frac{2k\pi}nB,\;k=0,1,\cdots,n-1,
+   \]
+   其中$B\in\MM_2(\MR)$满足$B^=-I_2$. 如果$n$是偶数，我们还有解$X=A,X\in\MM_2(\MR)$满足$A^2=I_2$. 于是由例 \ref{exam1.2} 可知矩阵$B$形如
+   \[
+     B = \begin{pmatrix}
+       a & b \\
+       -\frac{1+a^2}b & -a
+     \end{pmatrix},\;a\in\MR,\;b\in\MR^\ast.
+   \]
+\end{remark}
+
+我们将这些计算结果归结为下面的定理.
+\begin{mybox}
+  \begin{theorem}[$aI_2$的$n$次方根.]
+
+  矩阵$X\in\MM_2(\MR)$满足方程$X^n=aI_2,a\in\MR^\ast$当且仅当$X$具有下面的形式：
+  \begin{itemize}
+    \item 当$n$是奇数，或$n$是偶数且$a>0$时，
+    \[
+      X = \sqrt[n]a\left(
+        \cos \frac{2k\pi}nI_2 + \sin \frac{2k\pi}n B
+      \right),\;k\in\{0,1,\cdots,n-1\},
+    \]
+    $B\in\MM_2(\MR)$满足$B^2=-I_2$. 当$n$是偶数且$a>0$时，我们还有以下解：
+    \[
+      X = \sqrt[n]aA,\;A\in\MM_2(\MR)\,\text{满足}\, A^2=I_2.
+    \]
+    \item 当$n$是偶数且$a<0$时，
+    \[
+      X = \sqrt[n]{-a}\left(
+        \cos \frac{(2k+1)\pi}nI_2 + \sin \frac{(2k+1)\pi}n B
+      \right),\;k\in\{0,1,\cdots,n-1\},
+    \]
+    $B\in\MM_2(\MR)$满足$B^2=-I_2$.
+  \end{itemize}
+  \end{theorem}
+\end{mybox}
+
+下面的推论给出$-I_2$的$n$次方根.
+\begin{mybox}
+  \begin{corollary}[$-I_2$的$n$次方根.]
+
+    方程$X^n=-I_2$在$\MM_2(\MR)$中的解具有如下形式：
+    \begin{itemize}
+      \item 当$n$为奇数时，
+      \[
+        X = -\cos\frac{2k\pi}nI_2 - \sin\frac{2k\pi}nB,\; k\in\{0,1,\cdots,n-1\},
+      \]
+      其中$B\in\MM_2(\MR)$满足$B^2=-I_2$.
+      \item 当$n$为偶数时，
+      \[
+       X = \cos\frac{(2k+1)\pi}nI_2 + \sin\frac{(2k+1)\pi}nB,\;k\in\{0,1,\cdots,n-1\},
+      \]
+      其中$B\in\MM_2(\MR)$满足$B^2=-I_2$.
+    \end{itemize}
+  \end{corollary}
+\end{mybox}
+
+\begin{example}[两个矩阵的乘积为零，而它们的$n$次幂的和为$I_2$.]
+
+  设$n\in\MN$，我们要求出矩阵$A,B\in\MM_2(\MR)$使得
+  \[
+    AB = O_2 \quad \text{且} \quad A^n + B^n = I_2.
+  \]
+
+  我们有$A^n=I_2-B^n\Rightarrow O_2=A^nB=B-B^{n+1}\Rightarrow B^{n+1}-B=O_2
+  \Rightarrow\det B=0$或$\det{}^nB=1$. 类似地，$A^{n+1}=A\Rightarrow\det A=0$或$\det{}^nA=1$.
+
+  如果$\det A\ne0\Rightarrow A$可逆$\Rightarrow B=O_2\Rightarrow A^n=I_2$.
+
+  如果$\det B\ne0 \Rightarrow B$可逆$\Rightarrow A=O_2\Rightarrow B^n=I_2$.
+
+  如果$\det A=\det B=0$，则$A^2=t_AA$且$B^2=t_BB$，其中$t_A=\Tr(A),t_B=\Tr(B)$. 方程$A^n+B^n=I_2$意味着$t_A^{n-1}A+t_B^{n-1}B=I_2$.
+
+  由于$A^{n+1}=A$，我们得到$(t_A^n-1)A=O_2$. 如果$t_A^n\ne1$，则$A=O_2\Rightarrow B^n=I_2$，这与$\det B=0$矛盾. 因此，$t_A^n=1\Rightarrow t_A=\pm1$. 类似地，我们有$t_B=\pm1$.
+
+  如果$t_A=t_B=1$，我们得到矩阵$A^2=A,B=I_2-A$.
+
+  如果$t_A=1,t_B=-1$（这意味着$n$是偶数），则$A^2=A,B^2=-B$，且我们得到矩阵$A^2=A,B=A-I_2$.
+
+  如果$t_A=-1,t_B=1$（这意味着$n$是偶数），则$A^2=-A,B^2=B$，且我们得到矩阵$B^2=B,A=B-I_2$.
+
+  如果$t_A=t_B=-1$（这意味着$n$是偶数），我们得到矩阵$A^2=-A,B=-A-I_2$.
+
+\end{example}
+
+\subsection{问题}
+\begin{problem}[\kaishu 二次二项式方程]
+  \begin{enum}
+    \item 设$\MN_0=\{0\}\cup\MN$，求出所有矩阵$A\in\MM_2(\MN_0)$，使得$A^2-6A+5I_2=O_2$.
+    \item 设$a,b\in\MN_0$满足$a^2-4b<0$，证明：方程$A^2-aA+bI_2=O_2$在$\MM_2(\MN_0)$中无解.
+  \end{enum}
+\end{problem}
+
+\begin{problem}
+  给出一个矩阵$A\in\MM_2(\MC)$的例子，使得它恰好在$\MM_2(\MC)$中有两个平方根.
+\end{problem}
+
+\begin{problem}
+  求出所有的$X\in\MM_2(\MR)$使得$X^2=\begin{pmatrix}
+    6 & 5 \\
+    10 & 11
+  \end{pmatrix}$.
+\end{problem}
+
+\begin{problem}
+  \begin{inparaenum}[(a)]
+    \item 求出所有的矩阵$A\in\MM_2(\MR)$使得$A^2=\begin{pmatrix}
+          1 & 0 \\
+          d & 2
+        \end{pmatrix}$，其中$d=\det A$.
+
+    \item 求出所有的矩阵$A\in\MM_2(\MR)$使得$A^2=\begin{pmatrix}
+          1 & 0 \\
+          t & 2
+        \end{pmatrix}$，其中$t=\Tr(A)$.
+  \end{inparaenum}
+\end{problem}
+
+\begin{problem}
+  是否存在实的$2\times2$矩阵$A$使得
+  \[
+    A^2 = \begin{pmatrix}
+      -1 & 0 \\
+      0 & -1 - \varepsilon
+    \end{pmatrix},\quad \varepsilon>0?
+  \]
+\end{problem}
+
+\begin{problem}
+  \cite[p.140]{58} 对怎样的正整数$n$，存在矩阵$A\in\MM_2(\MZ)$，使得$A^n=I_2$且$A^k\ne I_2,0<k<n$?
+\end{problem}
+
+\begin{problem}
+  求出所有的矩阵$A\in\MM_2(\MR)$，使得$AA\TT=\begin{pmatrix}
+    1 & 1 \\
+    1 & 1
+  \end{pmatrix}$.
+\end{problem}
+
+\begin{problem}
+  求出所有的矩阵$A\in\MM_2(\MR)$，使得$AA\TT A=\begin{pmatrix}
+    \alpha & \alpha \\
+    \alpha & \alpha
+  \end{pmatrix}$，其中$\alpha\in\MR$.
+\end{problem}
+
+\begin{problem}
+  \cite{27} 设$A\in\MM_2(\MR)$满足$AA\TT=\begin{pmatrix}
+    a & b \\
+    b & a
+  \end{pmatrix}$，其中$a>b>0$. 证明：$AA\TT=A\TT A$当且仅当$A=\begin{pmatrix}
+    \alpha & \beta \\
+    \beta & \alpha
+  \end{pmatrix}$或$A=\begin{pmatrix}
+    \beta & \alpha \\
+    \alpha & \beta
+  \end{pmatrix}$，其中
+  \[
+    \alpha = \frac{\pm\sqrt{a+b}\pm\sqrt{a-b}}2\quad
+    \text{且} \quad
+    \beta = \frac{\pm\sqrt{a+b}\mp\sqrt{a-b}}2.
+  \]
+\end{problem}
+
+\begin{problem}
+  如果$A\in\MM_2(\MZ)$满足$A^4=I_2$，则或者$A^2=I_2$，或者$A^2=-I_2$.
+\end{problem}
+
+\begin{problem}
+  如果$A\in\MM_2(\MZ)$，且存在$n\in\MN,(n,6)=1$，使得$A^n=I_2$，则$A=I_2$.
+\end{problem}
+
+\begin{mybox}
+  \begin{problem}
+    设$A\in\MM_2(\MQ)$，且存在$n\in\MN$使得$A^n=-I_2$，证明：或者$A^2=-I_2$，或者$A^3=-I_2$.
+  \end{problem}
+\end{mybox}
+
+\begin{mybox}
+  \begin{problem}[$\MM_2(\MQ)$中元素的阶.]
+
+     设$A\in\MM_2(\MQ)$，且存在$n\in\MN$使得$A^n=I_2$，证明：$A^{12}=I_2$.
+  \end{problem}
+\end{mybox}
+
+\begin{problem}
+  求出所有的矩阵$A\in\MM_2(\MZ)$，使得$A^3=\begin{pmatrix}
+    5 & 8 \\
+    8 & 13
+  \end{pmatrix}$.
+\end{problem}
+
+\begin{problem}
+  在$\MM_2(\MR)$中解方程$X^3=\begin{pmatrix}
+    1 & -2 \\
+    2 & -3
+  \end{pmatrix}$.
+\end{problem}
+
+\begin{mybox}
+  \begin{problem}[$I_2$的实三次方根.]
+    \begin{enum}
+      \item\label{prob3.67a} 求出所有的矩阵$X\in\MM_2(\MR)$，使得$X^3=I_2$.
+      \item 设$\varepsilon\ne1$是一个三次单位根，求出所有的矩阵$X\in\MM_2(\MR)$，使得$X^2+\varepsilon X+\varepsilon^2I_2=O_2$.
+    \end{enum}
+  \end{problem}
+\end{mybox}
+
+\begin{mybox}
+  \begin{problem}
+    求出所有的矩阵$A\in\MM_2(\MR)$，使得$AA\TT A=I_2$.
+  \end{problem}
+\end{mybox}
+
+\begin{problem}
+  证明：不存在$A\in\MM_2(\MQ)$，使得$A^4+15A^2+2I_2=O_2$.
+\end{problem}
+
+\begin{problem}
+  设$\SL_2(\MZ)=\{X\in\MM_2(\MZ):\det X=1\}$.
+  \begin{enum}
+    \item 证明：方程$X^2+X^{-2}=I_2$在$\SL_2(\MZ)$中无解.
+    \item 证明：方程$X^2+X^{-2}=-I_2$在$\SL_2(\MZ)$中有解，并求出集合$\{X^n+X^{-n}:X^2+X^{-2}=-I_2,n\in\MN\}$.
+  \end{enum}
+\end{problem}
+
+\begin{problem}[\kaishu 一个有唯一解的五次方程.]
+
+  证明：对任意$a\in\MR$，方程
+  \[
+    X^5 = \begin{pmatrix}
+      a & 1 - a \\
+      1 + a & -a
+    \end{pmatrix}
+  \]
+  在$\MM_2(\MR)$中有唯一解.
+\end{problem}
+
+\begin{problem}
+  设整数$n\ge1$，且令$A=\begin{pmatrix}
+    \cos \alpha & \sin \alpha \\
+    -\sin \alpha & \cos \alpha
+  \end{pmatrix}$，求出所有的$\alpha\in\MR$，使得$A^n=I_2$.
+\end{problem}
+
+\begin{problem}[旋转矩阵的$n$次方根.]
+
+  设$t\in(0,\pi)$给定，求出所有的$X\in\MM_2(\MR)$，使得
+  \[
+    X^n = \begin{pmatrix}
+      \cos t & - \sin t \\
+      \sin t & \cos t
+    \end{pmatrix}.
+  \]
+\end{problem}
+
+\begin{problem}
+  设整数$n\ge2$，在$\MM_2(\MC)$中解方程
+  \[
+    X^n = \begin{pmatrix}
+      1 & 2 \\
+      2 & 4
+    \end{pmatrix}.
+  \]
+\end{problem}
+
+\begin{problem}
+  在$\MM_2(\MC)$中解方程$X^n=\begin{pmatrix}
+    1 & a \\
+    0 & 1
+  \end{pmatrix},a\in\MC^\ast$.
+\end{problem}
+
+\begin{problem}
+  设$A\in\MM_2(\MC),A\ne O_2$且$\det A=0$. 证明：方程$X^n=A,n\ge2$有解当且仅当$A^2\ne O_2$.
+\end{problem}
+
+\begin{problem}
+  设整数$n\ge2$，在$\MM_2(\MC)$中解方程
+  \[
+    X^n = \begin{pmatrix}
+      a & b \\
+      b & a
+    \end{pmatrix},\;a,b\in\MC,\;b\ne0.
+  \]
+\end{problem}
+
+\begin{problem}
+  设$n\in\MN,n\ge2,a\in\MR,b\in\MR^\ast$，在$\MM_2(\MR)$中解方程
+  \[
+    X^n = \begin{pmatrix}
+      a & b \\
+      -b & a
+    \end{pmatrix}.
+  \]
+\end{problem}
+
+\begin{problem}
+  证明：方程
+  \[
+    X^n = \begin{pmatrix}
+      3 & - 1\\
+      0 & 0
+    \end{pmatrix},\;n\in\MN,\;n\ge2
+  \]
+  在$\MM_2(\MQ)$中无解.
+\end{problem}
+
+\begin{problem}
+  在$\MM_2(\MZ)$中解方程$X^3-3X=\begin{pmatrix}
+    -7 & -9 \\
+    3 & 2
+  \end{pmatrix}$.
+\end{problem}
+
+\begin{problem}
+  在$\MM_2(\MR)$中解方程$X^3+X^2=\begin{pmatrix}
+    1 & 1 \\
+    1 & 1
+  \end{pmatrix}$.
+\end{problem}
+
+\begin{mybox}
+  \begin{problem}[两个特殊的无解方程.]
+    \begin{enum}
+      \item 证明：方程$A^3-A-I_2=O_2$在$\MM_2(\MQ)$中无解.
+      \item 设$n\in\MN,n\ge2$. 证明：方程$A^n-AC(0,1)-I_2=O_2$在$\MM_2(\MQ)$中无解，其中$C(0,1)=\begin{pmatrix}
+            0 & 1 \\
+            1 & 0
+          \end{pmatrix}$.
+    \end{enum}
+  \end{problem}
+\end{mybox}
+
+\begin{mybox}
+  \begin{problem}[二项式矩阵理论的瑰宝.]
+
+   设整数$n,k\ge2$，证明：方程$A^n-A^kC(a,b)-I_2=O_2$在$\MM_2(\MQ)$中无解，其中$C(a,b)=\begin{pmatrix}
+     a & b \\
+     b & a
+   \end{pmatrix}$满足$a\ge0$且$b\ge1$均为整数. （$C(a,b)$是问题 \ref{problem3.11} 中定义的旋转矩阵）.
+  \end{problem}
+\end{mybox}
+
+\begin{problem}[\kaishu 一个与行列式和迹有关的矩阵方程.]
+  \begin{enum}
+    \item\label{prob3.84a} 在$\MM_2(\MZ)$中解方程
+    \[
+      X^t + X = \begin{pmatrix}
+        2 & 0 \\
+        3 & 2
+      \end{pmatrix},\;\quad \text{其中$t=\Tr(X)$}.
+    \]
+    \item 在$\MM_2(\MZ)$中解方程
+    \[
+      X^d + X = \begin{pmatrix}
+        2 & 0 \\
+        3 & 2
+      \end{pmatrix},\;\quad \text{其中$d=\det X$}.
+    \]
+  \end{enum}
+\end{problem}
+
+\begin{mybox}
+  \begin{problem}
+    设整数$n\ge3$，求$X\in\MM_2(\MR)$，使得
+    \[
+      X^n + X^{n-2} = \begin{pmatrix}
+        1 & - 1 \\
+        -1 & 1
+      \end{pmatrix}.
+    \]
+  \end{problem}
+\end{mybox}
+
+\begin{mybox}
+  \begin{problem}[$\MM_2(\MZ)$上的两个矩阵方程.]
+    \begin{enum}
+      \item 设$n\in\MN$，在$\MM_2(\MZ)$中解方程$X^{2n+1}+X=I_2$.
+      \item 设$n\in\MN$，在$\MM_2(\MZ)$中解方程$X^{2n+1}-X=I_2$.
+    \end{enum}
+  \end{problem}
+\end{mybox}
+
+\begin{problem}
+  \cite{41} 求出所有的素数$p$，使得存在一个不等于$I_2$的$2\times2$矩阵$A\in\MM_2(\MZ)$，满足$A^p+A^{p-1}+\cdots+A=pI_2$.
+\end{problem}
+
+\begin{problem}
+  设$n\in\MN$，在$\MM_2(\MR)$中解方程
+  \[
+    A + A^3 + \cdots + A^{2n-1} = \begin{pmatrix}
+      n & n^2 \\
+      0 & n
+    \end{pmatrix}.
+  \]
+\end{problem}
+
+\begin{problem}[两个近亲方程.]
+
+  设整数$m,n\ge2$，且矩阵$A\in\MM_2(\MC)$给定. 证明：方程$X^m=A$在$\MM_2(\MC)$中有解当且仅当方程$Y^n=A$在$\MM_2(\MC)$中有解.
+\end{problem}
+
+\begin{mybox}
+  \begin{problem}[二次矩阵方程的Vi\`ete公式.]
+
+  设$A,B\in\MM_2(\MC)$是两个给定的矩阵，考虑矩阵方程
+  \[
+    X^2 - AX + B = O_2.
+  \]
+
+  证明：如果$X_1,X_2$是此方程的两个解，且$X_1-X_2$是可逆的，则
+  \[
+    \Tr(X_1 + X_2) = \Tr(A)\quad \text{且}\quad
+    \det(X_1X_2) = \det B.
+  \]
+\end{problem}
+\end{mybox}
+
+\begin{mybox}
+  \begin{problem}[矩阵寓乐于$\MM_2(\MZ_p)$.]
+
+    设$p$是一个素数，证明：
+    \begin{enum}
+      \item $\begin{pmatrix}
+        \hat a & \hat b \\
+        \hat 0 & \hat a
+      \end{pmatrix}^p=\begin{pmatrix}
+        \hat a & \hat 0 \\
+        \hat b & \hat a
+      \end{pmatrix}^p=\hat aI_2$.
+      \item 如果$p\ge3$，则$\begin{pmatrix}
+        \hat a & \hat b \\
+        \hat b & \hat a
+      \end{pmatrix}^p=\begin{pmatrix}
+        \hat a & \hat b \\
+        \hat b & \hat a
+      \end{pmatrix}$.
+      \item 如果$\hat a+\hat b\ne\hat0$，则$X^p=\begin{pmatrix}
+            \hat a & \hat b \\
+            \hat a & \hat b
+          \end{pmatrix}$当且仅当$X=\begin{pmatrix}
+            \hat a & \hat b \\
+            \hat a & \hat b
+          \end{pmatrix}$.
+      \item 如果$\hat a+\hat b=\hat0,\hat a\ne\hat0$，则方程$X^p=\begin{pmatrix}
+            \hat a & \hat b \\
+            \hat a & \hat b
+          \end{pmatrix}$在$\MM_2(\MZ_p)$中无解.
+      \item 如果$X\in\MM_2(\MZ_p)$满足$\det X=\hat 0$且$\Tr(X)\ne\hat0$，则$X^p=X$.
+      \item\label{prob3.91f} $\begin{pmatrix}
+        \hat 0 & \hat a \\
+        \hat b & \hat 0
+      \end{pmatrix}^p=\begin{pmatrix}
+        \hat 0 & \hat a^{\frac{p+1}2}\hat b^{\frac{p-1}2} \\
+        \hat a^{\frac{p-1}2}\hat b^{\frac{p+1}2} & \hat 0
+      \end{pmatrix},\;p\ge3$.
+      \item $\begin{pmatrix}
+        \hat a & \hat b \\
+        \hat a & \hat a
+      \end{pmatrix}^p=\begin{pmatrix}
+        \hat a & \hat a^{\frac{p-1}2}\hat b^{\frac{p+1}2} \\
+        \hat a^{\frac{p+1}2}\hat b^{\frac{p-1}2} & \hat a
+      \end{pmatrix},\;p\ge3$.
+      \item 如果素数$p\ge5$，则在$\MM_2(\MZ_p)$中恰有$p^2$个矩阵与$\begin{pmatrix}
+            \hat 1 & \hat 2 \\
+            \hat 3 & \hat 4
+          \end{pmatrix}$可交换.
+      \item $\MM_2(\MZ_p)$中的可逆矩阵数目为$(p^2-1)(p^2-p)$.
+    \end{enum}
+  \end{problem}
+\end{mybox}
+
+\begin{mybox}
+  \begin{problem}
+    \begin{inparaenum}[(a)]
+      \item 在$\MM_2(\MZ_5)$中解方程$X^5=\begin{pmatrix}
+            \hat 0 & \hat 1 \\
+            \hat 2 & \hat 0
+          \end{pmatrix}$.
+
+      \item 设素数$p\ge3$，证明：方程$X^p=\begin{pmatrix}
+            \hat 0 & \hat a \\
+            \hat b & \hat 0
+          \end{pmatrix}$有唯一解
+          \[
+            \begin{cases}
+              X = \begin{pmatrix}
+                  \hat 0 & \hat a \\
+                  \hat b & \hat 0
+                \end{pmatrix}, & \text{当且仅当}\;(\hat a^{-1}\hat b)^{\frac{p-1}2} = \hat 1 \\
+              X = \begin{pmatrix}
+                \hat 0 & \widehat{p-a} \\
+                \widehat{p-b} & \hat 0
+              \end{pmatrix}, & \text{当且仅当}\;(\hat a^{-1}\hat b)^{\frac{p-1}2} = -\hat 1
+            \end{cases}.
+          \]
+    \end{inparaenum}
+  \end{problem}
+\end{mybox}
+
+\begin{mybox}
+  \begin{problem}[壮丽的二项式方程.]
+    \begin{enum}
+      \item \cite{49} 在$\MM_2(\MZ_5)$中解方程
+      \[
+        X^5 = \begin{pmatrix}
+          \hat 4 & \hat 2 \\
+          \hat 4 & \hat 1
+        \end{pmatrix}.
+      \]
+      \item 设素数$p\ge3$，在$\MM_2(\MZ_p)$中解方程
+      \[
+        X^p = \begin{pmatrix}
+          \widehat{p-1} & \hat 2 \\
+          \widehat{p-1} & \hat 1
+        \end{pmatrix}.
+      \]
+    \end{enum}
+  \end{problem}
+\end{mybox}
+
+\begin{problem}
+  设$A\in\MM_2(\MC)$，证明：方程$AX-XA=A$在$\MM_2(\MC)$中有唯一解当且仅当$A^2=O_2$.
+\end{problem}
+
+\begin{problem}[\kaishu 两个具有对称元的二项式方程.]
+  \begin{enum}
+    \item 设$A\in\MM_2(\MC)$，证明：方程$AX-XA=I_2$在$\MM_2(\MC)$中无解.
+    \item 证明：如果方程$AX+XA=I_2$在$\MM_2(\MC)$中有解，则或者$A$可逆，或者$A^2=O_2$.
+
+        反过来，证明：如果$A$可逆，或$A^2=O_2$，则方程$AX+XA=I_2$在$\MM_2(\MC)$中有解.
+  \end{enum}
+\end{problem}
+
+\begin{problem}
+  设多项式$P\in\MC[x]$的次数为$n$，证明下面的叙述是等价的：
+  \begin{enum}
+    \item\label{prob3.96a} 方程$P(X)=\begin{pmatrix}
+      1 & 1 \\
+      0 & 1
+    \end{pmatrix}$在$\MM_2(\MC)$中有$n$个不同的解；
+    \item\label{prob3.96b} 方程$P(x)=1$有$n$个不同的根.
+  \end{enum}
+
+  如果方程的$P(x)=1$的根不是互异的，结论是否成立?
+\end{problem}
+
+\begin{problem}
+  设$A=\begin{pmatrix}
+    a & b \\
+    c & d
+  \end{pmatrix}\in\MM_2(\MR)$满足$a+d\ne0$，证明：矩阵$B\in\MM_2(\MR)$与$A$可交换当且仅当$B$与$A^2$可交换.
+\end{problem}
+
+\begin{problem}
+  设$m,n\in\MN$，且$A,B\in\MM_2(\MR)$满足$A^mB^n=B^nA^m$. 证明：如果$A^m$与$B^n$不是形如$\lambda I_2,\lambda\in\MR$，则$AB=BA$.
+\end{problem}
+
+\begin{problem}
+  设$A,B\in\MM_2(\MR)$满足$A^mB=A^m+B,m\in\MN$，证明：$AB=BA$.
+\end{problem}
+
+\subsection{解答}
+\begin{solution}
+  \begin{inparaenum}[(a)]
+    \item 如果$A=\alpha I_2$，我们得到$\alpha=1$或$\alpha=5\Rightarrow A=I_2$或$A=5I_2$. 如果$A\ne\alpha I_2$，由定理 \ref{thm2.6}，我们有$\Tr(A)=6,\det A=5$.
+
+        如果$A=\begin{pmatrix}
+          a & b \\
+          c & d
+        \end{pmatrix}\in\MM_2(\MN_0)$，则$a+d=6$且$ad-bc=5$，于是
+        \[
+          A \in \left\{
+            \begin{pmatrix}
+              1 & 0 \\
+              c & 5
+            \end{pmatrix},\,
+            \begin{pmatrix}
+              1 & b \\
+              0 & 5
+            \end{pmatrix},\,
+            \begin{pmatrix}
+              5 & 0 \\
+              c & 1
+            \end{pmatrix},\,
+            \begin{pmatrix}
+              5 & b \\
+              0 & 1
+            \end{pmatrix},\;b,c\in\MN_0
+          \right\},
+        \]
+        且
+        \[
+          A \in \left\{
+            \begin{pmatrix}
+              2 & 3 \\
+              1 & 4
+            \end{pmatrix},\,
+            \begin{pmatrix}
+              4 & 3 \\
+              1 & 2
+            \end{pmatrix},\,
+            \begin{pmatrix}
+              2 & 1 \\
+              3 & 4
+            \end{pmatrix},\,
+            \begin{pmatrix}
+              4 & 1 \\
+              3 & 2
+            \end{pmatrix},\,
+            \begin{pmatrix}
+              3 & 4 \\
+              1 & 3
+            \end{pmatrix},\,
+            \begin{pmatrix}
+              3 & 1 \\
+              4 & 3
+            \end{pmatrix},\,
+            \begin{pmatrix}
+              3 & 2 \\
+              2 & 3
+            \end{pmatrix}
+          \right\}.
+        \]
+        
+    \item 利用定理 \ref{thm2.6}.
+  \end{inparaenum}
+\end{solution}
+
+\begin{solution}
+  $A=\begin{pmatrix}
+    1 & 0 \\
+    0 & 0
+  \end{pmatrix}$.
+\end{solution}
+
+\begin{solution}
+  {\kaishu 解法一.} 可以直接通过计算来解决问题.
+
+  {\kaishu 解法二.} 由于$\det{}^2X=\det(X^2)=16$，我们得到$\det X=\pm4$.
+
+  {\kaishu 情形一.} 如果$\det X=4$，由Cayley--Hamilton定理，我们有$X^2-\Tr(X)X+4I_2=O_2$，等式两边取迹，我们有$\Tr(X^2)-\big(\Tr(X)\big)^2+4\Tr(I_2)=0$，我们得到$\Tr(X)=\pm5,\pm5X=X^2+4I_2$. 因此
+  \[
+    X_{1,2} = \pm \begin{pmatrix}
+      2 & 1 \\
+      2 & 3
+    \end{pmatrix}.
+  \]
+
+  {\kaishu 情形二.} 如果$\det X=-4$，那么类似于情形一中的计算，我们得到
+  \[
+    X_{3,4} = \pm \frac13\begin{pmatrix}
+      2 & 5 \\
+      10 & 7
+    \end{pmatrix}.
+  \]
+\end{solution}
+
+\begin{solution}
+  \begin{inparaenum}[(a)]
+    \item $\pm\begin{pmatrix}
+      1 & 0 \\
+      2-\sqrt2 & \sqrt2
+    \end{pmatrix}$和$\pm\begin{pmatrix}
+      1 & 0 \\
+      2+\sqrt2 & -\sqrt2
+    \end{pmatrix}$.
+
+    \item $\begin{pmatrix}
+      1 & 0 \\
+      1 & \sqrt2
+    \end{pmatrix},\begin{pmatrix}
+      -1 & 0 \\
+      1 & -\sqrt2
+    \end{pmatrix},\begin{pmatrix}
+      -1 & 0 \\
+      1 & \sqrt2
+    \end{pmatrix}$以及$\begin{pmatrix}
+      1 & 0 \\
+      1 & - \sqrt2
+    \end{pmatrix}$.
+  \end{inparaenum}
+\end{solution}
+
+\begin{solution}
+  设$B=\begin{pmatrix}
+    -1 & 0 \\
+    0 & -1-\varepsilon
+  \end{pmatrix}$，且$A\in\MM_2(\MR)$满足$A^2=B$. 由于$A$和$B$可交换，我们得到$A=\begin{pmatrix}
+    a & 0 \\
+    0 & d
+  \end{pmatrix}$. 由于$A^2=\begin{pmatrix}
+    a^2 & 0 \\
+    0 & d^2
+  \end{pmatrix}$，这意味着$a^2=-1,d^2=-1-\varepsilon$. 由于这些方程没有实根，可知不存在$A\in\MM_2(\MR)$满足$A^2=B$.
+\end{solution}
+
+\begin{solution}
+  $n$的可能值为$2,3,4$和$6$（见 \cite[528--529]{58}）.
+\end{solution}
+
+\begin{solution}
+  $A=\begin{pmatrix}
+    \cos \theta & \sin \theta \\
+    \cos \theta & \sin \theta
+  \end{pmatrix}$，其中$\theta\in\MR$.
+\end{solution}
+
+\setcounter{solution}{59}
+
+\begin{solution}
+  充分性是显然的. 如果$A=\begin{pmatrix}
+    \alpha & \beta \\
+    \beta & \alpha
+  \end{pmatrix}$或$A=\begin{pmatrix}
+    \beta & \alpha \\
+    \alpha & \beta
+  \end{pmatrix}$，其中
+  \[
+    \alpha = \frac{\pm\sqrt{a+b}\pm\sqrt{a-b}}2\quad
+    \text{且} \quad
+    \beta = \frac{\pm\sqrt{a+b}\mp\sqrt{a-b}}2,
+  \]
+  则
+  \[
+    AA\TT = A\TT A =
+    \begin{pmatrix}
+      \alpha^2 + \beta^2 & 2\alpha\beta \\
+      2\alpha\beta & \alpha^2 + \beta^2
+    \end{pmatrix} =
+    \begin{pmatrix}
+      a & b \\
+      b & a
+    \end{pmatrix}.
+  \]
+
+  现在我们证明必要性. 首先注意到$\det(AA\TT)=\det{}^2A=a^2-b^2>0$，那么$A$是可逆的. 方程$AA\TT=\begin{pmatrix}
+    a & b \\
+    b & a
+  \end{pmatrix}$意味着$A\TT=A^{-1}\begin{pmatrix}
+    a & b \\
+    b & a
+  \end{pmatrix}=A^{-1}(aI_2+bJ)$，其中$J=\begin{pmatrix}
+    0 & 1 \\
+    1 & 0
+  \end{pmatrix}$. 方程$AA\TT=A\TT A$意味着$AA\TT=aI_2+bJ=(aA^{-1}+bA^{-1}J)A=A\TT A$，这反过来说明$bA^{-1}JA=bJ$，由于$b\ne0$，我们得到$JA=AJ$. 设$A=\begin{pmatrix}
+    x & y \\
+    u & v
+  \end{pmatrix}$，由于$JA=AJ$，我们得到$u=y,v=x$，所以$A=\begin{pmatrix}
+    x & y \\
+    y & x
+  \end{pmatrix}$. 我们有
+  \[
+    AA\TT = \begin{pmatrix}
+      x^2 + y^2 & 2xy \\
+      2xy & x^2 + y^2
+    \end{pmatrix} =
+    \begin{pmatrix}
+      a & b \\
+      b & a
+    \end{pmatrix},
+  \]
+  而这意味着$x^2+y^2=a$且$2xy=b$. 由于我们得到了一个对称的方程组，显然$x$和$y$的值是可以互换的. 将这两个方程相加减，我们得到$(x+y)^2=a+b$且$(x-y)^2=a-b$，且我们有
+  \[
+    x + y = \pm\sqrt{a+b},\;
+    x - y = \pm\sqrt{a-b}.
+  \]
+  因此，
+  \[
+    x = \frac{\pm\sqrt{a+b}\pm\sqrt{a-b}}2,\;
+    y = \frac{\pm\sqrt{a+b}\mp\sqrt{a-b}}2.
+  \]
+\end{solution}
+
+\begin{solution}
+  如果$\lambda$是$A$的特征值，由于$A^4=I_2$，我们有$\lambda^4=1$，这意味着$\lambda\in\{\pm1,\pm\ii\}$. 设$\lambda_1,\lambda_2$是$A$的特征值.
+
+  如果$\lambda_1=\pm1$，则$\lambda_2=\pm1$或$\lambda_2=\mp1$，这两种情形下，都有$A^2=I_2$.
+
+  如果$\lambda_1=\ii$，则$\lambda_2=-\ii$，我们有$A^2=-I_2$.
+\end{solution}
+
+\begin{solution}
+  首先注意到$n=6l+1$或$n=6l+5$，其中整数$l\ge0$. 如果$\lambda$是$A$的特征值，我们得到$\lambda^n=1\Rightarrow \lambda\in\left\{ \cos\frac{2k\pi}n+\ii\sin\frac{2k\pi}n:
+  k=0,1,\cdots,n-1\right\}$. 由于$A$的特征多项式是整系数的，则$A$的特征值或者都是1，或者它们是复共轭的.
+
+  如果$\lambda_1=\lambda_2=1$，由Cayley--Hamilton定理，我们有$(A-I_2)^2=O_2$，于是$I_2=A^n=(I_2+A-I_2)^n=I_2+n(A-I_2)\Rightarrow A=I_2$.
+
+  如果$A$的特征值是复共轭的，我们设$\lambda_1=\cos\frac{2k\pi}n+\ii\sin\frac{2k\pi}n$且
+  $\lambda_2=\cos\frac{2k\pi}n-\ii\sin\frac{2k\pi}n$，其中$k\in\{1,2,\cdots,n-1\}$. 由于$\Tr(A)=\lambda_1+\lambda_2=2\cos\frac{2k\pi}n\in\MZ$，我们有$2\cos\frac{2k\pi}n\in\{\pm1,0,\pm2\}$.
+
+  如果$2\cos\frac{2k\pi}n=-1\Rightarrow\cos\frac{2k\pi}n=\cos
+  \frac{2\pi}3\Rightarrow\frac{2k\pi}n=\frac{2\pi}3
+  \Rightarrow n=3k$，这与$(n,6)=1$矛盾.
+
+  如果$2\cos\frac{2k\pi}n=1\Rightarrow\cos\frac{2k\pi}n=\cos
+  \frac{\pi}3\Rightarrow\frac{2k\pi}n=\frac{\pi}3
+  \Rightarrow n=6k$，这与$(n,6)=1$矛盾.
+
+  如果$2\cos\frac{2k\pi}n=0\Rightarrow\cos\frac{2k\pi}n=\cos
+  \frac{\pi}2\Rightarrow\frac{2k\pi}n=\frac{\pi}2
+  \Rightarrow n=4k$，这与$(n,6)=1$矛盾.
+
+  如果$2\cos\frac{2k\pi}n=2\Rightarrow\cos\frac{2k\pi}n=1$，这对$1\le k\le n-1$是不可能的.
+
+  如果$2\cos\frac{2k\pi}n=-2\Rightarrow\cos\frac{2k\pi}n=-1
+  \Rightarrow\frac{2k\pi}n=\pi  \Rightarrow n=2k$，这与$(n,6)=1$矛盾.
+\end{solution}
+
+\begin{solution}
+  设$f_A(x)=\det(A-xI_2)\in\MQ[x]$是$A$的特征多项式，且$\lambda_1,\lambda_2$是$A$的特征值. 如果$\lambda$是$A$的特征值，由于$A^n=-I_2$，我们有$\lambda^n=-1$. 由于$f_A\in\MQ[x]$，则或者$A$的特征值都是$-1$，且$n$是奇数，或者它们是复共轭的.
+
+  如果$\lambda_1=\lambda_2=-1$，我们有$(A+I_2)^2=O_2$，于是$-I_2=A^n=(A+I_2-I_2)^n
+  =n(A+I_2)-I_2\Rightarrow A=-I_2\Rightarrow A^3=-I_2$.
+
+  如果$A$的特征值是复共轭的，则我们令$\lambda_1=\cos t+\ii\sin t,\lambda_2=\cos t-\ii\sin t,\lambda_1,\lambda_2\in\MC\backslash\MR$. 由于$\lambda_1^n=-1$，我们有$\cos(nt)=-1$.
+
+  另一方面，$\lambda_1+\lambda_2=2\cos t=s\in\MQ$. 由引理 \ref{lemma3.1}，我们可知存在一个首一的多项式$P_n\in\MZ[x]$，使得$2\cos(nt)=P_n(2\cos t)$. 于是$2\cos t=s$是一个首一的整系数多项式的有理根，因此$s$必是整数. 由于$s\in[-2,2]$，我们得到$s\in\{\pm1,0,\pm2\}$.
+
+  如果$2\cos t=2\Rightarrow\lambda_1=\lambda_2=1$，这是不可能的，因为$1^n\ne-1$.
+
+  如果$2\cos t=-2\Rightarrow\lambda_1=\lambda=-1$，这就是上面讨论过的情形.
+
+  如果$2\cos t=0\Rightarrow A^2+I_2=O_2\Rightarrow A^2=-I_2$.
+
+  如果$2\cos t=1\Rightarrow\Tr(A)=2\cos t=1$，且$\det A=\lambda_1\lambda_2=1\Rightarrow A^2-A+I_2=O_2\Rightarrow(A+I_2)(A^2-A+I_2)=O_2\Rightarrow
+  A^3=-I_2$.
+
+  如果$2\cos t=-1\Rightarrow A^2+A+I_2=O_2\Rightarrow (A-I_2)(A^2+A+I_2)=O_2
+  \Rightarrow A^3=I_2$，所以$A^n\in\{I_2,A,A^2\}$. 由于$A^n=-I_2$，我们得到或者$A=-I_2$，或者$A^2=-I_2$，这说明或者$A^3=-I_2$，或者$A^2=-I_2$.
+\end{solution}
+
+\begin{solution}
+  设$f_A(x)=\det(A-xI_2)\in\MQ[x]$是$A$的特征多项式，且$\lambda_1,\lambda_2$是$A$的特征值. 由于$A^n=I_2$，我们有$\lambda_1^n=\lambda_2^n=1$. 则或者$\lambda_1,\lambda_2$都是实数，或者它们是复共轭的.
+
+  如果$A$的特征值是实的，则$\lambda_1,\lambda_2\in\{-1,1\}$.
+
+  如果$\lambda_1=\lambda_2=1$，我们有$(A-I_2)^2=O_2$，于是$I_2=A^n=(I_2+A-I_2)^n
+  =I_2+n(A-I_2)\Rightarrow A=I_2\Rightarrow A^{12}=I_2$.
+
+  如果$\lambda_1=\lambda_2=-1$，则$n$为偶数，且$(A+I_2)^2=O_2$. 于是$I_2=A^n=[-I_2+(A+I_2)]^n=I_2-n(A+I_2)\Rightarrow A=-I_2
+  \Rightarrow A^{12}=I_2$.
+
+  如果$\lambda_1=1,\lambda_2=-1$，则$A^2-I_2=O_2\Rightarrow
+  A^2=I_2\Rightarrow A^{12}=I_2$.
+
+  如果$A$的特征值是复共轭的，我们令$\lambda_{1,2}=\cos\alpha\pm\ii\sin\alpha$，且我们有$\Tr(A)=2\cos\alpha=s\in\MQ,\cos(n\alpha)=1,\det A=\lambda_1\lambda_2=1$.
+
+  由引理 \ref{lemma3.1}，存在一个首一多项式$P_n\in\MZ[x]$，使得$2\cos(n\alpha)=P_n(2\cos \alpha)$. 因此，$s=2\cos\alpha$是一个首一的整系数多项式的根，即它是方程$P_n(x)-2=0$的一个解. 因此，$s$必为整数，且由于$s\in[-2,2]$，我们有$s\in\{\pm2,\pm1,0\}$.
+
+  $s=-2$或$s=2$的情形意味着$\lambda_1=\lambda_2=-1$或$\lambda_1=\lambda_2=1$，这和上面的讨论一样.
+
+  如果$s=-1$，则$A^2+A+I_2=O_2\Rightarrow(A-I_2)(A^2+A+I_2)=O_2\Rightarrow A^3=I_2\Rightarrow A^{12}=I_2$.
+
+  如果$s=1$，则$A^2-A+I_2=O_2\Rightarrow(A+I_2)(A^2-A+I_2)=O_2\Rightarrow A^3=-I_2\Rightarrow A^{12}=I_2$.
+
+  如果$s=0$，则$A^2+I_2=O_2\Rightarrow A^2=-I_2\Rightarrow A^{12}=I_2$.
+
+  前面的计算说明$\MM_2(\MQ)$中矩阵的阶可以是$1,2,3,4,6$. 其中这些矩阵的例子分别为$A_1=I_2$，满足$A_1^1=I_2$；$A_2=-I_2$，满足$A_2^2=I_2$；$A_3=\begin{pmatrix}
+    -1 & 1 \\
+    -1 & 0
+  \end{pmatrix}$，满足$A_3^3=I_2$；$A_4=\begin{pmatrix}
+    0 & -1 \\
+    1 & 0
+  \end{pmatrix}$，满足$A_4^4=I_2$；以及$A_5=\begin{pmatrix}
+    1 & 1 \\
+    -1 & 0
+  \end{pmatrix}$，满足$A_5^6=I_2$. 这就证明了$\GL_2(\MQ)$中矩阵的阶为$1,2,3,4,6$.
+
+  对矩阵$A$的元均为整数的情形，见 \cite[Problem 7.7.7, p.145]{58}.
+\end{solution}
+
+\begin{solution}
+  由于$\det{}^3A=\det(A^3)=1$，我们得到$\det A=1$. 另一方面，Cayley--Hamilton定理意味着$A^2=\Tr(A)A-I_2$，于是$A^3=\Tr(A)A^2-A=\big(\Tr^2(A)-1\big)-\Tr(A)I_2$. 在等式两边取迹，我们有$18=\Tr(A^3)=\Tr^3(A)-3\Tr(A)$，因此$\Tr(A)=3$且$A=\begin{pmatrix}
+    1 & 1 \\
+    1 & 2
+  \end{pmatrix}$.
+\end{solution}
+
+\begin{solution}
+  由于$\det{}^3X=1$，我们得到$\det X=1$. 如果$t=\Tr(A)$，则Cayley--Hamilton定理意味着$X^2-tX+I_2=O_2$且$X^3=tX^2-X=(t^2-1)X-tI_2$. 在这个等式两边取迹，我们有$t^3-3t+2=0$，这说明$t\in\{-2,1\}$.
+
+  如果$t=1$，我们得到$X^3=-I_2$，这是不可能的，因为$X^3=\begin{pmatrix}
+    1 & -2 \\
+    2 & -3
+  \end{pmatrix}$.
+
+  如果$t=-2$，由于$3X+2I_2=X^3=\begin{pmatrix}
+    1 & -2 \\
+    2 & -3
+  \end{pmatrix}$，我们得到$X=\dfrac13\begin{pmatrix}
+    -1 & -2 \\
+    2 & -5
+  \end{pmatrix}$.
+\end{solution}
+
+\begin{solution}
+  \begin{inparaenum}[(a)]
+    \item 设$X=\begin{pmatrix}
+      a & b \\
+      c & d
+    \end{pmatrix}$，由于$X^3=I_2$，通过取行列式，我们得到$\det X=1$. 由Cayley--Hamilton定理，我们有$X^2=(a+d)X-I_2$，于是$X^3=(a+d)X^2-X=(a+d)^2X-(a+d)I_2-X=I_2$. 因此，$[(a+d)^2-1]X=(1+a+d)I_2$反过来说明
+    \[
+      \left\{
+        \begin{aligned}
+          & [(a+d)^2-1]a = 1 + a + d \\
+          & [(a+d)^2-1]b = 0 \\
+          & [(a+d)^2-1]c = 0 \\
+          & [(a+d)^2-1]d = 1 + a + d
+        \end{aligned}
+      \right..
+    \]
+  将第一个式子与最后一个式子相加，我们得到$t^3-3t-2=0$，其中$t=a+d$，此方程的解为$t_1=t_2=-1,t_3=2$.
+
+  如果$a+d=-1$，则
+  \[
+    X = \begin{pmatrix}
+      a & b \\
+      c & -1-a
+    \end{pmatrix},\;a\in\MR,\; bc = -1 - a - a^2.
+  \]
+
+  如果$a+d=2$，则$a=d=1,b=c=0$，这意味着$X=I_2$.
+
+  \item 由于$X^2+\varepsilon X+\varepsilon^2 I_2=O_2$，我们得到$X^3=I_2$，由 \ref{prob3.67a}，我们得到$X=I_2$.
+  \end{inparaenum}
+\end{solution}
+
+\begin{solution}
+  我们有$A^{-1}=AA\TT$，且由于$AA\TT$是对称矩阵，我们得到$A$也是对称矩阵. 待求的方程变为$A^3=I_2$，由于$A$是对称矩阵，我们得到$A=I_2$.
+\end{solution}
+
+\setcounter{solution}{70}
+
+\begin{solution}
+  如果$A=\begin{pmatrix}
+    a & 1-a \\
+    1+a & -a
+  \end{pmatrix}$，则$\det{}^5X=\det A=-1$，所以$\det X=-1$. 令$t=\Tr(X)$，由Cayley--Hamilton定理，我们有$X^2-tX-I_2=O_2,X^3=tX^2+X=(t^2+1)X+tI_2$，且$X^5=X^2X^3=
+  (t^4+3t^2+1)X+(t^3+2t)I_2$. 等式两边取迹，且利用$X^5=A$，我们得到$(t^4+3t^2+1)t+2(t^3+2t)=0\Leftrightarrow
+  t^5+5t^3+5t=0$，此方程的唯一实数解为$t=0$，这意味着$X^2=I_2$且$X=X^5=A$.
+\end{solution}
+
+\begin{solution}
+  由于$A^n=\begin{pmatrix}
+    \cos n\alpha & \sin n\alpha \\
+    -\sin n\alpha & \cos n\alpha
+  \end{pmatrix}$，我们得到$\cos n\alpha=1$且$\sin n\alpha=0$. 这意味着$n\alpha=2k\pi,k\in\MZ$且$n\alpha=m\pi,m\in\MZ$. 因此$2k=m$且$\alpha=\frac{2k\pi}n,k\in\MZ$.
+\end{solution}
+
+\begin{solution}
+  设
+  \[
+    A = \begin{pmatrix}
+      \cos t & - \sin t\\
+      \sin t & \cos t
+    \end{pmatrix} \quad \text{以及}\quad
+    X = \begin{pmatrix}
+      a & b \\
+      c & d
+    \end{pmatrix}.
+  \]
+  我们有$X^{n+1}=AX=XA$，而这意味着
+  \[
+    \left\{
+      \begin{aligned}
+        & b\sin t = -c\sin t \\
+        & -a\sin t = -d\sin t
+      \end{aligned}
+    \right.\quad \xLongleftrightarrow{\sin t\ne0}
+    \quad
+    \left\{
+      \begin{aligned}
+        & a = d \\
+        & b + c = 0
+      \end{aligned}
+    \right.,
+  \]
+  所以$X=\begin{pmatrix}
+    a & -b \\
+    b & a
+  \end{pmatrix}$. 由于$X^n=A$，我们得到$\det{}^nX=\det A=1$，这意味着$\det X\in\{\pm1\}\Leftrightarrow a^2+b^2\in\{\pm1\}$，所以$a^2+b^2=1$. 存在$x\in\MR$使得$a=\cos x$且$y=\sin x$，这意味着
+  \[
+    X = \begin{pmatrix}
+      \cos x & -\sin x\\
+      \sin x & \cos x
+    \end{pmatrix}\quad \text{且}\quad
+    X^n = \begin{pmatrix}
+      \cos nx & -\sin nx \\
+      \sin nx & \cos nx
+    \end{pmatrix} =
+    \begin{pmatrix}
+      \cos t & - \sin t \\
+      \sin t & \cos t
+    \end{pmatrix}.
+  \]
+  所以$nx=t+2k\pi,k\in\MZ$，原方程有$n$个解
+  \[
+    X_k = \begin{pmatrix}
+      \cos x_k & -\sin x_k \\
+      \sin x_k & \cos x_k
+    \end{pmatrix},\quad x_k = \frac{t+2k\pi}n,\;
+    k=0,1,\cdots,n-1.
+  \]
+\end{solution}
+
+\begin{solution}
+  令$A=\begin{pmatrix}
+    1 & 2 \\
+    2 & 4
+  \end{pmatrix}$，方程$X^n=A$意味着$\det X=0$，而这反过来又意味着$t^{n-1}X=A$，其中$t=\Tr(A)$. 在这个等式两边取迹，我们得到$t^n=5$. 此方程的解为$t_k=\sqrt[n]5\left(\cos\frac{2k\pi}n+\ii\sin
+  \frac{2k\pi}n\right),k=0,1,\cdots,n-1$. 因此，$X_k=\frac1{t_k^{n-1}}A,k=0,1,\cdots,n-1$，是原矩阵方程的$n$个解.
+\end{solution}
+
+\begin{solution}
+  如果$A=\begin{pmatrix}
+    1 & a \\
+    0 & 1
+  \end{pmatrix}$，由于$AX=XA$，我们得到$X=\begin{pmatrix}
+    \alpha & \beta \\
+    0 & \alpha
+  \end{pmatrix}$，进一步有
+  \[
+    X^n = \begin{pmatrix}
+      \alpha^n & n\alpha^{n-1}\beta \\
+      0 & \alpha^n
+    \end{pmatrix} =
+    \begin{pmatrix}
+      1 & a \\
+      0 & 1
+    \end{pmatrix},
+  \]
+  所以$\alpha^n=1$且$n\alpha^{n-1}\beta=a$. 于是
+  \[
+    \alpha = \varepsilon_k = \cos\frac{2k\pi}n + \ii\sin \frac{2k\pi}n\quad \text{且} \quad
+    \beta_k = \frac{a\varepsilon_k}n,\;k=0,1,\cdots,n-1.
+  \]
+
+  原方程的$n$个解为
+  \[
+    X_k = \begin{pmatrix}
+      \varepsilon_k & \frac{a\varepsilon_k}n \\
+      0 & \varepsilon_k
+    \end{pmatrix},\;k=0,1,\cdots,n-1.
+  \]
+\end{solution}
+
+\begin{solution}
+  首先我们证明必要性. 我们有$X^n=A\Rightarrow\det X=0\Rightarrow X^n=t^{n-1}X$，其中$t=\Tr(X)$. 因此，$t^{n-1}X=A$. 假定$A^2=O_2$，则$t=0$且$t^{n-1}X=A=O_2$，这与$A\ne O_2$矛盾.
+
+  现在我们来证明充分性. 解方程$X^n=A$，我们得到$\det X=0\Rightarrow X^n=t^{n-1}X$，其中$t=\Tr(X)$，且由于$X^2\ne O_2$，我们有$t\ne0$. 于是$t^{n-1}X=A$，通过取迹，我们得到$t^n=\Tr(A)$. 由于$A^2\ne O_2$，则$\Tr(A)\ne0$. 我们得到矩阵方程的解为$X_k=\frac{t_k}{\Tr(A)}A,k=0,1,\cdots,n-1$，其中$t_k$是方程$t^n=\Tr(A)$的解.
+\end{solution}
+
+\begin{solution}
+  设$A=\begin{pmatrix}
+    a & b \\
+    b & a
+  \end{pmatrix}$. 由于$X^{n+1}=X^nX=XX^n$，我们得到$AX=XA$，由于$b\ne0$，这意味着$X=\begin{pmatrix}
+    x & y \\
+    y & x
+  \end{pmatrix}$. 直接计算可得
+  \[
+    X^n = \begin{pmatrix}
+      \frac{(x+y)^n+(x-y)^n}2 & \frac{(x+y)^n-(x-y)^n}2 \\
+      \frac{(x+y)^n-(x-y)^n}2 &
+      \frac{(x+y)^n+(x-y)^n}2
+    \end{pmatrix}.
+  \]
+
+  方程$X^n=A$意味着
+  \[
+    \left\{
+      \begin{aligned}
+        & (x+y)^n + (x-y)^n = 2a \\
+        & (x+y)^n - (x-y)^n = 2b
+      \end{aligned}
+    \right.\quad \Rightarrow \quad
+    \left\{
+      \begin{aligned}
+        & (x+y)^n = a + b \\
+        & (x-y)^n = a - b
+      \end{aligned}
+    \right..
+  \]
+  此方程组的解为$x=\frac{\alpha+\beta}2,y=\frac{\alpha-\beta}2$，其中$\alpha,\beta\in\MC$满足$\alpha^n=a+b,\beta^n=a-b$. 因此
+  \[
+    X = \begin{pmatrix}
+      \frac{\alpha+\beta}2 & \frac{\alpha-\beta}2 \\
+      \frac{\alpha-\beta}2 & \frac{\alpha+\beta}2
+    \end{pmatrix}.
+  \]
+
+  此矩阵方程在$\MM_2(\MC)$中有$n^2$个解.
+\end{solution}
+
+\begin{solution}
+  注意到$A=\begin{pmatrix}
+    a & b \\
+    -b & a
+  \end{pmatrix}=\sqrt{a^2+b^2}\begin{pmatrix}
+    \cos t & \sin t \\
+    -\sin t & \sin t
+  \end{pmatrix}$，见问题 \ref{problem3.73} 的解答.
+\end{solution}
+
+\begin{solution}
+  令$A=\begin{pmatrix}
+    3 & -1 \\
+    0 & 0
+  \end{pmatrix}$. 通过反证法，我们假定存在$X\in\MM_2(\MQ)$使得$X^n=A,n\ge2$. 这意味着$\det X=0\Rightarrow X^n=t^{n-1}X$，其中$t=\Tr(X)$. 矩阵方程变为$t^{n-1}X=A$，通过在这个等式两边取迹，我们得到$t^n=3$，然而此方程是没有有理根的.
+\end{solution}
+
+\begin{solution}
+  令$A=\begin{pmatrix}
+    -7 & -9 \\
+    3 & 2
+  \end{pmatrix},t=\Tr(X)\in\MZ$，且设$d=\det X\in\MZ$. Cayley--Hamilton定理意味着$X^2-tX+dI_2=O_2$，于是$X^3-3X=(t^2-d-3)X-tdI_2$. 因此，$A=(t^2-d-3)X-tdI_2$，在这个等式两边取迹，我们得到$(t^2-d-3)t-2td=-5\Leftrightarrow t(t^2-3d-3)=-5$，这说明$t\in\{-5,-1,1,5\}$.
+
+  如果$t=-5$，我们得到$d=7$，这意味着$X\notin \MM_2(\MZ)$.
+  
+  如果$t=1$，我们有$d=1$，且$X=\begin{pmatrix}
+    2 & 3 \\
+    -1 & -1
+  \end{pmatrix}\in\MM_2(\MZ)$.
+
+  $t=-1$和$t=5$的情形将得到$d\notin\MZ$.
+
+  因此，原三次矩阵方程的唯一解为$X=\begin{pmatrix}
+    2 & 3 \\
+    -1 & -1
+  \end{pmatrix}$.
+\end{solution}
+
+\begin{solution}
+  令$A=\begin{pmatrix}
+    1 & 1 \\
+    1 & 1
+  \end{pmatrix}$，且设$X\in\MM_2(\MR)$满足$X^3+X^2=A$. 我们有$AX=XA=X^4+X^3$，这说明$X=\begin{pmatrix}
+    x & y \\
+    y & x
+  \end{pmatrix},x,y\in\MR$. 直接计算可得
+  \[
+    \left\{
+      \begin{aligned}
+        & x^3 + 3xy^2 + x^2 + y^2 = 1 \\
+        & 3x^2y + y^3 + 2xy = 1
+      \end{aligned}
+    \right..
+  \]
+  将这两个方程相减，我们得到$(x-y)^2(x-y+1)=0$，于是$x=y$或$x=y-1$. 我们得到方程的解为
+  \[
+    X_1 = \frac12\begin{pmatrix}
+      1 & 1 \\
+      1 & 1
+    \end{pmatrix}\quad \text{以及}\quad
+    X_2 = \begin{pmatrix}
+      0 & 1 \\
+      1 & 0
+    \end{pmatrix}.
+  \]
+\end{solution}
+
+\begin{solution}
+  \begin{inparaenum}[(a)]
+    \item 设$\lambda_1,\lambda_2$是$A$的特征值，我们应用定理 \ref{thm2.11}，首先考虑$\lambda_1,\lambda_2\in\MQ$中的情形.
+
+        如果$J_A=\begin{pmatrix}
+          \lambda_1 & 0 \\
+          0 & \lambda_2
+        \end{pmatrix}$，则$A^3-A-I_2=O_2$意味着$J_A^3-J_A-I_2=O_2\Rightarrow \lambda_i^3-\lambda_i-1=0,i=1,2$. 然而，方程$x^3-x-1=0$没有有理根.
+
+        如果$J_A=\begin{pmatrix}
+          \lambda & 1 \\
+          0 & \lambda
+        \end{pmatrix},\lambda\in\MQ$，则$J_A^3-J_A-I_2=O_2$意味着$\lambda^3-\lambda-1=0$且$3\lambda^2-1=0$，此方程没有有理根.
+
+        现在我们考虑当$\lambda_1,\lambda_2\in\MC\backslash \MQ$的情形，$\lambda_1=\alpha+\sqrt\beta,\lambda_2=\alpha
+        -\sqrt\beta,\alpha\in\MQ,\beta\in\MQ^\ast$. 设$J_A=\begin{pmatrix}
+          \alpha & 1 \\
+          \beta & \alpha
+        \end{pmatrix}$是$A$的有理标准形，方程$J_A^3-J_A-I_2=O_2$意味着$\alpha^3+3\alpha\beta-\alpha-1=0$且$3\alpha^2+\beta
+        -1=0$. 于是$8\alpha^3-2\alpha+1=0$，这个方程也没有有理根.
+
+        \item 见问题 \ref{problem3.83} 的解答.
+  \end{inparaenum}
+\end{solution}
+
+\begin{solution}
+  不失一般性，我们考虑$n\ge k$. 我们有$A^k\big(A^{n-k}-C(a,b)\big)=I_2$，这说明$A^k$与$A^{n-k}-C(a,b)$互为逆矩阵，因此它们是可交换的. 于是$\big(A^ {n-k}-C(a,b)\big)A^k=I_2$，这意味着$A^kC(a,b)=C(a,b)A^k$. 计算可得$A^k=\begin{pmatrix}
+    x & y \\
+    y & x
+  \end{pmatrix},x,y\in\MQ$. 我们有$A^k=\alpha_kA+\beta_kI_2,\alpha_k,\beta_k\in\MQ$. 我们分$\alpha_k=0$和$\alpha_k\ne0$的情形.
+
+  如果$\alpha_k=0$，则$A^k=\beta_kI_2=C(x,y)\Rightarrow \beta_k=x$且$y=0$，所以$A^k=xI_2$. 注意到$x\ne0$，否则$A^k=O_2$，与$A$可逆是矛盾的. 由于$A^k=xI_2$，方程$A^n-A^kC(a,b)-I_2=O_2$意味着$A^{n-k}=C\left(a+\frac1x,b\right)$. 由于$A$与$C\left(a+\frac1x,b\right)$可交换，且$b\ne0$，我们得到$A$也是一个旋转矩阵. 设$A=C(u,v)$，方程$A^k=xI_2$意味着$(u+v)^k+(u-v)^k=2x$且$(u+v)^k-(u-v)^k=0$. 如果$u+v=0$，我们得到$A=C(u,-u)$是不可逆的. 因此$u+v\ne0$，方程$(u+v)^k-(u-v)^k=0$意味着$u-v=\pm(u+v)$.
+
+  如果$u-v=u+v$，则$v=0\Rightarrow A=uI_2\Rightarrow A^{n-k}=u^{n-k}I_2=C\left(a+\frac1x,b\right)$，这与$b\ne0$矛盾.
+
+  如果$u-v=-u-v$，则$u=0\Rightarrow A=C(0,v)$，方程$A^k=xI_2$意味着$k$是偶数，且$x=v^k>0$. 另一方面，
+  \[
+    C\left( a + \frac1x ,b \right) = A^{n-k} =
+    \begin{cases}
+      v^{n-k}C(0,1), & \text{如果$n$为奇数} \\
+      v^{n-k}I_2, & \text{如果$n$为偶数}
+    \end{cases}.
+  \]
+
+  如果$n$为奇数，则我们有$a+\frac1x=0\Rightarrow x=-\frac1a<0$，这与$x>0$矛盾.
+
+  如果$n$为偶数，则$b=0$，这是不可能的.
+
+  如果$\alpha_k\ne0$，我们有$A=\frac1{\alpha_k}(A^k-\beta_kI_2)=\frac1{\alpha_k}
+  \big(C(x,y)-\beta_kI_2\big)$. 因此，$A$是一个旋转矩阵. 设$A=C(\theta,\delta),\theta,\delta\in\MQ$. 令
+  \[
+    t_k = \frac{(\theta+\delta)^k+(\theta-\delta)^k}2\quad \text{以及}\quad w_k = \frac{(\theta+\delta)^k-(\theta-\delta)^k}2.
+  \]
+
+  方程$A^n-A^kC(a,b)-I_2=O_2$意味着$t_n-at_k-bw_k-1=0$且$w_n-by_k-aw_k=0$. 将这两个式子相加，我们得到$(\theta+\delta)^n-(a+b)(\theta-\delta)^k-1=0$. 然而，此方程是没有有理根的.
+\end{solution}
+
+\begin{solution}
+  \begin{inparaenum}[(a)]
+    \item 令$A=\begin{pmatrix}
+      2 & 0 \\
+      3 & 2
+    \end{pmatrix}$，且设$X\in\MM_2(\MZ)$是矩阵方程$X^t+X=A$的一个解，其中$t=\Tr(X)$. 由于$X$与$A$可交换，通过计算可知$X=\begin{pmatrix}
+      x & 0 \\
+      u & x
+    \end{pmatrix},x,u\in\MZ$.
+
+    另一方面，$X^k=\begin{pmatrix}
+      x^k & 0 \\
+      kx^{k-1}u & x^k
+    \end{pmatrix},k\in\MZ$，这意味着
+    \[
+      X^t + X = \begin{pmatrix}
+        x^t + x & 0 \\
+        tx^{t-1}u + u & x^t + x
+      \end{pmatrix} = \begin{pmatrix}
+      2 & 0 \\
+      3 & 2
+    \end{pmatrix}.
+    \]
+    我们得到方程$x^t+x=2$和$tx^{t-1}u+u=3$，其中$t=\Tr(X)=2x$.
+
+    通过计算可知$x=u=1$，因此$X=\begin{pmatrix}
+      1 & 0 \\
+      1 & 1
+    \end{pmatrix}$.
+
+    \item 与 \ref{prob3.84a} 中一样，我们得到方程$x^d+x=2$和$dx^{d-1}u+u=3$，其中$d=x^2$，而这意味着方程$X^d+X=A$是无解的.
+  \end{inparaenum}
+\end{solution}
+
+\begin{solution}
+  设$X=\begin{pmatrix}
+    a & b \\
+    c & d
+  \end{pmatrix}$是原方程的一个解，我们有
+  \[
+    X^n + X^{n-2} = X^{n-2}(X + \ii I_2)(X - \ii I_2),
+  \]
+  于是有$\det X=0$或$\det(X+\ii I_2)=0$或$\det(X-\ii I_2)=0$.
+
+  如果$\det(X+\ii I_2)=0$，我们得到$(a+\ii)(d+\ii)-bc=0\Rightarrow ad-bc-1=0$且$a+d=0$. 我们有$d=-a,bc=-1-a^2$，通过计算可得
+  \[
+    X^2 = \begin{pmatrix}
+      a^2 + bc & b(a + d) \\
+      c(a + d) & d^2 + bc
+    \end{pmatrix} = \begin{pmatrix}
+      -1 & 0 \\
+      0 & -1
+    \end{pmatrix} = -I_2,
+  \]
+  且这意味着$X^{n-2}(X^2+I_2)=O_2$，矛盾.
+
+  通过类似的分析，我们得到$\det(X-\ii I_2)=0$的情形也会得出矛盾.
+
+  现在我们研究$\det X=0$的情形. Cayley--Hamilton定理意味着$X^2=(a+d)X\Rightarrow X^k=(a+d)^{k-1}X,\forall k\ge1$. 因此，
+  \[
+    X^n + X^{n-2} = \big[ (a+d)^{n-1} + (a+d)^{n-3} \big] X = \begin{pmatrix}
+      1 & -1 \\
+      -1 & 1
+    \end{pmatrix}.
+  \]
+
+  设$a+d=t$，于是由上述方程可得
+  \[
+    \left\{
+      \begin{aligned}
+        & a(t^{n-1} + t^{n-3}) = 1 \\
+        & b(t^{n-1} + t^{n-3}) = -1 \\
+        & c(t^{n-1} + t^{n-3}) = -1 \\
+        & d(t^{n-1} + t^{n-3}) = 1
+      \end{aligned}
+    \right..
+  \]
+  将第一个式子与最后一个式子相加，我们得到$t^n+t^{n-2}-2=0$.
+
+  设$f:\MR\to\MR,f(x)=x^n+x^{n-2}-2$，则$f'(x)=x^{n-3}(nx^2+n-2)$.
+
+  我们分别讨论$n$为偶数和奇数的情形.
+  \begin{itemize}
+    \item 如果$n$为偶数，我们有
+    \[
+      f'(x) \begin{cases}
+        >0, & x\in(0,+\infty) \\
+        <0, & x\in(-\infty,0)
+      \end{cases}.
+    \]
+    由于$f(-1)=f(1)=0$，我们得到$-1$和$1$是方程$f(x)=0$的所有实根. 通过计算可得
+    \[
+      t=1 \quad \Rightarrow \quad X_1 = \frac12\begin{pmatrix}
+        1 & - 1\\
+        -1 & 1
+      \end{pmatrix},
+    \]
+    且
+    \[
+      t = -1 \quad \Rightarrow \quad
+      X_2 = -\frac12\begin{pmatrix}
+        1 & - 1\\
+        -1 & 1
+      \end{pmatrix}.
+    \]
+    \item 如果$n$为奇数，我们有$f'(x)>0$对所有的$x\ne0$成立，1是方程$f(x)=0$的唯一实根，这意味着原矩阵方程的唯一解为
+        \[
+          X = \frac12\begin{pmatrix}
+                 1 & - 1\\
+                 -1 & 1
+            \end{pmatrix}.
+        \]
+  \end{itemize}
+\end{solution}
+
+\begin{solution}
+  \begin{inparaenum}[(a)]
+    \item 此方程有解当且仅当$n=3k+2,k\ge0$，此时，方程等价于$X^2-X+I_2=O_2$.
+
+    \item 此方程在$\MM_2(\MZ)$中无解.
+  \end{inparaenum}
+\end{solution}
+
+\begin{solution}
+  满足条件的素数只有2和3（见 \cite{46}）.
+\end{solution}
+
+\begin{solution}
+  $A=\begin{pmatrix}
+    0 & 1 \\
+    1 & 1
+  \end{pmatrix}$.
+\end{solution}
+
+\begin{solution}
+  我们来证明，方程$X^m=A$在$\MM_2(\MC)$中有解当且仅当$A^2\ne O_2$或$A=O_2$（这个条件对方程$Y^n=A$也成立）. 设$J_A$是$A$的Jordan标准形，且设可逆矩阵$P\in\MM_2(\MC)$满足$A=PJ_AP^{-1}$. 设$X\in\MM_2(\MC)$是方程$X^m=A$的一个解，令$X_1=P^{-1}XP$. 矩阵方程$X^m=A$变为$X_1^m=J_A$.
+
+  如果矩阵$J_A$是对角阵，即$J_A=\begin{pmatrix}
+    \lambda_1 & 0 \\
+    0 & \lambda_2
+  \end{pmatrix}$，显然方程有一个解$X_1=\begin{pmatrix}
+    \mu_1 & 0 \\
+    0 & \mu_2
+  \end{pmatrix}$，其中$\mu_1^m=\lambda_1$且$\mu_2^m=\lambda_2$.
+
+  如果$J_A=\begin{pmatrix}
+    \lambda & 1 \\
+    0 & \lambda
+  \end{pmatrix}$，则$X_1$与$J_A$可交换，$X_1=\begin{pmatrix}
+    a & b \\
+    0 & a
+  \end{pmatrix}$，且$X_1^m=\begin{pmatrix}
+    a^m & ma^{m-1}b \\
+    0 & a^m
+  \end{pmatrix}$. 我们得到方程$a^m=\lambda$且$ma^{m-1}b=1$，此方程组有解当且仅当$\lambda\ne0$，而当$\lambda=0$时方程组无解. 因此，方程$X^m=A$无解的情形只有一种$J_A=\begin{pmatrix}
+    0 & 1 \\
+    0 & 0
+  \end{pmatrix}$，这就相应于$A^2=O_2$且$A\ne O_2$的情形.
+\end{solution}
+
+\begin{solution}
+  由于$X_1$和$X_2$都是方程的解，我们得到$X_1^2-AX_1+B=O_2,X_2^2-AX_2+B=O_2$，将这两个式子相减，我们得到$X_1^2-X_2^2=A(X_1-X_2)$. 设$Y=X_1-X_2$，我们得到$A=(X_1^2-X_2^2)Y^{-1}$. 令$Z=YX_2Y^{-1}$，由于$\Tr(X_2)=\Tr(Z)$，我们有
+  \begin{align*}
+    \Tr(X_1 + X_2) & = \Tr(X_1) + \Tr(X_2) \\
+    & = \Tr(X_1) + \Tr(Z) = \Tr(X_1 + Z) \\
+    & = \Tr\big[ (X_1Y + YX_2)Y^{-1} \big] \\
+    & = \Tr\big[ (X_1^2 - X_1X_2 + X_1X_2 - X_2^2)Y^{-1} \big] \\
+    & = \Tr\big[ (X_1^2 - X_2^2)Y^{-1} \big] \\
+    & = \Tr(A).
+  \end{align*}
+  另一方面，
+  \begin{align*}
+    B & = AX_1 - X_1^2 \\
+    & = (X_1^2 - X_2^2)Y^{-1}X_1 - X_1^2 \\
+    & = (X_1^2 - X_2^2 - X_1Y)Y^{-1}X_1 \\
+    & = (X_1^2 - X_2^2 - X_1^2 + X_1X_2)Y^{-1}X_1 \\
+    & = (X_1 - X_2)X_2Y^{-1}X_1 \\
+    & = YX_2Y^{-1}X_1,
+  \end{align*}
+  取行列式，我们得到$\det B=\det(X_1X_2)$.
+\end{solution}
+
+\begin{solution}
+  \begin{inparaenum}[(a)]
+    \item 令$B=\begin{pmatrix}
+      \hat 0 & \hat 1 \\
+      \hat 0 & \hat 0
+    \end{pmatrix}$，注意到$B^2=O_2$，我们有
+    \[
+      \begin{pmatrix}
+        \hat a & \hat b \\
+        \hat 0 & \hat a
+      \end{pmatrix}^p = (\hat aI_2 + \hat b B)^p
+      = \hat a^pI_2 + \hat b^pB^p = \hat aI_2.
+    \]
+
+    \item 令$p=2k+1,k\ge1$，且$J=\begin{pmatrix}
+      \hat 0 & \hat 1 \\
+      \hat 1 & \hat 0
+    \end{pmatrix}$. 注意到$J^2=I_2$，且$J^p=J^{2k}J=J$，我们有
+    \[
+      \begin{pmatrix}
+        \hat a & \hat b \\
+        \hat b & \hat a
+      \end{pmatrix}^p = (\hat aI_2 + \hat bJ )^p = \hat a^pI_2 + \hat b^pJ^p = \hat aI_2 + \hat bJ.
+    \]
+
+    \item 方程$X^p=\begin{pmatrix}
+      \hat a & \hat b \\
+      \hat a & \hat b
+    \end{pmatrix}$意味着$\det{}^pX=\hat 0\Rightarrow \det X=\hat 0$. 于是由Cayley--Hamilton定理可得$X^2=\hat tX$，其中$\hat t =\Tr(X)$. 这意味着$X^p=\hat t^{p-1}X=X\Rightarrow X=\begin{pmatrix}
+      \hat a & \hat b \\
+      \hat a & \hat b
+    \end{pmatrix}$.
+
+    反过来，如果$X=\begin{pmatrix}
+      \hat a & \hat b \\
+      \hat a & \hat b
+    \end{pmatrix}$，则$\det X=\hat0$且$\Tr(X)=\hat a+\hat b\ne\hat0$，于是$X^2=\hat tX\Rightarrow\hat t^{p-1}X=X$.
+
+    \item 方程$X^p=\begin{pmatrix}
+      \hat a & \hat b \\
+      \hat a & \hat b
+    \end{pmatrix}$意味着$\det{}^pX=\hat0\Rightarrow \det X=\hat0$. 由于$\Tr(X)=\hat a+\hat b=\hat0$，由Cayley--Hamilton定理可得$X^2=O_2$. 于是$X^p=O_2$，这与$\hat a\ne0$矛盾.
+
+    \item 设$\hat t=\Tr(X)$. 如果$X\in\MM_2(\MZ_p)$满足$\det X=\hat0$且$\Tr(X)\ne\hat0$，则$X^2=\hat tX$，这意味着$X^p=\hat t^{p-1}X=X$.
+
+    \item 令$X=\begin{pmatrix}
+      \hat 0 & \hat a \\
+      \hat b & \hat 0
+    \end{pmatrix}$，并注意到$X^2=\hat a\hat bI_2$，则
+    \[
+      X^p = (X^2)^{\frac{p-1}2}X = \left( \hat a \hat b\right)^{\frac{p-1}2} X =
+      \begin{pmatrix}
+        \hat 0 & \hat a^{\frac{p+1}2}\hat b^{\frac{p-1}2} \\
+        \hat a^{\frac{p-1}2}\hat b^{\frac{p+1}2} & \hat 0
+      \end{pmatrix}
+    \]
+
+    \item 令$Y=\begin{pmatrix}
+      \hat 0 & \hat b \\
+      \hat a & \hat 0
+    \end{pmatrix}$，由 \ref{prob3.91f}，我们有
+    \[
+      \begin{pmatrix}
+        \hat a & \hat b\\
+        \hat a & \hat a
+      \end{pmatrix}^p = (\hat aI_2 + Y)^p
+      = \hat a^pI_2 + Y^p = \hat aI_2 +
+      \begin{pmatrix}
+        \hat 0 & \hat a^{\frac{p-1}2}\hat b^{\frac{p+1}2} \\
+        \hat a^{\frac{p+1}2}\hat b^{\frac{p-1}2} & \hat 0
+      \end{pmatrix}.
+    \]
+     
+    \stepcounter{enumi}
+    \item 矩阵的第一行恰有$p^2-1$种选择使得其非零，那么第二行只要不和第一行成比例即可，因此有$p^2-p$种可能，于是在$\MM_2(\MZ_p)$中有$(p^2-1)(p^2-p)$个可逆矩阵.
+  \end{inparaenum}
+\end{solution}
+
+\begin{solution}
+  \begin{inparaenum}[(a)]
+    \item 令$A=\begin{pmatrix}
+      \hat 0 & \hat 1 \\
+      \hat 2 & \hat 0
+    \end{pmatrix}$. 由于$X$与$A$可交换，我们得到$X=\begin{pmatrix}
+      \hat a & \hat b \\
+      \hat 2\hat b & \hat a
+    \end{pmatrix}=\hat aI_2+\hat b A$. 通过计算可得$A^5=\begin{pmatrix}
+      \hat 0 & \hat 4 \\
+      \hat 3 & \hat0
+    \end{pmatrix}=\hat 4A$. 由二项式定理可得
+    \[
+      X^5 = (\hat aI_2 + \hat b A)^5 = \hat a^5I_2 + \hat b^5A^5 = \hat aI_2 + \hat 4 \hat bA =
+      \begin{pmatrix}
+        \hat a & \hat 4 \hat b \\
+        \hat 3 \hat b & \hat a
+      \end{pmatrix} = \begin{pmatrix}
+        \hat 0 & \hat 1 \\
+        \hat 2 & \hat 0
+      \end{pmatrix}.
+    \]
+    于是可得$\hat a =\hat 0,\hat b =\hat4$. 因此，$X=\hat 4A=\begin{pmatrix}
+      \hat 0 & \hat 4 \\
+      \hat 3 & \hat0
+    \end{pmatrix}$.
+
+    \item 令$A=\begin{pmatrix}
+      \hat 0 & \hat a \\
+      \hat b & \hat 0
+    \end{pmatrix}$. 由于$X$与$A$可交换，我们有
+    \[
+      X = \begin{pmatrix}
+        \hat x & \hat y \\
+        \hat a^{-1}\hat b\hat y & \hat x
+      \end{pmatrix} = \hat xI_2 + \hat y \begin{pmatrix}
+        \hat 0 & \hat 1 \\
+        \hat a^{-1}\hat b & \hat 0
+      \end{pmatrix} = \hat xI_2 + \hat y B,
+    \]
+    其中$B=\begin{pmatrix}
+      \hat 0 & \hat 1 \\
+      \hat a^{-1}\hat b& \hat 0
+    \end{pmatrix}$. 通过计算可得$B^2=\alpha I_2$，其中$\alpha=\hat a^{-1}\hat b$.
+
+    令$p=2k+1,k\ge1$，则$B^p=B^{2k}B=\alpha^kB=\left(\hat a^{-1}\hat b\right)^{\frac{p-1}2}B$.
+
+    我们有
+    \[
+      X^p = ( \hat xI_2 + \hat yB )^p = \hat x^pI_2 + \hat y^pB^p = \hat xI_2 + \hat y
+      \left(\hat a^{-1}\hat b\right)^{\frac{p-1}2}B,
+    \]
+    于是
+    \[
+      \begin{pmatrix}
+        \hat x & \hat y\left(\hat a^{-1}\hat b\right)^{\frac{p-1}2} \\
+        \hat y \left(\hat a^{-1}\hat b\right)^{\frac{p+1}2} & \hat x
+      \end{pmatrix} =
+      \begin{pmatrix}
+        \hat 0 & \hat a \\
+        \hat b & \hat 0
+      \end{pmatrix}.
+    \]
+    因此，$\hat x= \hat 0,\hat y\left(\hat a^{-1}\hat b\right)^{\frac{p-1}2}=\hat a$，且$\hat y \left(\hat a^{-1}\hat b\right)^{\frac{p+1}2}=\hat b$. 这两个等式意味着$\hat y^2=\hat a^2\Rightarrow \hat y=\hat a$或$\hat y =-\hat a$.
+
+    如果$\hat y =\hat a$，我们得到$\left(\hat a^{-1}\hat b\right)^{\frac{p-1}2}=\hat 1$且$X=\hat aB =\begin{pmatrix}
+      \hat 0 & \hat a \\
+      \hat b & \hat 0
+    \end{pmatrix}$.
+
+    如果$\hat y=-\hat a$，我们得到$\left(\hat a^{-1}\hat b\right)^{\frac{p-1}2}=-\hat 1$，且
+    \[
+      X = -\hat aB = \begin{pmatrix}
+        \hat 0 & -\hat a \\
+        -\hat b & \hat 0
+      \end{pmatrix} =
+      \begin{pmatrix}
+        \hat 0 & \widehat {p-a} \\
+        \widehat{p-b} & \hat 0
+      \end{pmatrix}.
+    \]
+    必要性则是显然的.
+  \end{inparaenum}
+\end{solution}
+
+\begin{solution}
+  \begin{inparaenum}[(a)]
+    \item {解法一.} 令$A=\begin{pmatrix}
+      \hat 4 & \hat 1 \\
+      \hat 4 & \hat 1
+    \end{pmatrix}$. 由于$X$与$A$可交换，通过计算可得
+    \[
+      X = \begin{pmatrix}
+        \hat a & \hat b \\
+        \hat 2\hat b & \hat a + \hat b
+      \end{pmatrix} = \hat a I_2 + \hat b B,
+    \]
+    其中$B=\begin{pmatrix}
+      \hat 0 & \hat 1 \\
+      \hat 2 & \hat 1
+    \end{pmatrix}$. 容易验证$B^5=B$，由二项式定理，我们有
+    \begin{align*}
+      X^5 & = \left( \hat aI_2 + \hat bB \right)^5 = \hat a^5I_2 + \hat b^5B^5 \\
+      & = \hat a^5I_2 + \hat b^5B =
+      \begin{pmatrix}
+        \hat a^5 & \hat b^5 \\
+        \hat 2\hat b^5 & \hat a^5 + \hat b^5
+      \end{pmatrix} =
+      \begin{pmatrix}
+        \hat a & \hat b \\
+        \hat 2\hat b & \hat a + \hat b
+      \end{pmatrix}.
+    \end{align*}
+    因此，$\hat a=\hat4,\hat b=\hat2$，且$X=A$是方程的唯一解.
+
+    {\kaishu 解法二.} 令$A=\begin{pmatrix}
+      \hat 4 & \hat 1 \\
+      \hat 4 & \hat 1
+    \end{pmatrix}$. 由于$\Tr(A)=\hat 0,\det A=\hat1$，由Cayley--Hamilton定理，我们有$A^2+\hat1I_2=O_2\Rightarrow A^2=\hat4I_2$，这意味着$A^5=A$.
+
+    设$Y\in\MM_2(\MZ_5)$满足$X=Y+A$. 首先我们注意到$Y$与$A$可交换，我们有$X^6=AX=A(Y+A)=AY+A^2$且$X^6=XA=(Y+A)A=YA+A^2$，于是$AY=YA$. 由二项式定理可得
+    \[
+      X^5 = (Y + A)^5 = Y^5 + A^5 = Y^5 + A = A \Rightarrow Y^5 = O_2 \Rightarrow Y^2 = O_2.
+    \]
+
+    由于与$A$可交换的矩阵形如
+    \[
+      \begin{pmatrix}
+        \hat a & \hat b \\
+        \hat 2\hat b & \hat a + \hat b
+      \end{pmatrix},
+    \]
+    而$Y$与$A$可交换，我们可得存在$\hat a,\hat b\in\MZ_5$使得
+    \[
+      Y = \begin{pmatrix}
+        \hat a & \hat b \\
+        \hat 2\hat b & \hat a + \hat b
+      \end{pmatrix}.
+    \]
+    方程$Y^2=O_2$意味着
+    \[
+      \begin{pmatrix}
+        \hat a^2 + \hat 2\hat b^2 & \hat b \left( \hat b+\hat 2\hat a\right) \\
+        \hat 2\hat b\left( \hat b+\hat 2\hat a\right) & \hat 2\hat b^2 + \left(\hat a + \hat b\right)^2
+      \end{pmatrix} = O_2.
+    \]
+
+    通过计算可知$\hat a= \hat b=\hat0$，这意味着$Y=O_2$. 因此，矩阵方程$X^5=A$的唯一解为$X=A$.
+
+    {\kaishu 解法三.} 令$\hat t=\Tr(X),\hat d=\det X$. 由于$X^5=A$，我们得到$\hat d^5=\hat1\Rightarrow\hat d=1$. 我们分下面的两种情形.
+  \end{inparaenum}
+  \begin{itemize}
+      \item $\Tr(X)=\hat0$. 由Cayley--Hamilton定理，我们有$X^2+\hat1I_2=O_2\Rightarrow X^2=\hat4I_2\Rightarrow X^4=\hat1I_2\Rightarrow X^5=X$. 因此，$X=A$是方程的唯一解.
+
+      \item $\Tr(X)\ne\hat0$. Cayley--Hamilton定理说明$X^2=\hat tX+\hat4I_2\Rightarrow X^4=\left(\hat t^3+\hat3\hat t\right)X+\left(\hat4\hat t^2+\hat1\right)I_2\Rightarrow X^5=
+          \left(\hat t^4+\hat2\hat t^2+\hat 1 \right)X+\left(\hat4\hat t^3+\hat 2\hat t\right)I_2$. 这意味着$\left(\hat t^4+\hat2\hat t^2+\hat 1 \right)X+\left(\hat4\hat t^3+\hat 2\hat t\right)I_2=A$. 等式两边取迹，我们得到
+          \[
+            \left(\hat t^4 + \hat2\hat t^2 + \hat 1 \right)\hat t + \hat 2\left(\hat4\hat t^3 + \hat 2\hat t\right) = \hat 0 \quad \Rightarrow \quad \hat t^5 = \hat 0.
+          \]
+          这意味着$\hat t=\hat0$，这是不可能的.
+    \end{itemize}
+    因此，方程$X^5=A$的唯一解为$X=A$.
+
+    \begin{inparaenum}[(a)]\setcounter{enumi}{1}
+      \item 此方程的唯一解为
+      \[
+          \begin{cases}
+            X = \begin{pmatrix}
+              \widehat{p-1} & \hat 2 \\
+              \widehat{p-1} & \hat 1
+            \end{pmatrix}, & \text{如果$p\equiv1\mod4$} \\
+            X = \begin{pmatrix}
+              \hat 1 & \widehat {p-2} \\
+              \hat 1 & \widehat {p-1}
+            \end{pmatrix}, & \text{如果$p\equiv3\mod4$}
+          \end{cases}.
+      \]
+
+      令$A=\begin{pmatrix}
+              \widehat{p-1} & \hat 2 \\
+              \widehat{p-1} & \hat 1
+            \end{pmatrix}$. 由于$\Tr(A)=\hat0,\det A=\hat1$，由Cayley--Hamilton定理，我们有$A^2=-\hat1I_2=\widehat{p-1}I_2$. 令$p=2k+1,k\ge1$，我们有
+            \[
+              A^p = A^{2k}A = \widehat{p-1}^kA = \widehat{p-1}^{\frac{p-1}2} A = \hat \alpha A,
+            \]
+      其中$\hat \alpha = \widehat{p-1}^{\frac{p-1}2}$. 另一方面，
+      \[
+        (\hat \alpha A)^p = \hat \alpha^pA^p = \hat \alpha A^p = \hat\alpha^2A = \widehat{p-1}^{p-1}A = A.
+      \]
+
+      由于$X$与$A$可交换，通过计算可得
+      \[
+        X = \begin{pmatrix}
+          \hat a & \hat b \\
+          \frac{\widehat{p-1}}2\hat b & \hat a + \hat b
+        \end{pmatrix}.
+      \]
+
+      设$Y\in\MM_2(\MZ_p)$满足$X=Y+\hat\alpha A$. 首先我们注意到$Y$与$A$可交换. 我们有$X^{p+1}=X^pX=AX=A(Y+\hat\alpha A)=AY+\hat\alpha A^2$，且$X^{p+1}=XX^p=XA=(Y+\hat \alpha A)A=YA+\hat\alpha A^2$，这些就说明$AY=YA$.
+
+      我们利用二项式定理可得
+      \[
+        X^p = (Y + \hat\alpha A)^p = Y^p + (\hat\alpha A)^p = Y^p + A = A \Rightarrow
+        Y^p = O_2 \Rightarrow Y^2 = O_2.
+      \]
+
+      由于$Y$与$A$可交换，我们设$Y=\begin{pmatrix}
+        \hat a & \hat b \\
+        \frac{\widehat{p-1}}2\hat b & \hat a + \hat b
+      \end{pmatrix}$. 通过计算可得
+      \[
+        Y^2 = \begin{pmatrix}
+          \hat a^2 + \frac{\widehat{p-1}}2 \hat b^2 & \hat b \left( \hat2\hat a + \hat b \right) \\
+          \frac{\widehat{p-1}}2\hat b \left( \hat2\hat a + \hat b\right) & \frac{\widehat{p-1}}2\hat b^2 + (\hat a + \hat b)^2
+        \end{pmatrix}.
+      \]
+      由于$Y^2=O_2$，我们得到$\hat a^2 + \frac{\widehat{p-1}}2 \hat b^2=\hat 0$且$\hat b \left( \hat2\hat a + \hat b \right)=\hat 0$. 方程$\hat b \left( \hat2\hat a + \hat b \right)=\hat0$意味着$\hat b=\hat 0$或$\hat2\hat a+\hat b = \hat 0$.
+
+      如果$\hat b= \hat 0$，我们得到第一个方程为$\hat a= \hat0$，所以$Y=O_2$.
+
+      如果$\hat b =-\hat2\hat a=\widehat{p-2}\hat a$，第一个方程则意味着$\hat a^2\left(
+      \hat1 + \frac{\widehat{p-1}}2\widehat{p-2}^2\right)
+      =\hat0\Rightarrow\widehat{p-1}\hat a^2=\hat 0 \Rightarrow \hat a =\hat0\Rightarrow Y=O_2$.
+
+      因此，矩阵方程的解为$X=\widehat{p-1}^{\frac{p-1}2}A$. 如果$p=4i+1$，我们有$\widehat{p-1}^{\frac{p-1}2}=\hat1$，所以$X=A$. 如果$p=4i+3$，则$\widehat{p-1}^{\frac{p-1}2}=\widehat{p-1}$，所以$X=
+      \widehat{p-1}A=\begin{pmatrix}
+        \hat 1 & \widehat{p-2} \\
+        \hat 1 & \widehat{p-1}
+      \end{pmatrix}$.
+    \end{inparaenum}
+\end{solution}
+
+\begin{solution}
+  首先我们证明，如果方程$AX-XA=A$有解，则$A^2=O_2$. 我们有$\Tr(A)=\Tr(AX-XA)=0$且$\Tr(A^2)=\Tr[A(AX-XA)]
+  =\Tr(A^2X)-\Tr(AXA)=\Tr(AXA)-\Tr(AXA)=0$. 由问题 \ref{problem2.88}，可知$A$是幂零矩阵，必要性成立.
+
+  现在我们证明，如果$A^2=O_2$，则方程$AX-XA=A$在$\MM_2(\MC)$中有解. 设$A=\begin{pmatrix}
+    a & b \\
+    c & d
+  \end{pmatrix}$满足$A^2=O_2$. 通过计算可得（见问题 \ref{problem1.8}）$A_1=\begin{pmatrix}
+    0 & 0 \\
+    c & 0
+  \end{pmatrix},c\in\MC$，或$A_2=\begin{pmatrix}
+    a & b \\
+    -\frac{a^2}b & - a
+  \end{pmatrix},a,b\in\MC,b\ne0$.
+
+  如果$A=A_1$，则方程$AX-XA=A$有解$X_1=\begin{pmatrix}
+    1 & 0 \\
+    0 & 0
+  \end{pmatrix}$；如果$A=A_2$，则方程有解$X_2=\begin{pmatrix}
+    0 & 0 \\
+    \frac ab & 1
+  \end{pmatrix}$.
+\end{solution}
+
+\setcounter{solution}{95}
+
+\begin{solution}
+  \ref{prob3.96a} $\Rightarrow$ \ref{prob3.96b} 令$P(x)=a_nx^n+a_{n-1}x^{n-1}+\cdots+a_1x+a_0,a_n\ne0$，且设$X$是方程$P(X)=A$的一个解，其中$A=\begin{pmatrix}
+    1 & 1 \\
+    0 & 1
+  \end{pmatrix}$. 由于$X$与$A$可交换，我们得到$X=\begin{pmatrix}
+    a & b \\
+    0 & a
+  \end{pmatrix},a,b\in\MC$. 通过计算可得，对$k\ge1$，我们有
+  \[
+    X^k = \begin{pmatrix}
+      a^k & ka^{k-1}b \\
+      0 & a^k
+    \end{pmatrix}\quad \text{且} \quad
+    P(X) = \begin{pmatrix}
+      P(a) & b P'(a) \\
+      0 & P(a)
+    \end{pmatrix} = \begin{pmatrix}
+      1 & 1 \\
+      0 & 1
+    \end{pmatrix},
+  \]
+  这意味着$P(a)=1$且$bP'(a)=1$. 注意到方程$P(x)=1$有$n$个不同的根，那么不可能存在$\alpha\in\MC$，使得$P(\alpha)=1$且$P'(\alpha)=0$. 因此，方程$P(x)=1$有$n$个不同的根.
+
+  \ref{prob3.96b} $\Rightarrow$ \ref{prob3.96a} 如果方程$P(x)=1$的根为$x_1,x_2,\cdots,x_n$，则矩阵方程$P(x)=A$的解为$\begin{pmatrix}
+    x_k & \frac1{P'(x_k)} \\
+    0 & x_k
+  \end{pmatrix},k=1,2,\cdots,n$.
+
+  如果方程$P(x)=1$的解不是互异的，则问题中的陈述是不成立的. 取$P(x)=(x-1)^2+1=x^2-2x+2$，我们注意到$P(x)=1$有二重根1，然而不存在矩阵$X=\begin{pmatrix}
+    a & b \\
+    0 & a
+  \end{pmatrix}\in\MM_2(\MC)$使得$P(X)=A$，因为这将意味着$a^2-2a+2=1$且$2b(a-1)=1$.
+\end{solution}
+
+\begin{solution}
+  Cayley--Hamilton定理说明$A^2-tA+dI_2=O_2$，其中$t=\Tr(A)$且$d=\det A$. 因此
+  \[
+    \left\{
+      \begin{aligned}
+        & BA^2 = tBA - dB \\
+        & A^2B = tAB - dB
+      \end{aligned}
+    \right.,
+  \]
+  由于$t\ne0$，这说明$BA^2=A^2B\Leftrightarrow tBA=tAB\Leftrightarrow BA=AB$.
+\end{solution}
+
+\begin{solution}
+  存在实数$\alpha_m,\beta_m,u_n,v_n\in\MR,\alpha_m\ne0,u_n\ne0$，使得$A^m=\alpha_mA+\beta_mI_2$，且$B^n=u_nB+v_nI_2$. 我们有
+  \[
+    \left\{
+      \begin{aligned}
+        & A^mB^n = \alpha_mu_nAB + \alpha_mv_nA + \beta_mu_n B + \beta_mv_nI_2 \\
+        & B^nA^m = u_n\alpha_mBA + u_n\beta_mB + v_n\alpha_mA + v_n\beta_mI_2
+      \end{aligned}
+    \right.,
+  \]
+  而这意味着$A^mB^n=B^nA^m\Leftrightarrow \alpha_mu_nAB=u_n\alpha_mBA\xLongleftrightarrow{u_n
+  \alpha_m\ne0}AB=BA$.
+\end{solution}
+
+\begin{solution}
+  $A^mB=A^m+B\Leftrightarrow (A^m-I_2)(B-I_2)=I_2$，这意味着矩阵$A^m-I_2$与$B-I_2$是互为逆矩阵的，于是它们可交换. 因此$(B-I_2)(A^m-I_2)=I_2\Leftrightarrow BA^m=B+A^m$，这意味着$A^mB=BA^m$. 如果$A^m=\alpha_mI_2$对某个$\alpha_m\in\MR$成立，则矩阵等式$A^mB=A^m+B$意味着$(\alpha_m-1)B=\alpha_mI_2$. 注意到$\alpha_m\ne1$，否则我们会得到矛盾. 因此，$B=\frac{\alpha_m}{\alpha_m-1}I_2$，而这显然意味着$AB=BA$. 如果$A^m=\alpha_mA+\beta_mI_2$，其中$\alpha_m,\beta_m\in\MR,\alpha_m\ne0$，则由于$A^mB=BA^m$，我们有$\alpha_mAB=\alpha_mBA$. 再由$\alpha_m\ne0$，我们得到$AB=BA$.
+\end{solution}
+
+\section{Pell型丢番图方程}
+
+设整数$d\ge2$不是一个完全平方.
+\begin{definition}
+  丢番图方程
+  \begin{equation}\label{eq3.3}
+    x^2 - dy^2 = 1,\quad x,y\in\MZ,
+  \end{equation}
+  称为{\kaishu Pell方程}\footnote{这个方程本应该叫Fermat方程的，但是因为Euler的混淆，于是用Pell的名字命名 \cite[p.341]{15}.}.\index{P!Pell 方程}
+\end{definition}
+
+接下来，我们就是要在整数范围内解Pell方程. 首先，我们注意到数组$(-1,0)$和$(1,0)$是方程 \eqref{eq3.3} 的解，这称为其{\kaishu 平凡解}.\index{P!平凡解} 另一方面，如果$(x,y)$是方程 \eqref{eq3.3} 的一组解，则$(-x,y),(x,-y)$和$(-x,-y)$也是此方程的解. 因此，要解Pell方程，只需要在正整数范围内求出其解即可，即形如$(x,y)\in\MN\times\MN$的解.
+
+设$(x,y)\in\MN\times\MN$，且令
+\[
+  A_{(x,y)} = \begin{pmatrix}
+    x & dy \\
+    y & x
+  \end{pmatrix},
+\]
+其中$x$和$y$满足$\det A_{(x,y)}=x^2-dy^2=1$.
+
+设$S_P$是方程 \eqref{eq3.3} 的解集. 我们注意到，$(x,y)\in S_p$当且仅当$\det A_{(x,y)}=1$，而$(x,y)\ne(1,0)$当且仅当$A_{(x,y)}\ne I_2$.
+
+如果$(x_0,y_0)\in S_p,(x_0,y_0)\ne(1,0)$，则$\det A_{(x_0,y_0)}=1$，于是
+\[
+  \det A_{(x_0,y_0)}^n = 1.
+\]
+
+设
+\[
+  A_{(x_0,y_0)}^n = \begin{pmatrix}
+    x_n & dy_n \\
+    y_n & x_n
+  \end{pmatrix} \quad \text{其中}\quad
+  x_n^2 - dy_n^2 = 1.
+\]
+
+如果
+\[
+  A_{(x_0,y_0)}^{n+1} = \begin{pmatrix}
+    x_{n+1} & dy_{n+1} \\
+    y_{n+1} & x_{n+1}
+  \end{pmatrix},
+\]
+则
+\begin{align*}
+  A_{(x_0,y_0)}^{n+1} & = A_{(x_0,y_0)}^nA_{(x_0,y_0)} =
+  \begin{pmatrix}
+    x_n & dy_n \\
+    y_n & x_n
+  \end{pmatrix}
+  \begin{pmatrix}
+    x_0 & dy_0 \\
+    y_0 & x_0
+  \end{pmatrix} \\
+  & = \begin{pmatrix}
+    x_0x_n + dy_0y_n & d(y_0x_n + x_0y_n) \\
+    y_0x_n + x_0y_n & x_0x_n + dy_0y_n
+  \end{pmatrix},
+\end{align*}
+且
+\[
+  \det A_{(x_0,y_0)}^{n+1} = \det \left( A_{(x_0,y_0)}^nA_{(x_0,y_0)} \right) =
+  \det A_{(x_0,y_0)}^n \det A_{(x_),y_0)} = 1.
+\]
+
+于是
+\[
+  \left\{
+    \begin{aligned}
+      & x_{n+1} = x_0x_n + dy_0y_n \\
+      & y_{n+1} = y_0x_n + x_0y_n
+    \end{aligned}
+  \right. \quad \text{即} \quad
+  \left\{
+    \begin{aligned}
+      & x_{n} = x_0x_{n-1} + dy_0y_{n-1} \\
+      & y_{n} = y_0x_{n-1} + x_0y_{n-1}
+    \end{aligned}
+  \right.,n\ge1,
+\]
+其中$x_0,y_0$是给定的数，且$(x_),y_0)\ne(1,0)$.
+
+我们注意到如果$(x_0,y_0)\in\MN\times\MN$，则我们也有$(x_n,y_n)\in\MN\times\MN$. 换句话说，如果$(x_0,y_0)$是方程 \eqref{eq3.3} 的解，则 $(x_n,y_n)$ 也是方程 \eqref{eq3.3} 的解.
+
+前面的递推关系可以写成
+\[
+  \begin{pmatrix}
+    x_n \\ y_n
+  \end{pmatrix} =
+  \begin{pmatrix}
+    x_0 & dy_0 \\
+    y_0 & x_0
+  \end{pmatrix}
+  \begin{pmatrix}
+    x_{n-1} \\ y_{n-1}
+  \end{pmatrix},
+\]
+而这意味着
+\[
+  \begin{pmatrix}
+    x_n \\ y_n
+  \end{pmatrix} =
+  \begin{pmatrix}
+    x_0 & dy_0 \\
+    y_0 & x_0
+  \end{pmatrix}^n
+  \begin{pmatrix}
+    x_0 \\ y_0
+  \end{pmatrix}.
+\]
+
+因此，
+\begin{equation}\label{eq3.4}
+  \left\{
+    \begin{aligned}
+      & x_n = \frac12\left[
+        \left( x_0 + y_0\sqrt d \right)^{n+1} +
+        \left( x_0 - y_0\sqrt d \right)^{n+1}
+      \right] \\
+      & y_n = \frac1{2\sqrt d}\left[
+        \left( x_0 + y_0\sqrt d \right)^{n+1} +
+        \left( x_0 - y_0\sqrt d \right)^{n+1}
+      \right]
+    \end{aligned}
+  \right.,\; n\ge 0.
+\end{equation}
+
+
+我们能够知道，满足$x_0^2-dy_0^2=1,x_0,y_0\in\MN$的数组$(x_0,y_0)$中$x_0$是最小时当且仅当$y_0$是最小的，即$x_0+\sqrt dy_0$在$x+\sqrt dy$中是最小的，这里$(x,y)$是Pell方程的正整数解，此时的解$(x_0,y_0)$称为Pell方程的{\kaishu 基本解}\index{J!基本解}. 顺带一提的是，Pell方程的基本解的存在性是可以证明的.
+
+现在，如果考虑Pell方程的基本解$(x_0,y_0)$，我们得到
+\[
+  S_P\subseteq\{(-1,0),(1,0),(x_n,y_n),(-x_n,y_n),
+  (x_n,-y_n):n\in\MN\} = S.
+\]
+
+接下来我们证明$S\subseteq S_P$. 如果$(x,y)\in S\cap (\MN\times\MN)$，我们定义$B=A_{(x,y)}$以及$B_1=A^{-1}B$，其中
+\[
+  A = A_{(x_0,y_0)} = \begin{pmatrix}
+    x_0 & dy_0 \\
+    y_0 & x_0
+  \end{pmatrix},
+\]
+且$(x_0,y_0)$是基本解. 于是$\det B_1=1$，且
+\[
+  B_1 = \begin{pmatrix}
+    x' & dy' \\
+    y' & x'
+  \end{pmatrix}\quad \text{其中}\quad
+  \left\{
+    \begin{aligned}
+      & x' = x_0x - dy_0y \\
+      & y' = x_0y - y_0x
+    \end{aligned}
+  \right.  .
+\]
+于是$x'<x,y'<y$，且$(x',y')\in\MN\times\MN$. 我们继续这个算法，可得$B_2=A^{-1}B_1,B_3=A^{-1}B_2,\cdots,B_k=A^{-1}B_{k-1}=I_2$. 倒推回去，我们有$A_{(x,y)}=A_{(x_0,y_0)}^k$，由 \eqref{eq3.4}，这意味着$(x,y)\in S_P$.
+
+因此，我们可以证明下面的定理.
+\begin{theorem}
+  丢番图方程$x^2-dy^2=1$，其中整数$d\ge2$不是一个完全平方，具有如下正整数解
+  \[
+    \left\{
+    \begin{aligned}
+      & x_n = \frac12\left[
+        \left( x_0 + y_0\sqrt d \right)^{n+1} +
+        \left( x_0 - y_0\sqrt d \right)^{n+1}
+      \right] \\
+      & y_n = \frac1{2\sqrt d}\left[
+        \left( x_0 + y_0\sqrt d \right)^{n+1} +
+        \left( x_0 - y_0\sqrt d \right)^{n+1}
+      \right]
+    \end{aligned}
+    \right.,\; n\ge 0,
+  \]
+  其中$(x_0,y_0)$是基本解.
+\end{theorem}
+
+\begin{example}
+  我们在$\MZ\times\MZ$中解方程$x^2-2y^2=1$.
+
+  由于方程的基本解为$(3,2)$，由定理 \ref{thm3.12}，我们可知此方程有无穷多组解
+  \[
+    \left\{
+    \begin{aligned}
+      & x_n = \frac12\left[
+        \left( 3 + 2\sqrt 2 \right)^{n+1} +
+        \left( 3 - 2\sqrt 2 \right)^{n+1}
+      \right] \\
+      & y_n = \frac1{2\sqrt 2}\left[
+        \left( 3 + 2\sqrt 2 \right)^{n+1} -
+        \left( 3 - 2\sqrt 2 \right)^{n+1}
+      \right]
+    \end{aligned}
+    \right.,\; n\ge 0,
+  \]
+  因此$S_P=\{(\pm x_n,\pm y_n):n\in\MN\}\cup\{(\pm1,0)\}$.
+\end{example}
+
+\begin{remark}
+  Pell方程的解可以用来逼近一个非完全平方的自然数的平方根. 如果$(x_n,y_n),n\ge1$是Pell方程$x^2-dy^2=1$的解，则
+  \[
+    x_n - \sqrt dy_n = \frac1{x_n + \sqrt dy_n}\quad \Rightarrow \quad
+    \frac{x_n}{y_n} - \sqrt d = \frac1{y_n(x_n + \sqrt dy_n)},
+  \]
+  这意味着
+  \[
+    \lim_{n\to\infty}\frac{x_n}{y_n} = \sqrt d .
+  \]
+  因此，分数$\frac{x_n}{y_n}$逼近$\sqrt d$的误差不超过$\frac1{y_n^2}$.
+\end{remark}
+
+现在我们研究丢番图方程
+\begin{equation}\label{eq3.5}
+  ax^2 - by^2 = 1,\quad \text{其中$a,b\in\MN$}.
+\end{equation}
+
+\begin{lemma}
+  如果$ab=k^2,k\in\MN,k\ge2$，则方程$ax^2-by^2=1$在$\MN\times\MN$中无解.
+\end{lemma}
+
+\begin{proof}
+  我们用反证法来证明这个引理. 我们假定此方程有解$(x_0,y_0)\in\MN\times\MN$，于是$ax_0^2-by_0^2=1$，这意味着$a$与$b$是互素的. 等式$ab=k^2$意味着$a=k_1^2$且$b=k_2^2$，其中$k_1k_2=k,k_1,k_2\in\MN$. 此时，方程变为$k_1^2x_0^2-k_2^2y_0^2=1$，即$(k_1x_0-k_2y_0)(k_1x_0+k_2y_0)=1$，那么这意味着$1=k_1x_0+k_2y_0=k_1x_0-k_2y_0\Rightarrow y_0=0$，这与$y_0\in\MN$矛盾.
+\end{proof}
+
+我们定义$ax^2-by^2=1$的{\kaishu Pell预解式}\index{P!Pell预解式} 为丢番图方程
+\begin{equation}\label{eq3.6}
+  u^2 - ab v^2 = 1.
+\end{equation}
+
+\begin{lemma}
+  如果方程 \eqref{eq3.5} 在$\MN\times\MN$中有非平凡解，则它有无穷多组解.
+\end{lemma}
+
+\begin{proof}
+  设$(x_0,y_0)$是方程 \eqref{eq3.5} 的一组解. 由于$ab$不是完全平方，由引理 \ref{lemma3.5}，我们得到方程 \eqref{eq3.6} 有无穷多组正整数解，这由定理 \ref{thm3.12} 中的公式给出.
+
+  我们用$(u_n,v_n),n\in\MN$表示方程 \eqref{eq3.6} 的通解. 令$x_n=x_0u_n+by_0v_n,y_n=y_0u_n+ax_0v_n$，我们注意到$(x_n,y_n)$是方程$ax^2-by^2=1$的解，因为
+  \begin{align*}
+    ax_n^2 - by_n^2 & = a(x_0u_n + by_0v_n)^2 - b(y_0u_n + ax_0v_n)^2 \\
+    & = (ax_0^2 - by_0^2) (u_n^2 - abv_n^2) \\
+    & = 1.
+  \end{align*}
+  引理得证.
+\end{proof}
+
+\begin{theorem}
+  设$(A,B)$是方程 \eqref{eq3.5} 的最小解，则方程 \eqref{eq3.5} 的通解为$(x_n,y_n),n\in\MN$，其中
+  \[
+    \left\{
+      \begin{aligned}
+        & x_n = Au_n + bBv_n \\
+        & y_n = Bu_n + aAv_n
+      \end{aligned}
+    \right.,
+  \]
+  其中$(u_n,v_n),n\in\MN$是方程 \eqref{eq3.6} 的通解.
+\end{theorem}
+
+\begin{proof}
+  我们在引理 \ref{lemma3.6} 中已经证明了，如果$(u_n,v_n),n\in\MN$是方程 \eqref{eq3.6} 的解，则$(x_n,y_n),n\in\MN$是方程 \eqref{eq3.5} 的解.
+
+  要证明必要性，我们来证明如果$(x_n,y_n),n\in\MN$是方程 \eqref{eq3.5} 的解，令
+  \[
+    \left\{
+      \begin{aligned}
+        & u_n = aAx_n - bBy_n \\
+        & v_n = Bx_n - Ay_n
+      \end{aligned}
+    \right.,
+  \]
+  则$(u_n,v_n),\in\MN$是方程 \eqref{eq3.6} 的解.
+
+  我们有
+  \begin{align*}
+    u_n^2 - abv_n^2 & = (aAx_n - bBy_n)^2 - ab(Bx_n - Ay_n)^2 \\
+    & = (aA^2 - bB^2) (ax_n^2 - by_n^2) \\
+    & = 1,
+  \end{align*}
+  定理得证.
+\end{proof}
+
+特别地，对$b=1$的情形，前面的结果中的方法可以用来解丢番图方程
+\begin{equation}\label{eq3.7}
+  dx^2 - y^2 =1,
+\end{equation}
+这称为{\kaishu 共轭Pell方程}\index{G!共轭Pell方程}.
+
+方程 \eqref{eq3.7} 的通解为
+\begin{equation}\label{eq3.8}
+  \left\{
+    \begin{aligned}
+      & x_n = Au_n + Bv_n \\
+      & y_n = Bu_n + dAv_n
+    \end{aligned}
+  \right.,
+\end{equation}
+其中$(A,B)$是方程 \eqref{eq3.7} 的基本解，且$(u_,v_n),n\in\MN$
+是Pell方程$u^2-dv^2=1$的解.
+
+\begin{remark}
+  由 \eqref{eq3.8} 定义的数列 $(x_n)_{n\ge1}$ 和
+  $(y_n)_{n\ge1}$ 满足性质
+  \[
+    y_n = \left\lfloor \sqrt d x_n \right\rfloor,\; n\in\MN,
+  \]
+  其中$\lfloor x\rfloor$ 表示$x$向下取整.
+\end{remark}
+
+要看出这一点，我们注意到由于$(x_n,y_n)$是Pell方程$dx^2-y^2=1$的解，我们有
+\[
+  ( \sqrt dx_n + y_n ) (\sqrt d x_n - y_n ) = 1.
+\]
+
+然而，$x_n,y_n\in\MN$，于是$\sqrt dx_n+y_n>1$. 因此，$0<\sqrt dx_n-y_n<1\Rightarrow y_n<\sqrt dx_n<y_n+1$，这意味着$y_n=\left\lfloor \sqrt dx_n\right\rfloor,n\in\MN$.
+
+\begin{example}
+  我们在$\MN\times\MN$中解方程$6x^2-5y^2=1$.
+
+  首先，我们注意到方程的基本解为$(1,1)$. 且Pell预解式为$u^2-30v^2=1$，它有一个基本解$(11,2)$. 于是Pell预解方程的通解为$(u_n,v_n)$，其中
+  \[
+    \left\{
+     \begin{aligned}
+       & u_{n+1} = 11u_n + 60v_n \\
+       & v_{n+1} = 2u_n + 11v_n
+     \end{aligned}
+    \right.,\; n\in\MN,
+  \]
+  其中$u_1=11,v_1=2$.
+
+  因此，我们的方程的通解为
+  \[
+    \left\{
+      \begin{aligned}
+        & x_n = \frac{6+\sqrt{30}}{12} ( 11 + 2\sqrt{30} )^n + \frac{6-\sqrt{30}}{12}( 11 - 2\sqrt{30} )^n \\
+        & y_n = \frac{5+\sqrt{30}}{12} ( 11 + 2\sqrt{30} )^n + \frac{5-\sqrt{30}}{12}( 11 - 2\sqrt{30} )^n
+      \end{aligned}
+    \right..
+  \]
+\end{example}
+
+\subsection{问题}
+\begin{problem}
+  求出所有的直角三角形，其边长为整数$a,b,c$，且$a>b,a>c$，使得以边$a'=a+4,b'=b+3$和$c'=c+3$为边的三角形是直角三角形.
+\end{problem}
+
+\begin{problem}
+  在$\MZ\times\MZ$中解方程$x^2-8y^2=1$.
+\end{problem}
+
+\begin{problem}
+  在$\MZ\times\MZ$中解方程$2x^2-6xy+3y^2+1=0$.
+\end{problem}
+
+\begin{problem}
+  证明：对任意非零整数$k$，方程$x^2-2kxy+y^2=1$在$\MZ\times\MZ$中有无穷多组解.
+\end{problem}
+
+\begin{problem}
+  \footnote{问题 \ref{problem3.104}，\ref{problem3.105} 和 \ref{problem3.106} 来自 \cite{16}.} 求出所有的正整数$n$，使得$\Binom n{k-1}=2\Binom nk+\Binom n{k+1}$对某个自然数$k<n$成立.
+\end{problem}
+
+\begin{problem}
+  证明：如果对某个$n\in\MN$，$m=2+2\sqrt{28n^2+1}$是一个整数，则$m$是一个完全平方.
+\end{problem}
+
+\begin{problem}
+  证明：如果正整数满足$3n+1$和$4n+1$都是完全平方，则$n$被56整除.
+\end{problem}
+
+\begin{mybox}
+  \textbf{Chebyshev多项式.}\index{C!Chebyshev多项式} 对$-1<t<1$，设$\theta$满足$0<\theta<\pi$且$t=\cos\theta$（即$\theta=\arccos t$）. 设多项式$T_n$和$U_n$分别定义为
+  \[
+    T_n(t) = \cos n\theta = \cos (n\arccos t)
+  \]
+  和
+  \[
+    U_n(t) = \frac{\sin n\theta}{\sin \theta}
+    = \frac{\sin (n\arccos t)}{\sqrt{1-t^2}}.
+  \]
+
+  虽然这两个函数最初定义在一个有限的区间上，但它们其实是$t$的多项式，因此它们对任意实数$t$都是有定义的.
+
+  多项式$T_n$称为{\kaishu 第一类Chebyshev多项式}，而$U_n$称为{\kaishu 第二类Chebyshev多项式}. 这两个多项式广泛运用于各类数学教材，且它们有非常优秀的性质（见 \cite[Section 3.4]{8}）.
+  \begin{problem}[{\normalfont\cite[p.39]{8}} Chebyshev多项式与Pell方程.]
+
+  证明：方程$x^2-(t^2-1)y^2=1$的解形如$(x_n,y_n)=\big(T_n(t),U_n(t)\big)$，其中$t$是参数.
+  \end{problem}
+\end{mybox}
+
+\subsection{解答}
+\begin{solution}
+  由于$a,b,c$是勾股数，令$a=m^2+n^2,b=2mn,c=m^2-n^2$，其中$m,n\in\MN$且$m>n$. 方程$(a+4)^2=(b+3)^2+(c+3)^2$意味着$4a=3b+3c+1\Rightarrow m^2+7n^2-6mn=1$，即$(m-3n)^2-2n^2=1$. 作代换$m-3n=x,n=y$，我们得到方程$x^2-2y^2=1$. 此方程的最小解为$(3,2)$，已经在例 \ref{exam3.5} 中解决了，其通解为$(x_k,y_k),k\in\MN$，这意味着$m_k=x_k+3y_k$且$n_k=y_k,k\in\MN$.
+\end{solution}
+
+\begin{solution}
+  由于方程的最小解为$(3,1)$，我们得到
+  \[
+    \left\{
+    \begin{aligned}
+      & x_n = \frac12\left[
+        \left( 3 + 2\sqrt 2 \right)^{n+1} +
+        \left( 3 - 2\sqrt 2 \right)^{n+1}
+      \right] \\
+      & y_n = \frac1{4\sqrt 2}\left[
+        \left( 3 + 2\sqrt 2 \right)^{n+1} +
+        \left( 3 - 2\sqrt 2 \right)^{n+1}
+      \right]
+    \end{aligned}
+    \right.,\; n\ge 0.
+  \]
+  此Pell方程的解为$\{(\pm x_n,\pm y_n):n\in\MN\}
+  \cup\{(-1,0),(1,0)\}$.
+\end{solution}
+
+\begin{solution}
+  此方程可以写成$x^2-3(y-x)^2=1$. 利用代换$X=x,Y=y-x$，我们得到$X^2-3Y^2=1$，此方程的最小解为$(2,1)$，我们得到
+  \[
+    \left\{
+    \begin{aligned}
+      & X_n = \frac12\left[
+        \left( 2 + \sqrt 3 \right)^{n+1} +
+        \left( 2 - \sqrt 3 \right)^{n+1}
+      \right] \\
+      & Y_n = \frac1{2\sqrt 3}\left[
+        \left( 2 + \sqrt 3 \right)^{n+1} -
+        \left( 2 - \sqrt 3 \right)^{n+1}
+      \right]
+    \end{aligned}
+    \right.,\; n\ge 0,
+  \]
+  且$x_n=X_n,y_n=x_n+Y_n=X_n+Y_n,n\ge0$. 此方程的解为
+  $\{(\pm x_n,\pm y_n):n\in\MN\}
+  \cup\{(1,1),(-1,-1)\}$.
+\end{solution}
+
+\begin{solution}
+  此方程可以写成$(x-ky)^2-(k^2-1)y^2=1$. 利用代换$x-ky=u,y=v$，方程变为$u^2-dv^2=1$，其中$d=k^2-1$. 如果$d\ne0$，即$k\ne\pm1$，则$d$是一个非完全平方的正整数.
+
+  如果$k=1$，则方程变为$(x-y)^2=1$，有无穷多解$(p\pm1,p),p\in\MZ$.
+
+  如果$k=-1$，我们得到$(x+y)^2=1$，其解为$(-p\pm1,p),p\in\MZ$.
+
+  如果$|k|\ge2$，我们考虑矩阵$A=\begin{pmatrix}
+    k & k^2-1 \\
+    1 & k
+  \end{pmatrix}$，满足$\det A=1$. 我们有$\det(A^n)=1,A^n=\begin{pmatrix}
+    u_n & dv_n \\
+    v_n & u_n
+  \end{pmatrix}$满足$\det(A^n)=u_n^2-dv_n^2=1$. 由于$u_0=k,v_0=1$，方程$u^2-dv^2=1$有无穷组解$(u_n,v_n),n\in\MN$，令$x_n=u_n+kv_n,y_n=v_n,n\in\MN$，这就可以得到方程$x^2-2kxy+y^2=1$的无穷组解.
+\end{solution}
+
+\noindent\textbf{\ref{problem3.104} -- \ref{problem3.106}} 见 \cite{16}.
+
+\setcounter{solution}{106}
+
+\begin{solution}
+  如果$t=\pm1$，则$x=\pm1$，所以方程的解为$(\pm1,\alpha),\alpha\in\MR$. 设$|t|<1$，一个显然的解是$(t,1)$. 其他解满足
+  \[
+    x_n + \sqrt{t^2-1}y_n = \left( t + \sqrt{t^2-1} \right) ^n =
+    \left( t + \ii\sqrt{1-t^2} \right) ^n.
+  \]
+  利用代换$t=\cos \theta$，我们得到
+  \[
+    x_n + \ii \sin\theta y_n = (\cos\theta + \ii \sin\theta) ^n = \cos (n\theta ) + \ii \sin(n\theta),
+  \]
+  于是得到$x_n=\cos(n\theta)=T_n(t)$，且$y_n=\frac{\sin(n\theta)}{\sin \theta} =U_n(t)$.
+
+  如果$|t|>1$，则
+  \[
+    \left\{
+      \begin{aligned}
+        & x_n + \sqrt{t^2-1}y_n = \left( t + \sqrt{t^2-1} \right) ^n \\
+        & x_n - \sqrt{t^2-1}y_n = \left( t - \sqrt{t^2-1} \right) ^n
+      \end{aligned}
+    \right.,
+  \]
+  于是
+  \[
+    \left\{
+      \begin{aligned}
+        & x_n = \frac12\left[
+          \left( t + \sqrt{t^2-1} \right) ^n +
+          \left( t - \sqrt{t^2-1} \right) ^n
+        \right] \\
+        & y_n = \frac1{2\sqrt{t^2-1}}\left[
+          \left( t + \sqrt{t^2-1} \right) ^n -
+          \left( t - \sqrt{t^2-1} \right) ^n
+        \right]
+      \end{aligned}
+    \right.,\;n\ge0.
+  \]
+  读者可以自行验证$(x_n,y_n)=\big(T_n(t),U_n(t)\big),n\ge0$.
+\end{solution}
+
+
+

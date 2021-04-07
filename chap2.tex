@@ -1,0 +1,2794 @@
+\chapter{Cayley--Hamilton定理}
+\begin{proverb}
+  { \kaishu
+      If $A\in\MM_2(\MC)$, then $A^2-\Tr(A)A + (\det A)I_2=O_2.$
+  }
+
+\hfill Cayley--Hamilton
+\end{proverb}
+
+\section{Cayley--Hamilton定理}
+
+如果$A=\begin{pmatrix}
+  a & b \\
+  c & d
+\end{pmatrix}\in\MM_2(\MC)$，则：
+\begin{itemize}
+  \item $A$的{\kaishu 特征多项式}\index{T!特征多项式}定义为
+      \[
+        f_A(x) = \det (A - xI_2) = x^2 - (a+d)x + ad -bc = x^2 - \Tr(A)x + \det A \in \MC[x];
+      \]
+  \item 方程
+      \[
+        f_A(\lambda) = 0 \Leftrightarrow
+        \lambda^2 - \Tr(A)\lambda + \det A = 0
+      \]
+      称为$A$的{\kaishu 特征方程}；\index{T!特征方程}
+  \item 特征方程的根$\lambda_1,\lambda_2$称为$A$的{\kaishu 特征值}\index{T!特征值}，且集合$\{\lambda_1,\lambda_2\}$称为$A$的{\kaishu 谱}\index{P!谱}，记作$\Spec(A)$.
+\end{itemize}
+
+由Vi\`ete公式，\index{V!Vi\`ete公式}有
+\begin{mybox}
+  \hfil
+    $\lambda_1 + \lambda_2 =\Tr(A)$\quad 且
+    \quad $\lambda_1\lambda_2 = \det A$.
+  \hfill
+\end{mybox}
+
+接下来，我们给出一些矩阵的特征值的性质，这些性质可以通过直接计算得到.
+
+\begin{mybox}
+  设$\lambda\in\MC$，则
+  \begin{itemize}
+    \item 如果$\lambda$不是$A$的特征值，则方程组
+      \[
+        \left\{
+          \begin{aligned}
+            & (a-\lambda)x + by = 0 \\
+            & cx + (d-\lambda)y = 0
+          \end{aligned}
+        \right.\quad \Leftrightarrow\quad
+        AX = \lambda X,\,\text{其中}\,X = \begin{pmatrix}
+          x \\ y
+        \end{pmatrix},
+      \]
+      只有平凡解$(x,y)=(0,0)$.
+    \item 如果$\lambda$是$A$的特征值，则方程组$AX=\lambda X$至少有一个非平凡解$X\ne0$；这样一个解称为$A$的相应于特征值$\lambda$的一个{\kaishu 特征向量}.\index{T!特征向量}
+    \item $\lambda \in\MC$是$A$的一个特征值当且仅当存在
+        \[
+          X = \begin{pmatrix}
+            x \\ y
+          \end{pmatrix}\quad \text{使得} \quad AX=\lambda X;
+        \]
+  \end{itemize}
+
+    如果$\lambda_1,\lambda_2$是$A$的特征值，则
+    \begin{itemize}
+      \item $\lambda_1^n,\lambda_2^n$是$A^n,n\in\MN$的特征值；
+      \item 对任意多项式$P\in\MC[x]$，$P(\lambda_1),P(\lambda_2)$是矩阵$P(A)$的特征值；
+      \item 如果$A$可逆，$\det A=\det(A-0I_2)\ne0$，所以0不是$A$的特征值，则$\frac1{\lambda_1},\frac1{\lambda_2}$是$A^{-1}$的特征值.
+    \end{itemize}
+\end{mybox}
+
+接下来的定理给出两个可交换矩阵的和与乘积的特征值.
+
+\begin{mybox}
+  \begin{theorem}[两个可交换矩阵的和与乘积的特征值.]
+
+    如果$A,B\in\MM_2(\MC)$是可交换的矩阵，则矩阵$A+B$和$AB$的特征值形式为
+    \[
+      \lambda_{A+B} = \lambda_A + \lambda _B
+      \quad \text{且} \quad \lambda_{AB} = \lambda_A\lambda_B.
+    \]
+  \end{theorem}
+\end{mybox}
+
+\begin{proof}
+  如果$B=\alpha I_2$，则$A+B=A+\alpha I_2$的特征值为$\lambda_1+\alpha$和$\lambda_2+\alpha$，其中$\lambda_1,\lambda_2$是$A$的特征值，而$\alpha$是$B$的特征值. 另一方面，$AB=\alpha A$的特征值的特征值为$\alpha\lambda_1$和$\alpha\lambda_2$.
+
+  如果$B\ne\alpha I_2,\alpha\in\MC$，则$B\in\mathscr C (A)$，且由定理 \ref{thm1.1} 的 \ref{thm1.1itemb} 我们有$B=\alpha I_2+\beta A$对某个$\alpha,\beta\in\MC$成立. 我们有
+  \[
+    \lambda_B = \alpha + \beta\lambda_A,\,
+    A + B = \alpha I_2 + (\beta+1)A,\,
+    AB = \alpha A + \beta A^2.
+  \]
+  由此得到$\lambda_{A+B}=\alpha+(\beta+1)\lambda_A=\lambda_A+\lambda_B$，
+  且$\lambda_{AB}=\alpha\lambda_A+\beta\lambda_A^2
+  =\lambda_A\lambda_B $.
+\end{proof}
+
+\begin{remark}
+  如果$\alpha,\beta\in\MC$且$A,B\in\MM_2(\MC)$是可交换的矩阵，则矩阵$\alpha A+\beta B$和$A^iB^k$的特征值形式为
+  \[
+    \lambda_{\alpha A+\beta B} = \alpha\lambda_A + \beta\lambda_B\quad \text{且}\quad \lambda_{A^iB^k}=\lambda_A^i\lambda_B^k.
+  \]
+\end{remark}
+
+现在我们就可以着手证明著名的Cayley--Hamilton定理了，这个定理指出{\kaishu 任意方阵的特征多项式是这个方阵的零化多项式}.
+
+\begin{mybox}
+  \begin{theorem}[Cayley--Hamilton定理]
+
+    如果$A\in\MM_2(\MC)$，则$A^2-\Tr(A)A+(\det A)I_2=O_2$.
+  \end{theorem}
+\end{mybox}
+
+\begin{proof}
+  我们通过直接计算来证明这个定理. 设$A=\begin{pmatrix}
+    a & b \\
+    c & d
+  \end{pmatrix}$.
+
+  直接计算可得
+  \[
+    A^2 = \begin{pmatrix}
+      a^2 + bc & b(a + d) \\
+      c(a+d) & d^2 + bc
+    \end{pmatrix}.
+  \]
+
+  如果$x=\Tr(A)=a+d$，则
+  \begin{align*}
+    A^2 - \Tr(A) + (\det A)I_2 = {} &\begin{pmatrix}
+      a^2 + bc & b(a + d) \\
+      c(a+d) & d^2 + bc
+    \end{pmatrix} -
+    \begin{pmatrix}
+      ax & bx \\
+      cx & dx
+    \end{pmatrix} \\
+    & + \begin{pmatrix}
+      ad - bc & 0 \\
+      0 & ad - bc
+    \end{pmatrix} \\
+    = {}& \begin{pmatrix}
+      a^2 + ad - ax & 0 \\
+      0 & d^2 + ad - dx
+    \end{pmatrix}\\
+    = {}& O_2,
+  \end{align*}
+  这就证明了定理.
+\end{proof}
+
+{\kaishu 历史注记.} Cayley--Hamilton定理是在1853年由Hamilton利用四元数的线性函数所证明 \cite{36}. 这相应于$4\times4$的实矩阵或者$2\times2$的复矩阵的特殊情形. 在1958年，Cayley指出对$3\times3$矩阵也成立，但只发表了$2\times2$矩阵的情形 \cite{14}. “一般来说，Cayley不是一个容易激动的人，在发现之时，他宣称Cayley--Hamilton定理“非常了不起”，几代数学家都分享了他的喜悦”\cite[p.772]{35}. 然而，是Frobenius在1878年证明了一般的情形 \cite{19}.
+
+接下来我们给出Cayley--Hamilton定理的一些应用.
+
+\begin{lemma}
+  如果$A\in\MM_2(\MC)$是可逆的，则
+  \[
+    A^{-1} = \frac1{\det A} \big( \Tr(A)I_2 - A \big)\quad \text{且}\quad \Tr(A^{-1}) =
+    \frac{\Tr(A)}{\det A}.
+  \]
+\end{lemma}
+
+\begin{proof}
+  由Cayley--Hamilton定理，我们有$A^2-\Tr(A)A+(\det A)I_2=O_2$. 将这个等式两边乘以$A^{-1}$，我们得到
+  \[
+    A - \Tr(A)I_2 + (\det A)A^{-1} = O_2 \Rightarrow A^{-1} = \frac1{\det A}\big(
+    \Tr(A)I_2 - A\big).
+  \]
+  引理的第二部分只需要在第一部分中取迹即可.
+\end{proof}
+
+接下来的引理是关于计算行列式为0或者迹为0的二阶矩阵的幂.
+
+\begin{lemma}[两类特殊矩阵的$n$次幂]
+  \begin{enum}
+    \item 如果$A\in\MM_2(\MC)$满足$\det A=0$，则
+      \[
+        A^n = \big( \Tr(A) \big)^{n-1}A,\,\forall n\in\MN.
+      \]
+    \item 如果$A\in\MM_2(\MC)$满足$\Tr(A)=0$，则
+      \[
+        A^n = \begin{cases}
+          (-\det A)^kI_2,  & n = 2k,k\in\MN \\
+          (-\det A)^{k-1}A & n = 2k-1, k\in\MN
+        \end{cases}.
+      \]
+  \end{enum}
+\end{lemma}
+
+\begin{proof}
+  \begin{enuma}
+    \item 由定理 \ref{thm2.2}，我们有$A^2=\Tr(A)A$，这意味着
+  \end{enuma}
+    \[
+      A^3 = A^2A =(\Tr A)AA = \Tr(A)\Tr(A)A = \Tr^2(A)A.
+    \]
+  由数学归纳法我们有$A^n=(\Tr A)^{n-1}A,\,\forall n\in\MN$.
+
+  \begin{enuma}
+    \setcounter{enumi}{1}
+    \item 由于$\Tr(A)=0$，利用定理 \ref{thm2.2}，我们得到$A^2+(\det A)I_2=O_2$. 这意味着$A^2=-(\det A)I_2$，那么当$n$是奇数或者偶数的情形，利用数学归纳法就可以证明了.
+  \end{enuma}
+\end{proof}
+
+\begin{lemma}
+  设$A\in\MM_2(\MC)$，则下列叙述是等价的：
+  \begin{enum}
+    \item \label{lemma2.3.a} $A^2=O_2$；
+    \item \label{lemma2.3.b} 存在$n\in\MN,n\ge2$使得$A^n=O_2$.
+  \end{enum}
+\end{lemma}
+
+\begin{proof}
+  \ref{lemma2.3.a} $\Rightarrow$ \ref{lemma2.3.b} 是显然的. 要证明 \ref{lemma2.3.b} $\Rightarrow$ \ref{lemma2.3.a}，我们注意到$A$的特征值均为0，因此$A$的特征多项式为$f_A(x)=x^2$. 由定理 \ref{thm2.2} 可得$A^2=O_2$，引理得证.
+\end{proof}
+
+作为引理 \ref{lemma2.3} 的推论，我们有如果$A^2\ne O_2$，则$A$的任意次幂都非零. 我们把它表述为下面的引理：
+
+\begin{lemma}
+  如果$A\in\MM_2(\MC)$满足$A^2\ne O_2$，则$A^n\ne O_2$对任意$n\in\MN$成立.
+\end{lemma}
+
+\begin{lemma}[幂零矩阵的一个事实.]
+
+设$A,B\in\MM_2(\MC)$，如果$A$和$B$都是幂零矩阵，且$AB=BA$，则$A+B$和$A-B$都是幂零矩阵.
+\end{lemma}
+
+\begin{proof}
+  要证明引理等价于证明，如果$A$和$B$是可交换的矩阵，且$A^2=B^2=O_2$，则$(A\pm B)^2=O_2$. 我们有$(A\pm B)^2=A^2\pm2AB+B^2=\pm2AB$，而这意味着$(A\pm B)^2=4A^2B^2=O_2$. 再结合引理 \ref{lemma2.3} 就能得出结果.
+\end{proof}
+
+现在我们将注意力转向定理 \ref{thm2.2} 的有关二阶矩阵行列式的应用.
+
+\begin{lemma}[用迹来表示行列式.]
+
+  如果$A\in\MM_2(\MC)$，则
+  \begin{equation}\label{eq2.1}
+    \det A = \frac12\big[ (\Tr A)^2 -\Tr(A^2) \big].
+  \end{equation}
+\end{lemma}
+
+\begin{proof}
+  由定理 \ref{thm2.2}，我们有$A^2-\Tr(A)A+(\det A)I_2=O_2$. 等式两边取迹，我们得到
+  \[
+    \Tr(A^2) - \Tr(A)\Tr(A) + 2\det A = 0,
+  \]
+  引理得证.
+\end{proof}
+
+\begin{remark}
+  Cayley--Hamilton定理的另一种形式：由公式 \eqref{eq2.1}，我们有下面的公式
+  \[
+    A^2 - \Tr(A)A + \frac12\big[ (\Tr A)^2 -\Tr(A^2) \big]I_2 = O_2,\,\forall A\in\MM_2(\MC).
+  \]
+\end{remark}
+
+\begin{mybox}
+  \begin{lemma}[\cite{45} 一个重要的行列式公式]
+
+    如果$A,B\in\MM_2(\MC)$且$x\in\MC$，则
+    \begin{equation}\label{eq2.2}
+      \det (A + xB) = \det A + \big(
+        \Tr(A)\Tr(B) - \Tr(AB)
+      \big)x + (\det B)x^2.
+    \end{equation}
+  \end{lemma}
+\end{mybox}
+
+\begin{proof}
+  由公式 \eqref{eq2.1}，我们有
+  \begin{align*}
+    \det(A + xB) = {}& \frac12\left[ \big( \Tr(A + xB) \big)^2 - \Tr\big( (A + xB)^2 \big) \right]\\
+    = {}& \frac12\big[ \big(\Tr(A)+x\Tr(B)\big)^2 - \Tr(A^2+xAB+xBA+B^2x^2) \big] \\
+    = {}& \frac12\big[ (\Tr A)^2 + 2\Tr(A)\Tr(B)x +
+     (\Tr B)^2x^2 - \Tr(A^2)\\
+     & - 2\Tr(AB)x - \Tr(B^2)x^2 \big] \\
+    = {}& \frac12\big[ (\Tr A)^2 - \Tr(A^2) \big]
+      + \big( \Tr(A)\Tr(B) - \Tr(AB) \big)x \\
+      & + \frac12\big[ (\Tr B)^2 - \Tr(B^2) \big]x^2 \\
+    = {}& \det A + \big(
+        \Tr(A)\Tr(B) - \Tr(AB)
+      \big)x + (\det B)x^2,
+  \end{align*}
+  因此引理得证.
+\end{proof}
+
+\begin{corollary}
+  如果$A,B\in\MM_2(\MC)$，则
+  \[
+    \det (A + B) + \det(A - B) = 2\det A + 2\det B.
+  \]
+\end{corollary}
+\begin{proof}
+  在公式 \eqref{eq2.2} 中分别取$x=1$和$x=-1$，然后将两个等式相加即得. 也可以参见问题 \ref{problem1.31} 的 \ref{prob1.31.a} 得到另一种证法.
+\end{proof}
+
+\begin{mybox}
+  \begin{corollary}[行列式和迹的性质.]
+
+    如果$A,B\in\MM_2(\MC)$，则：
+    \begin{enum}
+      \item\label{coro.a} $\det(A+B)-\det A-\det B=\Tr(A)\Tr(B)-\Tr(AB)$；
+      \item\label{coro.b} $\det(A-B)-\det A-\det B=\Tr(AB)-\Tr(A)\Tr(B)$；
+      \item\label{coro.c} $\det(A+B)-\det(A-B)=2\big(
+      \Tr(A)\Tr(B)-\Tr(AB)\big)$.
+    \end{enum}
+  \end{corollary}
+\end{mybox}
+
+\begin{proof}
+  \ref{coro.a} 和 \ref{coro.b} 可以分别在公式 \eqref{eq2.2} 中取$x=1$和$x=-1$得到，而 \ref{coro.c} 可以通过在 \ref{coro.a} 中减去 \ref{coro.b} 得到.
+\end{proof}
+
+\begin{mybox}
+  \begin{theorem}[极化Cayley--Hamilton定理.]
+
+    如果$A,B\in\MM_2(\MC)$，则
+    \[
+      AB + BA - \Tr(A)B - \Tr(B)A + [
+      \Tr(A)\Tr(B) - \Tr(AB)]I_2 = O_2.
+    \]
+  \end{theorem}
+\end{mybox}
+
+\begin{proof}
+  设$x\in\MR$. 对矩阵$A+xB$应用Cayley--Hamilton定理，我们有
+  \[
+    (A + xB)^2 - \Tr(A + xB)(A + xB) + \det(A + xB)I_2 = O_2.
+  \]
+  由于$(A+xB)^2=A^2+B^2x^2+x(AB+BA)$，利用引理 \ref{lemma2.7} 我们有
+  \begin{align*}
+    A^2 + B^2x^2 & + (AB + BA)x - \big[
+      \Tr(A)A + x\big( \Tr(B)A + \Tr(A)B \big) + x^2\Tr(B)B
+    \big]\\
+    & + \big[
+      \det A + \big( \Tr(A)\Tr(B) - \Tr(AB)\big)x
+      + x^2\det B
+    \big]I_2 = O_2.
+  \end{align*}
+  在上述等式中令$x=1$，定理得证.
+\end{proof}
+
+\begin{mybox}
+  \begin{corollary}
+    设$A,B,C\in\MM_2(\MC)$，则：
+    \begin{enum}
+      \item\label{coro2.3a} Cayley--Hamilton定理的另一种极化形式
+      \begin{align*}
+        2ABC = {}& \Tr(A)BC + \Tr(B)AC + \Tr(C)AB - \Tr(AC) B \\
+        & + [\Tr(AB) - \Tr(A)\Tr(B)]C + [\Tr(BC) - \Tr(B)\Tr(C)]A \\
+        & - [\Tr(ACB) - \Tr(AC)\Tr(B)]I_2;
+      \end{align*}
+      \item 迹的一个性质
+      \begin{align*}
+        \Tr(ABC) = {}& \Tr(A)\Tr(BC) + \Tr(B)\Tr(AC) + \Tr(C)\Tr(AB) \\
+        & - \Tr(ACB) - \Tr(A)\Tr(B)\Tr(C).
+      \end{align*}
+    \end{enum}
+  \end{corollary}
+\end{mybox}
+
+\begin{proof}
+  \begin{enuma}
+    \item 由定理 \ref{thm2.3}，我们有
+  \end{enuma}
+  \begin{align*}
+    2ABC = {}& A(BC + CB) + (AB + BA)C - [B(AC) + (AC)B] \\
+    = {}& A \big[ \Tr(B)C + \Tr(C)B - \big( \Tr(B)\Tr(C) -\Tr(BC) \big)I_2 \big]\\
+        & + \big[ \Tr(A)B + \Tr(B)A - \big( \Tr(A)\Tr(B) -\Tr(AB) \big)I_2 \big]C \\
+        & - \big[ \Tr(AC)B + \Tr(B)AC - \big( \Tr(B)\Tr(AC) -\Tr(ACB) \big)I_2 \big] \\
+    = {}& \Tr(A)BC + \Tr(B)AC + \Tr(C)AB - \Tr(AC)B \\
+        & + \big[
+          \Tr(AB) - \Tr(A)\Tr(B)
+        \big]C + \big[ \Tr(BC) - \Tr(B)\Tr(C) \big] A \\
+        & - [\Tr(ACB) - \Tr(AC)\Tr(B)]I_2.
+  \end{align*}
+
+  \begin{enuma}
+    \setcounter{enumi}{1}
+    \item 这一部分的性质，只需要将 \ref{coro2.3a} 中的等式取迹即可得到.
+  \end{enuma}
+\end{proof}
+
+\begin{mybox}
+  \begin{corollary}[一个特殊系数的多项式.]
+
+    如果$A,B\in\MM_2(\MC)$且$x,y\in\MC$，则
+    \[
+      \det (xA + yB) = x^2\det A + y^2\det B + xy[ \det (A + B) - \det A - \det B].
+    \]
+  \end{corollary}
+\end{mybox}
+
+\begin{proof}
+  如果$x=0$，等式显然成立. 如果$x\ne0$，令$\alpha=\frac yx$，我们有
+  \begin{align*}
+    \det (xA + yB) & = x^2 \det (A + \alpha B )\\
+    & = x^2\big[ \det A + \big( \Tr(A)\Tr(B) - \Tr(AB)\big)\alpha +\alpha^2\det B  \big] \\
+    & = x^2 \det A + xy[\Tr(A)\Tr(B) - \Tr(AB)] + y^2\det B \\
+    & = x^2 \det A + xy[\det (A + B) - \det A - \det B] + y^2\det B,
+  \end{align*}
+  其中第二个等号由引理 \ref{lemma2.7}， 最后的等号由推论 \ref{coro2.2} 得到.
+\end{proof}
+
+\begin{corollary}
+  如果$A\in\MM_2(\MC)$且$x\in\MC$，则$\det (A+xI_2)=\det A+\Tr(A)x+x^2$.
+\end{corollary}
+
+\begin{proof}
+  这由引理 \ref{lemma2.7} 中取$B=I_2$即证.
+\end{proof}
+
+\begin{lemma}
+  如果$A\in\MM_2(\MC)$，则$A+A_\ast=\Tr(A)I_2$.
+\end{lemma}
+
+\begin{proof}
+  这个引理可以直接计算证明.
+\end{proof}
+
+\begin{lemma}
+  如果$A,B\in\MM_2(\MC)$，则
+  \[
+    \Tr(A_\ast B) = \Tr(AB_\ast) = \Tr(A)\Tr(B) - \Tr(AB).
+  \]
+\end{lemma}
+
+\begin{proof}
+  由引理 \ref{lemma2.8}，我们有
+  \[
+    A_\ast = \Tr(A)I_2 - A \Rightarrow
+    \Tr(A_\ast B) = \Tr\big( \Tr(A)B - AB \big)
+    = \Tr(A)\Tr(B) - \Tr(AB).
+  \]
+  类似地，也有$\Tr(AB_\ast) = \Tr(A)\Tr(B)-\Tr(AB)$.
+\end{proof}
+
+接下来的推论是引理 \ref{lemma2.7} 和 引理 \ref{lemma2.9} 的结果.
+
+\begin{corollary}
+  如果$A,B\in\MM_2(\MC)$且$x\in\MC$，则
+  \[
+    \det (A + xB) = \det A + \Tr(AB_\ast)x + (\det B)x^2.
+  \]
+\end{corollary}
+
+\begin{lemma}
+  如果$A,B\in\MM_2(\MC)$，则$\det(AB-BA)=\Tr(A^2B^2)
+  -\Tr\big((AB)^2\big) $.
+\end{lemma}
+
+\begin{proof}
+  由公式 \eqref{eq2.2}，我们有
+  \[
+    \det (AB - BA) = \det (AB) - \big( \Tr(AB)\Tr(BA) - \Tr(AB^2A) \big) + \det (BA).
+  \]
+
+  我们注意到$\det(AB)=\det(BA),\Tr(AB)=\Tr(BA),
+  \Tr(AB^2A)=\Tr(A^2B^2) $， 由此得到
+  \[
+    \det (AB - BA) = 2\det (AB) - \big(\Tr(AB)\big)^2 + \Tr(A^2B^2),
+  \]
+  再结合公式 \eqref{eq2.1} 就证明了引理.
+\end{proof}
+
+\begin{lemma}
+  如果$A,B\in\MM_2(\MC)$，则
+  \[
+    \det (A - B) \det (A + B) = \det (A^2 - B^2) + \det (AB - BA).
+  \]
+\end{lemma}
+
+\begin{proof}
+  由推论 \ref{coro2.1}，我们有
+  \begin{align*}
+    \det[(A^2 - B^2) + (AB - BA)] + &\det [(A^2 - B^2) - (AB - BA)] \\
+    & = 2\big[ \det(A^2 - B^2) + \det(AB - BA) \big].
+  \end{align*}
+  然而
+  \[
+    \det [ (A^2 - B^2) + (AB - BA) ] = \det [ (A - B)(A + B) ] = \det (A - B) \det (A + B),
+  \]
+  且
+  \[
+    \det [ (A^2 - B^2) - (AB - BA) ] = \det [(A + B) (A - B)]  = \det (A - B) \det (A + B),
+  \]
+  于是引理得证.
+\end{proof}
+
+\begin{lemma}
+  如果$A,B\in\MM_2(\MC)$，则
+  \[
+    \det (A^2 + B^2) = \det (AB - BA) + (\det A - \det B)^2 + [ \det (A + B) - \det A - \det B ]^2.
+  \]
+\end{lemma}
+
+\begin{proof}
+  我们应用引理 \ref{lemma2.11}，将$B$换成$\ii B$得到
+  \[
+    \det (A - \ii B) \det (A + \ii B) = \det (A^2 + B^2) + \det [\ii (AB - BA)].
+  \]
+  这意味着
+  \begin{equation}\label{eq2.3}
+    \det (A^2 + B^2) = \det (AB - BA) + \det (A - \ii B) \det (A + \ii B).
+  \end{equation}
+
+  另一方面，由公式 \eqref{eq2.2} 我们有
+  \[
+    \det (A + \ii B) = \det A - \det B + [\Tr(A)\Tr(B) - \Tr(AB)] \ii,
+  \]
+  且
+  \[
+    \det (A - \ii B) = \det A - \det B - [\Tr(A)\Tr(B) - \Tr(AB)] \ii.
+  \]
+  由此得到
+  \[
+    \det (A - \ii B) \det (A + \ii B) = (\det A - \det B)^2 + [\Tr(A)\Tr(B) - \Tr(AB)]^2.
+  \]
+  再结合推论 \ref{coro2.2} 的 \ref{coro.a} 就得到
+  \begin{equation}\label{eq2.4}
+    \det (A - \ii B) \det (A + \ii B) = (\det A - \det B)^2 + [\det (A + B) - \det A - \det B]^2.
+  \end{equation}
+  结合 \eqref{eq2.3} 和 \eqref{eq2.4} 就证明了引理.
+
+\end{proof}
+
+\begin{mybox}
+  \begin{theorem}[矩阵幂等式]
+
+    设$\lambda_1,\lambda_2$是$A\in\MM_2(\MC)$的特征值，则成立下面的性质：
+    \begin{enum}
+      \item \label{thm2.4.a} $(A-\lambda_1I_2)^{2n}+(A-\lambda_2I_2)^{2n}
+          =(\lambda_2-\lambda_1)^{2n}I_2,\,n\ge1$；
+      \item \label{thm2.4.b} $(A-\lambda_1I_2)^{2n-1}-(A-\lambda_2I_2)^{2n-1}
+          =(\lambda_2-\lambda_1)^{2n-1}I_2,\,n\ge1$
+    \end{enum}
+  \end{theorem}
+\end{mybox}
+
+\begin{proof}
+  \begin{enuma}
+    \item 我们通过对$n$归纳证明定理的 \ref{thm2.4.a} 部分. 设$P(n)$表示所要证明的问题
+  \end{enuma}
+    \[
+      P(n):\quad (A-\lambda_1I_2)^{2n}+(A-\lambda_2I_2)^{2n}
+          =(\lambda_2-\lambda_1)^{2n}I_2.
+    \]
+
+    首先，我们证明$P(1)$成立，即需要证明等式
+    \[
+      (A - \lambda_1I_2)^2 + (A - \lambda_2I_2)^2 = (\lambda_2 - \lambda_1)^2I_2
+    \]
+    成立. 我们有
+    \begin{align*}
+      (A - \lambda_1I_2)^2 + (A - \lambda_2I_2)^2  & = A^2 - 2\lambda_1 A +\lambda_1^2I_2 + A^2 - 2\lambda_2A + \lambda_2^2I_2 \\
+      & = 2[A^2 - (\lambda_1 + \lambda_2)A + \lambda_1\lambda_2I_2] + (\lambda_1^2 - 2\lambda_1\lambda_2 + \lambda_2^2)I_2 \\
+      & = (\lambda_2 - \lambda_1)^2 I_2,
+    \end{align*}
+    其中最后一步等号是由Cayley--Hamilton定理得到.
+
+    现在我们假定$P(k)$对$k=1,2,\cdots,n$成立，我们要证明$P(n+1)$也成立. 由于$P(1)$和$P(n)$成立，我们有
+    \begin{align*}
+      & (A-\lambda_1I_2)^{2n+2}+(A-\lambda_2I_2)^{2n+2}\\
+      = {} & \big[ (A - \lambda_1I_2)^{2n} + (A - \lambda_2I_2)^{2n} \big]\big[ (A - \lambda_1I_2)^2 + (A - \lambda_2I_2)^2 \big]\\
+      & - (A - \lambda_1I_2)^{2n}(A - \lambda_2I_2)^2 - (A - \lambda_2I_2)^{2n}(A - \lambda_1I_2)^2 \\
+      = {} & (\lambda_2 - \lambda_1)^{2n}(\lambda_2 -\lambda_1)^2I_2 \\
+      = {}& (\lambda_2 - \lambda_1)^{2n+2}I_2,
+    \end{align*}
+    其中我们用到了$(A-\lambda_1I_2)(A-\lambda_1I_2)
+    =(A-\lambda_2I_2)(A-\lambda_1I_2)=O_2$.
+
+    \begin{enuma}
+      \setcounter{enumi}{1}
+      \item 当$n=1$时是显然的. 令$X=A-\lambda_1I_2$且$Y=A-\lambda_2I_2$，我们有
+    \end{enuma}
+      \begin{align*}
+        X^{2n-1} - Y^{2n-1} & = (X^{2n-2} + Y^{2n-2})(X - Y) + X^{2n-2}Y - Y^{2n-2}X \\
+        & \overset{\ref{thm2.4.a}}{=} (\lambda_2 - \lambda_1)^{2n-2} (\lambda_2 - \lambda_1)I_2 \\
+        & = (\lambda_2 - \lambda_1)^{2n-1}I_2,
+      \end{align*}
+    其中我们利用了$XY=YX=O_2$. 证毕.
+\end{proof}
+
+\section{对称矩阵的特征值}
+
+在本节中，我们证明实的$2\times2$矩阵是可对角化的，并且将$A$对角化的矩阵$P\in\MM_2(\MR)$可以取为一个正交矩阵，即$P\TT=P^{-1}$. 事实上，$P$是一个旋转矩阵. 这种思想常用在第 \ref{chap4} 章 和第 \ref{chap6} 章 中不同区域上二重积分的计算，也常用于第 \ref{chap6} 章中将一个二次曲线化为它的标准形.
+
+\begin{mybox}
+  \begin{theorem}[对称矩阵及其特征值.]
+
+  设$A=\begin{pmatrix}
+    a & b \\
+    b & d
+  \end{pmatrix}\in\MM_2(\MR)$.
+  \begin{enum}
+    \item $A$有实特征值
+      \[
+        \lambda_1 = \frac{a + d + \sqrt{(a - d)^2 + 4b^2} }2 ,\,\lambda_2 = \frac{a + d + \sqrt{(a - d)^2 + 4b^2 } }2,
+      \]
+      且$\lambda_1=\lambda_2=\lambda$当且仅当$A=\lambda I_2$.
+    \item $A$可对角化，并且将$A$对角化的矩阵$P\in\MM_2(\MR)$可以取为一个正交矩阵. 我们有
+        \[
+          P^{-1}AP = \begin{pmatrix}
+            \lambda_1 & 0 \\
+            0 & \lambda_2
+          \end{pmatrix},\;\text{其中}\, P=R_\theta,\,\tan\theta =
+          \frac{d - a + \sqrt{(a-d)^2+4b^2}}{2b},b\ne0.
+        \]
+  \end{enum}
+  \end{theorem}
+\end{mybox}
+
+\begin{proof}
+  \begin{enuma}
+    \item 直接计算即可证明.
+    \item 可逆矩阵$P$的列是分别相应于特征值$\lambda_1$和$\lambda_2$的特征向量. 如果$v_i,i=1,2$是相应于特征值$\lambda_i,i=1,2$的特征向量，则由方程组$(A-\lambda_iI_2)v_i=0,i=1,2$可得
+  \end{enuma}
+    \[
+      v_1 = \begin{pmatrix}
+        1 \\
+        \frac{d - a + \sqrt{(a - d)^2 + 4b^2} }{2b}
+      \end{pmatrix}\quad \text{且}\quad
+      v_2 = \begin{pmatrix}
+        \frac{a - d - \sqrt{(a - d)^2 + 4b^2} }{2b} \\ 1
+      \end{pmatrix}.
+    \]
+    我们将这两个向量除以它们的模长
+    \[
+      \| v_1 \| = \| v_2 \| = \SQRT{
+        1 + \left( \frac{d - a + \sqrt{(a - d)^2 + 4b^2} }{2b} \right)^2
+      },
+    \]
+    并取
+    \[
+      P = \left( \frac{v_1}{\|v_2\|}\bigg|
+      \frac{v_2}{\|v_2\|} \right) = R_\theta,\;\text{其中}
+      \,\tan\theta =
+          \frac{d - a + \sqrt{(a-d)^2+4b^2}}{2b},b\ne0.
+    \]
+    定理得证.
+\end{proof}
+
+\section{Cayley--Hamilton定理的逆定理}
+
+在这一节中，我们讨论Cayley--Hamilton定理的{\kaishu 逆定理}.
+\begin{mybox}
+  \begin{theorem}[Cayley--Hamilton定理的逆定理.]
+
+    设$A\in\MM_2(\MC)$，且设$a,b\in\MC$满足$A^2-aA+bI_2=O_2$. 如果$A\notin\{\alpha I_2:\alpha\in\MC\}$，则$\Tr(A)=a$且$\det A=b$.
+  \end{theorem}
+\end{mybox}
+
+\begin{proof}
+  由Cayley--Hamilton定理我们有
+  \begin{align*}
+    & A^2 - aA + bI_2 = O_2, \\
+    & A^2 - \Tr(A)A + (\det A)I_2 = O_2,
+  \end{align*}
+  由此得到$[a-\Tr(A)]A=(b-\det A)I_2$.
+
+  如果$a-\Tr(A)\ne0$，我们得到
+  \[
+    A = \frac{b - \det A}{a - \Tr(A)}I_2,
+  \]
+  这与$A\notin\{\alpha I_2,\alpha\in\MC\}$矛盾.
+
+  于是$a-\Tr(A)=0$，我们得到$b-\det A = 0$，定理得证.
+\end{proof}
+
+\begin{remark}
+  值得一提的是，不存在矩阵$A\in\MM_2(\MC)$使得$A^2-aA+bI_2=O_2$对$a\ne\Tr(A)$和$b\ne\det A$成立. 要得到这个结论，我们令$A=\alpha I_2$，其中$\alpha\in\MC$满足方程$\alpha^2-a\alpha+b=0$. 则$\Tr(A)=2\alpha,\det A=\alpha^2$，如果$a,b$满足$a^2-4b\ne0$且$b\ne0$，我们有$a\ne\Tr(A)$且$b\ne\det A$.
+\end{remark}
+
+\section{矩阵$XY$与$YX$的特征多项式}
+
+在这一节中，我们证明两个在矩阵论中关于矩阵$XY$和$YX$的基本结论.
+
+\begin{theorem}[矩阵$XY$与$YX$的特征多项式.]
+
+  如果$X,Y\in\MM_2(\MC)$，则矩阵$XY$与$YX$有相同的特征多项式，即$f_{XY}=f_{YX}$.
+\end{theorem}
+
+\begin{proof}
+  由于$\Tr(XY)=\Tr(YX)$且$\det(XY)=\det(YX)$，我们有
+  \[
+    f_{XY}(x) = x^2 - \Tr(XY)x + \det(XY) = x^2 - \Tr(YX)x + \det(YX) = f_{YX}(x).
+  \]
+\end{proof}
+
+\begin{nota}
+  定理 \ref{thm2.7} 意味着下面的等式成立：
+  \[
+    \det (XY - \lambda I_2) = \det(YX - \lambda I_2),\,\forall X,Y\in\MM_2(\MC),\,\forall \lambda\in\MC.
+  \]
+  这个定理还说明矩阵$XY$与$YX$具有相同的特征值.
+\end{nota}
+
+下面的定理是定理 \ref{thm2.7} 的逆定理.
+
+\begin{theorem}
+  如果$A\in\MM_2(\MC)$满足
+  \[
+    \det (XY - A) = \det(YX - A),\,\forall X,Y\in\MM_2(\MC),
+  \]
+  则存在$a\in\MC$使得$A=aI_2$.
+\end{theorem}
+
+\begin{proof}
+  设$E_{i,j}$表示$(i,j)$元等于1，而其他元均为0的矩阵，令$A=\begin{pmatrix}
+    a & b \\
+    c & d
+  \end{pmatrix}\in\MM_2(\MC)$.
+
+  如果$X=E_{1,2}$且$Y=E_{2,2}$，则$XY=E_{1,2},YX=O_2$，定理中假设的等式变为
+  \[
+    \det \begin{pmatrix}
+      -a & 1 - b \\
+      -c & -d
+    \end{pmatrix} = \det
+    \begin{pmatrix}
+      -a & -b \\
+      -c & -d
+    \end{pmatrix},
+  \]
+  这意味着$c=0$.
+
+  如果$X=E_{2,1},Y=E_{1,1}$，则$XY=E_{2,1}$且$YX=O_2$. 此时定理中假设的等式变为
+  \[
+    \det \begin{pmatrix}
+      -a & -b \\
+      1 - c & -d
+    \end{pmatrix} = \det \begin{pmatrix}
+      -a & -b \\
+      -c & -d
+    \end{pmatrix},
+  \]
+  这意味着$b=0$. 因此，$A=\begin{pmatrix}
+    a & 0 \\
+    0 & d
+  \end{pmatrix}$.
+
+  如果$X=E_{1,2},Y=E_{2,1}$，我们得到$XY=E_{1,1}$且$YX=E_{2,2}$，而条件
+  \[
+    \det \begin{pmatrix}
+      1 - a & 0 \\
+      0 & -d
+    \end{pmatrix} = \det \begin{pmatrix}
+      -a & 0 \\
+      0 & 1 - d
+    \end{pmatrix}
+  \]
+  则意味着$a=d$. 因此，$A=aI_2$，定理得证.
+\end{proof}
+
+现在我们给出前面定理的一个应用.
+
+\begin{corollary}
+  如果$A,B\in\MM_2(\MC)$是两个可逆矩阵，且满足
+  \begin{equation}\label{eq2.5}
+    \det (XAY + B) = \det(YBX + A),\,\forall X,Y\in\MM_2(\MC),
+  \end{equation}
+  则存在$a\in\MC^\ast$使得$A^2=B^2=aI_2$.
+\end{corollary}
+
+\begin{proof}
+  如果$Y=O_2$，我们得到$\det A=\det B$. 如果$Y=I_2$，我们得到
+  \[
+    \det (XA + B) = \det (BX + A),\,\forall X\in\MM_2(\MC).
+  \]
+  由于$\det A=\det B$，这个等式左边左乘$\det B$，而右边右乘以$\det B$，我们有
+  \begin{equation}\label{eq2.6}
+    \det (BXA + B^2) = \det (BXA + A^2),\,\forall X\in\MM_2(\MC).
+  \end{equation}
+
+  由于矩阵$A$和$B$可逆，定义函数$f:\MM_2(\MC)\to\MM_2(\MC)$为$f(X)=BXA$，则它是满射，且等式 \eqref{eq2.6} 意味着
+  \begin{equation}\label{eq2.7}
+    \det (Z + B^2) = \det (Z + A^2),\,\forall Z\in\MM_2(\MC).
+  \end{equation}
+  在 \eqref{eq2.7} 中分别取$Z$等于$O_2,E_{1,1},E_{1,2},E_{2,1},E_{2,2}$，我们得到$B^2=A^2$. 现在在等式 \eqref{eq2.5} 左边右乘$\det B$，而在右边左乘$\det A$，我们有
+  \[
+    \det (XAYB + B^2) = \det (YBXA + A^2),\,\forall X,Y\in\MM_2(\MC),
+  \]
+  即
+  \[
+    \det (X_1Y_1 + C) = \det (Y_1X_1 + C),\,\forall X_1,Y_1\in\MM_2(\MC),
+  \]
+  其中$C=A^2=B^2$. 那么由定理 \ref{thm2.8}，可知存在$a\in\MC^\ast$使得$C=aI_2$. 因此，$A^2=B^2=aI_2$，推论得证.
+\end{proof}
+
+\section{Jordan标准形}
+\begin{mybox}
+  \begin{theorem}[复Jordan标准形.]
+
+    设$A\in\MM_2(\MC)$，且令$\lambda_1,\lambda_2$是$A$的特征值，则：
+    \begin{enum}
+      \item 如果$\lambda_1\ne\lambda_2$或者$A=\alpha I_2$对某个$\alpha\in\MC$成立，则存在可逆矩阵$P\in\MM_2(\MC)$使得
+          \[
+            A = P\begin{pmatrix}
+              \lambda_1 & 0 \\
+              0 & \lambda_2
+            \end{pmatrix} P^{-1};
+          \]
+      \item 如果$\lambda_1=\lambda_2=\lambda$且$A\ne\lambda I_2$，则存在可逆矩阵$P\in\MM_2(\MC)$使得
+          \[
+            A = P\begin{pmatrix}
+              \lambda & 1 \\
+              0 & \lambda
+            \end{pmatrix} P^{-1}.
+          \]
+    \end{enum}
+  \end{theorem}
+\end{mybox}
+
+\begin{proof}
+  \begin{enuma}
+    \item 设$\lambda_1\ne\lambda_2$是矩阵$A=\begin{pmatrix}
+          a & b \\
+          c & d
+        \end{pmatrix}$的特征值. 由于特征值互异，则$(a-d)^2+4bc\ne0$. 且存在$X_1=\begin{pmatrix}
+          x_1 \\ y_1
+        \end{pmatrix}\ne\begin{pmatrix}
+          0 \\ 0
+        \end{pmatrix}$，使得
+  \end{enuma}
+    \begin{equation}\label{eq2.8}
+      AX_1 = \lambda_1X_2,
+    \end{equation}
+    且存在$X_2=\begin{pmatrix}
+      x_2 \\ y_2
+    \end{pmatrix}\ne\begin{pmatrix}
+      0 \\ 0
+    \end{pmatrix}$，使得
+    \begin{equation}\label{eq2.9}
+      AX_2 = \lambda_2X_2
+    \end{equation}
+
+    现在，我们注意到对任意$\alpha\in\MC$，有$X_2\ne\alpha X_1$，即相应于特征值$\lambda_1$和$\lambda_2$的特征向量是线性无关的. 否则，如果$X_2=\alpha X_1$对某个$\alpha\in\MC$成立，则意味着$AX_2=\alpha AX_1$，这就说明$\lambda_2X_2=\alpha\lambda_1X_1$， 于是$\alpha(\lambda_2-\lambda_1)X_1=0$. 由于$X_1\ne0$，因此$\lambda_1=\lambda_2$，矛盾. 因此$X_1,X_2$是线性无关的，这就意味着矩阵$P=(X_1|X_2)$是可逆的.
+
+    等式 \eqref{eq2.8} 和 \eqref{eq2.9} 可以写为$A(X_1|X_2)=(\lambda_1X_1|\lambda_2X_2)$，即
+    \[
+      AP = P \begin{pmatrix}
+        \lambda_1 & 0 \\
+        0 & \lambda_2
+      \end{pmatrix}\quad \Leftrightarrow\quad A = PJ_AP^{-1}\quad \text{其中}\quad
+      J_A = \begin{pmatrix}
+        \lambda_1 & 0 \\
+        0 & \lambda_2
+      \end{pmatrix} .
+    \]
+    \begin{enuma}
+      \setcounter{enumi}{1}
+      \item 现在我们考虑当$A$的特征值相等的情形，即$\lambda_1=\lambda_2=\lambda$且$A\ne\lambda I_2 $. 我们取向量$X_1=\begin{pmatrix}
+            x_1 \\ y_1
+          \end{pmatrix}\ne\begin{pmatrix}
+            0 \\ 0
+          \end{pmatrix}$，使得$AX_1=\lambda_1X_1$，以及取$X_1'=\begin{pmatrix}
+            x_1' \\ y_1'
+          \end{pmatrix}$，使得$AX_1'=\lambda X_1'+X_1$. 我们说明一下，这里$X_1$是相应于特征值$\lambda$的特征向量，而$X_1'$称为相应于特征值$\lambda$的{\kaishu 广义特征向量}\index{T!特征向量!广义特征向量}. 令$P=(X_1|X_1')$，则我们有
+    \end{enuma}
+          \[
+            AP = A(X_1|X_1') = (\lambda X_1|\lambda X_1' + X_1),
+          \]
+    即
+    \[
+      AP = P\begin{pmatrix}
+        \lambda & 1 \\
+        0 & \lambda
+      \end{pmatrix}\quad \Leftrightarrow\quad
+      A = PJ_AP^{-1}\quad \text{其中}\quad
+      J_A = \begin{pmatrix}
+        \lambda & 1 \\
+        0 & \lambda
+      \end{pmatrix}.
+    \]
+    定理得证.
+\end{proof}
+
+\begin{mybox}
+  \begin{remark}
+    矩阵
+    \[
+      J_A = \begin{pmatrix}
+        \lambda_1 & 0 \\
+        0 & \lambda_2
+      \end{pmatrix}\quad \text{或}\quad
+      J_A = \begin{pmatrix}
+        \lambda & 1 \\
+        0 & \lambda
+      \end{pmatrix}
+    \]
+    称为矩阵$A$的{\kaishu Jordan标准形}\index{B!标准形!Jordan标准形}. $P$的列向量$X_1,X_2$或者$X_1,X_1'$构成了$\MM_2(\MC)$的一组基，称为相应于矩阵$A$的\textbf{Jordan基}\index{J!Jordan基}. 由引理 \ref{lemma1.4}，矩阵$P$是从标准基$\mathscr B=\{E_1,E_2\}$到Jordan基的过渡矩阵.
+  \end{remark}
+\end{mybox}
+
+\begin{mybox}
+  \begin{corollary}[特殊矩阵的Jordan基的形式.]
+    \begin{itemize}
+      \item 所有的幂零矩阵$A\in\MM_2(\MC),A\ne O_2$都形如
+          \[
+            A = P \begin{pmatrix}
+              0 & 1 \\
+              0 & 0
+            \end{pmatrix}P^{-1},
+          \]
+          其中$P$是任意可逆矩阵.
+      \item 所有的幂等矩阵$A\in\MM_2(\MC)$为$A=O_2,A=I_2$或者
+          \[
+            A = P\begin{pmatrix}
+              1 & 0 \\
+              0 & 0
+            \end{pmatrix}P^{-1},
+          \]
+          其中$P$是任意可逆矩阵.
+      \item 所有的对合矩阵$A\in\MM_2(\MC)$为$A=\pm I_2$或者
+          \[
+            A = P\begin{pmatrix}
+              1 & 0 \\
+              0 & -1
+            \end{pmatrix}P^{-1},
+          \]
+          其中$P$是任意可逆矩阵.
+      \item 所有的反对合矩阵$A\in\MM_2(\MC)$为$A=\pm\ii\cdot I_2$或者
+          \[
+            A = P\begin{pmatrix}
+              0 & -1\\
+              1 & 0
+            \end{pmatrix}P^{-1},
+          \]
+          其中$P$是任意可逆矩阵.
+    \end{itemize}
+  \end{corollary}
+\end{mybox}
+
+现在我们讨论矩阵$A\in\MM_2(\MR)$的实标准形. 我们有偶下面的定理.
+\begin{mybox}
+  \begin{theorem}[实矩阵的实标准形.]
+    \begin{enum}
+      \item \label{thm2.10a}如果$A\in\MM_2(\MR)$且$\lambda_1,\lambda_2$是$A$的实特征值，则存在$P\in\MM_2(\MR)$使得
+          \[
+            A = P\begin{pmatrix}
+              \lambda_1 & 0 \\
+              0 & \lambda_2
+            \end{pmatrix}P ^{-1}\quad\text{或者}\quad
+            A = P\begin{pmatrix}
+              \lambda & 1 \\
+              0 & \lambda
+            \end{pmatrix}P^{-1}，
+          \]
+          上述情形要看$A$的特征值是否相同.
+      \item 如果$A\in\MM_2(\MR)$，且$A$的特征值为$\lambda_1=\alpha+\ii\beta,\lambda_2=
+          \alpha-\ii\beta,\alpha\in\MR,\beta\in\MR^\ast$，则存在可逆矩阵$P\in\MM_2(\MR)$使得
+          \[
+            A = P \begin{pmatrix}
+              \alpha & \beta \\
+              -\beta & \alpha
+            \end{pmatrix} P^{-1}.
+          \]
+    \end{enum}
+  \end{theorem}
+\end{mybox}
+
+\begin{proof}
+  \begin{enuma}
+    \item \ref{thm2.10a} 的证明类似于定理 \ref{thm2.9} 的证明.
+    \item 我们指出，此时矩阵$A$的Jordan标准形为
+  \end{enuma}
+        \[
+          J_A = \begin{pmatrix}
+            \alpha + \ii\beta & 0 \\
+            0 & \alpha - \ii\beta
+          \end{pmatrix},
+        \]
+  且如果$AZ=\lambda_1Z,Z\ne0$，则$A\bar Z=\bar{\lambda_1}\bar Z=\lambda_2\bar Z$. 定义矩阵$P_{\MC}=(Z|\bar Z)$，则$A=P_{\MC}J_AP_{\MC}^{-1}$.
+
+  如果$Z=X+\ii Y$，其中$X,Y$为实向量我们有
+  \[
+    AZ = \lambda_1Z \quad \Leftrightarrow\quad
+    A(X + \ii Y) = (\alpha + \ii\beta )(X + \ii Y),
+  \]
+  于是我们得到等式$AX=\alpha X-\beta Y$和$AY=\beta X+\alpha Y$.
+
+  定义矩阵$P=(X|Y)$，则我们有
+  \[
+    AP = A(X|Y) = (AX|AY) = (\alpha X-\beta Y|\beta X+\alpha Y) = P\begin{pmatrix}
+      \alpha & \beta \\
+      -\beta & \alpha
+    \end{pmatrix},
+  \]
+  即$A=PJ_A^{\MR}P$，其中矩阵
+  \[
+    J_A^{\MR} = \begin{pmatrix}
+      \alpha & \beta \\
+      -\beta & \alpha
+    \end{pmatrix}
+  \]
+  称为矩阵$A$的{\kaishu 实标准形}\index{B!标准形!实标准形}. 定理得证.
+\end{proof}
+
+现在我们给出矩阵$A\in\MM_2(\MQ)$的有理标准形. 我们有下面的定理.
+
+\begin{mybox}
+  \begin{theorem}[有理矩阵的有理标准形.]
+    \begin{enum}
+      \item\label{thm2.11a} 如果$A\in\MM_2(\MQ)$，且$\lambda_1,\lambda_2$是$A$的有理特征值，则存在矩阵$P\in\MM_2(\MQ)$，使得
+          \[
+            A = P\begin{pmatrix}
+              \lambda_1 & 0 \\
+              0 & \lambda_2
+            \end{pmatrix}P^{-1} \quad\text{或者}\quad
+            A = P\begin{pmatrix}
+              \lambda & 1 \\
+              0 & \lambda
+            \end{pmatrix}P^{-1}，
+          \]
+      上述情形取决于$A$的特征值是否相同.
+      \item 如果$A\in\MM_2(\MQ)$，且$A$的特征值为$\lambda_1,\lambda_2\in\MC\backslash\MQ$，则$\lambda_1=\alpha+\sqrt\beta$且
+          $\lambda_2=\alpha-\sqrt\beta,
+          \alpha\in\MQ,\beta\in\MQ^\ast$，且存在可逆矩阵$P\in\MM_2(\MQ)$使得
+          \[
+            A = P \begin{pmatrix}
+              \alpha & 1 \\
+              \beta & \alpha
+            \end{pmatrix}P^{-1}.
+          \]
+    \end{enum}
+  \end{theorem}
+\end{mybox}
+
+\begin{proof}
+  \begin{enuma}
+    \item \ref{thm2.11a} 的证明类似于定理 \ref{thm2.9} 的证明.
+    \item 此时矩阵$A$的Jordan标准形为
+  \end{enuma}
+  \[
+      J_A = \begin{pmatrix}
+        \alpha + \sqrt{\beta} & 0 \\
+        0 & \alpha - \sqrt{\beta}
+      \end{pmatrix}.
+    \]
+
+    如果$Z\ne0$是相应于特征值$\lambda_1=\alpha+\sqrt{\beta}$的特征向量，则$AZ=\lambda_1Z$. 令$Z=X+\sqrt\beta Y$，其中$X$和$Y$是有理向量. 直接计算得$A(X+\sqrt\beta Y)=(\alpha+\sqrt\beta)(X+\sqrt\beta Y)$，这意味着
+    \[
+      AX = \alpha X + \beta Y \quad \text{且}\quad
+      AY = X + \alpha Y.
+    \]
+    这反过来又说明$A(X-\sqrt\beta Y)=(\alpha-\sqrt\beta)(X-\sqrt\beta Y)$，即$AZ'=\lambda_2Z'$，其中$Z'=X-\sqrt\beta Y$. 定义可逆矩阵$P_{\MC}=(Z|Z')$，则$A=P_{\MC}J_AP_{\MC}^{-1}$.
+
+    令$P=(X|Y)\in\MM_2(\MQ)$，我们有
+    \[
+      AP = A(X|Y) = (\alpha X+\beta Y|X + \alpha Y) = (X|Y)\begin{pmatrix}
+        \alpha & 1 \\
+        \beta & \alpha
+      \end{pmatrix} = P\begin{pmatrix}
+        \alpha & 1 \\
+        \beta & \alpha
+      \end{pmatrix},
+    \]
+    即$A=PJ_A^{\MQ}P^{-1}$，其中矩阵
+    \[
+      J_A^{\MQ} = \begin{pmatrix}
+        \alpha & 1 \\
+        \beta & \alpha
+      \end{pmatrix}
+    \]
+    称为矩阵$A$的{\kaishu 有理标准形}.\index{B!标准形!有理标准形} 定理得证.
+\end{proof}
+
+\section{问题}
+\begin{problem}
+  设$A\in\MM_2(\MC)$满足$\det A=1$，证明：$\det(A^2+A-I_2)+\det(A^2+I_2)=5$.
+\end{problem}
+
+\begin{problem}
+  设$A\in\MM(Z)$满足$\det A=1$， 如果
+  \[
+    \det (A^2 - 3A + I_2) + \det (A^2 + A - I_2) = -4,
+  \]
+  求$\Tr(A)$.
+\end{problem}
+
+\begin{problem}
+  设$A\in\MM_2(\MC)$满足$\Tr(A)=-1$，证明：
+  \[
+    \det (A^2 + 3A + 3I_2) - \det (A^2 + A) = 3.
+  \]
+\end{problem}
+
+\begin{problem}
+  设$a\in\MZ,a\ne\pm1$且$A\in\MM_2(\MZ)$. 证明：矩阵$aA+(a+1)I_2$和$aA-(a+1)I_2$是可逆的.
+\end{problem}
+
+\begin{problem}
+  证明：任意矩阵$A\in\MM_2(\MZ)$可以写成两个可逆矩阵的和.
+\end{problem}
+
+\begin{problem}
+  \footnote{这个问题指出任意奇异矩阵都是一列非奇异矩阵的极限.} 设$A\in\MM_2(\MC)$满足$\det A=0$，证明：存在一列矩阵$(A_n)_{n\in\MN}$，使得$\det A_n\ne0$且$\lim_{n\to\infty}A_n=A$.
+\end{problem}
+
+\begin{remark}[可逆矩阵的稠密性.]
+  问题 \ref{problem2.6} 可以用来说明可逆矩阵的集合在所有矩阵中是稠密的.
+\end{remark}
+
+\begin{problem}
+  设$A\in\MM_2(\MC)$，证明：$A$和$A_\ast$具有相同的特征多项式（相同的特征值）.
+\end{problem}
+
+\begin{problem}
+  如果一个矩阵的所有元都是非负实数，且每一行的和为1，则称之为{\kaishu 右随机矩阵}. \index{Y!右随机矩阵}证明：一个右随机矩阵$A\in\MM_2(\MC)$的最大特征值为1，最小特征值为$\Tr(A)-1$，并求出相应的特征向量.
+\end{problem}
+
+\begin{problem}
+  证明：如果$A\in\MM_2(\MC)$的所有特征值为1，则对任意正整数$k$，$A$相似于$A^k$.
+\end{problem}
+
+\begin{problem}
+  设$n\in\MN$，证明：如果$A,B\in\MM_2(\MC)$是相似矩阵，则$A^n$与$B^n$是相似矩阵. 这个命题的逆命题是否成立?
+\end{problem}
+
+\begin{problem}
+  设$A=\begin{pmatrix}
+    0 & 0 \\ 1 & 0
+  \end{pmatrix}$.
+  \begin{enum}
+    \item 求出所有与$A$相似的矩阵$B\in\MM_2(\MR)$.
+    \item 证明：$A$与$O_2$具有相同的特征多项式，但它们不相似.
+  \end{enum}
+\end{problem}
+
+\begin{mybox}
+\begin{problem}[两类特殊的相似矩阵.]
+  \begin{enum}
+    \item 证明：任意矩阵$A\in\MM_2(\MC)$与它的转置矩阵相似.
+    \item\label{prob2.12b} 证明：任意矩阵$A\in\MM_2(\MC)$与一个对称矩阵相似.
+  \end{enum}
+  \begin{nota}
+     问题的 \ref{prob2.12b} 可以约化为任意形如$\begin{pmatrix}
+          \lambda & 1 \\
+          0 & \lambda
+        \end{pmatrix},\lambda\in\MC$的矩阵相似于一个复对称矩阵.
+  \end{nota}
+\end{problem}
+\end{mybox}
+
+\begin{mybox}
+  \begin{problem}[转置矩阵与伴随矩阵矩阵相似.]
+
+    证明：对任意$A\in\MM_2(\MC)$，存在$P\in\MM_2(\MC)$使得$A_\ast=PA\TT P^ {-1}$，并求出所有满足此性质的矩阵$P$.
+  \end{problem}
+\end{mybox}
+
+\begin{mybox}
+  \begin{problem}
+    任意矩阵$A\in\MM_2(\MC)$都是两个对称矩阵的乘积.
+  \end{problem}
+\end{mybox}
+
+\begin{problem}
+  设$n\in\MN,n\ge2$，且设$A\in\MM_2(\MR)$. 证明：如果$A^n$是一个对称矩阵，且不形如$\alpha I_2,\alpha\in\MR$，则$A$是一个对称矩阵.
+\end{problem}
+
+\begin{problem}
+  设$\MM$表示$\MM_2(\MC)$中特征值的模不超过1的矩阵的集合，证明：如果$A,B\in\MM$且$AB=BA$，则$AB\in\MM$.
+\end{problem}
+
+\begin{problem}
+  设$A=\begin{pmatrix}
+    2 & 5 \\
+    -3 & 10
+  \end{pmatrix}$且$B=\begin{pmatrix}
+    3 & -2 \\
+    4 & 9
+  \end{pmatrix}$，证明：
+  \[
+    A^n - B^n = \frac{7^n-5^n}2(A-B),\quad \forall n\in\MN.
+  \]
+\end{problem}
+
+\begin{problem}
+  设$A,B\in\MM_2(\MR)$满足$AB=\begin{pmatrix}
+    5 & 2 \\
+    7 & 3
+  \end{pmatrix}$，证明：$BA+A^{-1}B^{-1}=8I_2$.
+\end{problem}
+
+\begin{problem}
+  设$A=\begin{pmatrix}
+    1 & 3 \\
+    3 & 10
+  \end{pmatrix}$，且数列$(a_n)_{n\ge0}$递归定义为$a_{n+1}=3a_n+a_{n-1},n\ge1,a_0=0,a_1=1$.
+  \begin{enum}
+    \item 证明：$A^n=\begin{pmatrix}
+      a_{2n-1} & a_{2n} \\
+      a_{2n} & a_{2n+1}
+    \end{pmatrix},n\ge1$.
+    \item 如果数列$(x_n)_{n\ge0}$和$(y_n)_{n\ge0}$满足递推关系$\begin{pmatrix}
+          x_{n+1} \\ y_{n+1}
+        \end{pmatrix}=A\begin{pmatrix}
+          x_n \\ y_n
+        \end{pmatrix},n\ge0$，且$\begin{pmatrix}
+          x_0 \\ y_0
+        \end{pmatrix}=\begin{pmatrix}
+          1 \\ 0
+        \end{pmatrix}$，证明：$x_{n+1}^2+3x_{n+1}y_{n+1}-y_{n+1}^2=
+        x_n^2+3x_ny_n-y_n^2$对任意$n\ge0$成立.
+    \item 证明：如果自然数$x,y\in\MN$满足方程$x^2+3xy-y^2=1$，则存在$n\in\MN$使得$(x,y)=(a_{2n-1},a_{2n})$.
+  \end{enum}
+\end{problem}
+
+\begin{problem}
+  设$A,B\in\MM_2(\MR)$，且存在$n\in\MN$满足$(AB-BA)^n=I_2$. 证明：$(AB-BA)^4=I_2$，且$n$是偶数.
+\end{problem}
+
+\begin{problem}
+  设整数$n\ge2$，且$A,B\in\MM_2(\MC)$满足$AB\ne BA$，而$(AB)^n=(BA)^n$. 证明：$(AB)^n=bI_2$对某个$b\in\MC$成立.
+\end{problem}
+
+\begin{problem}
+  设$A\in\MM_2(\MR)$满足$\det(A^2-A+I_2)=0$.
+  \begin{enum}
+    \item\label{prob2.22a} 证明：$A^2-A+I_2=O_2$.
+    \item 计算$\det(A^2+\alpha A+\beta I_2)$，其中$\alpha,\beta\in\MR$.
+  \end{enum}
+\end{problem}
+
+\begin{problem}
+  证明：任意矩阵$A\in\MM_2(\MR)$可以写为$A=B^2+C^2$，其中$B,C\in\MM_2(\MR)$. 如果我们附加条件$BC=CB$，这个结论是否成立?
+\end{problem}
+
+\begin{mybox}
+  \begin{problem}
+    设$A\in\MM_2(\MC)$，证明：
+    \begin{enum}
+      \item $\Re(\det A)=\det\Re(A)-\det\Im(A)$；
+      \item $\Im(\det A)=\det\big(\Re(A)+\Im(A)\big)
+          -\det\Re(A)-\det\Im(A)$.
+    \end{enum}
+  \end{problem}
+\end{mybox}
+
+\begin{mybox}
+  \begin{problem}[一个极值问题.]
+
+    设$\MM=\{A=(a_{ij})\in\MM_2(\MR):-1\le a_{ij}\le1,\forall i,j=1,2\}$，证明：$\max_{A,B\in\MM}\det(AB-BA)=16$.
+  \end{problem}
+\end{mybox}
+
+\begin{problem}
+  设$A,B\in\MM_2(\MC)$，证明：如果$\det(A+X)=\det(B+X)$对任意$X\in\MM_2(\MC)$成立，则$A=B$.
+\end{problem}
+
+\begin{problem}
+  设$A,B\in\MM_2(\MR)$，证明：
+  \[
+    \det(A^2 + B^2 + AB - BA) = \det(A^2 + B^2) + \det(AB - BA).
+  \]
+\end{problem}
+
+\begin{problem}
+  设$A,B\in\MM_2(\MR)$，证明：$\det(A^2 + B^2)\ge \det(AB - BA)$.
+\end{problem}
+
+\begin{problem}
+  设$A,B\in\MM_2(\MR)$，证明：如果$\det(AB+BA)\le0$，则$\det(A^2+B^2)\ge0$.
+\end{problem}
+
+\begin{problem}
+  设$A,B\in\MM_2(\MR)$满足$A^2+B^2=O_2$且$AB=BA$，证明：$\det(A+B)=\det A+\det B$.
+\end{problem}
+
+\begin{problem}
+  设$A,B\in\MM_2(\MR)$满足$A^2+B^2=O_2$且$AB=BA$，则
+  \begin{enum}
+    \item $\det A= \det B$；
+    \item 如果$\det A\ne0$，则$A^2+B^2=O_2$.
+  \end{enum}
+
+  \begin{nota}
+    如果$A,B\in\MM_2(\MR)$满足$A^2+B^2=O_2$且$AB=BA$，那么是得不到$A^2+B^2=O_2$的.
+  \end{nota}
+\end{problem}
+
+\begin{problem}
+  设$A,B\in\MM_2(\MR)$，证明：如果$AB=BA$且$\det(2A^2-3AB+2B^2)=0$，则$\det A=\det B$且$\det(A+B)=\frac72\det A$.
+\end{problem}
+
+\begin{problem}
+  设$A,B\in\MM_2(\MQ)$是两个可交换的矩阵，满足$\det A=10$且$\det(A+\sqrt5B)=0$，求$\det(A^2-AB+B^2)$.
+\end{problem}
+
+\begin{problem}
+  证明：对$\forall A,B\in\MM_2(\MC)$和$\forall a,b,c\in\MC$，有
+  \[
+    \det(aAB + bBA + cI_2) = \det (aBA + bAB + cI_2).
+  \]
+\end{problem}
+
+\begin{problem}
+  设$A\in\MM_2(\MR)$，且令
+  \[
+    f_A:\MM_2(\MR) \to \MM_2(\MR),\quad f_A(X) = \det(X + A) - \det(X - A).
+  \]
+  证明：
+  \begin{enum}
+    \item\label{prob2.35a} $f_{aA}=af_A,a\in\MR$；
+    \item\label{prob2.35b} $f_{A+B}=f_A+f_B,B\in\MM_2(\MR)$；
+    \item 存在数列$(x_n)_{n\ge1}$和$(y_n)_{n\ge1}$使得$f_{A^n}=x_nf_A+y_nf_{I_2}$.
+  \end{enum}
+\end{problem}
+
+\begin{problem}
+  证明：满足条件
+  \begin{enum}
+    \item $f(XY)=f(X)f(Y),\,\forall X,Y\in\MM_2(\MC)$
+    \item $f(X+I_2)=f(X)+f(I_2)+\Tr(X),\,\forall X\in\MM_2(\MC)$
+  \end{enum}
+  的唯一函数$f:\MM_2(\MC)\to\MC$是行列式函数$f(X)=\det X$.
+\end{problem}
+
+\begin{problem}
+  设$A\in\MM_2(\MR)$，且设函数$f:\MM_{2,1}(\MR)\to\MM_{2,1}(\MR)$定义为
+  \[
+    f_A\begin{pmatrix}
+      x \\ y
+    \end{pmatrix} = A\begin{pmatrix}
+      x \\ y
+    \end{pmatrix},\quad \begin{pmatrix}
+      x \\ y
+    \end{pmatrix} \in\MM_{2,1}(\MR).
+  \]
+  证明下面的结论是等价的：
+  \begin{enum}
+    \item\label{prob2.37a} $f_A$是单射；
+    \item\label{prob2.37b} $f_A$是满射；
+    \item\label{prob2.37c} $\det A\ne0$.
+  \end{enum}
+\end{problem}
+
+\begin{problem}
+  设$A\in\MM_2(\MZ)$，且令函数$f:\MM_{2,1}(\MZ)\to\MM_{2,1}(\MZ)$定义为
+  \[
+    f_A\begin{pmatrix}
+      x \\ y
+    \end{pmatrix} = A\begin{pmatrix}
+      x \\ y
+    \end{pmatrix},\quad \begin{pmatrix}
+      x \\ y
+    \end{pmatrix} \in\MM_{2,1}(\MZ).
+  \]
+  证明：
+  \begin{enum}
+    \item $f_A$是单射当且仅当$\det A\ne0$；
+    \item $f_A$是满射当且仅当$\det A\in\{-1,1\}$.
+  \end{enum}
+\end{problem}
+
+\begin{problem}[\kaishu 幂函数.]
+
+  证明：对任意$n\in\MN,n\ge2$，函数$f:\MM_2(\MC)\to\MM_2(\MC),f(X)=X^n$既不是单射也不是满射.
+\end{problem}
+
+\begin{problem}[\kaishu 非满射的函数.]
+  \begin{enum}
+    \item 证明：函数$f:\MM_2(\MR)\to\MM_2(\MR),f(X)=X^{2016}+X^{2015}$不是满射.
+    \item 证明：函数$f:\MM_2(\MR)\to\MM_2(\MR),f(X)=I_2+X+X^2
+        +\cdots+X^{2016} $不是满射.
+  \end{enum}
+\end{problem}
+
+\begin{problem}
+   设$a,b,c,d\in(0,+\infty)$满足$ad-bc>0$，且令$A=\begin{pmatrix}
+     a & - b\\
+     -c & d
+   \end{pmatrix}\in\MM_2(\MR)$. 如果一个矩阵$A\in\MM_2(\MR)$的的所有元是正实数，则称矩阵$A$是{\kaishu 正的}，并且记为$A>0$. 证明：
+   \begin{enum}
+     \item 对任意正矩阵$X'$，存在一个正矩阵$X$，使得$AX=X'$；
+     \item 存在$X>0$，使得$X'=AX>0$.
+   \end{enum}
+\end{problem}
+
+\begin{problem}
+   \cite{58} 设$A=\begin{pmatrix}
+    a & b \\
+    c & d
+  \end{pmatrix}\in\MM_2(\MR)$，且$a>0,b>0,c>0,d>0$. 证明：$A$有一个特征向量$X=\begin{pmatrix}
+    x \\ y
+  \end{pmatrix}$满足$x>0$且$y>0$.
+\end{problem}
+
+\begin{problem}
+  设$A,B\in\MM_2(\MR)$是所有元为正数的矩阵，证明：$(AB)^2=(BA)^2$当且仅当$AB=BA$.
+\end{problem}
+
+\begin{problem}
+  设$A\in\MM_2(\MC)$满足$\Tr(A)=-1$且$\det A=1$，集合$\{A^n:n\in\MN\}$中有多少个元素?
+\end{problem}
+
+\begin{mybox}
+  \begin{problem}[一个2016年的难题.]
+
+   设整数$n\ge2$，且令$\mathscr P_n=\{X^n:X\in\MM_2(\MC)\}$. 证明：$\mathscr P_2=\mathscr P_n,\forall n\ge2$.
+
+   这个问题将Seemous 2016, Protaras, Cyprus的问题2的(a)部分一般化了.
+  \end{problem}
+\end{mybox}
+
+\begin{problem}
+  设$A,B\in\MM_2(\MR)$满足$\det A=\det B=1$，证明：
+  \begin{enum}
+    \item $\Tr(AB)+\Tr(A^{-1}B)=\Tr(A)\Tr(B)$；
+    \item $\Tr(BAB)+\Tr(A)=\Tr(B)\Tr(AB)$.
+  \end{enum}
+\end{problem}
+
+\begin{problem}
+  \begin{enumerate*}[label=(\alph*),listparindent=2em,itemjoin=\\]
+    \item\label{prob2.47a} 设$A\in\MM_2(\MR)$满足$\Tr(A)>2$，证明：对任意$n\in\MN,A^n\ne I_2$.
+    \item  设$r>0$，且$A\in\MM_2(\MR)$满足$\Tr(A)>2r$. 证明：对任意$n\in\MN,A^n\ne r^nI_2$.
+  \end{enumerate*}
+\end{problem}
+
+\begin{problem}
+  设$A\in\MM_2(\MR)$满足$\det A=1$且$|\Tr(A)|<2$，证明：对任意$n\ge2$，我们有$|\Tr(A^n)|\le2$，且存在$B_n\in\MM_2(\MR)$，使得$\det B_n=1,|\Tr(B_n)|<2$且$|\Tr(B_n^n)|\le2$.
+\end{problem}
+
+\begin{mybox}
+  \begin{problem}
+    设$A,B\in\MM_2(\MC)$满足$A\ne B$，且令$C=AB-BA$. 证明：$C$与$A$和$B$都可交换当且仅当$C=O_2$，即当且仅当$A$与$B$可交换.
+  \end{problem}
+\end{mybox}
+
+\begin{problem}
+  设$A\in\MM_2(\MC)$满足$\det(A-I_2)\in\MR$，且存在$n\in\MN$使得$A^n=I_2$. 证明：$\det(A-xI_2)\in\MR$对任意$x\in\MR$成立.
+\end{problem}
+
+\begin{problem}
+  设$A,B\in\MM_2(\MC)$，且$n\ge2$是一个固定的整数. 证明：
+  \begin{enum}
+    \item 如果$(AB)^n=O_2$，则$(BA)^n=O_2$；
+    \item 如果$(AB)^n=I_2$，则$(BA)^n=I_2$；
+    \item 如果$AB\ne BA$，求矩阵$C\in\MM_2(\MC)$，使得只要$(AB)^n=C$就有$(BA)^n=C$.
+  \end{enum}
+\end{problem}
+
+\begin{problem}
+  设$A,B\in\GL_2(\MC)$且$\alpha,\beta\in\MC$满足$|\alpha|\ne|\beta|$，且$\alpha AB+\beta BA=I_2$，证明：$\det(AB-BA)=0$.
+\end{problem}
+
+\begin{problem}
+  设矩阵$A,B,C\in\MM_2(\MR)$两两可交换，且$\det C=0$，证明：$\det(A^2+B^2+C^2)\ge0$.
+\end{problem}
+
+\begin{problem}
+  设$A_0,A_1,\cdots,A_n\in\MM_2(\MR),n\ge2$是非零矩阵，满足$A_0\ne aI_2,\forall a\in\MR$且$A_0A_k=A_kA_0,\forall k=1,2,\cdots,n$. 证明：
+  \begin{enum}
+    \item $\det\left(\sum_{k=1}^nA_k^2\right)
+        \ge0$；
+    \item 如果$\det\left(\sum_{k=1}^nA_k^2\right) =0$，且$A_2\ne aA_1$对任意$a\in\MR$成立，则$\sum_{k=1}^nA_k^2=O_2$.
+  \end{enum}
+\end{problem}
+
+\begin{problem}
+  设$a\in(-1,1)$，且$A\in\MM_2(\MR)$满足$\det(A^4-aA^3-aA+I_2)=0$，证明：$\det A=1$.
+\end{problem}
+
+\begin{problem}
+  设$B\in\MM_2(\MC)$是一个幂零矩阵，证明：如果$A\in\MM_2(\MC)$与$B$可交换，则$\det(A+B)=\det A$.
+\end{problem}
+
+\begin{problem}
+  设$A,B\in\MM_2(\MC)$满足$AB=BA$，证明：如果存在整数$m,n\in\MN$使得$A^m=O_2$且$B^n=O_2$，则$AB=O_2$. 这个问题指出，{\kaishu 如果两个幂零矩阵可交换，则它们的乘积为零.}
+\end{problem}
+
+\begin{problem}[\kaishu 两个幂零矩阵的和（差）何时为幂零矩阵?]
+
+  设$A,B\in\MM_2(\MC)$是两个非零的幂零矩阵，证明：$A\pm B$是一个幂零矩阵当且仅当$AB$与$BA$都是幂零矩阵.
+\end{problem}
+
+\begin{problem}
+  设$A,B\in\MM_2(\MC)$，证明：$\Tr\big((AB)^2\big)
+  =\Tr(A^2B^2)\Leftrightarrow (AB-BA)^2=O_2$.
+\end{problem}
+
+\begin{problem}[\kaishu 矩阵$AB-BA$何时幂零?]
+  \begin{enum}
+    \item \cite{28} 如果$A,B\in\MM_2(\MC)$满足$2015AB-2016BA=2017I_2$，则$(AB-BA)^2=O_2$。
+    \item 一般地，设$m,n,p\in\MR,m\ne n$，且设$A,B\in\MM_2(\MC)$满足$mAB-nBA=pI_2$，证明：$(AB-BA)^2=O_2$.
+  \end{enum}
+\end{problem}
+
+\begin{problem}
+  设$A,B\in\MM_2(\MC)$，证明：$(AB)^2=AB^2A\Leftrightarrow (BA)^2=BA^2B$.
+\end{problem}
+
+\begin{problem}
+  设$A,B\in\MM_2(\MC)$，证明：
+  \[
+    \det(A - B) \det (A + B) = \det (A^2 - B^2) \Leftrightarrow (AB - BA)^2 = O_2.
+  \]
+\end{problem}
+
+\begin{problem}
+  设$A,B\in\MM_2(\MR)$，证明：以下任意两个条件都可以推出第三个：
+  \begin{enum}
+    \item $\det(A^2 + B^2)=0$；
+    \item $\det(AB - BA)=0$；
+    \item $\det A = \det B = \frac12\det(A+B)$.
+  \end{enum}
+\end{problem}
+
+\begin{problem}
+  如果$A,B\in\MM_2(\MR)$满足$\det(AB+BA)=\det(AB-BA)$，则$\det(A^2+B^2)\ge0$.
+\end{problem}
+
+\begin{problem}
+  如果$A,B\in\MM_2(\MC)$且$n\in\MN$，则$\det(A^n+B^n\pm AB)=\det(A^n+B^n\pm BA)$.
+\end{problem}
+
+\begin{problem}
+  如果$A,B\in\MM_2(\MC)$且$A^2+B^2=AB$，则$(AB-BA)^2=O_2$.
+\end{problem}
+
+\begin{problem}
+  如果$A,B\in\MM_2(\MC)$且$A^2=O_2$，则
+  $\det(AB-BA)=0\Leftrightarrow \det(A+B)=\det B$.
+\end{problem}
+
+\begin{problem}
+  设$A\in\MM_2(\MR)$满足$A^2=O_2$，证明：对$\forall B\in\MM_2(\MR)$，成立不等式$\det(AB-BA)\le0\le\det(AB+BA)$.
+\end{problem}
+
+\begin{problem}
+  设$A,B\in\MM_2(\MC)\backslash\{O_2\}$满足$AB+BA=O_2$，证明：如果$\det(A-B)=0$，则$\Tr(A)=\Tr(B)=0$.
+\end{problem}
+
+\begin{problem}
+  设$A,B\in\MM_2(\MC)$满足$\Tr(A)\Tr(B)=\Tr(AB)$，则
+  \[
+    \det(A^2 + B^2 + AB) = \det(A^2 + B^2) + \det (AB).
+  \]
+\end{problem}
+
+\begin{mybox}
+  \begin{problem}[幂零矩阵的中心化子.]
+
+    设$A\in\MM_2(\MC)$，且令$\mathscr C(A)=\{X\in\MM_2(\MC):AX=XA\}$. 证明：
+    \[
+      A^2 = O_2 \quad \Leftrightarrow\quad
+      |\det(A+X)| \ge |\det X|,\quad \forall X\in\mathscr C(A).
+    \]
+  \end{problem}
+\end{mybox}
+
+\begin{mybox}
+  \begin{problem}
+    \begin{enumerate*}[label=(\alph*),listparindent=2em,itemjoin=\\]
+      \item 如果矩阵$A,B\in\MM_2(\MR)$满足$(A-B)^{-1}=A^{-1}-B^{-1}$，则$\det A=\det B=$ $\det(A-B)$.
+      \item 如果$A,B\in\MM_2(\MC)$，结论还成立吗?
+    \end{enumerate*}
+  \end{problem}
+\end{mybox}
+
+\begin{mybox}
+  \begin{problem}
+    设$P$是一个实系数的无实根的多项式函数，且设$A\in\MM_2(\MR)$满足$\det P(A)=0$，证明：$P(A)=O_2$.
+  \end{problem}
+\end{mybox}
+
+\begin{problem}
+  \cite[p.145]{58} 设矩阵$A,B\in\MM_2(\MR)$满足$A^2=B^2=I_2$且$AB+BA=O_2$，证明：存在可逆矩阵$Q\in\MM_2(\MR)$使得
+  \[
+    Q^{-1}AQ = \begin{pmatrix}
+      1 & 0 \\
+      0 & -1
+    \end{pmatrix}\quad \text{且}\quad
+    Q^{-1}BQ = \begin{pmatrix}
+      0 & 1 \\
+      1 & 0
+    \end{pmatrix}.
+  \]
+\end{problem}
+
+\begin{problem}
+  设$A,B\in\MM_2(\MC)$满足$AB=O_2$，证明：
+  \[
+    \det (A + B)^n = \det (A^n + B^n) ,\quad \forall n\ge1.
+  \]
+\end{problem}
+
+\begin{problem}
+  \begin{inparaenum}[(a)]
+    \item 证明：存在矩阵$A,B\in\MM_2(\MR)$，使得
+      \[
+        \det (xA + yB) = x^2 + y^2,\quad \forall x,y\in\MR.
+      \]
+    \item 证明：不存在矩阵$A,B,C\in\MM_2(\MR)$，使得
+      \[
+        \det (xA + yB + zC) = x^2 + y^2 + z^2,\quad\forall x,y,z\in\MR.
+      \]
+  \end{inparaenum}
+\end{problem}
+
+\section{解答}
+\begin{solution}
+  令$f_A(x)=\det(A-xI_2)=x^2-tx+1$，其中$t=\Tr(A)$. 由定理 \ref{thm2.2}，我们有$A^2=tA-I_2$，这意味着$A^2+A-I_2=(t+1)A-2I_2$且$A^2+I_2=tA$. 直接计算得
+  \begin{align*}
+    \det(A^2 + A - I_2) + \det (A^2 + I_2) & =
+    (t+1)^2f_A\Big(\frac2{t + 2}\Big) + t^2 \\
+    & = (t+1)^2 \bigg[ \Big( \frac2{t+1} \Big)^2
+    - \frac{2t}{t+1} + 1 \bigg] + t^2 \\
+    & = 5.
+  \end{align*}
+\end{solution}
+
+\begin{solution}
+  $\Tr(A)=3$，见问题 \ref{problem2.1} 的解答.
+\end{solution}
+
+\begin{solution}
+  令$f_A(x)=\det(A-xI_2)=x^2+x+d$，其中$d=\det A$. 定理 \ref{thm2.2} 说明$A^2=-A-dI_2$，且这意味着$A^2+3A+3I_2=2A-(d-3)I_2$以及$A^2+A=-dI_2$. 于是
+  \begin{align*}
+    \det (A^2 + 3A + 3I_2) - \det(A^2 + A) & =
+    4f_A\Big( \frac{d-3}2 \Big) - d^2 \\
+    & = 4\bigg[ \Big( \frac{d-3}2 \Big)^2 +
+    \frac{d-3}2 + d \bigg] - d^2 \\
+    & = 3.
+  \end{align*}
+\end{solution}
+
+\begin{solution}
+  由推论 \ref{coro2.4}，我们有$\det\big(aA+(a+1)I_2\big)=a^2\det A+a(a+1)\alpha+(a+1)^2$对某个$\alpha\in\MZ$成立. 如果$\det\big(aA+(a+1)I_2\big)=0$，则$a^2\det A+a(a+1)\alpha+(a+1)^2=0\Rightarrow a|(a+1)^2$. 于是有$a^2+2a+1=ab$对某个$b\in\MZ$成立， 然而，这个等式意味着$a|1$，这与$a\ne \pm1$矛盾.
+\end{solution}
+
+\begin{solution}
+  设$\lambda\notin\Spec(A),\lambda\ne0$，且令$B=A-\lambda I_2,C=\lambda I_2$.
+\end{solution}
+
+\begin{solution}
+  由于$\det A=0$，我们得到$0\in\Spec(A)$. 设$\lambda_n$是一列实数或者复数，满足$\lim_{n\to\infty}\lambda_n=0$且$\lambda_n\notin\Spec(A)$. 令$A_n=A-\lambda_nI_2$，我们有$\lim_{n\to\infty}A_n=A$，且由于$\lambda_n\notin\Spec(A)$，则 $\det(A_n)=\det(A-\lambda_nI_2)\ne0$.
+\end{solution}
+
+\begin{solution}
+  我们有
+  \[
+    f_{A_\ast}(x) = \det (A - xI_2) = \begin{vmatrix}
+      d - x & -b \\
+      -c & a - x
+    \end{vmatrix} = x^2 - (a + d)x + ad - bc = f_A(x).
+  \]
+\end{solution}
+
+\setcounter{solution}{8}
+
+\begin{solution}
+  设$J_A$是$A$的Jordan标准形，且$P$是一个可逆矩阵，满足$A=PJ_AP^{-1}$. 如果$J_A=I_2$，结论显然. 如果$J_A=\begin{pmatrix}
+    1 & 1 \\
+    0 & 1
+  \end{pmatrix}$，则$A^k=PJ_A^kP^{-1}$. 直接计算可知$\begin{pmatrix}
+    1 & k \\
+    0 & 1
+  \end{pmatrix}=J_A^k=Q^{-1}J_AQ$，其中$Q=\begin{pmatrix}
+    1 & 0 \\
+    0 & k
+  \end{pmatrix}$. 这意味着
+  \[
+    A^k = PQ^{-1}J_AQP^{-1} = (PQP^{-1})^{-1}PJ_AP^{-1}(PQP^{-1}) =
+    (PQP^{-1})^{-1}A(PQP^{-1}),
+  \]
+  这说明$A^k\sim A$.
+\end{solution}
+
+\begin{solution}
+  $A\sim B\Rightarrow \exists P\in\GL_2(\MC)$，使得$B=P^{-1}AP$，这意味着$B^n=P^{-1}A^nP$，这就证明了$A^n\sim B^n$.
+
+  其逆命题是不成立的. 设$n=2,A=\begin{pmatrix}
+    0 & 0 \\
+    1 & 0
+  \end{pmatrix}$且$B=O_2$，则$A^2=B^2=O_2$，于是$A^2\sim B^2$，但$A$和$B$是不相似的.
+\end{solution}
+
+\setcounter{solution}{11}
+
+\begin{solution}
+  \begin{inparaenum}[(a)]
+    \item 只需要对Jordan标准形证明即可. 如果$J_A=\begin{pmatrix}
+          \lambda_1 & 0 \\
+          0 & \lambda_2
+        \end{pmatrix}$，结论显然. 如果$J_A=\begin{pmatrix}
+          \lambda & 1 \\
+          0 & \lambda
+        \end{pmatrix}$，我们令$P=\begin{pmatrix}
+          0 & 1 \\
+          1 & 0
+        \end{pmatrix}$，则我们有$P^{-1}J_AP=J_A^T$.
+
+    \item 只需要对Jordan标准形证明即可. 如果$J_A=\begin{pmatrix}
+          \lambda_1 & 0 \\
+          0 & \lambda_2
+        \end{pmatrix}$，结论显然. 如果$J_A=\begin{pmatrix}
+          \lambda & 1 \\
+          0 & \lambda
+        \end{pmatrix}$，我们需要找到一个可逆矩阵$Q\in\MM_2(\MC)$和一个对称矩阵$B\in\MM_2(\MC)$，使得$Q^{-1}J_AQ=B$. 令$Q=\begin{pmatrix}
+          a & b \\
+          c & d
+        \end{pmatrix}$，且设$\varDelta=ad-bc\ne0$. 直接计算可知
+        \[
+          B = \frac1{\varDelta} \begin{pmatrix}
+            cd + \lambda\varDelta & d^2 \\
+            -c^2 & -cd + \lambda\varDelta
+          \end{pmatrix},
+        \]
+        且由于$B$是对称矩阵，我们得到$c^2+d^2=0$. 注意到$B$不可能是实矩阵，令$d=\ii,c=1,a=\ii.b=0$，我们有
+        \[
+          Q = \begin{pmatrix}
+            \ii & 0 \\
+            1 & \ii
+          \end{pmatrix}\quad \text{且}\quad
+          B = \begin{pmatrix}
+            \lambda - \ii & 1 \\
+            1 & \lambda + \ii
+          \end{pmatrix}.
+        \]
+  \end{inparaenum}
+\end{solution}
+
+\begin{solution}
+  令$A=\begin{pmatrix}
+    a & b \\
+    c & d
+  \end{pmatrix}$，则$A_\ast=\begin{pmatrix}
+    d & -b \\
+    -c & a
+  \end{pmatrix}$. 如果$P=\begin{pmatrix}
+    0 & -1 \\
+    1 & 0
+  \end{pmatrix}$，则$PA\TT P^{-1}=A_\ast$.
+
+  如果$Q$是另一个矩阵，使得$QA\TT Q^{-1}=A_\ast,\,\forall A\in\MM_2(\MC)$，则
+  \[
+    PA\TT P^{-1}=QA\TT Q^{-1}\Rightarrow (Q^{-1}P)A\TT=A\TT(Q^{-1}P),\,\forall A\in\MM_2(\MC),
+  \]
+  这意味着$Q^{-1}P$与所有$\MM_2(\MC)$中的矩阵可交换. 由定理 \ref{thm1.1}，$Q^{-1}P=\alpha I_2$对某个$\alpha\in\MC$成立，这意味着$Q=\begin{pmatrix}
+    0 & -\beta \\
+    \beta & 0
+  \end{pmatrix}$，其中$\beta\in\MC^\ast$.
+\end{solution}
+
+\begin{solution}
+  设$J_A$是$A$的Jordan标准形，可逆矩阵$P$满足$A=PJ_AP^{-1}$. 如果$J_A=\begin{pmatrix}
+    \lambda_A & 0 \\
+    0 & 1
+  \end{pmatrix}$，则$J_A=BC$，其中
+  \[
+    B = \begin{pmatrix}
+      \lambda_1 & 0 \\
+      0 & 1
+    \end{pmatrix} \quad \text{且} \quad
+    C = \begin{pmatrix}
+      1 & 0 \\
+      0 & \lambda_2
+    \end{pmatrix}.
+  \]
+  我们有$A=PJ_AP^{-1}=[PBP\TT][(P^{-1})\TT CP^{-1}]$，其中$PBP\TT$和$(P^{-1})\TT CP^{-1}$都是对称矩阵.
+
+  如果$J_A=\begin{pmatrix}
+    \lambda & 1 \\
+    0 & \lambda
+  \end{pmatrix}$，则$J_A = BC$，其中
+  \[
+    B = \begin{pmatrix}
+      1 & 1 \\
+      0 & 1
+    \end{pmatrix} \quad \text{且} \quad
+    C = \begin{pmatrix}
+      0 & \lambda \\
+      \lambda & 1 - \lambda
+    \end{pmatrix}.
+  \]
+  我们有$A=PJ_AP^{-1}=[PBP\TT][(P^{-1})\TT CP^{-1}]$，其中$PBP\TT$和$(P^{-1})\TT CP^{-1}$都是对称矩阵.
+\end{solution}
+
+\setcounter{solution}{15}
+
+\begin{solution}
+  设$A,B\in\MM$. 如果$\lambda_A$是$A$的一个特征值，$\lambda_B$是$B$的一个特征值. 由于$AB=BA$，由定理 \ref{thm2.1}，我们得到$\lambda_{AB}=\lambda_A\lambda_B$，于是$|\lambda_A\lambda_B|=|\lambda_A||\lambda_B|\le1$.
+\end{solution}
+
+\begin{solution}
+  $A$和$B$的特征值都是7和5. 由定理 \ref{thm3.1}，我们有$A^n=7^nD+5^nC$，其中$D=\frac{A-5I_2}2,C=\frac{7I_2-A}2$；而$B^n=7^nU+5^nV$，其中$U=\frac{B-5I_2}2,V=\frac{7I_2-B}2$. 由此即可得到$A^n-B^n=\frac12(7^n-5^n)(A-B)$.
+\end{solution}
+
+\begin{solution}
+  矩阵$BA$的特征多项式为$f_{BA}(x)=f_{AB}(x)=x^2-8x+1$. 由定理 \ref{thm2.2}，我们有$(BA)^2-8BA+I_2=O_2$. 将这个等式两边乘以$(BA)^{-1}=A^{-1}B^{-1}$，我们得到$BA+A^{-1}B^{-1}=8I_2$.
+\end{solution}
+
+\setcounter{solution}{19}
+
+\begin{solution}
+  我们有$\Tr(AB-BA)=0$且$\det\nolimits^n(AB-BA)=1\Rightarrow
+  \det(AB-BA)=\pm1$. 我们对矩阵$AB-BA$应用Cayley--Hamilton定理可得$(AB-BA)^2=\pm I_2$，这意味着$(AB-BA)^4=I_2$.
+
+  利用反证法，我们假定$n=2k+1$. 由于$(AB-BA)^n=I_2$，我们有$\det(AB-BA)=-1$，那么根据Cayley--Hamilton定理可知$(AB-BA)^2=-I_2$. 因此，$I_2=(AB-BA)^{2k+1}=(-I_2)^k(AB-BA)$，这意味着$AB-BA=(-1)^kI_2$，这就与$\Tr(AB-BA)=0$矛盾了.
+\end{solution}
+
+
+\begin{solution}
+  设$f\in\MC[x]$是矩阵$AB$和$BA$的特征多项式. 用$f$除$x^n$，我们可得存在$Q\in\MC[x]$以及$a,b\in\MC$，使得$x^n=f(x)Q(x)+ax+b$. 将$x$替换为$AB$和$BA$，我们得到$(AB)^n=aAB+bI_2$且$(BA)^n=aBA+bI_2$. 由于$(AB)^n=(BA)^n$且$AB\ne BA$，我们得到$a=0$，而这反过来又说明$(AB)^n=(BA)^n=bI_2$.
+\end{solution}
+
+\begin{solution}
+  \begin{inparaenum}[(a)]
+    \item 注意到$A^2-A+I_2=(A-\varepsilon I_2)(A-\bar\varepsilon I_2)$，其中$\varepsilon^2-\varepsilon+1=0,
+        \varepsilon\in\MC\backslash\MR$. 由于$\det(A^2-A+I_2)=0$，我们有$\det(A-\varepsilon I_2)=0$或$\det(A-\bar\varepsilon I_2)=0$. 令$f(x)=\det(A-xI_2)\in\MR[x]$是$A$的特征多项式. 如果$\varepsilon$或$\bar\varepsilon$是$f$的一个根，由于$f$是实系数的，那么$\varepsilon$与$\bar\varepsilon$都是$f$的根. 这意味着$f(x)=(x-\varepsilon)(x-\bar\varepsilon)=x^2-x+1$，那么由Cayley--Hamilton定理可知$A^2-A+I_2=O_2$.
+
+    \item 我们有$\det(A^2+\alpha A+\beta I_2)=\det[(\alpha+1)A+(\beta-1)I_2]$，下面分$\alpha=-1$和$\alpha\ne-1$两种情形.
+
+        如果$\alpha=-1$，由 \ref{prob2.22a} 可知$A^2-A+\beta I_2=(\beta-1)I_2$，这就意味着$\det(A^2-A+\beta I_2)=(\beta-1)^2$.
+
+        如果$\alpha=-1$，我们有
+        \begin{align*}
+          \det(A^2 + \alpha A + \beta I_2) & = (\alpha + 1)^2 \det \Big( A - \frac{1-\beta}{\alpha+1} I_2\Big) \\
+          & = (\alpha + 1)^2 f\Big( \frac{1-\beta}{\alpha+1} \Big) \\
+          & = (\alpha + 1)^2 \bigg[
+            \Big( \frac{1-\beta}{\alpha+1} \Big)^2 - \frac{1-\beta}{\alpha+1} + 1
+          \bigg] \\
+          & = \alpha^2 + \beta^2 + \alpha\beta + \alpha - \beta + 1.
+        \end{align*}
+  \end{inparaenum}
+\end{solution}
+
+\begin{solution}
+  \begin{inparaenum}[(a)]
+    \item 设$A=\alpha I_2$，其中$\alpha\in \MR$. 如果$\alpha<0$，则$B=C=\sqrt{-\frac\alpha2}\begin{pmatrix}
+          0 & 1 \\
+          -1 & 0
+        \end{pmatrix}$. 如果$\alpha=0$，则$B=C=O_2$. 如果$\alpha>0$，则$B=C=\sqrt{\frac\alpha2}I_2$.
+
+        现在我们考虑$A\ne\alpha I_2,\forall \alpha\in\MR$的情形. 令$t=\Tr(A),d=\det(A)$，则我们有$A^2-tA+dl_2=O_2$. 我们要找出$\alpha,\beta,\gamma\in\MR$，使得$A=(\alpha A+\beta I_2)^2+\gamma I_2$. 计算可得$A=(\alpha^2t+2\alpha\beta)A+(\beta^2+\gamma-\alpha^2
+        d)I_2$. 这意味着$\alpha^2t+2\alpha\beta=1$且
+        $\beta^2+\gamma-\alpha^2d=0$. 我们取$\alpha=1,\beta=\frac{1-t}2,\gamma=d-\frac{(1-t)^2}4$.
+
+  \end{inparaenum}
+        \begin{itemize}
+          \item 如果$\gamma>0$，则$B=\alpha A+\beta I_2$且$C=\sqrt\gamma I_2$.
+          \item 如果$\gamma=0$，则$B=C=\frac1{\sqrt2}(\alpha
+              A+\beta I_2)$.
+          \item 如果$\gamma<0$，则$B=\alpha A+\beta I_2$且$C=\sqrt{-\gamma}\begin{pmatrix}
+                0 & 1 \\
+                -1 & 0
+              \end{pmatrix}$.
+        \end{itemize}
+
+  \begin{enuma}
+    \setcounter{enumi}{1}
+    \item 如果$BC=CB$，则$B^2+C^2=(B+\ii C)(B-\ii C),\det (B^2+C^2)=|\det(B+\ii C)|^2\ge0$，所以不存在矩阵$A,\det A<0$，使得$A=B^2+C^2$且$BC=CB$.
+  \end{enuma}
+\end{solution}
+
+\begin{solution}
+  注意到$A=\Re(A)+\ii\Im(A)$，然后利用推论 \ref{coro2.4}，取$x=1$和$y=\ii$即可.
+\end{solution}
+
+\begin{solution}
+  利用引理 \ref{lemma2.10}，我们有$\det(AB-BA)=\Tr(A^2B^2)-\Tr\big((AB)^2\big)$. 由定理 \ref{thm2.2}，计算可得$\Tr(A^2B^2)-\Tr
+  \big((AB)^2\big)=-t_{AB}^2+t_At_Bt_{AB}-t_A^2d_B
+  -d_At_B^2+4d_Ad_B$，这是一个$t_{AB}$的二次函数. 此函数的判别式$\varDelta=(t_A^2-4d_A)(t_B^2-4d_B)$，且它的最大值为$\frac{\varDelta}4=\frac14(t_A^2-4d_A)(t_B^2-4d_B)$. 如果$A=\begin{pmatrix}
+    a & b \\
+    c & d
+  \end{pmatrix}\in\MM_2(\MR)$，
+  则$t_A^2-4d_A=(a-d)^2+4bc\le8$，这是因为$a,b,c,d\in[-1,1]$. 于是$\max_{A,B\in\MM}\det(AB-BA)=16$，等号在$A=\begin{pmatrix}
+    1 & -1 \\
+    -1 & 1
+  \end{pmatrix}$和$B=\begin{pmatrix}
+    -1 & -1 \\
+    -1 & 1
+  \end{pmatrix}$时取到.
+\end{solution}
+
+\begin{solution}
+  设$E_{ij},i,j=1,2$表示$(i,j)$元为1，而其他元为0的矩阵，令$X=O_2,E_{11},E_{12},E_{21}$和$E_{22}$.
+\end{solution}
+
+\begin{solution}\hspace*{-0.5em}
+  和 \textbf{\ref{problem2.28}}\hspace*{0.5em}
+    我们有
+    \[
+      |\det(A+\ii B)|^2 = \det(A + \ii B) \det(A - \ii B) = \det[A^2 + B^2 - \ii(AB - BA)].
+    \]
+    于是由推论 \ref{coro2.4} 取$x=1,y=-\ii$可得
+    \begin{align*}
+      \det &[A^2 + B^2 - \ii(AB - BA)] = \det(A^2 + B^2) - \det(AB - BA) \\
+      &-\ii [\det(A^2 + B^2 + AB - BA) - \det(A^2 + B^2) - \det(AB - BA)].
+    \end{align*}
+    由于$\det[A^2 + B^2 - \ii(AB - BA)]=|\det(A+\ii B)|^2\ge0$，我们得到$\det(A^2+B^2)\ge\det(AB-BA)$，且$\det(A^2 + B^2 + AB - BA) - \det(A^2 + B^2) - \det(AB - BA)=0$.
+\end{solution}
+
+\setcounter{solution}{28}
+
+\begin{solution}
+  令$f(x)=\det[A^2+B^2+x(AB+BA)]\in\MR[x]$，我们有
+  \begin{gather*}
+    f(1) = \det (A + B)^2 = \det{}^2(A + B) \ge0,\\
+    f(-1) = \det (A - B)^2 = \det{}^2(A - B) \ge 0,\\
+    f(x) = \det (A^2 + B^2) + \alpha x + x^2 \det(AB + BA),\alpha\in\MR.
+  \end{gather*}
+
+  如果$\det(AB+BA)=0$，则$f$是一个线性的单调函数（或常函数），且由于$0$介于$-1$与$1$之间，我们得到$f(0)\ge0$.
+\end{solution}
+
+\begin{solution}
+  我们有$0=\det(A^2+B^2)=\det(A+\ii B)\det(A-\ii B)=\det(A+\ii B)\det(A-\ii B)$，于是$\det(A+\ii B)=0$或$\det(A-\ii B)=0$. 由推论 \ref{coro2.4} 我们得到
+  \[
+    \det (A \pm \ii B) = \det A - \det B \pm \ii
+    [ \det(A + B) - \det A - \det B ].
+  \]
+  由于$\det(A\pm B)=0$，我们有$\det A=\det B$且$\det(A+B)=\det A+\det B$.
+\end{solution}
+
+\begin{solution}
+  \begin{inparaenum}[(a)]
+    \item 这一部分见问题 \ref{problem2.30} 的解答.
+
+    \item 如果$\det A\ne0$，则$A^2+B^2=A^2(I_2+C^2)$，其中$C=A^{-1}B\in\MM_2(\MR)$. 我们有$\det(A^2+B^2)=0\Leftrightarrow\det(I_2+C^2)=0
+        \Leftrightarrow\det(C+\ii I_2)(C-\ii I_2)=0$. 利用在问题 \ref{problem2.30} 中的技巧，我们得到$\det C=1$且$\det(C+I_2)=\det C+1$. 由于$\det(C+I_2)=\det C+\Tr(C)+1$，那么可得$\Tr(C)=0$. 对矩阵$C$应用Cayley-Hamilton定理可得$C^2+I_2=O_2$，这意味着$A^2+B^2=A^2(I_2+C^2)=O_2$.
+  \end{inparaenum}
+\end{solution}
+
+\begin{solution}
+  设$\alpha=\frac{3+\ii\sqrt7}4$，且注意到$2A^2-3AB+2B^2=2(A-\alpha B)(A-\bar \alpha B)$. 我们有$0=\det(2A^2-3AB+2B^2)=4|\det(A-\alpha B)|^2$，这意味着$\det(A-\alpha B)=0$. 由推论 \ref{coro2.4}，我们有
+  \[
+    \det(A - \alpha B) = \det A + \alpha^2\det B - \alpha [\det(A + B) - \det A - \det B].
+  \]
+  进一步，由$\alpha^2=\frac32\alpha-1$，可得
+  \[
+    \det (A - \alpha B) = \det A - \det B + \alpha
+    \Big[ \det A + \frac52\det B - \det(A + B) \Big] = 0.
+  \]
+
+  由于$\alpha\notin\MR$，我们有$\det A + \frac52\det B-\det(A+B)=0$，且$\det A=\det B$，这就意味着$\det(A+B)=\frac72\det A$.
+\end{solution}
+\begin{remark}
+  如果$A,B\in\MM_2(\MR)$是可交换的矩阵，满足$\det A\ne0$或$\det B\ne0$，且$\det(2A^2-3AB+2B^2)=0$，则$2A^2-3AB+2B^2=O_2$
+  （证明见问题 \ref{problem2.31} 的解答）.
+\end{remark}
+
+\begin{solution}
+  $\det(A^2-AB+B^2)=124$.
+\end{solution}
+
+\begin{solution}
+  令$f(x,y)=\det(xAB+yBA+cI_2),g(x,y)=\det(xBA+yAB+cI_2)$. 我们注意到$f$和$g$都是关于变量$x$与$y$的不超过二次的多项式，且具有形式
+  \begin{gather*}
+    f(x,y) = a_{11}x^2 + a_{12}xy + a_{22}y^2 + a_1x + a_2y + a_3 , \\
+    g(x,y) = b_{11}x^2 + b_{12}xy + b_{22}y^2 + b_1x + b_2y + b_3 .
+  \end{gather*}
+  由于$f(x,y)=g(y,x)$，我们得到$a_{11}=b_{22},a_{12}=b_{12},a_{22}=b_{11},a_1=b_2,a_2=b_1$，
+  且$a_3=b_3$. 于是有
+  \begin{gather*}
+    f(x,y) = a_{11}x^2 + a_{12}xy + a_{22}y^2 + a_1x + a_2y + a_3 , \\
+    g(x,y) = a_{22}x^2 + a_{12}xy + a_{11}y^2 + a_2x + a_1y + a_3 .
+  \end{gather*}
+  我们有
+  \begin{gather*}
+    f(x,0) = \det (xAB + cI_2) = x^2\det(AB) + cx\Tr(AB) + c^2, \\
+    g(x,0) = \det (xBA + cI_2) = x^2\det(BA) + cx\Tr(BA) + c^2,
+  \end{gather*}
+  所以$f(x,0)=g(x,0),\forall x\in\MC$，于是$a_{11}=a_{22}$且$a_1=a_2$. 因此，
+  \[
+    f(x,y) = g(x,y) = a_{11}(x^2+y^2) + a_{12}xy + a_1(x+y) + a_3,\quad \forall x,y\in\MC.
+  \]
+\end{solution}
+
+\begin{solution}
+  设$A_1,A_2$是$A$的列向量，$X_1,X_2$是$X$的列向量，即$A=(A_1|A_2)$且$X=(X_1|X_2)$. 计算可得
+  \begin{align*}
+    f_A(X) = {}& \det (A_1 + X_1|A_2 + X_2) - \det(X_1-A_1|X_2 - A_2) \\
+    = {}& \det (A_1|A_2) + \det(A_1|X_2) + \det(X_1|A_2) + \det (X_1|X_2) \\
+      & - \det(X_1|X_2) + \det(X_1|A_2) + \det(A_1|X_2) - \det(A_1|A_2) \\
+    = {}& 2[\det(A_1|X_2) + \det(X_1|A_2)].
+  \end{align*}
+
+  \begin{inparaenum}[(a)]
+    \item 我们有
+      \begin{align*}
+        f_{aA}(X) & = 2 [ \det(aA_1|X_2) + \det(X_1|aA_2) ] \\
+        & = 2a[ \det(A_1|X_2) + \det(X_1|A_2) ] \\
+        & = af_A(X).
+      \end{align*}
+
+    \item 我们有
+      \begin{align*}
+        f_{A+B}(X) & = 2[ \det(A_1+B_1|X_2) + \det(X_1|A_2+B_2) ] \\
+        & =  2 [ \det(A_1|X_2) + \det(X_1|A_2) ] +
+             2 [ \det(B_1|X_2) + \det(X_1|B_2) ] \\
+        & = f_A(X) + f_B(X).
+      \end{align*}
+
+    \item 由定理 \ref{thm3.2}，存在数列$(x_n)_{n\ge1}$和$(y_n)_{n\ge1}$，使得$A^n=x_nA+y_nI_2,\forall n\ge1$. 由 \ref{prob2.35a} 和 \ref{prob2.35b} 可得
+        \[
+          f_{A^n} = f_{x_nA+y_nI_2} = f_{x_nA} + f_{y_nI_2} = x_nf_A + y_nf_{I_2}.
+        \]
+  \end{inparaenum}
+
+  我们顺带一提$f_{I_2}(X)=2\Tr(X)$.
+\end{solution}
+
+\setcounter{solution}{36}
+
+\begin{solution}
+  我们证明 \ref{prob2.37a} $\Leftrightarrow$ \ref{prob2.37c} 以及 \ref{prob2.37b} $\Leftrightarrow$ \ref{prob2.37c}. 我们有
+  \[
+    f_A\begin{pmatrix}
+      x_1 \\ y_1
+    \end{pmatrix} = f_A\begin{pmatrix}
+      x_2 \\ y_2
+    \end{pmatrix}\quad \Leftrightarrow \quad
+    A \begin{pmatrix}
+      x_1 - x_2 \\
+      y_1 - y_2
+    \end{pmatrix} = \begin{pmatrix}
+      0 \\ 0
+    \end{pmatrix},
+  \]
+  这是一个含有两个变量两个方程的齐次线性方程组. 此方程只有零解$x_1-x_2=0,y_1-y_2=0$当且仅当$\det A\ne0$. 因此，
+  \[
+    \det A \ne 0 \quad \Leftrightarrow \quad
+    \begin{pmatrix}
+      x_1 \\ y_1
+    \end{pmatrix} = \begin{pmatrix}
+      x_2 \\ y_2
+    \end{pmatrix}.
+  \]
+
+  现在我们考虑方程组$A\begin{pmatrix}
+    x \\ y
+  \end{pmatrix}=\begin{pmatrix}
+    u \\ v
+  \end{pmatrix}$，此方程对任意$u,v\in\MR$有解当且仅当$\det A\ne0$，此时$\begin{pmatrix}
+    x \\ y
+  \end{pmatrix}=A^{-1}\begin{pmatrix}
+    u \\ v
+  \end{pmatrix}$.
+\end{solution}
+
+\begin{solution}
+  \begin{inparaenum}[(a)]
+    \item 见问题 \ref{problem2.37} 的解答.
+
+    \item 如果$\det A=\pm1$，则$f_A$是满射（证明见问题 \ref{problem2.37} 的解答）. 现在我们证明，如果$f_A$是满射，则$\det A=\pm1$. 由$f_A$是满射，存在$\begin{pmatrix}
+          x_1 \\ y_1
+        \end{pmatrix}\in\MM_{2,1}(\MZ)$，使得$f_A\begin{pmatrix}
+          x_1 \\ y_1
+        \end{pmatrix}=\begin{pmatrix}
+          1 \\ 0
+        \end{pmatrix}$；且存在$\begin{pmatrix}
+          x_2 \\ y_2
+        \end{pmatrix}\in\MM_{2,1}(\MZ)$，使得$f_A\begin{pmatrix}
+          x_2 \\ y_2
+        \end{pmatrix}=\begin{pmatrix}
+          0 \\ 1
+        \end{pmatrix}$. 于是
+        \[
+          A\begin{pmatrix}
+            x_1 & x_2 \\
+            y_1 & y_2
+          \end{pmatrix} = \begin{pmatrix}
+            1 & 0 \\
+            0 & 1
+          \end{pmatrix},
+        \]
+        所以$A$是可逆的，且$A^{-1}=\begin{pmatrix}
+          x_1 & x_2 \\
+          y_1 & y_2
+        \end{pmatrix}\in\MM(\MZ)$. 由于$A,A^{-1}\in\MM_2(\MZ)$且$AA^{-1}=I_2$，我们有$\det A\det(A^{-1})=1$，这意味着$\det A=\pm1$.
+  \end{inparaenum}
+\end{solution}
+
+\begin{solution}
+  令$A=\begin{pmatrix}
+    0 & 0 \\
+    1 & 0
+  \end{pmatrix}$，由于$A^n=O_2=O_2^n$，我们得到$f$不是单射.
+
+  要证明$f$不是满射，令$B=\begin{pmatrix}
+    0 & 1 \\
+    0 & 0
+  \end{pmatrix}$，我们证明方程$X^n=B$在$\MM_2(\MC)$中无解. 如果存在一个解$X\in\MM_2(\MC)$，则$\det X=0$，且由Cayley--Hamilton定理，我们有$X^2-tX=O_2$，其中$t=\Tr(X)$. 这意味着$X^n=t^{n-1}X\Rightarrow t^{n-1}X=B$. 在这个等式两边取迹，我们得到$t^n=0\Rightarrow X^2=O_2\Rightarrow X^n=O_2$，这与$X^n=B$矛盾.
+\end{solution}
+
+\begin{solution}
+  \begin{inparaenum}[(a)]
+    \item 令$g:\MR\to\MR,g(x)=x^{2016}+x^{2015}$，且令$Y=\begin{pmatrix}
+          y & 0 \\
+          0 & 0
+        \end{pmatrix}$，其中$y<g\left(-\frac{2015}{2016}\right)$. 方程$f(X)=Y$在$\MM_2(\MR)$中无解.
+
+    \item 令$Y=\begin{pmatrix}
+      -1 & 0 \\
+      0 & 0
+    \end{pmatrix}$，方程$f(X)=Y$在$\MM_2(\MR)$中无解.
+  \end{inparaenum}
+\end{solution}
+
+\begin{solution}
+  \begin{inparaenum}[(a)]
+    \item $AX=X'\Leftarrow X=A^{-1}X',A^{-1}=\frac1{ad-bc}
+        \begin{pmatrix}
+          d & b \\
+          c & a
+        \end{pmatrix}>0$. 于是$A^{-1}>0,X'>0$，且这意味着$A^{-1}X'>0$.
+
+    \item 令$X_1,X_2$是$X$的列向量，$X_1',X_2'$是$X'$的列向量，我们有$X_1'=AX_1,X_2'=AX_2$. 如果$X_1=\begin{pmatrix}
+          x \\ y
+        \end{pmatrix}$，则$X_1'=\begin{pmatrix}
+          ax - by \\
+          -cx + dy
+        \end{pmatrix}$，且条件$X>0,X'>0$说明
+        \[
+          \left\{
+            \begin{aligned}
+              & ax - by > 0 \\
+              & -cx - dy > 0 \\
+              & x > 0 \\
+              & y > 0
+            \end{aligned}
+          \right..
+        \]
+
+      从几何的角度看，上面的每个不等式都表示一个半平面，我们需要证明这些半平面相交. 第一个半平面的边界是一条斜率为$m_1=\frac ab$的直线，第二个半平面的边界是一条斜率为$m_2=\frac cd$的直线. 如果我们有$m_1>m_2$，即$ad-bc>0$成立，则这两个半平面相交于第一象限. 这只需要取$X_1=X_2$，其中$x$和$y$是原先的不等式组的一个解.
+  \end{inparaenum}
+\end{solution}
+
+\setcounter{solution}{42}
+
+\begin{solution}
+  由Cayley--Hamilton定理，我们有
+  \[
+    \left\{
+      \begin{aligned}
+        & (AB)^2 - \Tr(AB)AB + \det(AB)I_2 = O_2 \\
+        & (BA)^2 - \Tr(BA)BA + \det(BA)I_2 = O_2
+      \end{aligned}
+    \right..
+  \]
+  由于$\Tr(AB)=\Tr(BA)$且$\det(AB)=\det(BA)$，我们得到$\Tr(AB)(AB-BA)=O_2$. 由于$\Tr(AB)>0$，这意味着$AB=BA$.
+\end{solution}
+
+\begin{solution}
+  $\{I_2,A,A^2\}$.
+\end{solution}
+
+\begin{solution}
+  设$n\ge2$. 要证明$\mathscr P_n\subseteq\mathscr P_2$，我们需要证明对任意$X\in\MM_2(\MC)$，存在$Y\in\MM_2(\MC)$使得$X^n=Y^2$. 令$J_X$是$X$的Jordan标准形，设$P$是一个可逆矩阵，使得$X=PJ_XP^{-1}$，且令$Y=PY_1P^{-1}$，方程$X^n=Y^2$变为$J_X^n=Y_1^2$. 下面我们分两种情形.
+
+  如果$J_X=\begin{pmatrix}
+    \lambda_1 & 0 \\
+    0 & \lambda_2
+  \end{pmatrix}$，则$J_X^n=\begin{pmatrix}
+    \lambda_1^n & 0 \\
+    0 & \lambda_2^n
+  \end{pmatrix}$，且我们取$Y_1=\begin{pmatrix}
+    \mu_1 & 0 \\
+    0 & \mu_2
+  \end{pmatrix}$，其中$\mu_1,\mu_2\in\MC$满足$\mu_1^2=\lambda_1^n$且$\mu_2^2=\lambda_2^n$.
+
+  如果$J_X=\begin{pmatrix}
+    \lambda & 1 \\
+    0 & \lambda
+  \end{pmatrix}$，则$J_X^n=\begin{pmatrix}
+    \lambda^n & n\lambda^{n-1} \\
+    0 & \lambda^n
+  \end{pmatrix}$. 如果$Y_1=\begin{pmatrix}
+    a & b \\
+    0 & a
+  \end{pmatrix}$，则我们有$Y_1^2=\begin{pmatrix}
+    a^2 & 2ab \\
+    0 & a^2
+  \end{pmatrix}$，且我们得到方程$a^2=\lambda^n$与$2ab=n\lambda^{n-1}$. 如果$\lambda=0$，我们取$a=b=0$. 如果$\lambda\ne0$，则我们取$a\in\MC^\ast$使得$a^2=\lambda^n$且$b=\frac{n\lambda^{n-1}}{2a}$.
+
+  要证明结论$\mathscr P_2\subseteq\mathscr P_n$，我们需要证明对任意$X\in\MM_2(\MC)$，存在$Y\in\MM_2(\MC)$，使得$X^2=Y^n$. 和前面结论的证明一样，化归到Jordan标准形，我们需要证明$J_X^2=Y_1^n$.
+
+  如果$J_X=\begin{pmatrix}
+    \lambda_1 & 0 \\
+    0 & \lambda_2
+  \end{pmatrix}$，我们取$Y_1=\begin{pmatrix}
+    \mu_1 & 0 \\
+    0 & \mu_2
+  \end{pmatrix}$，其中$\mu_1^n=\lambda_1^2$且$\mu_2^n=\lambda_2^2$.
+
+  如果$J_X=\begin{pmatrix}
+    \lambda & 1\\
+    0 & \lambda
+  \end{pmatrix}$，则$J_X^2=\begin{pmatrix}
+    \lambda^2 & 2\lambda \\
+    0 & \lambda^2
+  \end{pmatrix}$，我们取$Y_1=\begin{pmatrix}
+    a & b \\
+    0 & a
+  \end{pmatrix}$，则$Y_1^n=\begin{pmatrix}
+    a^n & na^{n-1}b \\
+    0 & a^n
+  \end{pmatrix}$. 我们得到方程$a^n=\lambda^n$与$na^{n-1}b=2\lambda$.
+
+  如果$\lambda=0$，我们取$a=b=0$. 如果$\lambda\ne0$，我们取$a\in\MC^\ast$满足$a^n=\lambda^2$且$na^{n-1}b=2\lambda$.
+\end{solution}
+
+\begin{solution}
+  \begin{inparaenum}[(a)]
+    \item 由Cayley--Hamilton定理，我们有$A^2-\Tr(A)A+I_2=O_2$，于是$A+A^{-1}=\Tr(A)I_2$. 这意味着$AB+A^{-1}B=\Tr(A)B$，两边取迹，可得$\Tr(AB+A^{-1}B)=\Tr(AB)+\Tr(A^{-1}B)
+        =\Tr\big(\Tr(A)B\big)=\Tr(A)\Tr(B)$.
+
+    \item $B+B^{-1}=\Tr(B)I_2\Rightarrow BAB+BAB^{-1}=\Tr(B)BA$，等式两边取迹可得
+        \[
+          \Tr(BAB + BAB^{-1}) = \Tr\big( \Tr(B)BA \big) \Rightarrow \Tr(BAB) + \Tr(BAB^{-1}) = \Tr(B)\Tr(BA).
+        \]
+
+        由于$\Tr(BAB^{-1})=\Tr(A)$且$\Tr(BA)=\Tr(AB)$，我们得到$\Tr(BAB)+\Tr(A)=\Tr(B)\Tr(AB)$.
+  \end{inparaenum}
+\end{solution}
+
+\begin{solution}
+  \begin{inparaenum}[(a)]
+    \item 通过反证法，我们假定存在$n\in\MN$使得$A^n=I_2$，这意味着$\det(A^n)=\det{}^nA=1$. 如果$\lambda_1,\lambda_2$是$A$的特征值，则$\lambda_1+\lambda_2=\Tr(A)>2,
+        \lambda_1\lambda_2=\det A=1$，进一步可得$\lambda_1^n\lambda_2^n=1$且
+        $\lambda_1^n+\lambda_2^n=\Tr(A^n)=\Tr(I_2)=2$，这意味着$\lambda_1^n=\lambda_2^n=1\Rightarrow
+        |\lambda_1|=|\lambda_2|=1$. 我们有$2=|\lambda_1|+|\lambda_2|\ge|\lambda_1+\lambda_2|=\Tr(A)>2$，矛盾.
+
+    \item 设$A=rB$，然后注意到这个问题就化归到 \ref{prob2.47a} 了.
+  \end{inparaenum}
+\end{solution}
+
+\begin{solution}
+  设$\lambda_1,\lambda_2$是$A$的特征值，即方程$x^2-\Tr(A)x+\det A=0$的解. 由于$\varDelta=\Tr^2(A)-4\det A<0$，我们得到$\lambda_1,\lambda_2\in\MC\backslash\MR$且
+  $\lambda_2=\bar{\lambda_1}$. 另一方面，$\lambda_1\lambda_2=1$，这意味着$\lambda_{1,2}=
+  \cos\alpha\pm\ii\sin\alpha$，且$\sin\alpha\ne0$. 我们有$|\Tr(A^n)|=|2\cos(n\alpha)|\le2$.
+
+  矩阵
+  \[
+    B_n = \begin{pmatrix}
+      \cos\frac\pi n & - \sin\frac\pi n\\
+      \sin\frac\pi n & \cos \frac\pi n
+    \end{pmatrix}
+  \]
+  满足题中的要求.
+\end{solution}
+
+\begin{solution}
+  充分性是显然的，下面证明必要性，即如果$C$与$A$和$B$都可交换，则$C=O_2$. 如果$A$或$B$形如$\alpha I_2,\alpha\in\MC$，则结论显然. 于是我们假定$A$和$B$都不是$\alpha I_2,\alpha\in\MC$的形式. 由于$AC=CA$且$CB=BC$，由定理 \ref{thm1.1}，我们有$C=\alpha_1A+\beta_1I_2$且$C=\alpha_2B+\beta_2I_2$对某个$\alpha_1,\alpha_2,\beta_1,\beta_2\in\MC$成立，于是$\alpha_1A+\beta_1I_2=\alpha_2B+\beta_2I_2$.
+
+  如果$\alpha_1=0$，我们得到$\beta_1I_2=\alpha_2B+\beta_2I_2$. 如果$\alpha_2\ne0$，我们得到$B=\frac{\beta_1-\beta_2}{\alpha_2}I_2$，这是不可能的. 因此$\alpha_2=0$，且$\beta_1=\beta_2$. 由于$\alpha_1=0$，我们得到$C=\beta_1I_2$，且$\Tr(C)=0\Rightarrow\beta_1=0
+  \Rightarrow C=O_2 $.
+
+  如果$\alpha_1\ne0$，我们得到$A=\frac{\alpha_2}{\alpha_1}B+\frac{\beta_2-\beta_1}{\alpha_1}I_2=\delta B+\gamma I_2$，其中$\delta=\frac{\alpha_2}{\alpha_1}$且$\gamma=\frac{\beta_2-\beta_1}{\alpha_1}$. 于是$C=AB-BA=(\delta B+\gamma I_2)B-B(\delta B+\gamma I_2)=O_2$.
+\end{solution}
+
+\begin{solution}
+  令$f_A(x)=\det(A-xI_2)=x^2-\Tr(A)x+\det A$是$A$的特征多项式，且$\lambda_1,\lambda_2$是它的根. 由于$A^n=I_2$，我们得到$\lambda_1^n=\lambda_2^n=1\Rightarrow
+  |\lambda_1|=|\lambda_2|=1$，且条件$\det(A-I_2)\in\MR$意味着$f_A(1)=1-(\lambda_1+\lambda_2)+\lambda_1\lambda_2\in\MR$.
+
+  我们有
+  \begin{align*}
+    \lambda_1\lambda_2 - (\lambda_1 + \lambda_2)
+    \in \MR & \Leftrightarrow \bar{\lambda_1}\cdot\bar{\lambda_2} - (\bar{\lambda_1} + \bar{\lambda_2}) \in \MR \\
+    & \Leftrightarrow \frac1{\lambda_1}\cdot\frac1{\lambda_2} - \frac1{\lambda_1} - \frac1{\lambda_2} \in \MR \\
+    & \Leftrightarrow \frac{1-\lambda_1-\lambda_2}{\lambda_1\lambda_2} \in \MR.
+  \end{align*}
+
+  设$\lambda_1+\lambda_2=\lambda_1\lambda_2+a,a\in\MR$，且$\frac{1-\lambda_1\lambda_2-a}{\lambda_1\lambda_2}
+  =b\in\MR$. 这些就意味着$\lambda_1\lambda_2\in\MR$且$\lambda_1+\lambda_2\in\MR$，因此$f_A\in\MR[x]$.
+\end{solution}
+
+\begin{solution}
+  \begin{inparaenum}[(a)]
+    \item 我们有$(AB)^n=O_2\Rightarrow (AB)^2=O_2\Rightarrow B(AB)^2A=O_2\Rightarrow(BA)^3=O_2
+        \Rightarrow(BA)^2=O_2\Rightarrow(BA)^n=O_2$.
+
+    \item 令$f=f_{AB}=f_{BA}$是$AB$和$BA$的特征多项式，我们有$x^n=Q(x)f(x)+ax+b$，其中$Q\in\MR[x]$且$a,b\in\MR$. 因此，$(AB)^n=I_2\Leftrightarrow Q(AB)f(AB)+aAB+bI_2=I_2\Leftrightarrow
+        aAB+(b-1)I_2=O_2$.
+
+        如果$a=0$，则$b=1$，且这意味着$(BA)^n=Q(BA)f(BA)+I_2=I_2$.
+
+        如果$a\ne0$，则$AB=\frac{1-b}aI_2$，其中$\frac{1-b}a\ne0$，由于$A$与$B$是可逆的，这意味着$AB=BA$.
+
+        \item $(AB)^n=C\Leftrightarrow aAB+bI_2=C$. 另一方面，$(BA)^n=C\Leftrightarrow aBA+bI_2=C$，由于$AB\ne BA$，我们得到$a=0$且$C=bI_2$.
+  \end{inparaenum}
+\end{solution}
+
+\begin{solution}
+  $\alpha AB+\beta BA=I_2\Rightarrow \alpha(AB-BA)=I_2-(\alpha+\beta)BA$且$\beta(BA-AB)=I_2
+  -(\alpha+\beta)AB$. 且
+  \begin{align*}
+    \det(I_2 - xBA) & = \det (A^{-1}I_2A - A^{-1}xABA) \\
+    & = \det(A^{-1}) \det (I_2 - xAB) \det A\\
+    & = \det (I_2 - xAB).
+  \end{align*}
+
+  在前面的等式两边取行列式可得
+  \[
+    \alpha^2 \det(AB - BA) = \beta^2 \det(BA - AB)\quad \Leftrightarrow \quad
+    (\alpha^2 - \beta^2)\det(AB - BA) = 0,
+  \]
+  由于$\alpha\ne\pm\beta$，这说明$\det(AB-BA)=0$.
+\end{solution}
+
+\begin{solution}
+  令$f(x)=\det(A^2+B^2+C^2+xBC)\in\MR[x]$，我们有$f(-2)=\det\big(A^2+(B-C)^2\big)\ge0$，且$f(2)=
+  \det\big(A^2+(B+C)^2\big)\ge0 $. 由推论 \ref{coro2.4}，直接计算可得
+  \[
+    f(x) = \det(A^2 + B^2 + C^2) + \alpha x + x^2 \det B\det C = \det(A^2 + B^2 + C^2) + \alpha x
+  \]
+  对某个$\alpha\in\MR$成立. 因此，$f$是一个单调的次数为1的多项式，且由于0介于$-2$与2之间，我们得到$f(0)=\det(A^2 + B^2 + C^2)\ge0$.
+\end{solution}
+
+\setcounter{solution}{54}
+
+\begin{solution}
+  我们有$z^4-az^3-az+1=(z^2-\alpha_1z+1)(z^2-\alpha_2z+1)$，其中$\alpha_{1,2}=\frac{a\pm\sqrt{a^2+8}}2$. 由于$a\in(-1,1)$，我们得到$|\alpha_{1,2}|<2$，这意味着方程$z^2-\alpha_1z+1=0$和$z^2-\alpha_2z+1=0$只有复数解. 它们的解为$z_1,z_2$和$z_3,z_4$，且满足$z_1z_2=z_3z_4=1$. 由于$z_1,z_2$与$z_3,z_4$都是复共轭的，因此有$|z_1|=|z_2|=|z_3|=|z_4|=1$. 我们有
+  \begin{align*}
+    \det [ (A^2 - \alpha_1A + I_2)( A^2 - \alpha_2A + I_2 ) ] = 0 \Rightarrow {}& \det (A^2 - \alpha_1A + I_2) = 0 \\
+    \text{或}{} & \det ( A^2 - \alpha_2A + I_2 ) = 0.
+  \end{align*}
+
+  如果
+  \[
+    \det (A^2 - \alpha_1A + I_2) = 0 \Leftrightarrow \det (A - z_1I_2)(A - z_2I_2) = |\det(A - z_1I_2)|^2 = 0,
+  \]
+  这意味着$\det(A-z_1I_2)=0$. 由推论 \ref{coro2.5}，可得
+  \[
+    0 = \det(A - z_1I_2) = \det A - \Tr(A)z_1 + z_1^2 = \det A - 1 + z_1\big(\alpha_1 - \Tr(A)\big)，
+  \]
+  这就说明$\det A=1$.
+\end{solution}
+
+\begin{solution}
+  由于$B$是幂零的，我们可知它的特征值都是0. 由定理 \ref{thm2.1}，可得$\lambda_{A+B}=\lambda_A+\lambda_B=\lambda_A$，且$\mu_{A+B}=\mu_A+\mu_B
+  =\mu_A$. 这意味着$\det(A+B)=\lambda_{A+B}\mu_{A+B}=\lambda_A\mu_A=\det A$.
+\end{solution}
+
+\begin{solution}
+  如果$m=1$或$n=1$，那么问题是平凡的，因此我们假定$m$与$n$都是不小于2的. 注意到$A^2=B^2=O_2$，利用问题 \ref{problem1.8} 即可.
+\end{solution}
+
+\begin{solution}
+  首先我们证明，如果$AB$和$BA$都是幂零矩阵，则$A+B$也是幂零矩阵. 我们有
+  \begin{gather*}
+    (A + B)^2 = A^2 + B^2 + AB + BA = AB + BA, \\
+    (A + B)^4 = (AB + BA)^2 = (AB)^2 + AB^2A + BA^2B + (BA)^2 = O_2.
+  \end{gather*}
+  由引理 \ref{lemma2.3}，这就说明$(A+B)^2=O_2$.
+
+  现在我们证明，如果$A+B$是幂零矩阵，则$AB$与$BA$都是幂零矩阵. 我们有
+  \[
+    (A + B)^2 = O_2 \Rightarrow A^2 + AB + BA + B^2 = O_2 \Rightarrow AB = -BA.
+  \]
+  这意味着
+  \begin{gather*}
+    (AB)^2 = ABAB = A(-AB)B = -A^2B^2 = O_2, \\
+    (BA)^2 = BABA = B(-BA)A = -B^2A^2 = O_2.
+  \end{gather*}
+\end{solution}
+
+\begin{solution}
+  我们对矩阵$AB-BA$应用Cayley--Hamilton定理，可得
+  \[
+    (AB - BA)^2 - \Tr(AB - BA)(AB - BA) + \det(AB - BA)I_2 = O_2.
+  \]
+  由于$\Tr(AB - BA)=0$，那么$(AB - BA)^2+\det(AB - BA)I_2=O_2$. 这意味着$\det(AB-BA)=0\Leftrightarrow(AB-BA)^2=O_2$. 由引理 \ref{lemma2.10}，我们有$\det(AB-BA)=0\Leftrightarrow\Tr(A^2B^2)
+  =\Tr\big((AB)^2\big) $.
+\end{solution}
+
+\setcounter{solution}{60}
+
+\begin{solution}
+  我们有
+  \[
+    (AB)^2 = AB^2A \Rightarrow \Tr\big((AB)^2\big)
+    = \Tr(AB^2A) = \Tr(A^2B^2).
+  \]
+  且由问题 \ref{problem2.59}，我们得到$(AB-BA)^2=O_2$. 这意味着
+  \[
+    (AB)^2 - AB^2A + (BA)^2 - BA^2B = O_2.
+  \]
+  由于$(AB)^2=AB^2A$，我们得到$(BA)^2=BA^2B$. 充分性也可以用同样的方法证明.
+\end{solution}
+
+\begin{solution}
+  由引理 \ref{lemma2.11}，我们有
+  \[
+    \det (A - B) \det (A + B) = \det (A^2 - B^2)
+    \quad \Leftrightarrow \quad
+    \det (AB - BA) = 0.
+  \]
+  然而，$(AB-BA)^2=-\det(AB-BA)I_2$，我们有$(AB-BA)^2=O_2\Leftrightarrow\det(AB-BA)=0$.
+\end{solution}
+
+\begin{solution}
+  利用引理 \ref{lemma2.12}.
+\end{solution}
+
+\begin{solution}
+  如果$\det(AB-BA)\ge0$，由引理 \ref{lemma2.12}，我们有$\det(A^2+B^2)\ge0$.
+
+  如果$\det(AB-BA)\le0$，则$\det(AB+BA)\le0$. 由推论 \ref{coro2.1}，我们有
+  \begin{align*}
+    \det[(A^2 + B^2) + (AB + BA)] +& \det [(A^2 + B^2) - (AB + BA)] \\
+    & = 2\det(A^2 + B^2) + 2\det(AB + BA).
+  \end{align*}
+  然而，$\det(A^2+B^2+AB+BA)=\det[(A+B)^2]=\det{}^2(A+B)$，且
+  \[
+    \det [(A^2 + B^2) - (AB + BA)] = \det{}^2 (A - B).
+  \]
+  于是可得
+  \[
+    \det{}^2 (A + B) + \det{}^2(A - B) = 2\det(A^2 + B^2) + 2\det(AB + BA).
+  \]
+  由于$\det(AB+BA)\le0$，我们有$\det(A^2+B^2)\ge0$.
+\end{solution}
+
+\begin{solution}
+  由问题 \ref{problem1.32}，我们有
+  \begin{align*}
+    \det(A^n + B^n + AB) = {}& \det (A^n + B^n) + \det(A^n + AB) + \det(B^n + AB) \\
+    & -\det(A^n) - \det(B^n) - \det(AB) \\
+    = {}& \det(A^n + B^n) + \det A\det(A^{n-1} + B) + \det(B^{n-1} + A)\det B \\
+    & - \det(A^n) - \det(B^n) - \det(BA) \\
+    = {}& \det(A^n + B^n) + \det(A^{n-1} + B)\det A + \det B\det(B^{n-1} + A) \\
+    & - \det(A^n) - \det(B^n) - \det(BA) \\
+    = {}& \det (A^n + B^n) + \det(A^n + BA) + \det(B^n + BA) \\
+    & - \det(A^n) - \det (B^n) - \det(BA) \\
+    = {}& \det(A^n + B^n + BA).
+  \end{align*}
+
+  类似地，我们可以证明$\det(A^n+B^n-AB)=\det(A^n+B^n-BA)$.
+\end{solution}
+
+\begin{solution}
+  由问题 \ref{problem2.65}，当$n=2$时，我们有
+  \[
+    \det (A^2 + B^2 - AB) = \det(A^2 + B^2 - BA).
+  \]
+  由于$A^2+B^2-AB=O_2$且$A^2+B^2-BA=AB-BA$，我们得到$\det(AB-BA)=0\Leftrightarrow(AB-BA)^2=O_2$.
+\end{solution}
+
+\begin{solution}
+  由于$A^2=O_2$，我们得到$\det A=0$. 由引理 \ref{lemma2.12}，我们有
+  \[
+    \det(B^2) = \det(AB - BA) + (\det B)^2 + [\det(A + B) - \det B]^2,
+  \]
+  这意味着$0=\det(AB-BA)+[\det(A+B)-\det B]^2$，那么显然有$\det(AB-BA)=0\Leftrightarrow\det(A+B)=\det B$.
+\end{solution}
+
+\begin{solution}
+  由于$A^2=O_2$，我们得到$\det A=0$，且$\det(AB)=0,\forall B\in\MM_2(\MR)$. 由引理 \ref{lemma2.7}，我们得到
+  \begin{align*}
+    \det(AB - BA) & = \det (AB) - \Tr(AB)\Tr(BA) + \Tr(AB^2A) + \det (BA) \\
+    & = 2\det(AB) - \Tr^2(AB) + \Tr(A^2B^2) \\
+    & = -\Tr^2(AB) \\
+    & \le 0.
+  \end{align*}
+  类似地，我们也可以证明$\det(AB+BA)=\Tr^2(AB)\ge0$.
+\end{solution}
+
+\setcounter{solution}{70}
+
+\begin{solution}
+  设$A\in\MM_2(\MC)$满足$A^2=O_2$，且令$X\in\MM_2(\MC)$满足$AX=XA$，则$\det(AX-XA)=0$. 且由问题 \ref{problem2.67}，我们有$\det(A+X)=\det X$.
+
+  要证明充分性，我们设$x_1,x_2$是方程$\det(A+xI_2)=x^2+\Tr(A)x+\det A=0$的解. 由于$x_1I_2,x_2I_2\in\mathscr C(A)$，我们得到$0=|\det(A+xI_2)|\ge|x_i|^2,i=1,2$，这意味着$x_1=x_2=0$. 因此，$\Tr(A)=\det A=0\Rightarrow A^2=O_2$.
+\end{solution}
+
+\begin{solution}
+  \begin{inparaenum}[(a)]
+    \item $(A-B)(A^{-1}-B^{-1}) = I_2\Rightarrow AB^{-1} + BA^{-1}
+    =I_2 \Rightarrow A-B=AB^{-1}A$ 且 $B-A=BA^{-1}B$. 于是
+    \[
+      \frac{(\det B)^2}{\det A} = \det(BA^{-1}B) =
+      \det(B - A) = \det(A - B) = \det(AB^{-1}A) =
+      \frac{(\det A)^2}{\det B},
+    \]
+    这说明$\det A=\det B$且$\det(A-B)=\det A$.
+
+    我们给出以下两个满足题中条件的矩阵$A,B\in\MM_2(\MR)$. 设$\alpha,
+    u,x\in\MR$，且$\alpha,x\ne0$，令
+    \[
+      A = \begin{pmatrix}
+        x & \frac{\alpha x- \alpha^2 - x^2} u \\
+        u & \alpha - x
+      \end{pmatrix}  \quad \text{且}\quad
+      B = \begin{pmatrix}
+        x - \alpha & \frac{\alpha - \alpha^2 - x^2} u \\
+        u & - x
+      \end{pmatrix}.
+    \]
+    则
+    \[
+      A^{-1} = \frac1{\alpha^2} \begin{pmatrix}
+        \alpha - x & \frac{x^2 + \alpha^2-\alpha x}u \\
+        -u & x
+      \end{pmatrix} \quad \text{且} \quad
+      B^{-1} = \frac1{\alpha^2} \begin{pmatrix}
+        -x & \frac{x^2 + \alpha^2-\alpha x}u \\
+        u & -x
+      \end{pmatrix}.
+    \]
+    我们有$\det A=\det B = \det(A-B)=\alpha^2$.
+
+    \item 此时结论不成立. 令$\varepsilon=\frac{1+\ii\sqrt3}2$，再令
+        \[
+          A = \begin{pmatrix}
+            \varepsilon & 0 \\
+            0 & 1
+          \end{pmatrix},\quad B = \begin{pmatrix}
+            1 & 0 \\
+            0 & \bar\varepsilon
+          \end{pmatrix},
+        \]
+        则$A^{-1}-B^{-1}=(A-B)^{-1}$，但$\det A\ne \det B$.
+  \end{inparaenum}
+\end{solution}
+
+\begin{solution}
+  只需要考虑$P$是一个二次多项式即可.
+\end{solution}
+
+\setcounter{solution}{74}
+
+\begin{solution}
+  如果$A$或$B$是可逆的，则$B=O_2$或$A=O_2$，结论显然.
+
+  现在我们假定$A$和$B$都不可逆. 由于$AB=O_2$，我们得到
+  \[
+    (A + B)^n = A^n + B^n + B(A^{n-2} + BA^{n-3} + \cdots + B^{n-2})A = A^n + B^n + C.
+  \]
+  所有包含$AB$的式子都等于$O_2$. 由问题 \ref{problem1.32}，我们有
+  \begin{align*}
+    \det (A + B)^n = {}& \det (A^n + B^n + C^n) \\
+    = {}& \det (A^n + B^n) + \det (A^n + C) + \det (B^n + C) \\
+    & - \det (A^n) - \det (B^n) - \det C \\
+    = {}& \det(A^n + B^n),
+  \end{align*}
+  这是因为$\det(A^n)=\det(B^n)=\det C=\det(A^n+C)
+  =\det(B^n+C)=0$.
+\end{solution}
+
+\begin{solution}
+  \begin{inparaenum}[(a)]
+    \item 令$A=I_2,B=\begin{pmatrix}
+      0 & 1 \\
+      -1 & 0
+    \end{pmatrix}$，则$\det(xA+yB)=\begin{vmatrix}
+      x & y \\
+      -y & x
+    \end{vmatrix}=x^2+y^2$.
+
+    \item 对任意矩阵$A,B,C\in\MM_2(\MR)$，我们取不全为零的实数$x_0,y_0,z_0$，使得矩阵$x_0A+y_0B+z_0C$的第一行为0. 如果矩阵$A,B,C$的第一行分别为$[a_1,a_2],[b_1,b_2],[c_1,c_2]$，则方程组
+    \[
+      \left\{
+        \begin{aligned}
+          & a_1x + b_1y + c_1z = 0\\
+          & a_2x + b_2y + c_2z = 0
+        \end{aligned}
+      \right.
+    \]
+    有非平凡解$(x_0,y_0,z_0)\ne(0,0,0)$，则$\det(x_0A+y_0B+z_0C)=0$，且
+  $x_0^2+y_0^2+z_0^2\ne0$.
+  \end{inparaenum}
+\end{solution}
+
+\section{Quickies}
+\begin{problem}
+  设$A,B\in\MM_2(\MC)$满足$ABAB=O_2$，是否有$BABA=O_2$?
+\end{problem}
+
+\begin{problem}
+  设矩阵$A\in\MM_2(\MR)$满足$A^k\ne\lambda I_2,k\in\MN$. 证明：如果矩阵$A^k$的$(1,2)$元等于0，则所有形如$A^n,n\in\MN$的矩阵的$(1,2)$元等于0.
+\end{problem}
+
+\begin{problem}
+  是否存在矩阵$A,B\in\MM_2(\MZ)$，使得$\det(A+2B)=3$且$\det(A+5B)=7$.
+\end{problem}
+
+\begin{problem}
+  设$A,B\in\MM_2(\MQ)$满足$\det A=0$且$\det(A+\sqrt2B)=2$，证明：$\det B=1$且$\det(A+\sqrt pB)=p$对任意素数$p$成立
+\end{problem}
+
+\begin{problem}
+  设$A,B\in\MM_2(\MQ)$满足$\det A=1$且$\det(A+\sqrt3B)=4$，证明：$\det B=1$且$\det(A+\sqrt5B)=6$.
+\end{problem}
+
+\begin{problem}
+  设$A,B\in\MM_2(\MQ)$满足$\det(A+\sqrt[3]3B)=3$，证明：$\det(A+\sqrt2B)=3$.
+\end{problem}
+
+\begin{problem}
+  设$A,B\in\MM_2(\MC)$满足$\Tr(AB)=0$，证明：$(AB)^2=(BA)^2$.
+\end{problem}
+
+\begin{problem}
+  设$A,B\in\MM_2(\MR)$满足$A^2+B^2+2AB=O_2$且$\det(A^2-B^2)=0$，证明：$\det\big(\Tr(A)A-\Tr(B)B\big)=0$.
+\end{problem}
+
+\begin{problem}
+  设$n\in\MN$，证明：如果$A\in\MM_2(\MC)$满足$\Tr(A)=0$，则$\Tr(A^{2n+1})=0$.
+\end{problem}
+
+\begin{problem}
+  设$A\in\MM_2(\MC)$满足$A^k=A^{k+1}$对某个正整数$k$成立，证明：
+  \[
+    \Tr(A) = \Tr(A^2) = \Tr(A^3) = \cdots = \Tr(A^n) = \cdots.
+  \]
+\end{problem}
+
+\begin{problem}
+  设$A\in\MM_2(\MC)$满足$\Tr(A^n)=\Tr(A^{n+1})$对某个$n\in\MN$成立，证明：$A^2=O_2$.
+\end{problem}
+
+\begin{problem}
+  $A,B\in\MM_2(\MC)$有相同的特征多项式（因此也就具有相同的特征值）当且仅当$\Tr(A^k)=\Tr(B^k)$对$k=1,2$成立，由此推断$A$是幂零矩阵当且仅当$\Tr(A^k)=0$对$k=1,2$成立.
+\end{problem}
+
+\begin{mybox}
+  \begin{problem}[Jacobson引理.]
+
+    设$A,B\in\MM_2(\MC)$，且$C=AB-BA$，证明：如果$C$与$A$或$B$可交换，则$C$是幂零矩阵.
+  \end{problem}
+\end{mybox}
+
+\begin{problem}[\kaishu 矩阵是否相等?]
+
+  设$A,B\in\MM_2(\MC)$满足$\Tr(A)=\Tr(B)$且$\det A=\det B$，能否得出$A=B$?
+\end{problem}
+
+\begin{problem}
+  设$A,B\in\MM_2(\MC)$满足$\Tr(A)=\Tr(B)$，则$A(A-B)B=B(A-B)A$.
+\end{problem}
+
+\begin{mybox}
+  \begin{problem}
+    设$A\in\MM_2(\MC)$满足$A^k=O_2,k\in\MN$，证明：$(I_2-A)^{-1}=I_2+A$.
+  \end{problem}
+\end{mybox}
+
+\begin{problem}
+  对任意$A,B\in\MM_2(\MR)$，存在$\alpha\in\MR$，使得$(AB-BA)^2=\alpha I_2$.
+\end{problem}
+
+\begin{problem}
+  \begin{enuma}
+    \item 找出两个矩阵$A,B$，使得$A^2+B^2=\begin{pmatrix}
+      1 & 2 \\
+      2 & 1
+    \end{pmatrix}$.
+
+    \item 证明：任意两个满足$A^2+B^2=\begin{pmatrix}
+      1 & 2 \\
+      2 & 1
+    \end{pmatrix}$的矩阵都是不可交换的.
+  \end{enuma}
+\end{problem}
+
+\section{解答}
+
+\begin{solution}
+  答案是肯定的，因为$ABAB=O_2\Rightarrow BABABA=O_2
+  \Rightarrow(BA)^3=O_2\Rightarrow(BA)^2=O_2$.
+\end{solution}
+
+\begin{solution}
+  由定理 \ref{thm3.2}，可知存在数列$(x_n)_{n\in\MN}$与$(y_n)_{n\in\MN}$，使得$A^n=x_nA+y_nI_2$对任意$n\in\MN$成立. 当$n=k$时，我们有$A^k=x_kA+y_kI_2$，这意味着$A=\frac1{x_k}(A^k-y_kI_2)=\begin{pmatrix}
+    \ast & 0 \\
+    \ast & \ast
+  \end{pmatrix}$. 因此，如果$n\in\MN$，我们得到$A^n=x_nA+y_nI_2=\begin{pmatrix}
+    \ast & 0 \\
+    \ast & \ast
+  \end{pmatrix}$.
+\end{solution}
+
+\begin{solution}
+  这样的矩阵是不存在的. 由引理 \ref{lemma2.7}，我们有$\det(A+xB)=\det A+\alpha x+x^2\det B$，其中$\alpha\in\MZ$. 如果$k\in\MZ$，我们有$\det(A+kB)=\det A+mk$对某个$m\in\MZ$成立. 因此，
+  \[
+    7 = \det(A + 5B) = \det[ (A + 2B) + 3B ]
+    = \det (A + 2B) + 3m' = 3(1 + m')
+  \]
+  对某个$m'\in\MZ$成立，这是不可能的.
+\end{solution}
+
+\begin{solution}
+  设$f(x)=\det(A+xB)=\alpha x+x^2\det B$，其中$
+  \alpha\in\MQ$且$\det B\in\MQ$. 由于$f(\sqrt2)=2$，我们得到$\alpha+\sqrt2\det B=\sqrt2$，这意味着$\alpha=0$且$\det B=1$. 于是，$\det(A+\sqrt pB)=f(\sqrt p)=p\det B=p$.
+\end{solution}
+
+\begin{solution}
+  设$f(x)=\det(A+xB)=1+\alpha x+x^2\det B\in\MQ[x],\alpha\in\MQ$. 由于$f(\sqrt3)=4$，我们得到$1+\alpha\sqrt3+3\det B=4$，由于$\det B\in\MQ$，这意味着$\alpha=0$且$\det B=1$. 因此，$f(x)=1+x^2$且$\det(A+\sqrt5B)=f(\sqrt5)=6$.
+\end{solution}
+
+\begin{solution}
+  设$f(x)=\det(A+xB)=\det A+\alpha x+x^2\det B\in\MQ[x],\alpha\in\MQ$. 由于$f(\sqrt[3]3)=3$，我们得到$\det A+\alpha\sqrt[3]3+\sqrt[3]9\det B=3$，于是$\det A=3$且$\alpha=\det B=0$. 因此，$f(x)=3$且$\det(A+\sqrt2B)=f(\sqrt2)=3$.
+\end{solution}
+
+\begin{solution}
+  由于$\Tr(AB)=\Tr(BA)=0$，由Cayley--Hamilton定理，我们得到$(AB)^2=-\det(AB)I_2=-\det(BA)I_2=(BA)^2$.
+\end{solution}
+
+\setcounter{solution}{84}
+
+\begin{solution}
+  设$\lambda_1,\lambda_2$是$A$的特征值，$A^{2n+1}$的特征值为$\lambda_1^{2n+1},\lambda_2^{2n+1}$. 由于$\Tr(A)=\lambda_1+\lambda_2=0$，我们有$\Tr(A^{2n+1})=\lambda_1^{2n+1}+\lambda_2^{2n+1}=-\lambda_2^{2n+1}
+  +\lambda_2^{2n+1}=0$.
+\end{solution}
+
+\setcounter{solution}{86}
+
+\begin{solution}
+  设$\lambda_1,\lambda_2$是$A$的特征值，我们有$\Tr(A^n)=\lambda_1^n+\lambda_2^n=0$且$\Tr(A^{n+1})=\lambda_1^{n+1}+\lambda_2^{n+1}=0$. 由此可得$\lambda_1=\lambda_2=0$，且由定理 \ref{thm2.2}，可知$A^2=O_2$.
+\end{solution}
+
+\begin{solution}
+  显然只需要证明充分性即可. 设$\lambda_1,\lambda_2$是$A$的特征值，$\mu_1,\mu_2$是$B$的特征值. 由
+  \[
+    \left\{
+      \begin{aligned}
+        & \lambda_1 + \lambda_2 = \mu_1 + \mu_2 \\
+        & \lambda_1^2 + \lambda_2^2 = \mu_1^2 + \mu_2^2
+      \end{aligned}
+    \right.
+  \]
+  计算可得$\lambda_1=\mu_1,\lambda_2=\mu_2$或
+  $\lambda_1=\mu_2,\lambda_2=\mu_1$. 在这两种情形下，都有$A$和$B$具有相同的特征多项式.
+
+  要证明问题的第二部分，只需要注意到$A$是幂零矩阵，当且仅当$A^2=O_2$，当且仅当$A$与$O_2$具有相同的特征多项式.
+\end{solution}
+
+\begin{solution}
+  我们假定$C=AB-BA$与$A$可交换，现在来证明$C$是幂零矩阵. 我们有
+  \begin{gather*}
+    \Tr(C)  = \Tr(AB - BA) = 0, \\
+    \Tr(C^2)  = \Tr\big( C(AB - BA) \big) = \Tr(CAB) - \Tr(CBA) = \Tr(ACB) - \Tr(CBA) = 0.
+  \end{gather*}
+  于是由问题 \ref{problem2.88}，可知$C$是幂零矩阵.
+\end{solution}
+
+\begin{solution}
+  这两个矩阵不一定相等，例如$A=\begin{pmatrix}
+    2 & 3\\
+    4 & 6
+  \end{pmatrix},B=\begin{pmatrix}
+    4 & 16 \\
+    1 & 4
+  \end{pmatrix}$.
+\end{solution}
+
+\begin{solution}
+  定理 \ref{thm2.2} 说明$A^2 = \big(\Tr(A)\big)A - (\det A)I_2$且$B^2= \big(\Tr(B)\big)B - (\det B)I_2$. 由于$\Tr(A)=\Tr(B)$，我们有
+  \begin{align*}
+    A(A-B)B & = A^2B - AB^2 \\
+    & = \big[ \big(\Tr(A)\big)A - (\det A)I_2\big]B - A\big[ \big(\Tr(B)\big)B - (\det B)I_2\big] \\
+    & = A\det B - B\det A.
+  \end{align*}
+  类似地，我们可以证明$B(A-B)A=A\det B-B\det A$.
+\end{solution}
+
+\begin{solution}
+  如果$k=1$，我们得到$A=O_2$，结论显然. 设$k\ge2$，如果$\lambda$是$A$的一个特征值，我们得到$\lambda^k=0$，意味着$\lambda=0$. 因此，$A$的所有特征值均为0. 那么由定理 \ref{thm2.2}，这说明$A^2=O_2$. 我们有
+  \[
+    (I_2 - A)(I_2 + A) = I_2 - A^2 = I_2 \Rightarrow (I_2 - A)^{-1} = I_2 + A.
+  \]
+\end{solution}
+
+\begin{solution}
+  设$X=AB-BA$，由于$\Tr(X)=0$，根据定理 \ref{thm2.2}，我们有$X^2=\alpha I$，其中$\alpha=-\det(AB-BA)$.
+\end{solution}
+
+\begin{solution}
+  \begin{inparaenum}[(a)]
+    \item 取$A=\begin{pmatrix}
+      1 & 1 \\
+      1 & 1
+    \end{pmatrix},B=\begin{pmatrix}
+      0 & 1 \\
+      -1 & 0
+    \end{pmatrix}$.
+
+  \item 如果两个矩阵可交换，则$\det(A^2+B^2)=|\det(A+\ii B)|^2\ge0$，这与$\det(A^2+B^2)=\begin{vmatrix}
+        1 & 2\\
+        2 & 1
+      \end{vmatrix}=-3<0$矛盾.
+  \end{inparaenum}
+\end{solution}
+
+
+
+

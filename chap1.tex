@@ -1,0 +1,3988 @@
+\chapter{二阶矩阵}
+\begin{proverb}
+  { \itshape
+   Any work has mistakes. Mistakes are an incentive
+   to do better. There comes a day when the worker
+   dies but the world has used his work and the pain
+   that brought a new work.
+  }
+
+\hfill Nicolae Iorga （1871–1940）
+\end{proverb}
+\section{定义与记号}
+\begin{definition}
+  设$F$是一个实数集或复数集. 一个以$F$中的数为元的二阶矩阵，我们可以理解为一个有两行两列的数组
+  \[
+    A = \begin{pmatrix}
+      a_{11} & a_{12} \\
+      a_{21} & a_{22}
+    \end{pmatrix},
+  \]
+  其中$a_{ij}\in F,i,j\in\{1,2\}$，称为矩阵$A$的元.
+  \end{definition}
+
+  有序对$(a_{11},a_{22})$称为$A$的\emph{主对角线}，\index{Z!主对角线}有序对$(a_{12},a_{21})$称为$A$的\emph{副对角线}.\index{F!副对角线}
+
+  一个二阶矩阵可以记为$A=(a_{ij})_{i,j=1,2}$，所有复二阶矩阵构成的集合记为$\MM_2(\MC)$. 在这个集合中，我们区分以下子集
+  \[
+    \MM_2(\MZ) \subset \MM_2(\MQ) \subset \MM_2(\MR)
+    \subset \MM_2(\MC).
+  \]
+
+  如果$A=(a_{ij})_{i,j=1,2},B=(b_{ij})_{i,j=1,2}$，则我们说$A=B$当且仅当$a_{ij}=b_{ij}$对所有的$i,j\in\{1,2\}$成立.
+
+  \begin{definition}
+    \emph{矩阵的加法}. 设$A,B\in\MM(\MC)$，
+    \[
+      A = \begin{pmatrix}
+        a_{11} & a_{12} \\
+        a_{21} & a_{22}
+      \end{pmatrix}\quad \text{且}\quad
+      B = \begin{pmatrix}
+        b_{11} & b_{12} \\
+        b_{21} & b_{22}
+      \end{pmatrix}.
+    \]
+    矩阵$A$与$B$的\emph{和}$A+B$为矩阵
+    \[
+      A + B = \begin{pmatrix}
+        a_{11} + b_{11} & a_{12} + b_{12}\\
+        a_{21} + b_{21} & a_{22} + b_{22}
+      \end{pmatrix}.
+    \]
+  \end{definition}
+
+  我们给出下面关于矩阵加法的性质，可以直接通过计算验证.
+  \begin{lemma}
+    下面的等式成立：
+    \begin{enum}
+      \item （交换律）$A+B=B+A,\,\forall \,A,B\in\MM_2(\MC)$；
+      \item （结合律）$(A+B)+C=A+(B+C),\,\forall A,B,C\in\MM_2(\MC)$；
+      \item （零元）零矩阵
+      \[
+        O_2 = \begin{pmatrix}
+          0 & 0 \\
+          0 & 0
+        \end{pmatrix}
+      \]
+      满足等式$A+O_2=O_2+A=A,\,\forall A\in\MM_2(\MC)$；
+      \item （负元）$\forall A\in\MM_2(\MC)$，存在$-A\in\MM_2(\MC)$使得$A+(-A)=(-A)+A=O_2$. 如果$A=(a_{ij})_{i,j=1,2}$，则$-A=(-a_{ij})_{i,j=1,2}$.
+    \end{enum}
+  \end{lemma}
+  \begin{remark}
+    引理 \ref{lemma1.1} 说明$\big(\MM_2(\MZ),+\big),\big(\MM_2(\MQ),+\big),
+    \big(\MM_2(\MR),+\big)$和$\big( \MM_2(\MC),+ \big)$是Abel群.\index{Q!群!Abel群}
+  \end{remark}
+
+  \begin{definition}
+    {\emph 矩阵的乘法}.
+
+    设$A,B\in\MM_2(\MC)$，
+    \[
+      A = \begin{pmatrix}
+        a_{11} & a_{12} \\
+        a_{21} & a_{22}
+      \end{pmatrix}\quad \text{且}\quad
+      B = \begin{pmatrix}
+        b_{11} & b_{12} \\
+        b_{21} & b_{22}
+      \end{pmatrix}.
+    \]
+    矩阵$A$与$B$的\emph{乘积}$AB$定义为
+    \[
+      AB = \begin{pmatrix}
+        a_{11}b_{11} + a_{12}b_{21} & a_{11}b_{12} + b_{12}b_{22} \\
+        a_{21}b_{11} + a_{22}b_{21} & a_{21}b_{12} + a_{22}b_{22}
+      \end{pmatrix}.
+    \]
+  \end{definition}
+
+    换句话说，矩阵$AB$的$(i,j)$元是将$A$的第$i$行的对应元与$B$的第$j$列的对应元相乘以后相加所得.
+
+    一般地，矩阵的乘法是 \emph{不可交换的}，即$AB\ne BA$. 例如，如果
+    \[
+      A = \begin{pmatrix}
+        1 & 2 \\
+        -1 & 0
+      \end{pmatrix}\quad \text{且}\quad
+      B = \begin{pmatrix}
+        2 & 1 \\
+        1 & 2
+      \end{pmatrix},
+    \]
+    则
+    \[
+      AB = \begin{pmatrix}
+        4 & 5 \\
+        -2 & -1
+      \end{pmatrix} \ne
+      \begin{pmatrix}
+        1 & 4\\
+        -1 & 2
+      \end{pmatrix} = BA.
+    \]
+
+    我们给出下面关于矩阵乘法的性质，可以直接通过计算验证.
+  \begin{lemma}
+    下面的等式成立：
+    \begin{enum}
+      \item\label{lemma1.2.a} （结合律）$(AB)C=A(BC),\,\forall A,B,C\in\MM_2(\MC)$；
+      \item （左分配律）$A(B+C)=AB+AC,\,\forall A,B,C\in\MM_2(\MC)$；
+      \item （右分配律）$(A+B)C=AC+BC,\,\forall A,B,C\in\MM_2(\MC)$；
+      \item （单位元）\emph{单位矩阵}
+      \[
+        I_2 = \begin{pmatrix}
+          1 & 0 \\
+          0 & 1
+        \end{pmatrix}
+      \]
+      满足等式$AI_2=I_2A=A,\,\forall A\in\MM_2(\MC)$.
+    \end{enum}
+  \end{lemma}
+  \begin{remark}
+    引理 \ref{lemma1.2} 说明$\big(  \MM_2(\MQ),\cdot\big),
+    \big(\MM_2(\MR),\cdot\big)$和$\big(\MM_2(\MC),\cdot\big)$是含幺半群.\index{Q!群!含幺半群}
+  \end{remark}
+
+  且引理 \ref{lemma1.1} 和引理 \ref{lemma1.2} 说明$\big(\MM_2(\MQ),+,\cdot\big),\big(\MM_2(\MR),+,\cdot\big)$
+  是含零元$O_2$和单位元$I_2$的非交换环.
+
+  由于矩阵乘法满足引理 \ref{lemma1.2} 中的 \ref{lemma1.2.a}，我们可以定义矩阵$A\in\MM_2(\MC)$的幂：$A^0=I_2$（如果$A\ne O_2$），$A^1=A,A^2=A\cdot A,A^3=A^2\cdot A,\cdots,A^n=A^{n-1}A,n\in\MN$.
+
+  \begin{definition}
+    \emph{矩阵的数乘}.
+
+    设$\alpha\in\MC$且$A\in\MM_2(\MC)$，
+    \[
+      A = \begin{pmatrix}
+        a_{11} & a_{12} \\
+        a_{21} & a_{22}
+      \end{pmatrix}.
+    \]
+
+    复数$\alpha$与矩阵$A$的乘积定义为
+    \[
+      \alpha A = \begin{pmatrix}
+        \alpha a_{11} & \alpha a_{12}\\
+        \alpha a_{21} & \alpha a_{22}
+      \end{pmatrix}.
+    \]
+  \end{definition}
+
+  \begin{lemma}
+    下面的等式成立：
+    \begin{enum}
+      \item $(\alpha+\beta)A=\alpha A+\beta A,\,\forall \alpha,\beta\in\MC,\,\forall A\in\MM_2(\MC)$；
+      \item $\alpha(A+B)=\alpha A+\alpha B,\,\forall \alpha\in\MC,\,\forall A,B\in\MM_2(\MC)$；
+      \item $\alpha(\beta A)=(\alpha\beta)A,\,\forall\alpha,\beta\in\MC,\,\forall
+          \,A\in\MM_2(\MC)$；
+      \item $1\cdot A=A,\,\forall A\in\MM_2(\MC)$.
+    \end{enum}
+  \end{lemma}
+
+  \begin{remark}
+    引理 \ref{lemma1.3} 中的性质说明群$\big( \MM_2(\MQ),+ \big),\big(\MM_2(\MR),+\big)$和$\big(\MM_2(\MC),+\big)$分别是$\MQ,\MR$和$\MC$上的向量空间\index{X!向量空间}.
+  \end{remark}
+
+  \begin{definition}
+    \emph{对角矩阵\index{J!矩阵!对角矩阵}和三角矩阵\index{J!矩阵!三角矩阵}}.
+    \begin{eenum}
+      \item 形如$\begin{pmatrix}
+        a & 0 \\
+        0 & d
+      \end{pmatrix}\in\MM_2(\MC)$的矩阵叫做\emph{对角矩阵}；
+      \item 形如$\begin{pmatrix}
+        a & b \\
+        0 & d
+      \end{pmatrix}\in\MM_2(\MC)$或$\begin{pmatrix}
+        a & 0 \\
+        c & d
+      \end{pmatrix}\in\MM_2(\MC)$的矩阵叫做\emph{三角矩阵}.
+    \end{eenum}
+  \end{definition}
+
+  我们分别用记号$\MM_{2,1}(\MC)$和$\MM_{1,2}(\MC)$表示复元的列向量和行向量的集合.
+
+  \emph{向量的运算}
+
+  如果$C_1=\begin{pmatrix}
+    x_1 \\ y_1
+  \end{pmatrix}$且$C_2=\begin{pmatrix}
+    x_2 \\ y_2
+  \end{pmatrix}$，则
+  \[
+    C_1 + C_2 = \begin{pmatrix}
+      x_1 + x_2 \\ y_1 + y_2
+    \end{pmatrix}\quad \text{且}\quad
+    \alpha C_1 = \begin{pmatrix}
+      \alpha x_1 \\
+      \alpha y_1
+    \end{pmatrix},\,\alpha\in\MC.
+  \]
+
+  我们可以验证在引理 \ref{lemma1.3} 中性质对于向量也是同样成立的，我们有$\MM_{2,1}(\MC),\MM_{2,1}(\MR)$和$\MM_{2,1}(\MQ)$分别是$\MC,\MR$和$\MQ$上的向量空间. 它们的\emph{维数}是2，且有标准正交基$\mathscr B=\{E_1,E_2\}$，其中$E_1=\begin{pmatrix}
+    1 \\ 0
+  \end{pmatrix},E_2=\begin{pmatrix}
+    0 \\ 1
+  \end{pmatrix}$.
+
+  \begin{definition}
+    {\kaishu 向量空间$\MM_{2,1}(\MC),\MM_{2,1}(\MR),\MM_{2,1}(\MQ)$的基}.
+
+    向量$X_1=\begin{pmatrix}
+    x_1 \\ y_1
+  \end{pmatrix}$和$X_2=\begin{pmatrix}
+    x_2 \\ y_2
+  \end{pmatrix}$构成$\MM_{2,1}(\MC)$的一组基当且仅当对任意向量$X=\begin{pmatrix}
+    x \\ y
+  \end{pmatrix}\in\MM_{2,1}(\MC)$，存在唯一的$\alpha_1,\alpha_2\in\MC$使得$X=\alpha_1X_1+\alpha_2X_2$.
+  \end{definition}
+
+  \begin{nota}
+    向量$E_1=\begin{pmatrix}
+    1 \\ 0
+  \end{pmatrix}$和$E_2=\begin{pmatrix}
+    0 \\ 1
+  \end{pmatrix}$构成了$\MM_{2,1}(\MC) $的一组基，称为标准基. 任意向量$X=\begin{pmatrix}
+    x \\ y
+  \end{pmatrix}\in\MM_{2,1}(\MC)$可以唯一写成$X=xE_1+yE_2$.
+  \end{nota}
+
+  \begin{lemma}
+    两个向量$X_1=\begin{pmatrix}
+    x_1 \\ y_1
+  \end{pmatrix}$和$X_2=\begin{pmatrix}
+    x_2 \\ y_2
+  \end{pmatrix}$构成$\MM_{2,1}$的一组基当且仅当矩阵$P=\begin{pmatrix}
+      x_1 & x_2 \\ y_1 & y_2
+    \end{pmatrix}\in\MM_2(\MC)$是可逆的（$\det P\ne0$），此时$P$称为从标准基$\mathscr B=\{E_1,E_2\}$到基$\mathscr B'=\{X_1,X_2\}$的过渡矩阵.
+  \end{lemma}
+  \begin{proof}
+    由定义，向量$X_1$和$X_2$构成$\MM_{2,1}(\MC)$的一组基当且仅当任意向量$X=\begin{pmatrix}
+      x \\ y
+    \end{pmatrix}\in\MM_{2,1}(\MC)$，存在唯一的标量$\alpha_1,\alpha_2\in\MC$使得$\alpha_1X_1+\alpha_2X_2=X\Leftrightarrow$
+    \[
+      \left\{
+        \begin{aligned}
+          & \alpha_1x_1 + \alpha_2x_2 = x\\
+          & \alpha_1y_1 + \alpha_2y_2 = y
+        \end{aligned}
+      \right.\quad \Leftrightarrow\quad
+      P\begin{pmatrix}
+        \alpha_1 \\ \alpha_2
+      \end{pmatrix} = \begin{pmatrix}
+        x \\ y
+      \end{pmatrix}.
+    \]
+
+    如果$P$是可逆的，即$\det P\ne0$，我们得到唯一解为$\begin{pmatrix}
+      \alpha_1 \\ \alpha_2
+    \end{pmatrix}=P^{-1}\begin{pmatrix}
+      x \\ y
+    \end{pmatrix}$. 如果$\det P=0$，则关于$\alpha_1,\alpha_2$的方程组$P\begin{pmatrix}
+      \alpha_1 \\ \alpha_2
+    \end{pmatrix}=\begin{pmatrix}
+      0 \\ 0
+    \end{pmatrix}$有无穷多解.
+  \end{proof}
+
+  {\kaishu 向量乘法}
+  \begin{itemize}\parindent=2em
+    \item {\kaishu 一个行向量与一个矩阵}
+
+    如果
+    \[
+      v = \begin{pmatrix}
+        v_1 \\ v_2
+      \end{pmatrix}\quad \text{且}\quad
+      \begin{pmatrix}
+        a_{11} & a_{12} \\
+        a_{21} & a_{22}
+      \end{pmatrix},
+    \]
+    则
+    \[
+      v\TT A = (v_1\;v_2)\begin{pmatrix}
+        a_{11} & a_{12} \\
+        a_{21} & a_{22}
+      \end{pmatrix} =
+      (v_1a_{11}+v_2a_{21}\;v_1a_{12}+v_2a_{22});
+    \]
+    \item {\kaishu 一个矩阵与一个列向量}
+
+    如果
+    \[
+      \begin{pmatrix}
+        a_{11} & a_{12} \\
+        a_{21} & a_{22}
+      \end{pmatrix} \quad \text{且}\quad
+      C = \begin{pmatrix}
+        c_1 \\ c_2
+      \end{pmatrix},
+    \]
+    则
+    \[
+      AC = \begin{pmatrix}
+        a_{11} & a_{12} \\
+        a_{21} & a_{22}
+      \end{pmatrix}\begin{pmatrix}
+        c_1 \\ c_2
+      \end{pmatrix} = \begin{pmatrix}
+        a_{11}c_1 + a_{12}c_2 \\
+        a_{21}c_1 + a_{22}c_2
+      \end{pmatrix}.
+    \]
+    \item {\kaishu 一个行向量与一个列向量}
+
+    如果$L=(l_1\;l_2)$且$C=\begin{pmatrix}
+      c_1 \\ c_2
+    \end{pmatrix}$，则
+    \[
+      LC = (l_1c_1+l_2c_2)\quad \text{且}\quad\begin{pmatrix}
+        c_1l_1 & c_1l_2 \\
+        c_2l_1 & c_2l_2
+      \end{pmatrix}.
+    \]
+  \end{itemize}
+
+  \begin{nota}
+    我们要提及的是如果$A\in\MM_2(\MC),A\ne O_2$，则$\det A=0$当且仅当$A=CL$，其中$C=\begin{pmatrix}
+      c_1 \\ c_2
+    \end{pmatrix}\ne\begin{pmatrix}
+      0 \\ 0
+    \end{pmatrix}$且$L=(l_1\;l_2)\ne(0\;0)$，即一个非零矩阵秩为1当且仅当$A$可以写成一个非零列向量与一个非零行向量的乘积. 因此，任意秩为1的矩阵具有形式
+    \[
+      A = CL = \begin{pmatrix}
+        c_1l_1 & c_1l_2 \\
+        c_2l_1 & c_2l_2
+      \end{pmatrix}.
+    \]
+  \end{nota}
+
+  我们将用记号$(C_1|C_2)$表示一个由两列$C_1$和$C_2$组成的$2\times2$矩阵，类似地，$\left(\frac{L_1}{L_2}\right)$表示一个由两行$L_1$和$L_2$组成的方阵.
+
+  我们有以下涉及特殊矩阵乘积的公式.
+  \begin{mybox}
+    \begin{enum}
+      \item 如果$C_1$和$C_2$是两个列向量，我们有
+      \[
+        A(C_1|C_2) = (AC_1|AC_2)
+      \]
+      以及如果$L_1$和$L_2$是两个行向量，则
+      \[
+        \left(\frac{L_1}{L_2}\right)A =
+        \left( \frac{L_1A}{L_2A} \right),
+      \]
+      其中$A\in\MM_2(\MC)$是一个给定的矩阵.
+      \item 我们有
+      \[
+        (C_1|C_2) \left( \frac{L_1}{L_2} \right)
+        = C_1L_1 + C_2L_2
+      \]
+      以及
+      \[
+        \left( \frac{L_1}{L_2} \right)(C_1|C_2) =
+        \begin{pmatrix}
+          L_1C_1 & L_1C_2 \\
+          L_2C_1 & L_2C_2
+        \end{pmatrix}.
+      \]
+      \item 包含对角阵的矩阵乘积
+      \[
+        \begin{pmatrix}
+          \alpha_1 & 0 \\
+          0 & \alpha_2
+        \end{pmatrix} \left( \frac{L_1}{L_2} \right)
+        = \left( \frac{\alpha_1 L_1}{\alpha_2L_2} \right)
+      \]
+      以及
+      \[
+        (C_1|C_2) \begin{pmatrix}
+          \alpha_1 & 0 \\
+          0 & \alpha_2
+        \end{pmatrix} = (\alpha_1C_1|\alpha_2C_2).
+      \]
+    \end{enum}
+  \end{mybox}
+
+\section{矩阵及其特殊性质}
+  \begin{definition}
+    {\kaishu 初等变换}\index{C!初等变换}
+
+    设$A\in\MM_2(\MC)$. 下列关于矩阵$A$的操作称为{\kaishu 初等变换}：
+    \begin{itemize}
+      \item 交换$A$的两行；
+      \item 将$A$的某一行乘以一个非零复数；
+      \item 将某一行加到另一行上.
+    \end{itemize}
+
+    类似地， 我们也可以对$A$的列进行初等变换.
+  \end{definition}
+
+  \begin{definition}
+    {\kaishu 初等矩阵} \index{C!初等矩阵}
+
+    如果矩阵$A\in\MM_2(\MC)$是由$I_2$经过一次初等变换得到，就称$A$为一个{\kaishu 初等矩阵}.
+  \end{definition}
+
+  设$a\in\MC^\ast$且$E_{1a}$和$E_{2a}$为下面两个特殊的初等矩阵
+  \[
+    E_{1a} = \begin{pmatrix}
+      a & 0 \\
+      0 & 1
+    \end{pmatrix}\quad \text{以及}\quad
+    E_{2a} = \begin{pmatrix}
+      1 & 0 \\
+      0 & a
+    \end{pmatrix}.
+  \]
+  我们注意到这两个矩阵可以由单位矩阵$I_2$将它的行乘以复数$a$得到.
+
+  {\kaishu 初等矩阵运算}
+
+  我们有：
+  \begin{mybox}
+    \begin{itemize}
+      \item 将矩阵$A$的某一行乘以复数$a$等价于对$A${\kaishu 左}乘相应的初等矩阵$E_{1a}$或$E_{2a}$：
+          \[
+            E_{1a} \left( \frac{ L_1}{L_2} \right) =
+            \left( \frac{a L_1}{L_2} \right)\quad
+            \text{或}\quad
+            E_{2a} \left( \frac{ L_1}{L_2} \right) =
+            \left( \frac{L_1}{aL_2} \right);
+          \]
+      \item 将矩阵$A$的某一列乘以复数$a$等价于对$A${\kaishu 右}乘相应的初等矩阵$E_{1a}$或$E_{2a}$：
+          \[
+            (C_1|C_2)E_{1a} = (aC_1|C_2)\quad
+            \text{或}\quad
+            (C_1C_2)E_{2a} = (C_1|aC_2).
+          \]
+    \end{itemize}
+  \end{mybox}
+
+  设$E_p$为{\kaishu 置换矩阵}\index{J!矩阵!置换矩阵}
+  \[
+    E_p = \begin{pmatrix}
+      0 & 1 \\
+      1 & 0
+    \end{pmatrix}.
+  \]
+
+  则
+  \begin{mybox}
+    \begin{itemize}
+      \item 交换$A$的两行等价于用$E_p$左乘$A$
+      \[
+        E_p \left( \frac{L_1}{L_2} \right)
+        = \left( \frac{L_2}{L_1} \right);
+      \]
+      \item 交换$A$的两列等价于用$E_p$右乘$A$
+      \[
+        (C_1|C_2)E_P = (C_2|C_1).
+      \]
+    \end{itemize}
+  \end{mybox}
+
+  设$E_{12}$和$E_{21}$分别表示相应于对行和列的加法的矩阵，即
+  \[
+    E_{12} = \begin{pmatrix}
+      1 & 0 \\
+      1 & 1
+    \end{pmatrix}\quad \text{且}\quad
+    \begin{pmatrix}
+      1 & 1 \\
+      0 & 1
+    \end{pmatrix}.
+  \]
+
+  则
+  \begin{mybox}
+    \begin{itemize}
+      \item 将$A$的第一行（列）加到$A$的第二行（第二列）等价于在矩阵$A$的左（右）边乘以$E_{12}$（$E_{21}$）：
+          \[
+            E_{12} \left( \frac{L_1}{L_2} \right)
+            = \left( \frac{L_1}{L_1+L_2} \right)
+            \quad \text{且}\quad
+            (C_1|C_2)E_{21} = (C_1|C_1 + C_2);
+          \]
+      \item 将$A$的第二行（列）加到$A$的第一行（第一列）等价于在矩阵$A$的左（右）边乘以$E_{21}$（$E_{12}$）：
+          \[
+            E_{21} \left( \frac{L_1}{L_2} \right)
+            = \left( \frac{L_1+L_2}{L_2} \right)
+            \quad \text{且}\quad
+            (C_1|C_2)E_{12} = (C_1 + C_2|C_2).
+          \]
+    \end{itemize}
+  \end{mybox}
+
+  \begin{definition}
+    矩阵$A\in\MM_2(\MC)$，
+    \[
+      A = \begin{pmatrix}
+        a_{11} & a_{12} \\
+        a_{21} & a_{22}
+      \end{pmatrix}
+    \]
+    $A$的{\kaishu 转置}\index{J!矩阵!转置}定义为
+    \[
+      A\TT = \begin{pmatrix}
+        a_{11} & a_{21} \\
+        a_{12} & a_{22}
+      \end{pmatrix}.
+    \]
+  \end{definition}
+
+  因此，矩阵$A$的转置是通过将$A$的行（列）作为$A\TT$的列（行）得到的.
+
+  \begin{property}
+    如果$A,B\in\MM_2(\MC)$且$\alpha\in \MC$，则：
+    \begin{enum}
+      \item $(A\TT)\TT=A$；
+      \item $(A+B)\TT=A\TT+B\TT$；
+      \item $(\alpha A)\TT=\alpha A\TT$；
+      \item $(AB)\TT=B\TT A\TT$.
+    \end{enum}
+  \end{property}
+
+  接下来的定义介绍各种各样的方阵.
+  \begin{definition}
+    设$A\in \MM_2(\MC)$.
+    \begin{enum}
+      \item 如果$A\TT=A$，则称$A$是{\kaishu 对称矩阵}\index{J!矩阵!对称矩阵}. 这意味着$a_{12}=a_{21}$. 因此，一个对称矩阵具有下面的形式
+          \[
+            A = \begin{pmatrix}
+              a & b \\
+              b & c
+            \end{pmatrix}.
+          \]
+      \item 如果$A\TT=-A$，则称$A$是{\kaishu 反对称矩阵} \index{J!矩阵!反对称矩阵} 或  {\kaishu 斜对称矩阵}\index{J!矩阵!斜对称矩阵}. 这意味着$a_{ij}=-a_{ji},\,\forall i,j\in\{1,2\}$. 因此，一个反对称矩阵具有下面的形式
+          \[
+            A = \begin{pmatrix}
+              0 & b \\
+              -b & 0
+            \end{pmatrix}.
+          \]
+      \item $A=(a_{ij})_{i,j\in\{1,2\}}$的{\kaishu 共轭}\index{G!共轭} 为矩阵$\bar A=(\bar{a_{ij}})_{i,j\in\{1,2\}}$，其中$\bar{a_{ij}}$是$a_{ij}$的复共轭.
+      \item $A$的{\kaishu 共轭转置}\index{G!共轭转置}（有时称为{\kaishu 伴随矩阵}\index{J!矩阵!伴随矩阵}或{\kaishu 自共轭伴随矩阵}）\index{J!矩阵!自共轭伴随矩阵}为矩阵$A^\ast=(\bar A)\TT$. 我们注意到
+          \[
+            (A^\ast)^\ast = A,\quad \forall A\in\MM_2(\MC).
+          \]
+    \end{enum}
+  \end{definition}
+
+  \begin{remark}
+    我们可以证明（见问题 \ref{problem1.41}），任意$M\in\MM_2(\MC)$可以唯一表示为一个对称矩阵$S=\frac12(M+M\TT)$（$M$的对称部分）与一个反对称矩阵$A=\frac12(M-M\TT)$（$M$的反对称部分）的和.
+  \end{remark}
+
+  \begin{definition}
+    如果$A=\begin{pmatrix}
+      a_{11} & a_{12} \\
+      a_{21} & a_{22}
+    \end{pmatrix}\in\MM_2(\MC)$，则$A$的{\kaishu 迹}\index{J!迹}是一个复数，定义为$\Tr(A)=a_{11}+a_{22}$. 换句话说，一个方阵的迹就是它的主对角元的和.
+  \end{definition}
+
+  \begin{property}
+    如果$A,B\in\MM_2(\MC)$且$\alpha\in \MC$，则
+    \begin{enum}
+      \item $\Tr(A+B)=\Tr(A)$；
+      \item $\Tr(\alpha A)=\alpha \Tr(A)$；
+      \item $\Tr(AB)=\Tr(BA)$；
+      \item $\Tr(A)=\Tr(A\TT)$.
+    \end{enum}
+  \end{property}
+  \begin{nota}
+    一般地，$\Tr(AB)\ne\Tr(A)\Tr(B)$.
+  \end{nota}
+  \begin{remark}
+    如果$\MCF\in\{\MQ,\MR,\MC\}$，则映射$\Tr:\MM_2(\MCF)\to\MCF$是一个从$\MCF$上的向量空间$\MM_2(\MF)$到$\MCF$的{\kaishu 线性函数}\index{X!线性函数}.
+  \end{remark}
+
+  \begin{definition}
+    如果$A=\begin{pmatrix}
+      a_{11} & a_{12} \\
+      a_{21} & a_{22}
+    \end{pmatrix}\in\MM_2(\MC)$，则$A$的{\kaishu 行列式}\index{H!行列式}定义为
+    \[
+      \det A = \begin{vmatrix}
+        a_{11} & a_{12} \\
+        a_{21} & a_{22}
+      \end{vmatrix}.
+    \]
+  \end{definition}
+
+  \begin{property}
+    下面的公式成立：
+    \begin{enum}
+      \item $\det(AB)=\det A\det B,\,\forall A,B\in\MM_2(\MC)$；
+      \item $\det(A_1A_2\cdots A_n)=\det A_1\det A_2\cdots\det A_n,\,\forall A_k\in\MM_2(\MC),k=1,\cdots,n,n\in\MN$；
+      \item $\det(A^n)=(\det A)^n,\,\forall A\in\MM_2(\MC)$且$n\in\MN$；
+      \item $\det(\alpha A)=\alpha^2A,\,\forall A\in\MM_2(\MC)$且$\alpha\in \MC$；
+      \item $\det(-A)=\det A,\,\forall A\in\MM_2(\MC)$；
+      \item $\det(\bar A)=\bar{\det A},\,\forall A\in\MM_2(\MC)$.
+    \end{enum}
+  \end{property}
+
+  \begin{prop}
+    如果$C_1,C_2$是矩阵$A$的列向量，即$A=(C_1|C_2)$，$C'$是一个新的列向量且$a\in C$，则：
+    \begin{itemize}
+      \item $\det (C_1|C_2)=-\det(C_2|C_1)$；
+      \item $\det(aC_1|C_2)=\det(C_1|aC_2)=a\det(C_1|C_2)$；
+      \item $\det (C_1+C'|C_2)=\det(C_1|C_2)+
+      \det(C'|C_2)$.
+    \end{itemize}
+
+    如果$L_1,L_2$是矩阵$A$的行向量，即$A=\left(\frac{L_1}{L_2}\right)$，$L'$是一个新的行向量且$a\in \MC$，则：
+    \begin{itemize}
+      \item $\det\left(\frac{L_1}{L_2}\right)=-
+      \det\left(\frac{L_2}{L_1}\right)$；
+      \item $\det \left(\frac{aL_1}{L_2}\right)=
+      \det \left(\frac{L_1}{aL_2}\right)=
+      a\det \left(\frac{L_1}{L_2}\right)$；
+      \item $\det \left(\frac{L_1+L'}{L_2}\right)
+      =\left(\frac{L_1}{L_2}\right)+\det
+      \left(\frac{L'}{L_2}\right)$.
+    \end{itemize}
+  \end{prop}
+  \begin{remark}
+    值得一提的是，函数$\det:\MM_2(\MC)\simeq\MC^2\times\MC^2\to\MC$是一个{\kaishu 交替双线性映射}.\index{Y!映射!交替双线性映射}
+  \end{remark}
+
+  一般地，$\det(A+B)\ne\det A+\det B$. 然而下面的关于两个矩阵的和与差的行列式公式是成立的：
+  \begin{mybox}
+    \begin{lemma}[一个特殊的行列式]
+
+      如果$A,B\in\MM_2(\MC)$，则$\det(A+B)+\det(A-B)=2\det A+2\det B$.
+    \end{lemma}
+  \end{mybox}
+  \begin{proof}
+    此引理可以通过直接计算进行证明，见问题 \ref{problem1.31} 中 \ref{prob1.31.a} 的解答.
+  \end{proof}
+
+  \begin{mybox}
+    \begin{lemma}[著名的行列式不等式]
+    \begin{enum}
+      \item 如果$A\in\MM_2(\MR)$，则$\det(A^2+I_2)\ge0$.
+      \item 如果$a,b,c$是实数，且满足$b^2-4ac\le0$，则
+      \[
+        \det (aA^2+bA+cI_2) \ge0,\quad \forall A\in\MM_2(\MR).
+      \]
+    \end{enum}
+    \end{lemma}
+  \end{mybox}
+
+  \begin{proof}
+    \begin{enumerate*}[label=(\alph*),
+      itemjoin=\\\hspace*{\parindent}]
+    \item
+      我们有$A^2+I_2=(A+\ii I_2)(A-\ii I_2)$，由此得$\det(A^2+I_2)=\det(A+\ii I_2)\det(A-\ii I_2)$ $=\det(A+\ii I_2)\bar{\det(A+\ii I_2)}=|\det(A+\ii I_2)|^2$.
+    \item 如果$a=0$，由于$b^2-4ac\le0$，我们有$b=0$，这意味着$\det(cI_2)\ge0$. 如果$a\ne0$，则$aA^2+bA+cI_2=a
+        \left[\big(A+\frac b{2a}I_2\big)^2+
+        \frac{4ac-b^2}{4a^2}I_2\right]$，由此得到
+    \end{enumerate*}
+        \[
+          \det(aA^2+bA+cI_2) = a^2\bigg|
+            \det\bigg( A+\frac b{2a}I_2 + \ii\frac{\sqrt{4ac-b^2}}{2a}I_2 \bigg)
+          \bigg|^2.
+        \]
+        引理得证.
+  \end{proof}
+
+  \begin{definition}
+    如果$A\in\MM_2(\MC)$且$\det A=0$，则称矩阵$A$是{\kaishu 奇异的}. \index{J!矩阵!奇异矩阵}如果$\det A\ne0$，我们称矩阵$A$是{\kaishu 非奇异的}.
+    \index{J!矩阵!非奇异矩阵}
+  \end{definition}
+
+  我们用$\GL_2(\MC)$表示所有非奇异矩阵的集合
+  \[
+    \GL_2(\MC) = \{ A\in\MM_2(\MC):\det A\ne0 \}.
+  \]
+
+  $\GL_2(\MC)$的一个特殊子集，记为$\SL_2(\MC)$，称为{\kaishu 特殊线性群}\index{Q!群!特殊线性群}，它是所有行列式为1的矩阵的集合，即
+  \[
+    \SL_2(\MC) = \{ A\in \MM_2(\MC):\det A=1 \}.
+  \]
+  \begin{remark}
+    $\big( \GL_2(\MQ),\cdot \big),\big( \GL_2(\MR),\cdot \big)$和$\big( \GL_2(\MC),\cdot \big)$是非交换群，称为{\kaishu 线性群}\index{Q!群!线性群}. 而$\big( \SL_2(\MQ),\cdot \big)$，$\big( \SL_2(\MR),\cdot \big)$和$\big( \SL_2(\MC),\cdot \big)$是它们的子群，称为{\kaishu 特殊线性群}.
+  \end{remark}
+
+  \begin{definition}
+    如果存在矩阵$B\in \MM_2(\MC)$使得$AB=BA=I_2$，则称矩阵$A$是{\kaishu 可逆的}. 满足这条性质的矩阵是{\kaishu 唯一的}，称为$A$的逆矩阵，记为$A^{-1}$.\index{J!矩阵!逆矩阵}
+  \end{definition}
+
+  我们有下面的结论
+  \[
+    A\in\MM_2(\MC)\,\text{可逆}\,\Leftrightarrow
+    \det A\ne 0 \Leftrightarrow A\in\GL_2(\MC).
+  \]
+
+  我们可以直接通过计算证明，如果$A\in\GL_2(\MC)$，
+  \[
+    A = \begin{pmatrix}
+      a & b \\
+      c & d
+    \end{pmatrix}
+  \]
+  是可逆的，则
+  \[
+    A^{-1} = \frac1{\det A}A_\ast,
+  \]
+  其中
+  \[
+    A_\ast = \begin{pmatrix}
+      d & -b \\
+      -c & a
+    \end{pmatrix},
+  \]
+  是$A$的{\kaishu 伴随矩阵}.\index{J!矩阵!伴随矩阵} 有时这个矩阵也记为$\operatorname{adj}(A)$.
+
+  \begin{remark}
+    我们要提及的是，如果$A\in\MM_2(\MC)$是可逆的，另一种求出$A$的逆矩阵的方法是初等变换. 确切地说，我们考虑{\kaishu 分块矩阵}\index{J!矩阵!分块矩阵}$(A|I_2)$，通过一系列初等行变换，将它化为矩阵$(I_2|B)$，此时$B=A^{-1}$.
+  \end{remark}
+
+  \begin{property}
+    如果$A,B\in\MM_2(\MC)$是可逆的且$\alpha\in \MC^\ast$，则
+    \begin{enum}
+      \item $(AB)^{-1}=B^{-1}A^{-1}$；
+      \item $(\alpha A)^{-1}=\frac1{\alpha}A^{-1}$；
+      \item $(A\TT)^{-1}=(A^{-1})\TT$；
+      \item $(A^n)^{-1}=(A^{-1})^n$.
+    \end{enum}
+  \end{property}
+
+  可以用数学归纳法证明
+  \[
+    (A_1A_2\cdots A_n)^{-1} = A_n^{-1}A_{n-1}^{-1}\cdots A_1^{-1},
+  \]
+  其中$A_k\in\GL_2(\MC),k=1,\cdots,n,n\in\MN$.
+
+  接下来的定义介绍一些特殊类型的矩阵.
+  \begin{definition}
+    设$A\in\MM_2(\MC)$，则：
+    \begin{enum}
+      \item 如果$A^2=I_2$，则称$A$是{\kaishu 对合矩阵}\index{J!矩阵!对合矩阵}（见问题 \ref{problem1.12}）；
+      \item 如果$A^2=-I_2$，则称$A$是{\kaishu 反对合矩阵}\index{J!矩阵!反对合矩阵}（见问题 \ref{problem1.12}）；
+      \item 如果$A^2=A$，则称$A$是{\kaishu 幂等矩阵}\index{J!矩阵!幂等矩阵}（见问题 \ref{problem1.14}）；
+      \item 如果$A^2=O_2$，则称$A$是{\kaishu 幂零矩阵}\index{J!矩阵!幂零矩阵}（见问题 \ref{problem1.8}）；
+      \item 如果$A^\ast=A$，则称$A$是{\kaishu 自共轭矩阵}\index{J!矩阵!自共轭矩阵}. 如果$A\in\MM_2(\MR)$，则$A$是对称矩阵.
+      \item 如果$A^\ast=-A$，则称$A$是{\kaishu 反自共轭矩阵}\index{J!矩阵!反自共轭矩阵}. 如果$A\in\MM_2(\MR)$，则$A$是反对称矩阵.
+      \item 如果$AA^\ast=A^\ast A$，则称$A$是{\kaishu 规范矩阵}. \index{J!矩阵!规范矩阵}
+      \item 如果$A^\ast=A^{-1}$，则称$A$是{\kaishu 酉矩阵}\index{J!矩阵!规范矩阵}. 如果$A\in\MM_2(\MC)$，则$A$是一个正交矩阵（见例 \ref{exam1.1}）.
+    \end{enum}
+  \end{definition}
+
+  \begin{lemma}
+    设$A\in\MM_2(\MC)$.
+    \begin{enum}
+      \item $A$是自共轭矩阵当且仅当$\ii A$是反自共轭矩阵.
+      \item $A$是对合矩阵当且仅当$\ii A$是反对合矩阵.
+    \end{enum}
+  \end{lemma}
+
+  \begin{proof}
+    这里的证明只需要基于自共轭矩阵，对合矩阵，反自共轭矩阵和反对合矩阵的定义即可.
+  \end{proof}
+
+  \begin{example}
+    {\bfseries 特殊酉矩阵 \mbox{\hyds （}实数和复数\hyds）.}
+    \begin{mybox}
+      如果$A\in\MM_2(\MC)$是一个酉矩阵且$\det A=1$，则
+      \[
+        A = \begin{pmatrix}
+          a & b \\
+          -\bar b & \bar a
+        \end{pmatrix},
+      \]
+      其中$a,b\in\MC$且$|a|^2+|b|^2=1$.
+    \end{mybox}
+  \end{example}
+
+  要得出这个结论，我们令$A=\begin{pmatrix}
+    a & b \\
+    c & d
+  \end{pmatrix}$，其中$a,b,c,d\in\MC$. 由于$\det A=1$，我们得到
+  \[
+    A^{-1} = \begin{pmatrix}
+      d & -b \\
+      -c & a
+    \end{pmatrix}\quad \text{且}\quad
+    A^\ast = (\bar A)\TT = \begin{pmatrix}
+        \bar a & \bar c \\
+        \bar b & \bar d
+      \end{pmatrix}.
+  \]
+  我们有$A^\ast=A^{-1}$，这意味着$d=\bar a,c=-\bar b$. 由于$ad-bc=1$，我们得到$|a|^2+|b|^2=1$. 因此，$\begin{pmatrix}
+    a & b \\
+    -\bar b & \bar a
+  \end{pmatrix}$.
+
+  \begin{mybox}
+    类似地，如果$A\in\MM_2(\MC)$是一个酉矩阵，且$\det A=-1$，且
+    \[
+      A = \begin{pmatrix}
+        a & b \\
+        \bar b & - \bar a
+      \end{pmatrix},
+    \]
+    其中$a,b\in\MC$且$|a|^2+|b|^2=1$.
+  \end{mybox}
+
+  在实的酉矩阵（正交矩阵）的情形我们可得
+  \begin{itemize}
+    \item {\kaishu 旋转矩阵}\index{J!矩阵!旋转矩阵}$A=\begin{pmatrix}
+          \cos \alpha & \sin \alpha \\
+          -\sin\alpha & \cos \alpha
+        \end{pmatrix}$，且$\det A=1$；
+    \item {\kaishu 反射矩阵}\index{J!矩阵!反射矩阵}$A=\begin{pmatrix}
+          \cos \alpha & \sin \alpha \\
+          \sin\alpha  & -\cos \alpha
+        \end{pmatrix}$，且$\det A=-1$.
+  \end{itemize}
+
+  \begin{nota}
+    设$\mathscr L$是一条过坐标原点的直线，且与$x$轴成夹角$\alpha$，设$M$是笛卡尔平面上的一个点. 如果$N(x_N,y_N)$是$M$关于直线$\mathcal L$的对称点，则可以验证
+    \[
+      \begin{pmatrix}
+        x_N \\ y_N
+      \end{pmatrix} =
+      \begin{pmatrix}
+        \cos(2\alpha) & \sin(2\alpha) \\
+        \sin(2\alpha) & -\cos(2\alpha)
+      \end{pmatrix}
+      \begin{pmatrix}
+        x_M \\ y_M
+      \end{pmatrix}.
+    \]
+
+    由于这个原因，矩阵$\begin{pmatrix}
+        \cos(2\alpha) & \sin(2\alpha) \\
+        \sin(2\alpha) & -\cos(2\alpha)
+      \end{pmatrix}$称为{\kaishu 反射矩阵}. 至于旋转矩阵的定义见问题 \ref{problem1.61}.
+  \end{nota}
+
+  \begin{definition}
+    {\kaishu 等价矩阵}.\index{J!矩阵!等价矩阵}
+
+    在集合$\MM_2(\MC)$中，我们定义关系$A\approx B$为当且仅当存在$P,Q\in\GL_2(\MC)$使得$B=QAP$. 满足这个条件的两个矩阵$A$和$B$称为是{\kaishu 等价的}.
+  \end{definition}
+
+  \begin{definition}
+    {\kaishu 相似矩阵}.\index{J!矩阵!相似矩阵}
+
+    在集合$\MM_2(\MC)$中，我们定义关系$A\sim B$为当且仅当存在$P\in\GL_2(\MC)$使得$B=P^{-1}AP$. 满足这个条件的两个矩阵$A$和$B$称为是{\kaishu 相似的}.
+  \end{definition}
+
+  \begin{remark}
+    可以证明两个矩阵{\kaishu 等价}当且仅当它们有相同的{\kaishu 秩}\index{Z!秩}，而它们{\kaishu 相似} 当且仅当它们有相同的{\kaishu Jordan 标准形}.\index{J!Jordan标准形}
+  \end{remark}
+
+  \begin{definition}
+    {\kaishu 交换矩阵}.\index{J!矩阵!合同矩阵}
+
+    如果$A,B\in\MM_2(\MC)$满足$AB=BA$，则称$A,B$是{\kaishu 可交换的}.
+  \end{definition}
+
+  如果$A\in\MM_2(\MC)$，则我们用$\mathscr C(A)$表示所有与$A$可交换的矩阵的集合，也叫作$A$的{\kaishu 中心化子}\index{Z!中心化子}（见\cite[p.213]{38}）
+  \[
+    \mathscr C(A) = \{ X\in\MM_2(\MC):AX=XA \}.
+  \]
+
+  现在我们给出一个$2\times2$矩阵中心化子的重要性质.
+  \begin{mybox}
+    \begin{theorem}[矩阵$A$的中心化子.]
+
+      设$A\in\MM_2(\MC)$且令$\mathscr C (A)=\{X\in\MM_2(\MC):AX=XA\}$.
+      \begin{enum}
+        \item 如果$A=kI_2,k\in\MC$，则$\mathscr C (A)=\MM_2(\MC)$；
+        \item\label{thm1.1itemb} 如果$A\ne kI_2,k\in\MC$，则$\mathscr C(A)=\{\alpha A+\beta I_2:\alpha,\beta\in\MC\}$.
+      \end{enum}
+    \end{theorem}
+  \end{mybox}
+  \begin{proof}
+    \begin{enumerate*}[label=(\alph*),
+      itemjoin=\\\hspace*{\parindent}]
+       \item 如果$A=kI_2,k\in\MC$，结论是显然的，因为任意矩阵都与$kI_2$可交换.
+       \item 设$A=\begin{pmatrix}
+         a & b \\
+         c & d
+       \end{pmatrix}$，且令$X=\begin{pmatrix}
+         x & y \\
+         z & t
+       \end{pmatrix}$. 等式$AX=XA$意味着
+    \end{enumerate*}
+       \[
+         \left\{
+           \begin{aligned}
+             & ax + bz = xa + yc \\
+             & ay + bt = xb + yd \\
+             & cx + dz = za + tc \\
+             & cy + dt = zb + tb
+           \end{aligned}
+         \right.\quad \Leftrightarrow \quad
+         \left\{
+           \begin{aligned}
+             & bz = cy \\
+             & y(a-d) = b(x-t) \\
+             & z(a-d) = c(x-t)
+           \end{aligned}
+         \right..
+       \]
+
+       如果$a\ne d$，则$y=b\alpha,z=c\alpha$，其中$\alpha=\frac{x-t}{a-d}$. 我们有$t=x-\alpha a+\alpha d=\beta+\alpha d$，其中$\beta=x-\alpha a$. 这意味着
+       \[
+         X = \begin{pmatrix}
+           \alpha a + \beta & b\alpha \\
+           c\alpha & \alpha d + \beta
+         \end{pmatrix} =
+         \alpha \begin{pmatrix}
+           a & b \\
+           c & d
+         \end{pmatrix} + \beta
+         \begin{pmatrix}
+           1 & 0 \\
+           0 & 1
+         \end{pmatrix}.
+       \]
+
+       如果$a=d$，我们要分$x\ne t$和$x=t$两种情形. 如果$x\ne t$，我们得到$b=c=0$，这与$A\ne kI_2$矛盾. 因此$x=t$，我们还有$bz=cy$. 注意到$b$和$c$不可能都是0，因为这也会和$A\ne kI_2$矛盾.
+
+       如果$b=0\Rightarrow y=0$，我们有
+       \[
+         X = \begin{pmatrix}
+           x & 0 \\
+           z & x
+         \end{pmatrix} = \alpha \begin{pmatrix}
+           a & 0 \\
+           c & a
+         \end{pmatrix} + \beta \begin{pmatrix}
+           1 & 0 \\
+           0 & 1
+         \end{pmatrix},\quad \text{其中$\alpha=\frac zc,\,\beta=x-\frac{az}c$}.
+       \]
+
+       如果$b\ne0$我们有$z=\frac{cy}b$且
+       \[
+         X = \begin{pmatrix}
+           x & y \\
+           \frac{cy}b & x
+         \end{pmatrix} = \alpha \begin{pmatrix}
+           a & b \\
+           c & a
+         \end{pmatrix} + \beta \begin{pmatrix}
+           1 & 0 \\
+           0 & 1
+         \end{pmatrix},\quad \text{其中$\alpha=\frac yb,\,\beta =x-\frac{ay}b$}.
+       \]
+       定理得证.
+  \end{proof}
+
+  \begin{remark}
+    定理 \ref{thm1.1} 对$\MM_2(\MZ_p)$中的矩阵也成立，其中$p\ge2$是一个素数.
+  \end{remark}
+
+  \begin{corollary}
+    如果$A\in\MM_2(\MC)$且$P\in\MC[x]$，则存在$a,b\in\MC$使得$P(A)=aI_2+bA$.
+  \end{corollary}
+  \begin{proof}
+    如果对某个$k\in\MC$有$A=kI_2$，则$P(A)=P(k)I_2$，因此$a=P(k)$且$b=0$.
+
+    如果对任意$k\in\MC$有$A\ne kI_2$，由于矩阵$A$与$P(A)$是可交换的，那么根据定理 \ref{thm1.1} 的 \ref{thm1.1itemb} 可知结论成立.
+  \end{proof}
+
+  \begin{mybox}
+    \begin{corollary}
+      {\bfseries 两个中心化子的交集是什么?}
+
+      设$X,Y\in\MM_2(\MC)$使得$XY\ne YX$，则
+      \[
+        \mathscr C(X) \cap \mathscr C(Y) =
+        \{\alpha I_2:\alpha\in\MC\}.
+      \]
+    \end{corollary}
+  \end{mybox}
+  \begin{proof}
+    由于$XY\ne YX$，我们可得$X\ne xI_2,\,\forall x\in \MC$以及$Y\ne yI_2,\,\forall y\in\MC$. 如果$Z\in\mathscr C(X)\cap\mathscr C(Y)$，那么由定理 \ref{thm1.1}，我们可知存在$a,b,c,d\in\MC$使得$Z=aX+bI_2$以及$Z=cY+dI_2$. 这意味着$aX+bI_2=cY+dI_2$. 如果$a\ne0$或$c\ne0$，前面的等式意味着$XY=YX$，这是不可能的. 因此，$a=c=0$或$b=d=\alpha$，这反过来又说明$Z=\alpha I_2$.
+  \end{proof}
+
+  \begin{remark}
+    推论 \ref{coro1.2} 说明一个矩阵$A\in\MM_2(\MC)$与两个不可交换的矩阵可交换，则$A$一定形如$\alpha I_2,\alpha\in\MC$.
+  \end{remark}
+
+  \begin{corollary}
+    $A\in\MM_2(\MC)$与所有的
+    \begin{enum}
+      \item 幂等矩阵
+      \item 幂零矩阵
+      \item 对合矩阵
+    \end{enum}
+    可交换当且仅当$A$具有形式$\alpha I_2,\alpha\in\MC$.
+  \end{corollary}
+  \begin{proof}
+    利用注 \ref{remark1.11} 即可.
+  \end{proof}
+
+  我们要提及的是基本的代数公式对于可交换的复矩阵也是成立的.
+  \begin{property}
+    如果$A,B\in\MM_2(\MC)$满足$AB=BA$，则：
+    \begin{enum}
+      \item $A^mB^n=B^nA^m,\,\forall m,n\in\MN$；
+      \item $A^n-B^n=(A-B)(A^{n-1}+A^{n-2}B+\cdots+AB^{n-2}
+          +B^{n-1})$；
+      \item $A^{2n+1}+B^{2n+1}=(A+B)(A^{2n}-A^{2n-1}B
+          +\cdots-AB^{2n-1}+B^{2n})$.
+    \end{enum}
+  \end{property}
+
+  \begin{mybox}
+    \begin{theorem}[矩阵的二项式定理.]
+
+      设整数$n\ge1$. 如果$A,B\in\MM_2(\MC)$满足$AB=BA$，则
+      \[
+        (A+B)^n = \sum_{k=0}^n\Binom nk A^kB^{n-k}.
+      \]
+    \end{theorem}
+  \end{mybox}
+  \begin{proof}
+    这个定理可以根据$A^kB^p=B^pA^k$对任意$k,p\in\MN$成立，再用数学归纳法证明.
+  \end{proof}
+
+\section{复数与二阶矩阵}
+  在这一节中，我们建立一个复数域$\MC$与一类特殊二阶矩阵域之间的同构. 令
+  \[
+    \MC = \big\{ x+\ii y:x,y\in\MR,\,\ii^2=-1 \big\}
+  \]
+  以及
+  \[
+    \MM_{\MC} = \left\{
+      A\in\MM_2(\MR): A = \begin{pmatrix}
+        x & -y \\
+        y & x
+      \end{pmatrix}
+    \right\}.
+  \]
+  \begin{mybox}
+    \begin{theorem}[两个特殊域之间的一个同构.]
+
+      下面的两条性质成立：
+      \begin{enum}
+        \item 如果$A,B\in\MM_{\MC}$，则$A+B\in\MM_{\MC}$；
+        \item 如果$A,B\in\MM_{\MC}$，则$AB\in\MM_{\MC}$；
+        \item 矩阵
+        \[
+          J = \begin{pmatrix}
+            0 & -1 \\
+            1 & 0
+          \end{pmatrix},
+        \]
+        满足等式$J^2=-I_2$且$J^4=I_2$；
+      \end{enum}
+
+      令
+      \[
+        f:\MC \to \MM_{\MC},\quad f(x+\ii y) =
+        \begin{pmatrix}
+          x & -y \\
+          y & x
+        \end{pmatrix}.
+      \]
+      则
+      \begin{enum}\setcounter{enumi}{3}
+        \item $f$是一个双射\index{S!双射}且
+        \[
+          f^{-1}\begin{pmatrix}
+            x & -y \\
+            y & x
+          \end{pmatrix} = x + \ii y.
+        \]
+        \item $f(0)=O_2$；
+        \item $f(1)=I_2$；
+        \item $f(\ii)=J$；
+        \item $f(z_1+z_2)=f(z_1)+f(z_1),\,\forall z_1,z_2\in\MC$；
+        \item $f(z_1z_2)=f(z_1)f(z_2),\,\forall z_1,z_2\in\MC$；
+        \item $f(z^n)=\big(f(z)\big)^n,\,\forall z\in\MZ$；
+        \item $f(\bar z)=\big(f(z)\big)\TT,\,\forall z\in\MC$；
+        \item $\det f(z)=|z|^2,\,\forall z\in\MC$；
+        \item $f\left(\frac1z\right)=\big(f(z)\big)^{-1}
+          =\frac1{|z|^2}\big(f(z)\big)\TT,\,\forall z\in\MC$；
+        \item $(\MM_{\MC},+,\cdot)$是一个与$(\MC,+,\cdot)$同构的域，即有
+          \[
+            (\MM_{\MC},+,\cdot)\simeq (\MC,+,\cdot);
+          \]
+        \item 设$U$是单位圆盘
+          \[
+            U = \{z\in\MC:|z|=1\} = \{\cos\alpha+\ii\sin\alpha:\alpha\in\MR\},
+          \]
+          且令$\mathscr R$是平面上的旋转矩阵的集合
+          \[
+            \mathscr R = \left\{
+              R_\alpha = \begin{pmatrix}
+                \cos\alpha & -\sin\alpha \\
+                \sin \alpha & \cos\alpha
+              \end{pmatrix},\,\alpha\in\MR
+            \right\}.
+          \]
+          则$f(\cos\alpha+\ii\sin\alpha)=R_\alpha$且$f(U)=\mathscr R$；
+        \item {\bfseries 正$n$边形的旋转群.}\parindent=2em
+
+        如果正整数$n\ge2$且
+        \[
+          \mathscr U_n = \{z\in\MC:z^n=1\}\quad\text{且}
+          \quad \mathscr R_n = \left\{ R_{\frac{2k\pi}n}:k=0,1,2,\cdots,n-1 \right\},
+        \]
+        则$(\mathscr U_n,\cdot)\simeq (\mathscr R_n,\cdot)$.
+
+        $(\mathscr R_n,\cdot)$是一个正$n$边形的旋转群，与$n$次单位根的乘法群是同构的，也同构于循环群$(\MZ_n,+)$；因此，任意有限循环群都是一个正$n$边形的旋转群.
+      \end{enum}
+    \end{theorem}
+  \end{mybox}
+
+  \begin{proof}
+    这个定理可以通过直接计算证明，留给读者作为练习.
+  \end{proof}
+
+  下面的公式是值得一提的：
+  \[
+    \begin{pmatrix}
+      a & -b \\
+      b & a
+    \end{pmatrix} = \sqrt{a^2+b^2}
+    \begin{pmatrix}
+      \cos\alpha & -\sin \alpha \\
+      \sin\alpha & \cos\alpha
+    \end{pmatrix},
+  \]
+  其中$\cos\alpha=\frac a{\sqrt{a^2+b^2}},\sin\alpha=\frac b{\sqrt{a^2+b^2}}$.
+
+  \begin{example}{\bfseries 反对称实矩阵.}
+
+  我们找出所有的反对称实矩阵即$A\in\MM_2(\MR)$使得$A^2=-I_2$.
+
+  如果$A=\begin{pmatrix}
+    a & b \\
+    c & d
+  \end{pmatrix}\in\MM_2(\MR)$，根据等式$A^2=-I_2$，我们有
+  \[
+    \left\{
+      \begin{aligned}
+        & a^2 + bc = -1\\
+        & b(a+d) = 0 \\
+        & c(a+d) = 0 \\
+        & d^2 + bc = -1
+      \end{aligned}
+    \right.\quad \Leftrightarrow\quad
+    \left\{
+      \begin{aligned}
+        & a^2 + bc = -1\\
+        & b(a+d) = 0 \\
+        & c(a+d) = 0 \\
+        & (a-d)(a+d) = 0
+      \end{aligned}
+    \right..
+  \]
+  我们分$a+d\ne0$和$a+d=0$两种情形.
+
+  当$a+d\ne0$时，我们得到$b=c=0,a=d$，且$a^2=-1$，因此不存在实矩阵满足等式$A^2=-I_2$.
+
+  当$a+d=0$时，由我们的方程组可得$a^2+bc=-1$，且可以得到矩阵为
+  \[
+    \begin{pmatrix}
+      a & b \\
+      -\frac{1+a^2}b & -a
+    \end{pmatrix},\quad a\in\MR,\,b\in\MR^\ast.
+  \]
+
+  特别地，对$a=0,b=-1$我们得到反对合的实矩阵
+  \[
+    J = \begin{pmatrix}
+      0 & -1 \\
+      1 & 0
+    \end{pmatrix},
+  \]
+  对$a=b=1$我们得到另一个反对合实矩阵
+  \[
+    K = \begin{pmatrix}
+      1 & 1 \\
+      -2 & -1
+    \end{pmatrix}.
+  \]
+  \end{example}
+
+  \begin{remark}
+    \begin{enumerate*}[label=(\arabic*),
+      itemjoin=\\\hspace*{\parindent}]
+      \item 对任意给定的反对合实矩阵$B\in\MM_2(\MR)$，即$B^2=-I_2$，$B$的中心化子
+    \end{enumerate*}
+    \[
+      \mathscr C(B) = \{ aI_2+bB:a,b\in\MR \},
+    \]
+    在加法与乘法下是一个{\kaishu 交换域}\index{J!交换域}（请验证这一点!），且下面的域是同构的
+    \[
+      \big( \mathscr C(B),+,\cdot \big) \cong
+      (\MC,+,\cdot) \cong (\MM_{\MC},+,\cdot).
+    \]
+
+    函数$f:\MC\to\mathscr C(B),f(a+\ii b)=aI_2+bB$是一个域的同构（证明这一点!）.
+
+    \begin{enumerate*}[label=(\arabic*),resume,
+      itemjoin=\\\hspace*{\parindent}]
+      \item 所有的反对合实矩阵$A\in\MM_2(\MR)$，即$A^2=-I_2$是互相相似的，都相似于矩阵
+    \end{enumerate*}
+    \[
+      J = \begin{pmatrix}
+        0 & -1 \\
+        1 & 0
+      \end{pmatrix}.
+    \]
+
+    如果我们考虑
+    \[
+      P = \begin{pmatrix}
+        ab & -b \\
+        -(a^2+a) & 0
+      \end{pmatrix},\quad a\in\MR,\,b\in\MR^\ast,
+    \]
+    则
+    \[
+      P^{-1} = -\frac1{b(a^2+1)}\begin{pmatrix}
+         0 & b \\
+         a^2+1 & ab
+      \end{pmatrix},
+    \]
+    且
+    \[
+      P^{-1}AP = P^{-1}\begin{pmatrix}
+        a & b \\
+        -\frac{1+a^2}b & -a
+      \end{pmatrix} P = J.
+    \]
+  \end{remark}
+
+\section{问题}
+\begin{problem}
+  设$A=\begin{pmatrix}
+    2 & \ii \\
+    \ii & 0
+  \end{pmatrix}$，其中$\ii^2=-1$. 证明$A^n=\begin{pmatrix}
+    n+1 & n\ii \\
+     n\ii & 1-n
+  \end{pmatrix},\,n\in\MN$.
+\end{problem}
+
+\begin{problem}
+  如果$A\in\MM_2(\MR)$，则$A^2$中负元的个数可能有几个？
+\end{problem}
+
+\begin{problem}
+  设$A=\begin{pmatrix}
+    a & b \\
+    c & d
+  \end{pmatrix}\in\MM_2(\MR)$满足$bc\ne0$，且存在整数$n\ge2$使得$b_nc_n=0$，其中$A^n=\begin{pmatrix}
+    a_n & b_n \\
+    c_n & d_n
+  \end{pmatrix},n\in\MN$. 证明$a_n=d_n$.
+\end{problem}
+
+\begin{problem}
+  在$\MM_2(\MC)$中求出所有与矩阵$A=\begin{pmatrix}
+    1 & 2 \\
+    3 & 4
+  \end{pmatrix}$可交换的矩阵.
+\end{problem}
+
+\begin{problem}
+  \begin{enumerate*}[label=(\alph*),
+      itemjoin=\\\hspace*{\parindent}]
+    \item 证明$A\in\MM_2(\MC)$与所有的对称矩阵可交换当且仅当$A=\alpha I_2,\alpha\in\MC$.
+    \item 证明$A\in\MM_2(\MC)$与所有的循环矩阵可交换当且仅当$A$是一个循环矩阵.
+  \end{enumerate*}
+\end{problem}
+
+\begin{problem}
+  {\bfseries 对合矩阵与幂零矩阵不可交换.}
+
+  设$A\in\MM_2(\MC),A\ne\pm I_2$，是一个对合矩阵，$B\in\MM_2(\MC),B\ne O_2$，是一个幂零矩阵. 证明$AB\ne BA$.
+
+  进一步，如果$C\in\MM_2(\MC)$与$A$和$B$都可交换，则$C=\alpha I_2,\alpha\in\MC$.
+\end{problem}
+
+\begin{mybox}
+  \begin{problem}
+    {\bfseries 规范实矩阵.} 证明$A\in\MM_2(\MR)$与它的转置可交换当且仅当$A$是对称矩阵或$A$是一个旋转矩阵的倍数.
+  \end{problem}
+\end{mybox}
+
+\begin{problem}
+  求出所有的矩阵$A\in\MM_2(\MC)$使得$A^2=O_2$.
+\end{problem}
+
+\begin{problem}
+  {\bfseries 幂零实矩阵.}  设$A\in\MM_2(\MR)$. 证明$A^2=O_2$当且仅当存在$a\in\MR$和$\alpha\in[0,2\pi)$使得$A=a\begin{pmatrix}
+    \cos\alpha & 1+\sin\alpha \\
+    -1+\sin\alpha & -\cos\alpha
+  \end{pmatrix}$.
+
+  注意到$B=\begin{pmatrix}
+    \cos\alpha & \sin\alpha \\
+    \sin\alpha & -\cos\alpha
+  \end{pmatrix}$是一个反射矩阵，且$C=\begin{pmatrix}
+    0 & 1 \\
+    -1 & 0
+  \end{pmatrix}$是一个角度为$\frac{3\pi}2$的旋转矩阵. 因此任意幂零实矩阵$A$可以写成$A=a(B+C)$. 而且，这个写法是唯一的（见问题 \ref{problem1.43}）.
+\end{problem}
+
+\begin{mybox}
+  \begin{problem}
+    设素数$p\ge2$，确定$\MM_2(\MZ_p)$中幂零矩阵的数目.
+  \end{problem}
+\end{mybox}
+
+\begin{problem}
+  求出所有矩阵$A\in\MM_2(\MR)$使得$(I_2+\ii A)^{-1}=I_2-\ii A$.
+\end{problem}
+\begin{remark}
+  读者可以证明，如果$A,B\in\MM_2(\MR)$，则$(A+\ii B)^{-1}=A-\ii B$当且仅当$AB=BA$且$A^2+B^2=I_2$. 这等价于求矩阵$A\in\MM_2(\MC)$使得$A^{-1}=\bar A$.
+\end{remark}
+
+\begin{problem}
+  求出所有矩阵$A\in\MM_2(\MC)$使得$A^2=I_2$.
+\end{problem}
+
+\begin{mybox}
+  \begin{problem}
+    设素数$p\ge2$，确定$\MM_2(\MZ_p)$中对合矩阵的数目.
+  \end{problem}
+\end{mybox}
+
+\begin{problem}
+  求出所有矩阵$A\in\MM_2(\MC)$使得$A^2=A$.
+\end{problem}
+
+\begin{mybox}
+  \begin{problem}
+    设素数$p\ge2$，确定$\MM_2(\MZ_p)$中幂等矩阵的数目.
+  \end{problem}
+\end{mybox}
+
+\begin{problem}
+  证明任意矩阵$X\in\MM_2(\MR)$可以写成四个实正交矩阵的线性组合.
+\end{problem}
+
+\begin{mybox}
+  \begin{problem}
+    {\bfseries 复的正交矩阵和反正交矩阵.}
+    \begin{enum}
+      \item 求出所有矩阵$A\in\MM_2(\MC)$使得$AA\TT=I_2$；
+      \item 求出所有矩阵$A\in\MM_2(\MC)$使得$AA\TT=-I_2$.
+    \end{enum}
+  \end{problem}
+\end{mybox}
+
+\begin{problem}
+  设$A\in\MM_2(\MC)$. 证明$A^2=A$当且仅当$(2A-I_2)^2=I_2$.
+\end{problem}
+\begin{remark}
+  问题 \ref{problem1.18} 说明$A$是幂等矩阵当且仅当$2A-I_2$是对合矩阵.
+\end{remark}
+
+\begin{problem}
+  设$A,B\in\MM_2(\MC)$是非零的幂等矩阵. 证明：如果$A+B$是幂等的，则$A+B=I_2$（也见问题 \ref{problem5.10}）.
+\end{problem}
+
+\begin{problem}
+  设$A,B\in\MM_2(\MC)$是非零的幂等矩阵. 证明：如果$A+B$是对合的，则$A+B=I_2$（也见问题 \ref{problem5.11}）.
+\end{problem}
+
+\begin{problem}
+  设$A,B\in \MM_2(\MC)$，满足$A$是幂等矩阵而$B$是对合矩阵. 证明：如果$A+B$是对合的，则$A=O_2$.
+\end{problem}
+
+\begin{problem}
+  {\bfseries 一类特殊矩阵迹的等式.}
+  \begin{enum}
+    \item 证明$\Tr(AB)=\Tr(A)\Tr(B)$对任意对合矩阵成$B\in\MM_2(\MC)$成立当且仅当$A=O_2$；
+    \item 证明$\Tr(AB)=\Tr(A)\Tr(B)$对任意反对合矩阵$B\in\MM_2(\MC)$成立当且仅当$A=O_2$；
+    \item 证明$\Tr(AB)=\Tr(A)\Tr(B)$对任意幂等矩阵$B\in\MM_2(\MC)$成立当且仅当$A=O_2$.
+  \end{enum}
+\end{problem}
+
+\begin{mybox}
+  \begin{problem}
+    {\bfseries 证明两个矩阵相等.}
+    \begin{enum}
+      \item\label{prob1.23.a} 设$X\in\MM_2(\MC)$满足$X^2=X$. 证明矩阵$I_2+X$是可逆的，且$(I_2+X)^{-1}=I_2-\frac12X$.
+      \item 设$A,B\in\MM_2(\MC)$满足$A-AB=B^2$且$B-BA+A^2$. 证明$A=B$.
+    \end{enum}
+  \end{problem}
+\end{mybox}
+
+\begin{problem}
+  {\kaishu 不同矩阵的逆矩阵.} 设$A\in\MM_2(\MC)$.
+  \begin{enum}
+    \item 如果$A^2=A$且$\alpha\in\MC,\alpha\ne-1$，则$(I_1+\alpha A)^{-1}=I_2-\frac\alpha{\alpha+1}A$.
+    \item 如果$A^2=-A$且$\alpha\in\MC,\alpha\ne1$，则$(I_2+\alpha A)^{-1}=I_2+\frac\alpha{\alpha-1}A$.
+    \item 如果$A^2=O_2$且$\alpha\in C$，则$(I_2+\alpha A)^{-1}=I_2-\alpha A$.
+  \end{enum}
+\end{problem}
+
+\begin{problem}
+  设$A=\begin{pmatrix}
+    1 & 0 \\
+    1 & 1
+  \end{pmatrix}$， 计算$A^n,n\ge1$.
+\end{problem}
+
+\begin{problem}
+  设$n\in\MN$且$A\in\MM_2(\MC)$使得$A+A^{-1}=-I_2$，计算$A^n+A^{-n}$.
+\end{problem}
+
+\begin{problem}
+  设$\lambda\in\MC$且$J_2(\lambda)$是相应于$\lambda$的{二阶Jordan块}
+  \[
+    J_2(\lambda) = \begin{pmatrix}
+      \lambda & 1 \\
+      0 & \lambda
+    \end{pmatrix}.
+  \]
+  证明$J_2^n(\lambda)=\begin{pmatrix}
+    \lambda^n & n\lambda^{n-1} \\
+    0 & \lambda^n
+  \end{pmatrix},n\in\MN$.
+\end{problem}
+
+\begin{problem}
+  {\kaishu 两个伪装的旋转矩阵.}
+  \begin{enum}
+    \item 计算$\begin{pmatrix}
+      1 + \sqrt3 & 1 - \sqrt3 \\
+      \sqrt3 -1  & 1 + \sqrt3
+    \end{pmatrix}^n,n\in\MN$.
+    \item 设$a,b\in\MR$，计算$\begin{pmatrix}
+      a & -b \\
+      b & a
+    \end{pmatrix}^n,n\in\MN$.
+  \end{enum}
+\end{problem}
+
+\begin{mybox}
+  \begin{problem}{\bfseries Fibonacci矩阵与Lucas数.}
+
+   设$(F_n)_{n\ge0}$是Fibonacci数列，递推定义为$F_0=0,F_1=1$且$F_{n+1}=F_n+F_{n-1},\,\forall n\ge1$，且设$A=\begin{pmatrix}
+     1 & 1\\
+     1 & 0
+   \end{pmatrix}$. 证明：
+   \begin{enum}
+     \item $A^{n+1}=A^n+A^{n-1},\,\forall n\ge1$.
+     \item\label{prob1.29.b} $A^n=\begin{pmatrix}
+       F_{n+1} & F_n \\
+       F_n & F_{n-1}
+     \end{pmatrix},\,\forall n\ge1$.
+     \item\label{prob1.29.c} $F_{n+m}=F_{n+1}F_m+F_nF_{m-1},\,\forall m,n\in\MN$.
+     \item {\kaishu Fibonacci二次和三次恒等式}
+     \begin{itemize}
+       \item $F_{n+1}F_{n-1}-F_n^2=(_1)^n,\,n\ge1$（Cassini等式）.
+       \item $F_{2n}=F_{n+1}^2-F_{n-1}^2,\,n\ge1$.
+       \item $F_{3n}=F_{n+1}^3+F_n^3-F_{n-1}^3,\,n\ge1$.
+     \end{itemize}
+     \item {\kaishu Lucas数}\index{L!Lucas数}递推定义为
+     \[
+       L_0=2,\,L_1=1\quad\text{且}\quad
+       L_{n+2} = L_{n+1} + L_n,\,\forall n\ge1.
+     \]
+     \begin{itemize}
+       \item 证明$L_n=F_{n+1}+F_{n-1},\,\forall n\in\MN$.
+       \item 考虑递推方程组$X_{n+1}=AX_n,n\ge0$，并证明：如果$X_0=\begin{pmatrix}
+             3 \\ 1
+           \end{pmatrix}$，则对任意$n\ge0$我们有
+           \[
+             X_n = \begin{pmatrix}
+               L_{n+2} \\ L_{n+1}
+             \end{pmatrix}.
+           \]
+     \end{itemize}
+   \end{enum}
+  \end{problem}
+\end{mybox}
+
+\begin{problem}
+  \cite{23} 设$B(x)=\begin{pmatrix}
+    x & 1\\
+    1 & x
+  \end{pmatrix}$且整数$n\ge2$. 计算乘积
+  \[
+    B(2)B(3)\cdots B(n).
+  \]
+\end{problem}
+
+{\kaishu 优美的行列式公式}
+\begin{mybox}
+  \begin{problem}{\bfseries 一个特殊的行列式公式.}
+    \begin{enum}
+      \item \label{prob1.31.a}如果$A,B\in\MM_2(\MC)$，则
+      \[
+        \det(A+B) + \det(A-B) = 2\det A + 2\det B.
+      \]
+      \item 设$A_k\in\MM_2(\MC),k=1,\cdots,n$. 证明
+      \[
+        \sum\det(\pm A_1\pm A_2\pm\cdots \pm A_n) = 2^n\sum_{k=1}^n\det A_k,
+      \]
+      其中的求和是对所有可能的符号的组合进行.
+    \end{enum}
+  \end{problem}
+\end{mybox}
+
+\begin{mybox}
+  \begin{problem}
+  设$A,B,C\in\MM_2(\MC)$. 证明
+  \[
+    \det (A+B+C) + \det A + \det B + \det C =
+    \det(A+B) + \det(B+C) + \det(A+C).
+  \]
+  \end{problem}
+\end{mybox}
+
+\begin{mybox}
+  \begin{problem}
+  设$A,B,C\in\MM_2(\MC)$. 证明
+  \begin{gather*}
+    \det(A+B+C) + \det(-A+B+C) + \det(A-B+C) + \det(A+B-C) \\
+    = 4(\det A + \det B + \det C).
+  \end{gather*}
+  \end{problem}
+\end{mybox}
+
+\begin{mybox}
+  \begin{problem}
+  设整数$n\ge2$. 如果$A_i\in\MM_2(\MC),i=1,\cdots,n$，则
+  \[
+    \det \bigg( \sum_{i=1}^n A_i \bigg) =
+    \sum_{1\le i<j\le n}\det(A_i+A_j) - (n-2)\sum_{i=1}^n\det A_i.
+  \]
+  \end{problem}
+\end{mybox}
+
+\begin{mybox}
+  \begin{problem}
+  设整数$n\ge2$，$A_1,A_2,\cdots,A_n\in\MM_2(\MC)$，且令$S=A_1+A_2+\cdots+A_n$. 证明
+  \[
+    \det (S-A_1) + \det (S-A_2) + \cdots + \det (S-A_n) = (n-2)\det S + \sum_{i=1}^n\det A_i.
+  \]
+  \end{problem}
+\end{mybox}
+
+\begin{problem}
+  证明：如果$A,B,C\in\MM_2(\MC)$满足$\det(A+B)=\det C,\det(B+C)=\det A$且$\det(C+A)=\det B$，则$\det(A+B+C)=0$.
+\end{problem}
+
+\begin{problem}
+  设矩阵$A\in\MM_2(\MR)$满足$\det(A+A\TT)=8$且$\det(A+2A\TT)=27$，求$\det A$.
+\end{problem}
+
+\begin{problem}
+  证明：如果$A,B\in\MM_2$满足$A^2+B^2+2AB=O_2$且$\det A=\det B$，计算$\det(A^2-B^2)$.
+\end{problem}
+
+\begin{problem}
+  设$A\in\MM_2(\MC),A\ne O_2$是一个对角元不同的对角阵. 证明：如果$B\in\MM_2(\MC)$与$A$可交换，则$B$也是对角阵.
+\end{problem}
+
+\begin{problem}
+  设$\alpha\in\MR$且令$A_n=\begin{pmatrix}
+    1 & \frac\alpha n\\
+    -\frac\alpha n & 1
+  \end{pmatrix}^n$. 证明：
+  \begin{enum}
+    \item 存在两个数列$(a_n)_{n\ge1}$和$(b_n)_{n\ge1}$使得$A_n=\begin{pmatrix}
+          a_n & b_n \\
+          -b_n & a_n
+        \end{pmatrix}$；
+    \item $\lim_{n\to\infty}a_n=\cos\alpha$且
+        $\lim_{n\to\infty}\sin\alpha$.
+  \end{enum}
+\end{problem}
+\begin{remark}
+  这个问题的一个简化版本见 \cite[p.76]{18}.
+\end{remark}
+
+\begin{problem}
+  {\bfseries 实矩阵的一个唯一分解.}
+
+  设
+  \[
+    \mathscr S_2(\MR) = \left\{
+      A\in\MM_2(\MR): A = A\TT
+    \right\}
+  \]
+  且
+  \[
+    \mathscr A_2(\MR) = \left\{ A\in\MM_2(\MR):A=-A\TT \right\}.
+  \]
+  证明：
+  \begin{enum}
+    \item 如果$A,B\in\mathscr S_2(\MR)$，则$A+B\in\mathscr L_2(\MR)$，且假定$A,B\in\mathscr A_2(\MR)$，则$A+B\in\mathscr A_2(\MR)$；
+    \item $\mathscr S_2(\MR)\cap\mathscr A_2(\MR)=\{O_2\}$（如果一个矩阵同时是对称矩阵和反对称矩阵，则它必为零矩阵）；
+    \item $\forall M\in\MM_2(\MR)$，存在唯一的$S\in\mathscr S_2(\MR)$和$A\in\mathscr A_2(\MR)$，使得$M=S+A$（任意矩阵$M\in\MM_2(\MR)$可以唯一写成一个对称矩阵与一个反对称矩阵的和）.
+  \end{enum}
+\end{problem}
+
+\begin{problem}
+  {\bfseries 复矩阵的两种矩阵分解.}
+
+  证明：
+  \begin{enum}
+    \item 任意矩阵$A\in\MM_2(\MC)$可以唯一写成$A=B+\ii C,B,C\in\MM_2(\MR)$（$B$称为$A$的{\kaishu 实部}\index{S!实部}，$C$称为$A$的{\kaishu 虚部}\index{X!虚部}）；
+    \item 任意矩阵$A\in\MM_2(\MC)$可以唯一写成$A=H(A)+\ii K(A)$，其中$H(A)$和$K(A)$都是自共轭矩阵；把复矩阵或实矩阵表示为$A=H(A)+\ii K(A)$，称为矩阵的{\kaishu Toeplitz 分解\index{J!矩阵分解!Toeplitz分解}}\cite[p.227]{38}.
+  \end{enum}
+\end{problem}
+
+\begin{mybox}
+  \begin{problem}
+    {\bfseries 旋转矩阵，反射矩阵与直和.}
+
+    设$U(a,b)=\begin{pmatrix}
+      a & -b\\
+      b & a
+    \end{pmatrix},a,b\in\MC$且
+    $V(\alpha,\beta)=\begin{pmatrix}
+      \alpha & \beta \\
+      \beta & -\alpha
+    \end{pmatrix},\alpha,\beta\in\MC$. 则成立下面的性质：
+    \begin{enumerate}[left=0cm,label=(\arabic*)]
+      \item $U(a,b)U(a',b')=U(aa'-bb',a'b+ab')$.
+      \item $U^{-1}(a,b)=U\left(\frac a{a^2+b^2},-\frac b{a^2+b^2}\right),a^2+b^2\ne0$.
+      \item $U(a,b)V(\alpha,\beta)=V(a\alpha -b\beta,a\beta+b\alpha)$.
+      \item $V(\alpha,\beta)U(a,b)=V(\alpha a+\beta b,\beta a-\alpha b)$.
+      \item $U(\alpha,\beta)V(1,0)=V(\alpha,\beta)$.
+      \item $V(\alpha,\beta)V(\alpha',\beta')
+      =U(\alpha\alpha'+\beta\beta',
+      \alpha'\beta-\alpha\beta')$.
+      \item $V^{-1}(\alpha,\beta)=V\left(
+        \frac\alpha{\alpha^2+\beta^2},
+        \frac\beta{\alpha^2+\beta^2}
+      \right),\alpha^2+\beta^2\ne0$.
+      \item $V^{-1}\left(
+          \frac\alpha{\sqrt{\alpha^2+\beta^2}},
+          \frac\beta{\sqrt{\alpha^2+\beta^2}}
+          \right)=V\left(
+          \frac\alpha{\sqrt{\alpha^2+\beta^2}},
+          \frac\beta{\sqrt{\alpha^2+\beta^2}}
+          \right)$，其中$\alpha^2+\beta^2\ne0$.
+      \item $\mathscr U=\{U(a,b):a,b\in\MC\}$且$\mathscr V=\{V(\alpha,\beta):\alpha,\beta\in\MC\}$
+          是$\MC$上的向量空间.
+      \item {\bfseries 一个直和.} $\MM_2(\MC)=\mathscr U\oplus\mathscr V$. 任意矩阵$A=\begin{pmatrix}
+            a & b\\
+            c & d
+          \end{pmatrix}\in\MM_2(\MC)$可以唯一写成$A=U\left(\frac{a+d}2,\frac{c-b}2\right)
+          +V\left(\frac{a-d}2,\frac{c+b}2\right)$.
+      \item {\bfseries 正交性.} 函数$\langle \cdot,\cdot\rangle:\MM_2(\MC)\times\MM_2(\MC)
+          \to\MC$定义为$\langle A,B\rangle=\Tr(AB^\ast)$是一个$\MM_2(\MC)$上的内积空间，且$\big(
+          \MM_2(\MC),\langle\cdot,\cdot\rangle\big)$是一个{\kaishu Euclide空间}\index{E!Euclide空间}. 如果$U(a,b)\in\mathscr U$且$V(\alpha,\beta)\in\mathscr V$，则$V^\ast(\alpha,\beta)=V(\bar \alpha,\bar\beta)$且$\langle U(a,b),V(\alpha,\beta)\rangle=0$. 因此，子空间$\mathscr U$和$\mathscr V$是{\kaishu 正交的}，且$\mathscr U$是$\mathscr V$在$\MM_2(\MC)$中的{\kaishu 正交补}\index{Z!正交补}，即$\mathscr U=\mathscr V^{\bot}$且$\mathscr V=\mathscr U^{\bot}$.
+      \item {\bfseries 几何插值.} 如果$a,b\in\MR$，则
+      \[
+        U(a,b) = \sqrt{a^2+b^2} \begin{pmatrix}
+          \cos\theta & -\sin\theta \\
+          \sin\theta & \cos\theta
+        \end{pmatrix},
+      \]
+      其中$\cos\theta=\frac a{\sqrt{a^2+b^2}},\sin\theta=\frac b{\sqrt{a^2+b^2}},\theta\in[0,2\pi)$，所以$U(a,b)$是伸缩因子为$\sqrt{a^2+b^2}$的伸缩变换与旋转角为$\theta$的旋转变换的复合变换对应的矩阵.\parindent=2em
+
+      如果$\alpha,\beta\in\MR$，则
+      \[
+        V(\alpha,\beta) = \sqrt{\alpha^2+\beta^2}
+        \begin{pmatrix}
+          \cos t & \sin t \\
+          \sin t & -\cos t
+        \end{pmatrix},
+      \]
+      其中$\cos t=\frac\alpha{\sqrt{\alpha^2+\beta^2}},\sin t=\frac\beta{\sqrt{\alpha^2+\beta^2}},
+      t\in[0,2\pi)$，所以$V(\alpha,\beta)$是伸缩因子为$\sqrt{a^2+b^2}$的伸缩变换与一个关于和$x$轴成角度$\frac t2$的直线的对称变换复合而成的复合变换对应的矩阵.
+
+      \begin{nota}
+        任意$2\times2$实矩阵$A$可以{\kaishu 唯一}写成一个{\kaishu 旋转}矩阵与一个{\kaishu 反射}矩阵的线性组合，即$A=\lambda U(\cos\theta,\sin\theta)+\mu V(\cos t,\sin t)$，其中$\lambda,\mu\in\MR$.
+      \end{nota}
+    \end{enumerate}
+  \end{problem}
+\end{mybox}
+
+\begin{problem}
+  设$A,B,C\in\MM_2(\MC)$满足$A^2=BC,B^2=CA,C^2=AB$. 证明：
+  \begin{enum}
+    \item $A^3=B^3=C^3$；
+    \item 给出一个满足题意的三个不同矩阵的例子.
+  \end{enum}
+\end{problem}
+
+\begin{problem}
+  设$A=\begin{pmatrix}
+    a & b \\
+    -b & a
+  \end{pmatrix}\in\MM_2(\MR)$. 证明下面的说法是等价的：
+  \begin{enum}
+    \item\label{prob1.45.a} 存在$n\in\MN$使得$A^n=I_2$；
+    \item\label{prob1.45.b} 存在$q\in\MQ^\ast$使得$a=\cos q\pi$且$b=\sin q\pi$.
+  \end{enum}
+\end{problem}
+
+\begin{problem}
+  设$A,B\in\MM_2(\MZ)$满足$AB=BA$且$\det A=\det B=0$. 证明：存在$a\in\MZ$使得对任意$n\in\MN$，我们有
+  \[
+    \det(A^n-B^n) = -a^n\quad \text{且}\quad
+    \det(A^n+B^n) = a^n.
+  \]
+\end{problem}
+
+\begin{problem}
+  证明：如果$A,B,C\in\MM_2(\MR)$满足条件$AB=BA,BC=CB,CA=AC$，且
+  $\det(A^2+B^2+C^2-AB-BC-CA)=0$，
+  则$\det(2A-B-C)=3\det(B-C)$.
+\end{problem}
+
+\begin{problem}
+  \cite{60} 求所有实数对$(a,b)$，使得存在一个唯一的实对称矩阵$M$，满足$\Tr(M)=a$且$\det M=b$.
+\end{problem}
+
+\section{群、环和域论问题的盛宴}
+
+接下来的问题建立了各种代数结构和矩阵之间的联系. 为了全面阐述经典代数结构，如群、环和域以及抽象代数中的其他相关主题，读者不妨参考这本优秀的书\cite{17}.
+\begin{problem}
+  \begin{enumerate*}[label=(\alph*),
+      itemjoin=\\\hspace*{\parindent}]
+    \item 证明：集合$\MM-\left\{\begin{pmatrix}
+      2-a & a-1\\
+      2(1-a) & 2a-1
+    \end{pmatrix}:a\in\MR^\ast\right\}$在矩阵加法下构成一个Abel群.
+    \item 证明：$(\MM,\cdot)$同构于乘法群$(\MR^\ast,\cdot)$.
+  \end{enumerate*}
+\end{problem}
+
+\begin{problem}
+  证明：集合$\MM=\left\{
+    \begin{pmatrix}
+      x & 2y\\
+      y & x
+    \end{pmatrix}:x,y\in\MQ,x\ne0\,\text{或}\,y\ne0
+  \right\}$在矩阵乘法下构成一个Abel群.
+\end{problem}
+
+\begin{problem}
+  证明：集合$\MM=\left\{
+    \begin{pmatrix}
+      \cos \alpha & \sin \alpha \\
+      -\sin \alpha & \cos \alpha
+    \end{pmatrix}:\alpha\in\MR
+  \right\}$在矩阵乘法下构成一个群，且同构于所有模为1的复数构成的群.
+\end{problem}
+
+\begin{problem}
+  证明：集合$\MM=\left\{
+    \begin{pmatrix}
+      \cos\alpha & 3\sin\alpha \\
+      -\frac13\sin\alpha & \cos\alpha
+    \end{pmatrix}:\alpha\in\MR
+  \right\}$在矩阵乘法下构成一个群，且同构于所有模为1的复数构成的群.
+\end{problem}
+
+\begin{problem}
+  \begin{enumerate*}[label=(\alph*),     itemjoin=\\]
+    \item 证明：集合$\mathscr G=\left\{x+y\sqrt5:x\in\MQ,y\in\MQ,x^2-5y^2=1
+        \right\}$在数的乘法下构成一个Abel群.
+    \item 证明：集合$\MM=\left\{
+      \begin{pmatrix}
+        x & 2y \\
+        \frac52y & x
+      \end{pmatrix}:x,y\in\MQ\,\text{且}\,x^2-5y^2=1
+    \right\}$在矩阵乘法下构成一个Abel群.
+    \item 证明函数$f:\mathscr G\to\MM,f(x+y\sqrt5)=\begin{pmatrix}
+        x & 2y \\
+        \frac52y & x
+      \end{pmatrix}$是一个群同构，即$(\mathscr G,\cdot)\simeq (\MM,\cdot)$.
+  \end{enumerate*}
+\end{problem}
+
+\begin{problem}
+  设$d\in\MR$且令$\MM_d=\left\{
+    \begin{pmatrix}
+      a & db \\
+      b & a
+    \end{pmatrix}:a,b\in\MR,a^2-db^2\ne0
+  \right\}$.
+  \begin{enum}
+    \item 证明：集合$\MM_d$在矩阵乘法下构成一个群.
+    \item 求出$d$的值使得群$(\MM_d,\cdot)$同构于$(\MC^\ast,\cdot)$.
+  \end{enum}
+\end{problem}
+
+\begin{problem}
+  {\kaishu 模群$\SL_2(\MZ)$的生成元.}
+
+  设$U=\begin{pmatrix}
+    1 & 1 \\
+    0 & 1
+  \end{pmatrix},V=\begin{pmatrix}
+    0 & -1\\
+    1 & 0
+  \end{pmatrix},W=\begin{pmatrix}
+    1 & 0 \\
+    1 & 1
+  \end{pmatrix}$且$P=\begin{pmatrix}
+    0 & -1 \\
+    1 & 1
+  \end{pmatrix},Q=P^2=\begin{pmatrix}
+    -1 & -1\\
+    1 & 0
+  \end{pmatrix}$. 验证：
+  \begin{enum}
+    \item $U^k=\begin{pmatrix}
+      1 & k \\
+      0 & 1
+    \end{pmatrix},\,k\in\MZ$；
+    \item $V^2=-I_2,V^{-1}=-V,V^4=I_2$；
+    \item $W^k=\begin{pmatrix}
+      1 & 0 \\
+      k & 1
+    \end{pmatrix},\,k\in\MZ,\,W=UVU$；
+    \item $P=VU=V^2Q^2,P^3=-I_2$；
+    \item $Q=VUVU=VW,Q^2=\begin{pmatrix}
+      0 & 1\\
+      -1 & -1
+    \end{pmatrix},Q^3=I_2$；
+    \item $U=V^{-1}P=-VP=VP^4=VQ^2$.
+  \end{enum}
+
+  读者可能会对这些性质感兴趣，它们被用来证明一个远远超出本书目的的结果，{\kaishu 模群}\index{M!模群} $\SL_2(\MZ)$是由矩阵$U$和$V$生成的（见 \cite[Chapter 5]{43}）.
+\end{problem}
+
+\begin{mybox}
+  \begin{problem}
+  {\bfseries Klein 4-群.} 设集合$K_4=\{I_2,S_x,S_y,S_0\}$，其中
+  \[
+    S_x = \begin{pmatrix}
+      -1 & 0 \\
+      0 & 1
+    \end{pmatrix},\quad
+    S_y = \begin{pmatrix}
+      1 & 0 \\
+      0 & -1
+    \end{pmatrix}\quad \text{以及}\quad
+    S_0 = \begin{pmatrix}
+      -1 & 0 \\
+      0 & -1
+    \end{pmatrix},
+  \]
+  证明$K_4$在矩阵乘法下是一个Abel群，称为四个元素的{\kaishu Klein 4-群}\index{Q!群!Klein 4-群}. 且$(K_4,\cdot)$与单位正方形的旋转群$(\mathscr R_4,\cdot)$不同构.
+  \begin{nota}
+    几何上，在二维空间中，Klein 4-群是菱形和非正方形的矩形的对称群，其四个元素为恒等变换$I_2$，水平反射$S_x$，垂直反射$S_y$，以及一个$180^\circ$的旋转（关于原点的反射）$S_0$.
+  \end{nota}
+  \end{problem}
+\end{mybox}
+
+\begin{problem}
+  设
+  \[
+    \MM = \left\{
+      \begin{pmatrix}
+        a + b & b \\
+        c & a + c
+      \end{pmatrix}:a,b,c\in\MR
+    \right\}.
+  \]
+  求出$\MM$中所有正交矩阵的集合$\mathscr G$并证明$(\mathscr G,\cdot)$与Klein 4-群同构.
+\end{problem}
+
+\begin{problem}
+  {\bfseries 幂等矩阵的群特征.}
+
+  设$n\in\MN,A\in\MM_2(\MC),A\ne O_2,I_2$，且令$\MM_n=\{X\in\MM_2(\MC):X^n=A\}$. 证明下列说法是等价的：
+  \begin{enum}
+    \item\label{prob1.58.a} $(\MM_n,\cdot)$是一个群；
+    \item\label{prob1.58.b} $A^2=A$；
+    \item\label{prob1.58.c} $\MM_n=\{sA,s\in\MC,s^n=1\}=\mathscr U_nA$，即$(\MM_n,\cdot)\simeq(\mathscr U_n,\cdot)$.
+  \end{enum}
+\end{problem}
+
+\begin{problem}
+  {\kaishu 两个非同构的群.}
+
+  设$G=\{A\in\MM_2(\MC):\det A=\pm1\}$以及$S=\{A\in\MM_2(\MC):\det A=1\}$. 证明$G$和$S$在矩阵乘法下是{\kaishu 非同构群}. 注意$S$是特殊线性群$\SL_2(\MC)$.
+\end{problem}
+
+\begin{problem}
+  设$\mathscr G$是一个$\big(\MM_2(\MC),\cdot\big)$下的矩阵乘法群，其单位元不是$I_2$. 证明$\mathscr G$同构于$(\MC^\ast,\cdot)$的一个子群.
+\end{problem}
+
+\begin{mybox}
+\begin{problem}
+  {\bfseries 旋转矩阵$R_\alpha$.}
+
+  设$\alpha\in\MR$且$M(x_M,y_M)$是笛卡尔平面上一点. 如果我们将线段$[OM]$绕原点逆时针旋转角度$\alpha$得到线段$[ON]$.  如果$N(x_N,y_N)$，则可以用验证
+  \[
+    \begin{pmatrix}
+      x_N \\ y_N
+    \end{pmatrix} =
+    \begin{pmatrix}
+      \cos\alpha & -\sin\alpha \\
+      \sin\alpha & \cos \alpha
+    \end{pmatrix}\begin{pmatrix}
+      x_M \\ y_M
+    \end{pmatrix}.
+  \]
+
+  由于这个原因，矩阵$R_\alpha=\begin{pmatrix}
+    \cos\alpha & -\sin\alpha \\
+    \sin\alpha & \cos\alpha
+  \end{pmatrix}$称为角度为$\alpha$的{\kaishu 旋转矩阵}.\index{J!矩阵!旋转矩阵}
+
+  {\bfseries 旋转矩阵的性质}
+  \begin{enum}\parindent=2em
+    \item 证明对任意$\alpha\in\MR$，矩阵$R_\alpha$都是正交矩阵.
+    \item 设$SO_2$表示集合
+    \[
+      SO_2 = \left\{
+        \begin{pmatrix}
+          \cos\alpha & -\sin\alpha \\
+          \sin\alpha & \cos\alpha
+        \end{pmatrix}:\alpha\in\MR
+      \right\}.
+    \]
+
+    证明$SO_2$在矩阵乘法下构成一个Abel群. 因此，$SO_2$称为{\kaishu 特殊正交群}\index{Q!群!特殊正交群}，它由所有行列式为1的正交矩阵组成.
+    \item \label{prob1.61.c} 证明$R_\alpha R_\beta=R_{\alpha+\beta}$.
+    \item \label{prob1.61.d} 证明$R_\alpha^{-1}=R_{-\alpha}$.
+    \item 计算$R_\alpha^n,n\ge1$.
+  \end{enum}
+  \begin{nota}
+    回顾{\bfseries Euler函数}\index{E!Euler函数}$\varphi$，它表示不超过$n$的与$n$互素的正整数的个数. 如果整数$n\ge2$，则存在$\varphi(n)$个两两不同的可交换的$n$阶实矩阵. 例如，如果$n=8$，$R_{\frac\pi8},R_{\frac{3\pi}8},R_{\frac{5\pi}8}$
+    和$R_{\frac{7\pi}8}$是不同的两两可交换的8阶矩阵.
+  \end{nota}
+\end{problem}
+\end{mybox}
+
+\begin{mybox}
+  \begin{problem}
+  {\bfseries $\MM_2(\MC)$的两个特殊子群.}
+
+  设$A\in\MM_2(\MC)$，令$G(A)=\{
+    X\in\MM_2(\MC):\det(A+X)=\det A+\det X
+  \}$，且令$H(A)=\{X\in\MM_2(\MC):\Tr(AX)=\Tr(A)\Tr(X)\}$. 证明$\big(G(A),+\big)$和$\big(H(A),+\big)$是
+  $\big(\MM_2(\MC),+\big)$的子群.
+
+  {\bfseries 挑战性问题.} 证明：如果$A,B\in\MM_2(\MC)$是两个非零矩阵，则子群$\big(G(A),+\big)$和$\big(H(B),+\big)$是同构的.
+  \end{problem}
+\end{mybox}
+
+\begin{problem}
+  设$\theta\in\MR$且令$M(\theta)=\begin{pmatrix}
+    \cosh\theta & \sinh\theta\\
+    \sinh\theta & \cosh\theta
+  \end{pmatrix}$. 证明：
+  \begin{enum}
+    \item $\det M(\theta)=1$；
+    \item \label{prob1.63.b} $M(\theta_1)M(\theta_2)=M(\theta_1+\theta_2)$；
+    \item $M^n(\theta)=M(n\theta),n\in\MN$；
+    \item {\bfseries 双曲群}\index{Q!群!双曲群} 集合$\mathscr H=\{M(\theta):\theta\in\MR\}$在矩阵乘法下构成一个Abel群.
+  \end{enum}
+\end{problem}
+
+\begin{mybox}
+  \begin{problem}
+    {\bfseries 二面体群$D_{2n}$.}\index{Q!群!二面体群}
+    设整数$n\ge3$. 证明：集合
+    \[
+      D_{2n} = \left\{
+        \begin{pmatrix}
+          \cos\theta &  -\sin\theta \\
+          \sin\theta & \cos \theta
+        \end{pmatrix},\begin{pmatrix}
+          -\cos\theta & \sin\theta \\
+          \sin\theta  & \cos\theta
+        \end{pmatrix}:\theta = 0,\frac{2\pi}n,\cdots,\frac{2(n-1)\pi}n
+      \right\}
+    \]
+    在矩阵乘法下构成一个$2n$阶群，称为{\kaishu 二面体群}，也称为正$n$边形的对称集.
+    \begin{nota}
+      $(D_{2n},\cdot)$与正$2n$边形的旋转群$(\mathscr R_{2n},\cdot)$不同构.
+    \end{nota}
+  \end{problem}
+\end{mybox}
+
+二面体群的一个优美的表示可以参见 \cite[p.23]{17}.
+
+\begin{problem}
+  证明环$\MM_2(\MR)$包含一个子环同构于$\MC$.
+\end{problem}
+
+\begin{problem}
+  \begin{enumerate*}[label=(\alph*),itemjoin=
+    \\\hspace*{\parindent}]
+    \item 证明：集合$\MM=\left\{
+      \begin{pmatrix}
+        x & y \\
+        -y & x
+      \end{pmatrix}:x,y\in\MZ
+    \right\}$在矩阵加法与乘法下构成一个环.
+    \item 证明$(\MM,+,\cdot)\cong\big(\MZ[\ii],+,\cdot\big)$，其中$\MZ[\ii]$是{\kaishu Gauss整数环}\index{H!环!Gauss整数环}，即由复数$x+\ii y,x,y\in\MZ$构成的集合.
+  \end{enumerate*}
+\end{problem}
+
+\begin{mybox}
+  \begin{problem}
+    求出所有函数$f,g:\MZ\times\MZ\to\MZ$使得$(\MM,+,\cdot)$是$\big(\MM_2(\MZ),+,\cdot\big)$的一个子环，其中
+    \[
+      \MM = \left\{
+        \begin{pmatrix}
+          x & y \\
+          f(x,y) & g(x,y)
+        \end{pmatrix}:x,y\in\MZ
+      \right\},
+    \]
+    且$I_2\in\MM$.
+  \end{problem}
+\end{mybox}
+
+\begin{problem}
+  \cite[p.25]{17} 证明$\begin{pmatrix}
+    0 & 1 \\
+    0 & 0
+  \end{pmatrix}$和$\begin{pmatrix}
+    0 & 0 \\
+    1 & 0
+  \end{pmatrix}$是$\MM_2(\MZ)$中的幂零元，且其和不是幂零的，这意味着这两个矩阵是不可交换的. 由此推导出非交换环$\MM_2(\MZ)$中幂零元的集合不是理想.\index{L!理想}
+\end{problem}
+
+\begin{mybox}
+  \begin{problem}
+    求出所有函数$f,g:\MZ\times\MZ\to\MZ$使得集合
+    \[
+      \MM = \left\{
+        \begin{pmatrix}
+          x & f(x,y) \\
+          g(x,y) & y
+        \end{pmatrix}:x,y\in\MZ
+      \right\}
+    \]
+    在矩阵加法与乘法下构成一个环，且$I_2\in\MM$.
+  \end{problem}
+\end{mybox}
+
+\begin{problem}
+  证明：集合$\MM=\left\{
+    \begin{pmatrix}
+      x & -3y\\
+      -y & x
+    \end{pmatrix}:x,y\in\MZ
+  \right\}$在矩阵加法与乘法下构成一个环，它同构于环
+  \[
+    \mathscr A = \left\{x+y\sqrt 3:x,y\in\MZ\right\}.
+  \]
+  此环同构形式为$x+y\sqrt3\longrightarrow\begin{pmatrix}
+      x & -3y\\
+      -y & x
+    \end{pmatrix}$.
+\end{problem}
+
+\begin{problem}
+  证明：集合$\MM=\left\{
+    \begin{pmatrix}
+      x & 4y\\
+      \frac12y & x
+    \end{pmatrix}:x,y\in\MQ
+  \right\}$在矩阵加法与乘法下构成一个域，它同构于域
+  \[
+    \mathscr A = \left\{x+y\sqrt2:x,y\in\MQ\right\}.
+  \]
+  此域同构形式为$x+y\sqrt2\longrightarrow\begin{pmatrix}
+      x & 4y\\
+      \frac12y & x
+    \end{pmatrix}$.
+\end{problem}
+
+\begin{mybox}
+  \begin{problem}
+    求出所有函数$f,g:\MQ\times\MQ\to\MQ$使得集合
+    \[
+      \MM = \left\{
+        \begin{pmatrix}
+          x & f(x,y) \\
+          g(x,y) & y
+        \end{pmatrix}:x,y\in\MQ
+      \right\}
+    \]
+    在矩阵加法与乘法下构成一个域.
+  \end{problem}
+\end{mybox}
+
+\begin{mybox}
+  \begin{problem}
+    {\bfseries 矩阵的Hamilton{\hyds （}哈密尔顿{\hyds ）}四元数.}\index{H!Hamilton四元数}
+
+    设$M$是所有形如
+    \[
+      \MM = \{ m=aE+bI+cJ+dK:a,b,c,d\in\MR \}
+    \]
+    的方阵的集合，其中
+    \[
+      E = \begin{pmatrix}
+         1 & 0\\
+         0 & 1
+      \end{pmatrix},\quad I = \begin{pmatrix}
+        \ii & 0 \\
+        0 & -\ii
+      \end{pmatrix},\quad J = \begin{pmatrix}
+        0 & 1 \\
+        -1 & 0
+      \end{pmatrix}\quad \text{且}\quad
+      K = \begin{pmatrix}
+        0 & \ii \\
+        \ii & 0
+      \end{pmatrix}.
+    \]
+    \begin{enum}
+      \item 计算$m\wtilde{m}$，其中$\wtilde{M}=aE-bI-cJ-dK$.
+      \item 证明$\MM$在矩阵加法与乘法下构成一个非交换域（矩阵的Hamilton四元数）. 历史上，第一个非交换环于1843年被Sir William Rowell Hamilton（1805--1865）所发现. \cite{7}是一篇关于Hamilton如何发现他的结论的与四元数相关的好文章. 四元数，矩阵四元数以及他们的性质和相关问题在 \cite{62} 中可以找到.
+      \item 证明性质：当多项式函数的系数属于交换域时，``{\kaishu $n$次多项式最多有$n$个根}''，而当系数属于$\MM$时，性质不成立. 要证明这一点，考虑多项式函数$x^2+E$. \parindent=2em
+
+          一个{\kaishu 有挑战性的问题}就是在$\MM_2$中解方程$x^2+E=O_2$.
+    \end{enum}
+  \end{problem}
+\end{mybox}
+
+\begin{mybox}
+  \begin{problem}
+  {\bfseries Hamilton与Pauli {\hyds （}泡利{\hyds ）}矩阵.}
+
+  \begin{enum}\parindent=2em
+    \item 证明：所有$2\times 2$ Hermit矩阵由
+    \[
+      \mathscr H = \left\{
+        \begin{pmatrix}
+          a & \bar c \\
+          c & d
+        \end{pmatrix}:a,d\in\MR,\,c\in\MC
+      \right\}.
+    \]
+    给出.
+    \item 著名的{\bfseries Pauli矩阵}\index{J!矩阵!Pauli矩阵} $\sigma_1,\sigma_2$和$\sigma_3$定义为
+        \[
+          \sigma_1 = \begin{pmatrix}
+            0 & 1 \\
+            1 & 0
+          \end{pmatrix},\quad \sigma_2 = \begin{pmatrix}
+            0 & -\ii \\
+            \ii & 0
+          \end{pmatrix}\quad\text{且}\quad
+          \sigma_3 = \begin{pmatrix}
+            1 & 0 \\
+            0 & -1
+          \end{pmatrix}.
+        \]
+
+        证明：所有Pauli矩阵与单位矩阵$I_2$的集合构成了$2\times2$ Hermit矩阵的实向量空间$\mathscr H$的一组基，因此$\mathscr H$是$\MR$上的一个四维向量空间.
+
+        注意到如果$A\in\mathscr H$，则
+        \[
+          A = \begin{pmatrix}
+            a & x - \ii y\\
+            x + \ii y & d
+          \end{pmatrix} = \frac{a+d}2I_2 + \frac{a-d}2\sigma_3 + x\sigma_2 + y\sigma_2,\quad a,d,x,y\in\MR.
+        \]
+        \item 证明由$\{I_2,\ii\sigma_2,\ii\sigma_2,\ii\sigma_3\}$生成的实线性空间同构于在问题 \ref{problem1.73} 中定义的矩阵Hamilton四元数构成的集合$\MM$.
+  \end{enum}
+  \end{problem}
+\end{mybox}
+
+\section{解答}
+\begin{solution}
+  用数学归纳法即可.
+\end{solution}
+
+\begin{solution}
+  $A^2$可能有一、二或三个负元. 例如，取$A=\begin{pmatrix}
+    2 & 1 \\
+    -1 & 3
+  \end{pmatrix}$，则$A^2$有一个负元； 取$A=\begin{pmatrix}
+    2 & -1 \\
+    -1 & 3
+  \end{pmatrix}$，则$A^2$有两个负元；取$A=\begin{pmatrix}
+    -1 & 2 \\
+    -3 & -1
+  \end{pmatrix}$，则$A^2$有三个负元. 但是不可能有四个负元.
+\end{solution}
+
+\begin{solution}
+  利用等式$AA^n=A^nA$我们得到关系式
+  \[
+    \left\{
+      \begin{aligned}
+        & aa_n + bc_n = a_na + b_nc \\
+        & ab_n + bd_n = a_nb + b_nd \\
+        & ca_n + dc_n = c_na + d_nc \\
+        & cb_n + dd_n = c_nb + d_nd
+      \end{aligned}
+    \right.,
+  \]
+  这也可以写成$bc_n=b_nc,(a-d)b_n=(a_n-d_n)b,(a-d)c_n=(a_n-d_n)c,cb_n=c_nb$. 如果$b_n=0$或$c_n=0$，由于$b\ne0,c\ne0$，我们得到$a_n-d_n=0$，即$a_n=d_n$.
+\end{solution}
+
+\begin{solution}
+  设$X=\begin{pmatrix}
+    a & b \\
+    c & d
+  \end{pmatrix}$满足$AX=XA$，我们有
+  \[
+    \begin{pmatrix}
+      1 & 2 \\
+      3 & 4
+    \end{pmatrix}\begin{pmatrix}
+      a & b \\
+      c & d
+    \end{pmatrix} = \begin{pmatrix}
+      a & b \\
+      c & d
+    \end{pmatrix}\begin{pmatrix}
+      1 & 2 \\
+      3 & 4
+    \end{pmatrix},
+  \]
+  这意味着
+  \[
+    \left\{
+      \begin{aligned}
+        & a + 2c = a + 3b \\
+        & b + 2d + 2a + 4b \\
+        & 3a + 4c = c + 3d \\
+        & 3b + 4d = 2c + 4d
+      \end{aligned}
+    \right..
+  \]
+  我们得到方程组
+  \[
+    \left\{
+      \begin{aligned}
+        & 2c = 3b \\
+        & 2(d-a) = 3b
+      \end{aligned}
+    \right.,
+  \]
+  方程有解$a=x,b=2y,c=3y,d=x+3y$，其中$x,y\in\MC$. 因此
+  \[
+    X = \begin{pmatrix}
+      x & 2y \\
+      3y & x + 3y
+    \end{pmatrix} = yA + (x-y)I_2.
+  \]
+\end{solution}
+
+\setcounter{solution}{7}
+\begin{solution}
+  设$A=\begin{pmatrix}
+    a & b \\
+    c & d
+  \end{pmatrix}$，方程$A^2=O_2$意味着
+  \[
+    \left\{
+      \begin{aligned}
+        & a^2 + bc = 0 \\
+        & b(a+d) = 0 \\
+        & c(a+d) = 0 \\
+        & bc + d^2 = 0
+      \end{aligned}
+    \right..
+  \]
+
+  如果$a+d\ne0$，则$b=c=0,a^2=d^2=0$，于是$a=d=0$，这与$a+d\ne0$矛盾. 因此$a+d=0$，我们有$a=-d$.对于方程$a^2+bc=0$，我们考虑下面两种情形：
+  \begin{itemize}
+    \item 如果$b=0$，我们有$a=0$且$A=\begin{pmatrix}
+      0 & 0 \\
+      c & 0
+    \end{pmatrix}$，其中$c\in\MC$；
+    \item 如果$b\ne0$，我们有$c=-\frac{a^2}b$且$A=\begin{pmatrix}
+          a & b \\
+          -\frac{a^2}b & -a
+        \end{pmatrix},a,b\in\MC,b\ne0$.
+  \end{itemize}
+\end{solution}
+
+\setcounter{solution}{9}
+\begin{solution}
+  类似于问题 \ref{solution1.8}，由等式$A^2=O_2$，其中$A=\begin{pmatrix}
+    \hat a & \hat b \\
+    \hat c & \hat d
+  \end{pmatrix}$，我们得到$\hat a+\hat d=\hat 0$且$\hat a^2+\hat b\hat c=\hat 0$. 由此有$\hat d=-\hat a$且$\hat b\hat c=-\hat a^2$.
+
+  如果$\hat b=\hat0$，则$\hat a= 0$且$\hat c\in\MZ_p$是任意的，因此我们有$p$个形如$\begin{pmatrix}
+    \hat 0 & \hat 0 \\
+    \hat c & \hat 0
+  \end{pmatrix}$的矩阵.
+
+  如果$\hat b\ne\hat 0$，则$\hat c= -\hat b^{-1}\hat a^2$，其中$\hat b$有$p-1$种取法，而$\hat a$有$p$种取法，因此我们有$p(p-1)$个矩阵形如$\begin{pmatrix}
+    \hat a & \hat b \\
+    -\hat b^{-1}\hat a & -\hat a
+  \end{pmatrix},\hat a\in\MZ_p,\hat b\in\MZ_p\backslash\{\hat 0\}$. 所以，在$\MM_2(\MZ_p)$中共有$p+p^2-p=p^2$个幂零矩阵.
+\end{solution}
+
+\begin{solution}
+  由$(I_2+\ii A)(I_2-\ii A)=I_2$我们得到$A^2=O_2$. 基于问题 \ref{problem1.8} 的解答，可知$A$具有形式$A=\begin{pmatrix}
+    0 & 0 \\
+    c & 0
+  \end{pmatrix}$，其中$c\in\MR$或$A=\begin{pmatrix}
+    a & b \\
+    -\frac{a^2}b & -a
+  \end{pmatrix},a,b\in\MR,b\ne0$.
+\end{solution}
+
+\begin{solution}
+  设$A=\begin{pmatrix}
+    a & b \\
+    c & d
+  \end{pmatrix}$，等式$A^2=I_2$意味着
+  \[
+    \left\{
+      \begin{aligned}
+        & a^2 + bc = 1\\
+        & b(a+d) = 0 \\
+        & c(a+d) = 0 \\
+        & bc + d^2 = 1
+      \end{aligned}
+    \right..
+  \]
+  如果$a+d\ne0$，则$b=c=0,a^2=d^2=1$，于是$a=\pm1$且$d=\pm1$. 由于$a+d\ne0$，我们得到$a=d=1$或$a=d=-1$. 由此得
+  \[
+    A = \begin{pmatrix}
+      1 & 0 \\
+      0 & 1
+    \end{pmatrix} = I_2\quad \text{或}\quad
+    A = \begin{pmatrix}
+      -1 & 0 \\
+      0 & -1
+    \end{pmatrix} = -I_2.
+  \]
+  如果$a+d=0$，则$d=-a$. 如果$b=0$，我们得到$a^2=d^2=1$，这意味着$a=-1,d=1$或$a=1,d=-1$. 因此，
+  \[
+    A = \begin{pmatrix}
+      -1 & 0 \\
+      c & 1
+    \end{pmatrix}\quad\text{或} \quad
+    A = \begin{pmatrix}
+      1 & 0 \\
+      c & -1
+    \end{pmatrix},\quad c\in\MC.
+  \]
+  如果$b\ne0$，我们有$c=\frac{1-a^2}b$，因此$A$具有形式
+  \[
+   A = \begin{pmatrix}
+     a & b \\
+     \frac{1-a^2}b & -a
+   \end{pmatrix},\,a\in\MC,\,b\in\MC^\ast.
+  \]
+\end{solution}
+
+\begin{solution}
+  如果$p\ne2$，则矩阵$B\in\MM_2(\MZ_p)$是幂等的（$B^2=B$）当且仅当矩阵$A=2B-I_2$是对合的（$A^2=I_2$），这意味着此时，对合矩阵的数目与幂等矩阵的数目是相同的，都是$p^2+p+2$（见问题 \ref{problem1.15}）.
+
+  当$p=2$时，我们在$\MM_2(\MZ_2)$中解矩阵方程$A^2=I_2$. 如果$A=\begin{pmatrix}
+    \hat a & \hat b \\
+    \hat c & \hat d
+  \end{pmatrix}$，则我们有$\hat a^2+\hat b\hat c=\hat 1,\hat b\left(\hat a+\hat d\right)=\hat0,\hat c(\hat a+\hat d)=\hat 0,\hat d^2+\hat b\hat c=\hat1$，且这些方程说明$\hat d=-\hat a$.
+
+  如果$\hat a=\hat 1$且$\hat b\hat c=\hat0$，则我们得到矩阵
+  \[
+    A_1 = \begin{pmatrix}
+      \hat 1 & \hat 0 \\
+      \hat 0 & \hat 1
+    \end{pmatrix},\quad A_2 = \begin{pmatrix}
+      \hat 1 & \hat 0 \\
+      \hat 1 & \hat 1
+    \end{pmatrix},\quad
+    A_3 = \begin{pmatrix}
+      \hat 1 & \hat 1 \\
+      \hat 0 & \hat 1
+    \end{pmatrix}.
+  \]
+
+  如果$\hat a=\hat0$，则$\hat d=\hat0$且$\hat b\hat c=\hat1$，所以$\hat b=\hat c=\hat 1$. 因此，我们得到$A_4=\begin{pmatrix}
+    \hat 0 & \hat 1 \\
+    \hat 1 & \hat 0
+  \end{pmatrix}$. 那么当$p=2$时有四个对合矩阵. 注意到这和$p\ne2$的情形中有$p^2+p+2$个对合矩阵是不同的.
+\end{solution}
+
+\begin{solution}
+  设$A=\begin{pmatrix}
+    a & b \\
+    c & d
+  \end{pmatrix}$. 等式$A^2=A$意味着
+  \[
+    \left\{
+      \begin{aligned}
+        & a^2 + bc = a\\
+        & b(a+d) = b \\
+        & c(a+d) = c \\
+        & bc + d^2 = d
+      \end{aligned}
+    \right.\quad\text{即}\quad
+    \left\{
+      \begin{aligned}
+        & a^2 + bc = a \\
+        & b(a+d-1) = 0 \\
+        & c(a+d-1) = 0 \\
+        & (a-d)(a+d-1) = 0
+      \end{aligned}
+    \right..
+  \]
+  如果$a+d-1\ne0$，则$b=c=0,a=d\in\{0,1\}$. 这说明$A=O_2$或$A=I_2$. 如果$a+d-1=0$，则方程组约化为等式$a^2+bc=a$. 当$b\ne0$时有
+  \[
+    c = \frac{a-a^2}b\quad \text{且}\quad
+    A = \begin{pmatrix}
+      a & b \\
+      \frac{a-a^2}b & 1-a
+    \end{pmatrix},\,a,b\in\MC,\,b\ne0.
+  \]
+  当$b=0$时，则$a=0$或$a=1$，这意味着
+  \[
+    A = \begin{pmatrix}
+      0 & 0 \\
+      c & 1
+    \end{pmatrix}\quad \text{或}\quad
+    A = \begin{pmatrix}
+      1 & 0 \\
+      c & 0
+    \end{pmatrix},\,c\in\MC.
+  \]
+\end{solution}
+
+\begin{solution}
+  类似于问题 \ref{problem1.14} 的解答，我们得到矩阵$A=O_2,A=I_2$，以及矩阵$A=\begin{pmatrix}
+    \hat a & \hat b \\
+    \hat c & \hat d
+  \end{pmatrix}$满足条件$\hat a+\hat d=\hat1$且$\hat a^2+\hat b\hat c=\hat a$.
+
+  如果$\hat a=\hat 0$，则$\hat d=\hat1,\hat b\hat c=\hat 0$，所以$\hat b=\hat 0$或$\hat c=\hat 0$. 于是我们有$p$个矩阵形如$A_=\begin{pmatrix}
+    \hat 0 & \hat b \\
+    \hat 0 & \hat 1
+  \end{pmatrix}$和$p-1$个矩阵形如$A_2=\begin{pmatrix}
+    \hat 0 & \hat 0 \\
+    \hat c & \hat 1
+  \end{pmatrix}$. 因此，我们有$2p-1$个矩阵，因为其中的矩阵$\begin{pmatrix}
+    \hat 0 & \hat 0 \\
+    \hat 0 & \hat 1
+  \end{pmatrix}$已经算过一次了.
+
+  如果$\hat a=\hat1$，则$\hat d=\hat0$且$\hat b\hat c=0$. 用和上面相同的方法，我们得到$2p-1$个矩阵形如$A_3=\begin{pmatrix}
+    \hat 1 & \hat b\\
+    \hat 0 & \hat 0
+  \end{pmatrix}$或$A_4=\begin{pmatrix}
+    \hat 1 & \hat 0 \\
+    \hat c & \hat 0
+  \end{pmatrix}$.
+
+  如果$\hat a\ne\hat 0,\hat1$，则$\hat a^2-\hat a\ne\hat 0$，那么由上面的两个等式我们得到$\hat d=\hat 1 - \hat a,\hat b\hat c-\hat a-\hat a^2$，所以$\hat c=\hat b^{-1}\big(\hat a-\hat a^2\big)$. 我们得到矩阵
+  \[
+    A_5 = \begin{pmatrix}
+      \hat a & \hat b \\
+      \hat b^{-1}\big( \hat a-\hat a^2 \big) & \hat 1 - \hat a
+    \end{pmatrix},\hat a\in\MZ_p\backslash\{\hat0,\hat1\}.
+  \]
+  注意到$\hat a$有$p-2$种取法，而$\hat b\ne\hat 0$有$p-1$中取法，所以我们有$(p-1)(p-2)$个矩阵形如$A_5$.
+
+  最后，再$\MM_2(\MZ_p)$中的幂等矩阵的数目为$p^2+p+2$.
+\end{solution}
+
+\begin{solution}
+  如果$X=\begin{pmatrix}
+    a & b \\
+    c & d
+  \end{pmatrix},A=\dfrac1{\sqrt2}\begin{pmatrix}
+    1 & 1 \\
+    -1 & 1
+  \end{pmatrix},B=\dfrac1{\sqrt2}\begin{pmatrix}
+    1 & 1 \\
+    1 & -1
+  \end{pmatrix}$且$C=\begin{pmatrix}
+    0 & 1 \\
+    1 & 0
+  \end{pmatrix}$，则$X=\alpha A+\beta B+\gamma C+\delta I_2$，其中$\alpha=\frac{b-c}{\sqrt2},\beta=\frac{a-d}{\sqrt2},\gamma=\frac{c-a+b+d}2$且
+  $\delta=\frac{a+c+d-b}2$.
+\end{solution}
+
+\begin{solution}
+  \begin{enuma}
+    \item $A=\begin{pmatrix}
+      a & -b \\
+      b & a
+    \end{pmatrix}$或$A=\begin{pmatrix}
+      -a & b \\
+      b & a
+    \end{pmatrix},a,b\in\MC$，满足$a^2+b^2=1$.
+    \item $A=\begin{pmatrix}
+      a & -b \\
+      b & a
+    \end{pmatrix}$或$A=\begin{pmatrix}
+      -a & b \\
+      b & a
+    \end{pmatrix},a,b\in\MC$，满足$a^2+b^2=-1$.
+  \end{enuma}
+\end{solution}
+
+\setcounter{solution}{18}
+\begin{solution}
+  我们有$A^2=A,B^2=B$. 等式$(A+B)^2=A+B$意味着$AB+BA=O_2$. 分别将这个等式的左边和右边乘以$A$，我们得到$AB+ABA=O_2$和$ABA+BA=O_2$. 于是得到$AB=BA=O_2$.
+
+  如果$A=\alpha I_2,\alpha\in\MC^\ast$，由于$A^2=A$，我们得到$\alpha^2=\alpha\Rightarrow \alpha=1\Rightarrow A=I_2\Rightarrow B=BA=O_2$，这是不可能的.
+
+  如果$A\ne\alpha I_2,\alpha\in\MC$，则根据定理  \ref{thm1.1}，我们有$B=aA+bI_2$对某个$a,b\in\MC$成立. 由于$B^2=B$，我们得到$(aA+bI_2)^2=aA+bI_2\Rightarrow(a^2+2ab-a)A=(b-b^2)I_2$. 于是$a^2+2ab-a=0$且$b-b^2=0$. 如果$b=0$，则$a=0$或$a=1$. $a=b=0$的情形意味着$B=O_2$，这是不可能的. 如果$b=1$，则$a=0$或$a=-1$. 如果$b=1$且$a=0$，则$B=I_2\Rightarrow A=AB=O_2$，这也不可能. 如果$b=1$且$a=-1$，则$A+B=I_2$.
+\end{solution}
+
+\setcounter{solution}{22}
+\begin{solution}
+  \begin{enuma}
+    \item 我们有$(I_2+X)(I_2-\frac12X)=I_2+\frac12X-\frac12X^2=I_2$.
+    \item $A=AB+B^2$且$B=BA+A^2$，这意味着$A+B=(A+B)^2$且$(A-B)(I_2+A+B)$ $=O_2$. 根据 \ref{prob1.23.a} 可知矩阵$I_2+A+B$是可逆的，那么等式$(A-B)(I_2+A+B)=O_2$意味着$A=B$.
+  \end{enuma}
+\end{solution}
+
+\setcounter{solution}{24}
+\begin{solution}
+  {\kaishu 方法一.} 注意到$A^n=\begin{pmatrix}
+    1 & 0 \\
+    n & 1
+  \end{pmatrix},n\ge1$，由归纳法证明即可.
+
+  \noindent{\kaishu 方法二.} 我们记$A=I_2+B$，其中$B=\begin{pmatrix}
+    0 & 0 \\
+    1 & 0
+  \end{pmatrix}$. 由于$B^2=O_2$，根据二项式定理我们有
+  \begin{align*}
+    A^n & = (I_2 + B)^n = \Binom n0 I_2^n + \Binom n1 I_2^{n-1}B + \Binom n2 I_2^{n-2}B^2 + \cdots + \Binom nnB^n \\
+    & = I_2 + nB = \begin{pmatrix}
+      1 & 0 \\
+      n & 1
+    \end{pmatrix}.
+  \end{align*}
+\end{solution}
+
+\setcounter{solution}{26}
+\begin{solution}
+  这个问题可以用数学归纳法证明.
+\end{solution}
+
+\begin{solution}
+  \begin{enuma}
+    \item 注意到$1+\sqrt3=2\sqrt2\cos\frac\pi{12}$且$\sqrt3-1=
+        2\sqrt2\sin\frac\pi{12}$. 于是有
+  \end{enuma}
+  \[
+    \begin{pmatrix}
+      1 + \sqrt3 & 1 - \sqrt3 \\
+      \sqrt3 - 1 & 1 + \sqrt3
+    \end{pmatrix}^n = (2\sqrt2)^n \begin{pmatrix}
+      \cos\frac{n\pi}{12} & - \sin\frac{n\pi}{12}\\
+      \sin\frac{n\pi}{12} & \cos\frac{n\pi}{12}
+    \end{pmatrix}.
+  \]
+  \begin{enuma}\setcounter{enumi}{1}
+    \item 我们有
+  \end{enuma}
+  \[
+    \begin{pmatrix}
+      a & -b \\
+      b & a
+    \end{pmatrix} = \Big(\sqrt{a^2+b^2}\Big)^n
+      \begin{pmatrix}
+        \cos(n\alpha) & -\sin(n\alpha) \\
+        \sin(n\alpha) & \cos(n\alpha)
+      \end{pmatrix},
+  \]
+  其中$\cos\alpha=\frac a{\sqrt{a^2+b^2}},\sin\alpha=
+  \frac b{\sqrt{a^2+b^2}}$.
+\end{solution}
+
+\begin{solution}
+  \begin{enuma}\parindent=2em
+    \item 我们有$A=\begin{pmatrix}
+      1 & 1 \\
+      1 & 0
+    \end{pmatrix},A^2=\begin{pmatrix}
+      2 & 1 \\
+      1 & 1
+    \end{pmatrix}$，因此有$A^2=A+I_2$. 我们在等式两边乘以$A^{n-1},n\ge1$，得到Fibonacci矩阵的递推公式$A^{n+1}=A^n+A^{n-1}$.
+    \item 公式$A^n=\begin{pmatrix}
+      F_{n+1} & F_n \\
+      F_n & F_{n-1}
+    \end{pmatrix},n\ge1$可以用数学归纳法证明.
+
+    这里我们给出一个不同的方式. 令$A^n=\begin{pmatrix}
+      a_n & b_n \\
+      c_n & d_n
+    \end{pmatrix},n\ge1$. 递推公式$A^{n+1}=A^n+A^{n-1}$意味着
+  \end{enuma}
+  \[
+    \left\{
+      \begin{aligned}
+        & a_{n+1} = a_n + a_{n-1},\,a_1 = 1,\, a_2 = 2,\, n\ge1 \\
+        & b_{n+1} = b_n + b_{n-1},\,b_1 = 1,\, b_2 = 1,\, n\ge1 \\
+        & c_{n+1} = c_n + c_{n-1},\, c_1 = 1,\, c_2 = 1,\, n\ge1 \\
+        & d_{n+1} = d_n + d_{n-1},\, d_1=0,\, d_2 = 1,\,n\ge1
+      \end{aligned}
+    \right..
+  \]
+  这些递推关系意味着$a_n=F_{n+1},b_n=F_n,c_n=F_n,d_n=F_{n-1}$，于是得到$A^n=\begin{pmatrix}
+    F_{n+1} & F_n \\
+    F_n & F_{n-1}
+  \end{pmatrix},n\ge1$.
+
+  \begin{enuma}\setcounter{enumi}{2}
+    \item 矩阵等式$A^{n+m}=A^nA^m$意味着
+  \end{enuma}
+  \[
+    \begin{pmatrix}
+      F_{n+m+1} & F_{n+m} \\
+      F_{n+m} & F_{n+m-1}
+    \end{pmatrix} = \begin{pmatrix}
+      F_{n+1} & F_n \\
+      F_n & F_{n-1}
+    \end{pmatrix}\begin{pmatrix}
+      F_{m+1} & F_m \\
+      F_m & F_{m-1}
+    \end{pmatrix}.
+  \]
+  我们观察这个等式中的$(1,2)$元，可得$F_{n+m}=F_{n+1}F_m+F_nF_{m-1},n,m\in\MN$.
+
+  \begin{enuma}\setcounter{enumi}{3}
+    \item 由于$\det(A^n)=(\det A)^n$，我们得到
+  \end{enuma}
+  \[
+    F_{n+1}F_{n-1} - F_n^2 = \det\begin{pmatrix}
+      F_{n+1} & F_n \\
+      F_n & F_{n-1}
+    \end{pmatrix} = \left(
+      \det \begin{pmatrix}
+        1 & 1 \\
+        1 & 0
+      \end{pmatrix}
+    \right)^n = (-1)^n.
+  \]
+  另一方面，基于 \ref{prob1.29.c} 中$m=n$的情形，我们有
+  \begin{align*}
+    F_{2n} & = F_{n+1}F_n + F_nF_{n-1} =
+        F_n (F_{n+1} + F_{n-1}) \\
+        & = (F_{n+1}-F_{n-1}) (F_{n+1} + F_{n-1})
+          = F_{n+1}^2 - F_{n-1}^2.
+  \end{align*}
+  类似地，也可以证明$F_{2n+1}=F_{n+1}^2+F_n^2,n\ge0$.
+
+  基于前面的二次公式，我们有
+  \begin{align*}
+    F_{3n} & = F_{2n+n} = F_{2n+1}F_n + F_{2n}F_{n-1} \\
+    & = F_n (F_{n+1}^2+F_n^2) + (F_{n+1}^2 - F_{n-1}^2) F_{n-1} \\
+    & F_nF_{n+1}^2 + F_n^3 + F_{n+1}^2F_{n-1} - F_{n-1}^3 \\
+    & = F_{n+1}^2 (F_n + F_{n-1}) + F_n^3 - F_{n-1}^3 \\
+    & = F_{n+1}^3 + F_n^3 - F_{n-1}^3.
+  \end{align*}
+
+  \begin{enuma}\setcounter{enumi}{4}
+    \item 基于 \ref{prob1.29.b} 我们有$\Tr(A^n)=F_{n+1}+F_{n-1}$. 计算可得$A$的特征值为$\alpha=\frac{1+\sqrt5}2$和$\beta=\frac{1-\sqrt5}2$. 由于$A^n$的特征值为$\alpha^n$与$\beta^n$，我们得到$\Tr(A^n)=\alpha^n+\beta^n=L_n=F_{n+1}+F_{n-1}$.
+  \end{enuma}
+
+  等式$X_{n+1}=AX_n$意味着$X_n=A^nX_0$，因此
+  \[
+    X_n = \begin{pmatrix}
+      F_{n+1} & F_n \\
+      F_n & F_{n-1}
+    \end{pmatrix} \begin{pmatrix}
+      3 \\ 1
+    \end{pmatrix} = \begin{pmatrix}
+      2F_{n+1} + F_n \\
+      3F_n + F_{n-1}
+    \end{pmatrix}.
+  \]
+
+  剩下的就是证明$L_{n+2}=3F_{n+1}+F_n,n\ge0$，且$L_{n+1}=3F_n+F_{n-1},n\ge1$.这些递推公式很容易证明，只需要注意到Lucas数列和Fibonacci数列满足公式$L_{n+1}=F_{n+2}+F_n$对任意$n\ge0$成立.
+\end{solution}
+
+\begin{solution}
+  {\kaishu 解法一.}令$A(n)=B(2)B(3)\cdots B(n),n\ge2$，我们考虑数列$(a_n)_{n\ge2}$和$(b_n)_{n\ge2}$使得
+  \[
+    A(n) = \begin{pmatrix}
+      a_n & b_n \\
+      b_n & a_n
+    \end{pmatrix}.
+  \]
+  由于$A(n+1)=A(n)B(n+1)$，我们得到
+  \[
+    A(n+1) = \begin{pmatrix}
+      a_n & b_n \\
+      b_n & a_n
+    \end{pmatrix} \begin{pmatrix}
+      n + 1 & 1 \\
+      1 & n + 1
+    \end{pmatrix} = \begin{pmatrix}
+      a_n(n+1) + b_n & a_n + b_n(n+1) \\
+      a_n + b_n(n+1) & a_n(n+1) + b_n
+    \end{pmatrix}.
+  \]
+  这意味着
+  \[
+    \left\{
+      \begin{aligned}
+        & a_{n+1} = a_n(n+1) + b_n \\
+        & b_{n+1} = a_n + b_n(n+1)
+      \end{aligned}
+    \right.
+  \]
+  对任意$n\ge2$成立. 将这两个递推式分别相加减，我们得到
+  \[
+    \left\{
+      \begin{aligned}
+        & a_{n+1} - b_{n+1} = n(a_n - b_n) \\
+        & a_{n+1} + b_{n+1} = (n+2)(a_n + b_n)
+      \end{aligned}
+    \right.
+  \]
+  对任意$n\ge2$成立. 这意味着
+  \[
+    \left\{
+      \begin{aligned}
+        & a_{n+1} = \frac{n!}2 + \frac{(n+2)!}4 \\
+        & b_{n+1} = -\frac{n!}2 + \frac{(n+2)!}4
+      \end{aligned}
+    \right..
+  \]
+
+  最后得到
+  \[
+    B(2)B(3)\cdots B(n) = \begin{pmatrix}
+      \frac{(n-1)!}2 + \frac{(n+1)!}4 &
+      -\frac{(n-1)!}2 + \frac{(n+1)!}4 \\
+      -\frac{(n-1)!}2 + \frac{(n+1)!}4 &
+      \frac{(n-1)!}2 + \frac{(n+1)!}4
+    \end{pmatrix},n\ge2.
+  \]
+  {\kaishu 解法二.} 我们证明
+  \[
+    B(2)B(3)\cdots B(n) = \frac{(n-1)!}4
+    \begin{pmatrix}
+      n^2 + n + 2 & n^2 + n - 2 \\
+      n^2 + n - 2 & n^2 + n + 2
+    \end{pmatrix}.
+  \]
+
+  计算可得矩阵$B(x)$的特征值为$x+1$和$x-1$，相应的特征向量为$(\alpha,\alpha)\TT$和$(-\beta,\beta)\TT$. 因此$B(x)=PJ_B(x)P^{-1}$，其中$J_B(x)$表示矩阵$B(x)$的Jordan标准形，而$P$是一个可逆矩阵：
+  \[
+    J_B(x) = \begin{pmatrix}
+      1 + x & 0 \\
+      0 & x - 1
+    \end{pmatrix},\quad P = \begin{pmatrix}
+      1 & -1 \\
+      1 & 1
+    \end{pmatrix}\quad \text{且}\quad
+    P^{-1} = \frac12 \begin{pmatrix}
+      1 & 1 \\
+      -1 & 1
+    \end{pmatrix}.
+  \]
+
+  因此，
+  \begin{align*}
+    B(2)B(3)\cdots B(n) & = \begin{pmatrix}
+      1 & -1 \\
+      1 & 1
+    \end{pmatrix} \begin{pmatrix}
+      \frac{(n+1)!}2 & 0 \\
+      0 & (n-1)!
+    \end{pmatrix} \frac12 \begin{pmatrix}
+      1 & 1 \\
+      -1 & 1
+    \end{pmatrix} \\
+    & = \frac{(n-1)!}4 \begin{pmatrix}
+      n^2 + n + 2 & n^2 + n - 2 \\
+      n^2 + n - 2 & n^2 + n + 2
+    \end{pmatrix}.
+  \end{align*}
+
+  这个问题的另一种解法可以参见 \cite{40}.
+\end{solution}
+
+\begin{solution}
+  \begin{enuma}
+    \item 设$A_1,A_2$是$A$的列向量，$B_1,B_2$是$B$的列向量. 由命题 \ref{prop1.1} 我们有
+  \end{enuma}
+  \begin{align*}
+    \det (A + B) & = \det (A_1 + B_1|A_2 + B_2) \\
+    & = \det(A_1|A_2 + B_2) + \det (B_1|A_2 + B_2) \\
+    & = \det(A_1|A_2) + \det(A_1|B_2) + \det(B_1|A_2) + \det(B_1|B_2) \\
+    & = \det A + \det(A_1|B_2) + \det(B_1|A_2) + \det B
+  \end{align*}
+  且
+  \begin{align*}
+    \det (A - B) & = \det (A_1 - B_1|A_2 - B_2) \\
+    & = \det(A_1|A_2 - B_2) + \det (B_1|A_2 - B_2) \\
+    & = \det(A_1|A_2) - \det(A_1|B_2) - \det(B_1|A_2) + \det(B_1|B_2) \\
+    & = \det A - \det(A_1|B_2) - \det(B_1|A_2) + \det B.
+  \end{align*}
+  将这两个等式相加，我们就证明了 \ref{prob1.31.a}.
+
+  \begin{enuma}\setcounter{enumi}{1}
+    \item 我们用数学归纳法来证明这个部分的问题. 当$n=1$时，我们需要证明
+  \end{enuma}
+   \[
+     \det A_1 +\det (-A_1)=\det A_1+(-1)^2\det A_1=2\det A_1,
+   \]
+   这显然成立. 现在我们假定这个公式对$n=1,\cdots,p,p\in\MN$成立，我们需要证明$n=p+1$也成立. 我们有
+  \begin{align*}
+    \sum \det (\pm A_1\pm A_2\pm\cdots\pm A_{p+1})
+     = {}& \sum \det\left[ (\pm A_1\pm A_2\pm\cdots \pm A_p) + A_{p+1} \right]\\
+     & + \sum\det\left[
+      (\pm A_1\pm A_2\pm\cdots\pm A_p) - A_{p+1}
+    \right] \\
+      = {} & 2\sum\left[ \det(\pm A_1\pm A_2\pm\cdots\pm A_p) + \det A_{p+1} \right] \\
+      = {} & 2\left( 2^p\sum_{k=1}^p\det A_k + 2^p \det A_{p+1} \right) \\
+      = {} & 2^{p+1}\sum_{k=1}^{p+1}\det A_k.
+  \end{align*}
+\end{solution}
+
+\begin{solution}
+  设$A_1,A_2$是$A$的列向量，$B_1,B_2$是$B$的列向量，$C_1,C_2$是$C$的列向量.
+
+  我们有
+  \begin{align*}
+    \det(A+B+C) = {}& \det(A_1+B_1+C_1|A_2+B_2+C_2) \\
+    = {}& \det(A_1|A_2) + \det(A_1|B_2) + \det(A_1|C_2) \\
+    & + \det(B_1|A_2) + \det (B_1|B_2) + \det(B_1|C_2) \\
+    & + \det(C_1|A_2) + \det (C_1|B_2) + \det (C_1|C_2).
+  \end{align*}
+  另一方面，
+  \begin{align*}
+    \det (A+B) & = \det (A_1+B_1|A_2+B_2) \\
+    & = \det(A_1|A_2) + \det(A_1|B_2) + \det(B_1|A_2) + \det(B_1|B_2) \\
+    \det (B+C) & = \det (B_1+C_1|B_2+C_2) \\
+    & = \det(B_1|B_2) + \det(B_1|C_2) + \det(C_1|B_2) + \det(C_1|C_2)
+  \end{align*}
+  且
+  \begin{align*}
+    \det (A+C) & = \det (A_1+C_1|A_2+C_2) \\
+    & = \det(A_1|A_2) + \det(A_1|C_2) + \det(C_1|A_2) + \det(C_1|C_2).
+  \end{align*}
+  将所有这些式子结合$\det A=\det(A_1|A_2),\det B=\det(B_1|B_2)$和$\det C=\det(C_1|C_2)$，就解决了这个问题.
+\end{solution}
+
+\begin{solution}
+  令$S=\det(A+B+C) + \det(-A+B+C) + \det(A-B+C) + \det(A+B-C)$.
+
+  由问题 \ref{problem1.31} 中的 \ref{prob1.31.a}，我们有
+  \begin{align*}
+    & \det (A+B+C) + \det(A+B-C) = 2\det(A+B) + 2\det C \\
+    & \det(A+B+C) + \det(A-B+C) = 2\det(A+C) + 2\det B \\
+    & \det (A+B+C) + \det(-A+B+C) = 2\det(B+C) + 2\det A.
+  \end{align*}
+
+  将这些等式加起来我们得到
+  \begin{align*}
+    S + 2 \det(A+B+C) = {}& 2\det(A+B) + 2\det(B+C) + 2\det(C+A) \\
+    & + 2\det A + 2\det B + 2\det C,
+  \end{align*}
+  那么由问题 \ref{problem1.32} 可知这里的结论成立.
+\end{solution}
+
+\begin{solution}
+  我们用数学归纳法来证明这个问题. 设$P(n)$表示待证的命题
+  \[
+    P(n):  \det \bigg( \sum_{i=1}^n A_i \bigg) =
+    \sum_{1\le i<j\le n}\det(A_i+A_j) - (n-2)\sum_{i=1}^n\det A_i.
+  \]
+  当$n=2$时，我们有$\det(A_1+A_2)=\det(A_1+A_2)$，显然成立. 当$n=3$时我们需要证明
+  \begin{align*}
+    P(3): \det(A_1+A_2+A_3) = & {} \det(A_1+A_2) + \det(A_1+A_2) + \det(A_2+A_3) \\
+    & - \det A_1 - \det A_2 - \det A_3,
+  \end{align*}
+  由问题 \ref{problem1.32} 可知这个式子成立.
+
+  现在我们假定$P(k)$对$k=2,3,\cdots,n$成立，来证明$P(n+1)$也成立. 我们有
+  \begin{align*}
+    & \det (A_1 + A_2 + \cdots + A_n + A_{n+1}) = \det(B + A_n + A_{n+1}) \\
+    = {} &\det(B + A_n) + \det (B + A_{n+1}) + \det (A_n + A_{n+1}) - \det B - \det A_n - \det A_{n+1} \\
+    = {}& \sum_{1\le i<j\le n}\det(A_i+A_j) - (n-2)\sum_{i=1}^n \det A_i + \sum_{\substack{1\le i<j\le n+1\\i,j\ne n}}\det(A_i + A_j) \\
+    & - (n-2)\sum_{\substack{i=1\\i\ne n}}^{n+1}\det A_i + \det(A_n+A_{n+1}) - \sum_{1\le i<j\le n-1}\det(A_i + A_j) \\
+    & + (n-3)\sum_{i=1}^{n-1}\det A_i - \det A_n - \det A_{n+1} \\
+    = {} & \sum_{1\le i<j\le n+1}\det(A_i + A_j) -
+    (2n-4-n+3)\sum_{i=1}^n\det A_i - (n-2)\det A_{n+1} - \det A_{n+1} \\
+    = {}& \sum_{1\le i<j\le n+1}\det(A_i + A_j) - (n-1)\sum_{i=1}^{n+1}\det A_i.
+  \end{align*}
+\end{solution}
+
+\begin{solution}
+  由问题  \ref{problem1.34}，我们有
+  \[
+    \det (S - A_1) = \sum_{2\le i<j\le n}\det (A_i + A_j) - (n-3)\sum_{i=2}^n\det A_i.
+  \]
+  其余的$n-1$个等式也是同样成立的. 将这些等式加在一起我们得到
+  \[
+    \sum_{i=1}^n\det(S-A_i) = (n-2)\sum_{1\le i<j\le n} - (n-1)(n-3)\sum_{i=1}^n\det A_i.
+  \]
+  另一方面，
+  \[
+    \det S = \sum_{1\le i<j\le n}\det(A_i + A_j) - (n-2)\sum_{i=1}^n\det A_i.
+  \]
+  因此我们需要验证
+  \begin{align*}
+    & (n-2)\sum_{1\le i<j\le n}\det(A_i+A_j) - (n-1(n-3)\sum_{i=1}^n\det A_i \\
+    = {} & (n-2)\sum_{1\le i<j\le n}\det(A_i + A_j) - (n-2)^2 \sum_{i=1}^n\det A_i + \sum_{i=1}^n\det A_i,
+  \end{align*}
+  这是成立的，因为$(n-1)(n-3)=n^2-4n+3=(n-2)^2-1$.
+\end{solution}
+
+\begin{solution}
+  由问题 \ref{problem1.32} 我们有
+  \[
+    \det (A+B+C) = \det(A+B) + \det(B+C) + \det(C+A)
+    - \det A - \det B - \det C = 0.
+  \]
+\end{solution}
+
+\begin{solution}
+  由问题 \ref{problem1.31} 的 \ref{prob1.31.a}，对$X,Y\in\MM_2(\MC)$，我们有$\det(X+Y)+\det(X-Y)=2\det X+2\det Y$. 如果$X=A+A\TT,Y=A\TT$，我们得到$\det(A+2A\TT)+\det A=2\det(A+A\TT)+2\det A\TT$. 这意味着$\det A=11$.
+\end{solution}
+
+\begin{solution}
+  由问题 \ref{problem1.31} 的 \ref{prob1.31.a} 有$\det(A^2+B^2)+\det(A^2-B^2)=2\det(A^2)+2\det(B^2)$. 由于$A^2+B^2=-2AB$，这意味着$\det(-2AB)+\det(A^2-B^2)=4\det\nolimits^2A$. 因此$4\det\nolimits^2A+\det(A^2-B^2)=4\det\nolimits^2A$，这意味着$\det(A^2-B^2)=0$.
+\end{solution}
+
+\begin{solution}
+  利用定理 \ref{thm1.1}.
+\end{solution}
+
+\begin{solution}
+  \begin{enuma}
+    \item 注意到
+  \end{enuma}
+  \[
+    \begin{pmatrix}
+      1 & \frac\alpha n\\
+      -\frac\alpha n & 1
+    \end{pmatrix} = \frac{\sqrt{n^2+\alpha^2}}n
+    \begin{pmatrix}
+      \frac n {\sqrt{n^2+\alpha^2}} & \frac \alpha {\sqrt{n^2+\alpha^2}} \\
+      -\frac \alpha {\sqrt{n^2+\alpha^2}}
+      &  \frac n {\sqrt{n^2+\alpha^2}}
+    \end{pmatrix}.
+  \]
+
+  设$\theta_n\in[0,\pi]$使得$\cos\theta_n= \frac n {\sqrt{n^2+\alpha^2}}$且$\sin\theta_n= \frac \alpha {\sqrt{n^2+\alpha^2}}$. 这意味着
+  \[
+    A_n = \left( 1+\frac{\alpha^2}{n^2} \right)^{\frac n2}
+    \begin{pmatrix}
+      \cos(n\theta_n) & \sin(n\theta_n) \\
+      -\sin(n\theta_n) & \cos(n\theta_n)
+    \end{pmatrix},
+  \]
+  所以$a_n=\left( 1+\frac{\alpha^2}{n^2} \right)^{\frac n2}\cos(n\theta_n)$且$b_n=\left( 1+\frac{\alpha^2}{n^2} \right)^{\frac n2}\sin(n\theta_n)$.
+
+  \begin{enuma}\setcounter{enumi}{1}
+    \item 由于$\tan\theta_n=\frac\alpha n$. 计算可知
+  \end{enuma}
+  \[
+      \lim_{n\to\infty}\left( 1 + \frac{\alpha^2}{n^2} \right)^{\frac n2} = 1 \quad \text{且}\quad \lim_{n\to\infty}n\arctan\frac\alpha n = \alpha,
+    \]
+    这意味着$\lim_{n\to\infty}a_n=\cos\alpha$且
+    $\lim_{n\to\infty}b_n=\sin\alpha$.
+\end{solution}
+
+\begin{solution}
+  \begin{enuma}
+    \item 如果$A$和$B$都是对称矩阵，则$(A+B)\TT=A\TT+B\TT=A+B$，这说明$A+B$也是一个对称矩阵.
+
+        另一方面，如果$A$和$B$都是反对称矩阵，则$(A+B)\TT=-A-B=-(A+B)$，这说明$A+B$也是一个反对称矩阵.
+    \item 设$A\in\mathscr S_2(\MR)\cap\mathscr A_2(\MR)$，则$A\TT=A$且$A\TT=-A$，因此$2A=O_2\Rightarrow A=O_2$.
+    \item 我们有$M=\frac{M+M\TT}2+\frac{M-M\TT}2$，且$\frac{M+M\TT}2\in\mathscr S_2(\MR)$，$\frac{M-M\TT}2\in\mathscr A_2(\MR)$.
+
+        要证明唯一性，注意到如果$M=C+D$，其中$C\in\mathscr S_2(\MR)$且$D\in\mathscr A_2(\MR)$，则
+  \end{enuma}
+  \[
+    S = \frac{M+M\TT}2 = \frac{C+D+(D+C)\TT}2 =
+    \frac{C+C\TT+D+D\TT}2 = C
+  \]
+  且
+  \[
+    A = \frac{M-M\TT}2 = \frac{C+D-(D+C)\TT}2 =
+    \frac{C-C\TT+D-D\TT}2 = D.
+  \]
+\end{solution}
+
+\begin{solution}
+  \begin{enuma}
+    \item 任意$A\in\MM_2(\MC)$都可以唯一写成$A=B+\ii C$，其中$B=\frac12(A+\bar A)$是$A$的{\kaishu 实部}，而$C=\frac1{2\ii}(A-\bar A)$是$A$的{\kaishu 虚部}.
+
+        要证明这种写法是唯一的，注意到如果$A=E+\ii F$，其中$E,F\in\MM_2(\MR)$，则
+  \end{enuma}
+  \[
+    B = \frac{A+\bar A}2 = \frac{E+\ii F+\bar{E+\ii F}}2 = \frac{E+\ii F+E-\ii F}2 = E
+  \]
+  且
+  \[
+    C = \frac{A-\bar A}{2\ii} = \frac{E+\ii F-\bar{E+\ii F}}2 = \frac{E+\ii F-E+\ii F}{2\ii} = F.
+  \]
+
+  \begin{enuma}\setcounter{enumi}{1}
+    \item 任意$A\in\MM_2(\MC)$可以写成$A=H(A)+\ii K(A)$，其中$H(A)=\frac12(A+A^\ast)$是$A$的Hermit部，而$\ii K(A)=\frac12(A-A^\ast) $是$A$的反Hermit部. 容易验证矩阵$H(A)$和$K(A)$都是Hermit矩阵.
+
+        要证明唯一性，注意到如果$A=E+\ii F$，其中$E$和$F$都是Hermit矩阵，则
+  \end{enuma}
+  \[
+    2H(A) = A + A^\ast = (E+\ii F) + (E+\ii F)^\ast
+     = E+\ii F + E^\ast - \ii F^\ast = 2E
+  \]
+  且
+  \[
+    2\ii K(A) = A - A^\ast = (E+\ii F) - (E+\ii F)
+    = E+\ii F - E^\ast + \ii F^\ast = 2\ii F.
+  \]
+\end{solution}
+
+\setcounter{solution}{43}
+\begin{solution}
+  \begin{enuma}
+    \item 我们有$A^3=A\cdot A^2=A(BC)=(AB)C=C^2\cdot C=C^3$，且$B^3=B\cdot B^2=B(CA)$ $=(BC)A=A^2\cdot A=A^3$，因此$A^3=B^3=C^3$.
+    \item 设$\varepsilon\ne1$是一个三次单位根，即$\varepsilon^2+\varepsilon+1=0$. 矩阵$A,\varepsilon A$以及$\varepsilon^2A$是三个不同的矩阵，且满足题中的条件.
+  \end{enuma}
+\end{solution}
+
+\begin{solution}
+  \ref{prob1.45.a} $\Rightarrow$ \ref{prob1.45.b} 我们假定存在$n\in\MN$使得$A^n=I_2$. 通过取行列式，我们得到$\det\nolimits^nA=1$，且由于$\det A=a^2+b^2$，我们得到$\det A=a^2+b^2=1$. 这意味着存在$t\in\MR$，使得$a=\cos t$且$b=\sin t$. 因此
+  \[
+    A = \begin{pmatrix}
+      \cos t & \sin t \\
+      -\sin t & \cos t
+    \end{pmatrix} \quad \Rightarrow \quad
+    A^k = \begin{pmatrix}
+      \cos kt & \sin kt \\
+      -\sin kt & \cos kt
+    \end{pmatrix},\quad k\in\MN.
+  \]
+  等式$A^n=I_2$意味着
+  \[
+    \begin{pmatrix}
+      \cos nt & \sin nt \\
+      -\sin nt & \cos nt
+    \end{pmatrix} = \begin{pmatrix}
+      1 & 0 \\
+      0 & 1
+    \end{pmatrix}.
+  \]
+  于是$\cos nt=1$且$\sin nt=0$，这意味着$nt=2p\pi,p\in\MZ$. 因此$t=\frac{2p}n\pi=q\pi$，其中$q=\frac{2p}n\in\MQ$，于是$a=\cos q\pi$且$b=\sin q\pi$.
+
+  \ref{prob1.45.b} $\Rightarrow$ \ref{prob1.45.a} 令$a=\cos q\pi$且$b=\sin q\pi$，其中$q\in\MQ^\ast$，即$q=\frac uv,u\in\MZ$而$v\in\MN$. 由于$q=\frac{2u}{2v}$，我们有
+  \[
+    A = \begin{pmatrix}
+      \cos \frac{2u\pi}{2v} & \sin \frac{2u\pi}{2v} \\
+      -\sin \frac{2u\pi}{2v} & \cos \frac{2u\pi}{2v}
+    \end{pmatrix},
+  \]
+  于是$A^{2v}=I_2$.
+\end{solution}
+
+\begin{solution}
+  设$f\in\MZ[x]$是多项式
+  \[
+    f(x) = \det(A-xB) = \det A + \alpha x + (\det B)x^2 = \alpha x,\quad \alpha \in\MZ.
+  \]
+  由于$AB=BA$，我们有
+  \[
+    A^n - B^n = \prod_{k=0}^{n-1} (A-\varepsilon_kB),
+    \quad \varepsilon_k^n=1,\,k=0,1,\cdots,n-1,
+  \]
+  且
+  \[
+    A^n + B^n = \prod_{k=0}^{n-1}(A-\mu_kB)\quad, \mu_k^n=-1,\,k=0,1,\cdots,n-1.
+  \]
+  通过取行列式，我们得到
+  \[
+    \det(A^n-B^n) = \prod_{k=0}^{n-1}f(\varepsilon_k) = \prod_{k=0}^{n-1}(\alpha\varepsilon_k) = \alpha^n(-1)^{n+1} = -(-\alpha)^n,
+  \]
+  且
+  \[
+    \det (A^n+B^n) = \prod_{k=0}^{n-1} f(\mu_k)
+    = \prod_{k=0}^{n-1}(\alpha\mu_k) = \alpha^n(-1)^n = (-\alpha)^n,
+  \]
+  所以$a=-\alpha$.
+\end{solution}
+
+\begin{solution}
+  我们有
+  \begin{align*}
+    M & = A^2 + B^2 + C^2 - AB - BC - CA \\
+      & = A^2 - A(B+C) + \frac14(B+C)^2 + \frac34(B-C)^2 \\
+      & = \frac14\left[ (2A-B-C)^2 + \left(\sqrt3(B-C)\right)^2 \right].
+  \end{align*}
+  因此，$\det M=0$当且仅当$\det\left[ (2A-B-C)^2 + \left(\sqrt3(B-C)\right)^2 \right]=0$.
+
+  令$P=2A-B-C,Q=\sqrt3(B-C)$，则$P,Q\in\MM_2(\MR)$.
+
+  我们来证明，如果$\det(P^2+Q^2)=0$且$PQ=QP$，则$\det P=\det Q$. 由于$P^2+Q^2=(P+\ii Q(P-\ii Q))$，我们有$\det(P^2+Q^2)=\det(P+\ii Q)\det(P-\ii Q)$. 另一方面，$\det(P+\ii Q)=\det P+\alpha\ii+\ii^2\det Q=\det P-\det Q+\alpha\ii$且$\det(P-\ii Q)=\bar{\det(P+\ii Q)}
+  =\det P-\det Q-\alpha\ii$. 因此，$\det(P^2+Q^2)=(\det P-\det Q)^2+\alpha^2=0$意味着$\alpha=0$且$\det P=\det Q$. 所以，$\det(2A-B-C)=\det\left(\sqrt3(B-C)\right)$，这又说明$\det(2A-B-C)=3\det(B-C)$.
+\end{solution}
+
+\begin{solution}
+  我们证明$a^2=4b$. 设$M=\begin{pmatrix}
+    x & z \\
+    z & y
+  \end{pmatrix}$，题中的条件即为$x+y=a$且$xy-z^2=b$. 由于这两个方程关于$x,y$是对称的，要想矩阵唯一，必有$x=y$，这意味着$2x=a$且$x^2-z^2=b$. 进一步，如果$(x,y,z)$是方程组的一组解，则$(x,y,-z)$也是一组解，要想$M$唯一，必有$z=0$. 这意味着$2x=a$且$x^2=b$，所以$a^2=4b$.
+
+  如果$a^2=4b$，那么我们可以证明，满足性质$\Tr(M)=a$且$\det(M)=b$的矩阵$M$是唯一的. 如果$x+y=a$且$xy-z^2=b$，则
+  \[
+    (x-y)^2 + 4z^2 = (x+y)^2 + 4z^2 - 4xy = a^2 - 4b =0,
+  \]
+  所以我们必有$x=y$且$z=0$，这意味着$M=\begin{pmatrix}
+    a/2 & 0 \\
+    0 & a/2
+  \end{pmatrix}$.
+
+  另一种解法是基于矩阵$M$的特征值的技巧（见 \cite{60}）.
+\end{solution}
+
+\begin{solution}
+  \begin{enuma}
+    \item 设$J_1=\begin{pmatrix}
+      2 & -1 \\
+      2 & -1
+    \end{pmatrix}$且$J_2=\begin{pmatrix}
+      -1 & 1 \\
+      -2 & 2
+    \end{pmatrix}$，
+  \end{enuma}
+  注意到
+  \[
+    J_1^2 = J_1, J_2^2 = J_2, I_1I_2 = I_2J_1 = O_2.
+  \]
+
+    首先我们证明$\MM$在矩阵乘法下是封闭的. 如果$A_a,A_b\in\MM$，则$A_a=J_1+aJ_2$且$A_b=J_1+bJ_2$. 直接计算可得
+  \begin{align*}
+    A_aA_b & = (J_1+aJ_2)(J_1+bJ_2)\\
+           & = J_1^2 + bJ_1J_2 + aJ_2J_1 + abJ_2^2\\
+           & = J_1 + abJ_2 = A_{ab}\in\MM.
+  \end{align*}
+
+  现在我们证明$\MM$在矩阵乘法下是一个Abel群.
+  \begin{itemize}
+    \item {\kaishu 结合律} $(A_aA_b)A_c=A_a(A_bA_c)=A_{abc},,\,\forall a,b,c\in\MR^\ast$；
+    \item {\kaishu 单位元} $I_2=J_1+J_2=A_1\Rightarrow
+           A_aI_2=I_2A_a=A_a,\,\forall a\in\MR^\ast$；
+    \item {\kaishu 逆元} $A_aA_{1/a}=A_1=I_2=A_{1/a}A_a,\,\forall
+              a\in\MR^\ast\Rightarrow A_a^{-1}=A_{1/a}$；
+    \item {\kaishu 交换律} $A_aA_b=A_bA_a=A_{ab},\,\forall
+         a,b,\in\MR^\ast$.
+  \end{itemize}
+
+  \begin{enuma}\setcounter{enumi}{1}\parindent=2em
+    \item 设函数$f:\MM\to\MR^\ast$定义为$f(A_a)=a$. 首先由定义可知$f$是满射，现在我们证明$f$是一个一一映射. 如果$f(A_a)=f(A_b)$，则$a=b$，$A_a=J_1+aJ_2=J_1+bJ_2=A_b$.
+
+        另一方面，$f(A_aA_b)=f(A_{ab})=ab=f(A_a)f(A_b),\,\forall a,b\in\MR^\ast$，这意味着$f$是同构映射.
+  \end{enuma}
+\end{solution}
+
+\begin{solution}
+  首先我们证明$\MM$在矩阵乘法下是封闭的. 令
+  \[
+    A = \begin{pmatrix}
+      \alpha & 2\beta \\
+      \beta & \alpha
+    \end{pmatrix},\quad B = \begin{pmatrix}
+      m & 2n \\
+      n & m
+    \end{pmatrix},
+  \]
+  其中$\alpha,\beta,m,n\in\MQ,\alpha\ne0$或$\beta\ne0$，$m\ne0$或$n\ne0$. 直接计算可得
+  \[
+    AB = \begin{pmatrix}
+      \alpha m + 2\beta n & 2(\alpha n + \beta m) \\
+      \alpha n + \beta m & \alpha m + 2\beta n
+    \end{pmatrix} = \begin{pmatrix}
+      x & 2y \\
+      y & x
+    \end{pmatrix},
+  \]
+  其中$x=\alpha m+2\beta n,y=\alpha n+\beta m$.
+
+  我们证明$x$和$y$不可能都是0. 如果$x=y=0$，我们得到
+  \[
+    \left\{
+      \begin{aligned}
+        & \alpha m + 2\beta n = 0\\
+        & \alpha n + \beta m = 0
+      \end{aligned}
+    \right..
+  \]
+  这是一个关于$m,n$的齐次线性方程组，其行列式$\alpha^2-2\beta^2\ne0$. 因为如果$\alpha^2-2\beta^2=0$，则$(\alpha-\sqrt2\beta)(\alpha+\sqrt2\beta)=0\Leftrightarrow\alpha=\beta=0$，这与$\alpha,\beta$不同时为0是矛盾的. 因此，$\alpha^2-2\beta^2\ne0$，这意味着方程组只有唯一解$m=n=0$，这又与$m,n$不同时为0矛盾. 因此$x$和$y$不能同时为0，且这说明$\MM$在矩阵乘法下是封闭的.
+
+  读者可以验证$(\MM,\cdot)$是一个Abel群.
+  \begin{itemize}
+    \item {\kaishu 结合律} $(AB)C=A(BC),\,\forall A,B,C\in\MM$；
+    \item {\kaishu 单位元} $I_2\in\MM$且$AI_2=I_2A=A,\,\forall A\in\MM$；
+    \item {\kaishu 逆元}注意到
+    \[
+      \begin{pmatrix}
+        x & 2y \\
+        y & x
+      \end{pmatrix}^{-1} = \begin{pmatrix}
+        \frac x{x^2-2y^2} & - \frac{2y}{x^2-2y^2} \\
+        -\frac{y}{x^2-2y^2} & \frac x{x^2-2y^2}
+      \end{pmatrix} \in \MM;
+    \]
+    \item {\kaishu 交换律}$AB=BA,\,\forall A,B\in\MM$.
+  \end{itemize}
+\end{solution}
+
+\begin{solution}
+  要证明$(\MM,\cdot)$是一个Abel群，只需要直接计算即可. 令
+  \[
+    U = \{ z\in\MC:|z| = 1 \} =
+    \{ \cos\alpha + \ii\sin\alpha:\alpha\in\MR \},
+  \]
+  表示所有模为1的复数的集合. 这个集合在复数的乘法下构成一个Abel群（验证这一点!）.
+
+  函数$f:U\to\MM$定义为
+  \[
+    f(\cos\alpha+\ii\sin\alpha) =
+    \begin{pmatrix}
+      \cos\alpha & \sin\alpha \\
+      -\sin\alpha & \cos\alpha
+    \end{pmatrix},
+  \]
+  这是一个同构映射.
+\end{solution}
+
+\begin{solution}
+  本题的解答类似于问题 \ref{problem1.51}.
+\end{solution}
+
+\begin{solution}
+  \begin{enuma}
+    \item\label{sol1.53.a} 设$z,z'\in\mathscr G,z=x+y\sqrt5$以及$z'=x'+y'\sqrt5$，其中$x,y,x',y'\in\MQ$，满足$x^2-5y^2=1,x'^2-5y'^2=1$. 直接计算可得
+  \end{enuma}
+     \[
+       zz' = (x+y\sqrt5)(x'+y'\sqrt5) = xx' + 5yy' + (xy'+x'y)\sqrt5 = X + Y\sqrt5,
+     \]
+  其中$X=xx'+5yy'\in\MQ,Y=xy'+x'y\in\MQ$. 且
+     \begin{align*}
+       X^2 - 5Y^2 & = (xx'+5yy')^2 - 5(xy'+x'y)^2 \\
+       & = x^2x'^2 + 25y^2y'^2 - 5x^2y'^2 - 5x'^2y^2 \\
+       & = x^2(x'^2-5y'^2) - 5y^2(x'^2-5y'^2) \\
+       & = x^2 - 5y^2 \\
+       & = 1.
+     \end{align*}
+  这意味着$\mathscr G$对数的乘法是封闭的.
+
+  我们还可以验证$\mathscr G$对数的乘法是满足结合律和交换律的. 由于$1=1+0\sqrt5$且$1^2-5\cdot0^2=1$，我们可得$\mathscr G$的单位元是1. 如果$z=x+y\sqrt5\in\mathscr G$，其中$x,y\in\MQ$且$x^2-5y^2=1$，则
+  \[
+    \frac1z = \frac1{x+y\sqrt5} = \frac{x-y\sqrt5}{x^2-5y^2} = x - y\sqrt5,
+  \]
+  由于$x,-y\in\MQ$且$x^2-5(-y)^2=1$，这说明$\frac1z\in\mathscr G$. 因此，$z$的逆元是$\frac1z$. 综上所述，我们证明了$(\mathscr G,\cdot)$是一个Abel群.
+
+  \begin{enuma}\setcounter{enumi}{1}
+    \item 如果$x,y,x',y'\in\MQ,x^2-5y^2=1,x'^2-5y'^2=1$，则
+  \end{enuma}
+  \[
+    \begin{pmatrix}
+      x & 2y \\
+      \frac52y & x
+    \end{pmatrix}
+    \begin{pmatrix}
+      x' & 2y' \\
+      \frac52y' & x'
+    \end{pmatrix} =
+    \begin{pmatrix}
+      xx' + 5yy' & 2(x'y+y'x) \\
+      \frac52(x'y+y'x) & xx' + 5yy'
+    \end{pmatrix} =
+    \begin{pmatrix}
+      X & 2Y \\
+      \frac52Y & X
+    \end{pmatrix},
+  \]
+  其中$X=xx'+5yy'\in\MQ$且$Y=xy'+x'y\in\MQ$. 且$X^2-5Y^2=1$（见 \ref{sol1.53.a} 中的计算）. 这意味着$\MM$在矩阵乘法下是封闭的.
+
+  $\MM$在矩阵乘法下还满足结合律和交换律. $\MM$的单位元是$I_2$，而$\MM$中矩阵的逆为
+  \[
+    \begin{pmatrix}
+      x & 2y \\
+      \frac52y & x
+    \end{pmatrix}^{-1} =
+    \begin{pmatrix}
+      x & -2y \\
+      -\frac52y & x
+    \end{pmatrix} \in \MM.
+  \]
+  因此，$(\MM,\cdot)$是一个Abel群.
+
+  \begin{enuma}\setcounter{enumi}{2}
+    \item 函数$f:\mathscr G\to\mathscr M$定义为
+  \end{enuma}
+  \[
+    f(x+y\sqrt5) = \begin{pmatrix}
+      x & 2y \\
+      \frac52y & x
+    \end{pmatrix},
+  \]
+  这是一个群同构. 由定义可知$f$是一个满射，而$f$是一个一一映射也是很容易验证的. 要证明$f$是同构，我们有
+  \[
+    f\big( (x+y\sqrt5)(x'+y'\sqrt5) \big) =
+    \begin{pmatrix}
+      xx' + 5yy' & 2(xy'+x'y) \\
+      \frac52(xy'+x'y) & xx' + 5yy'
+    \end{pmatrix},
+  \]
+  且
+  \begin{align*}
+    f(x+y\sqrt5) f(x'+y'\sqrt5) & =
+    \begin{pmatrix}
+      x & 2y \\
+      \frac52y & x
+    \end{pmatrix}
+    \begin{pmatrix}
+      x' & 2y' \\
+      \frac52y' & x'
+    \end{pmatrix} \\
+    & = \begin{pmatrix}
+      xx' + 5yy' & 2(xy'+x'y) \\
+      \frac52(xy'+x'y) & xx' + 5yy'
+    \end{pmatrix},
+  \end{align*}
+  所以$f\big( (x+y\sqrt5)(x'+y'\sqrt5) \big)=
+  f(x+y\sqrt5) f(x'+y'\sqrt5)$.
+\end{solution}
+
+\begin{solution}
+  \begin{enuma}\setcounter{enumi}{1}
+    \item  首先，我们注意到$(\MM_d,\cdot)$的单位元是$I_2$. 如果$f:\MC^\ast\to\MM_d$是一个同构，则$f(1)=I_2$. 如果$f(\ii)=A=\begin{pmatrix}
+          a & db \\
+          b & a
+        \end{pmatrix}$，则$f(\ii^2)=f(-1)\ne f(1)=I_2$，所以$A^2\ne I_2$. 另一方面，$f(\ii^4)=f(1)=I_2$，所以$A^4=I_2$. 直接计算可得
+  \end{enuma}
+  \[
+    A^2 = \begin{pmatrix}
+      a^2 + db^2 & d(2ab) \\
+      2ab & a^2 + db^2
+    \end{pmatrix},\,
+    A^4 = \begin{pmatrix}
+      (a^2+db^2)^2 + 4a^2b^2d & 4abd(a^2+db^2) \\
+      4ab(a^2+db^2) & (a^2+db^2) + 4a^2b^2d
+    \end{pmatrix}.
+  \]
+  等式$A^4=I_2$意味着
+  \[
+    \left\{
+      \begin{aligned}
+        & (a^2+db^2)^2 + 4a^2b^2d = 1 \\
+        & ab(a^2+db^2) = 0
+      \end{aligned}
+    \right..
+  \]
+  \begin{itemize}
+    \item 如果$a^2+db^2=0$，我们得到$4a^2b^2d=1\Leftrightarrow
+    4a^2(-a^2)=1\Leftrightarrow 4a^4=-1$，这没有实数解.
+    \item 如果$b=0$，我们得到$a^4=1\Rightarrow a=\pm1$且$A=\pm I_2$，这与$A^2=I_2$矛盾.
+    \item 如果$a=0$，我们得到$(db^2)^2=1\Rightarrow db^2=\pm1$，这个等式也意味着$d\ne0$. 我们有
+    \[
+      A = \begin{pmatrix}
+        0 & db \\
+        b & 0
+      \end{pmatrix}\quad \text{且}\quad
+      A^2 = \begin{pmatrix}
+        db^2 & 0 \\
+        0 & db^2
+      \end{pmatrix} \ne I_2,
+    \]
+    这意味着$db^2=-1$，所以$d<0$且$b=\pm\frac1{\sqrt{-d}}$.
+  \end{itemize}
+
+  要证明这个条件也是充分的，我们定义函数$f:\MC^\ast\to\MM_d$为
+  \[
+    f(x + \ii y) = \begin{pmatrix}
+      x & d\alpha y \\
+      \alpha y & x
+    \end{pmatrix},
+  \]
+  其中$x,y\in\MR$且$\alpha=\pm\frac1{\sqrt{-d}}$，这是一个群同构.
+\end{solution}
+
+\begin{solution}
+  直接计算即可证明.
+\end{solution}
+
+\begin{solution}
+  $K_4$的Cayley表如表格 \ref{tab1.56.1}：
+  \begin{table}[!ht]
+     \centering
+     \caption{$K_4$的Cayley表\label{tab1.56.1}}
+     \begin{tabularx}{0.5\textwidth}{|Z|ZZZZ|}
+       \hline
+       \cdot & I_2 & S_x & S_y & S_0 \\
+       \hline
+       I_2 & I_2 & S_x & S_y & S_0   \\
+       \hline
+       S_x & S_x & I_2 & S_0 & S_y   \\
+       \hline
+       S_y & S_y & S_0 & I_2 & S_x   \\
+       \hline
+       S_0 & S_0 & S_y & S_x & I_2   \\
+       \hline
+     \end{tabularx}
+  \end{table}
+\end{solution}
+
+\begin{solution}
+  设$a,b,c\in\MR$，且令$A=\begin{pmatrix}
+    a + b & b \\
+    c & a + c
+  \end{pmatrix}$是一个正交矩阵.
+
+  我们有$1=\det I_2=\det(AA\TT)=\det\nolimits^2A$，这意味着$\det A=\pm1$.
+  \begin{itemize}
+    \item 如果$\det A=1$，则$A\TT=A^{-1}=A_\ast$，所以
+    \[
+      \begin{pmatrix}
+        a + b & b \\
+        c & a + c
+      \end{pmatrix} =
+      \begin{pmatrix}
+        a + c & -b \\
+        -c & a + b
+      \end{pmatrix},
+    \]
+    由此可得$b=c$且$-b=c$，这说明$b=c=0$，且由于$\det A=a^2$，我们得到$a=\pm1$. 因此$A+\pm I_2$.
+    \item 如果$\det A=-1$，则$A\TT=A^{-1}=-A_\ast$，所以
+    \[
+      \begin{pmatrix}
+        a + b & b \\
+        c & a + c
+      \end{pmatrix} =
+      \begin{pmatrix}
+        -a - c & b \\
+        c & -a - b
+      \end{pmatrix},
+    \]
+    由此可得$b=c$且$a+b=-a-c$，这说明$b=c$且$a+b=0$，因此$A=\begin{pmatrix}
+      0 & -a \\
+      -a & 0
+    \end{pmatrix}$. 且由于$\det A=-a^2=-1$，我们得到$a=\pm1$. 因此$A=\pm U$，其中$U=\begin{pmatrix}
+      0 & 1 \\
+      1 & 0
+    \end{pmatrix}$.
+  \end{itemize}
+
+  我们得到$\mathscr G=\{I_2,-I_2,U,-U\}$，且这个群同构于Klein 4-群$K_4$.
+\end{solution}
+
+\begin{solution}
+  \ref{prob1.58.a} $\Rightarrow$ \ref{prob1.58.b} 如果$E$是$\MM_n$的单位元，且$X\in\MM_n$，则$A=(EX)^n=E^nX^n=AA=A^2$.
+
+  \ref{prob1.58.b} $\Rightarrow$ \ref{prob1.58.c} 由于$A^2=A$，且$A\ne I_2$，我们得到$\det A=0$，且由$X^n=A$，我们得到对任意$X\in\MM_n$有$\det X=0$. Cayley--Hamilton定理意味着对任意$X\in\MM_n$，存在$t\in\MC$使得$X^2=tX$. 这意味着$A=X^n=t^{n-1}X$，且由于$A\ne O_2$，我们得到$t\ne0,X=sA$，其中$s=t^{1-n}$. 等式$X^n=A$意味着$s^n=1$，由此得到$\MM_n\subset\{sA:s^n=1\}$.  反过来，如果$X\in\{sA,s^n=1\}$，则$X^n=s^nA=A$，所以$\MM_n\supset\mathscr U_nA$，且$f:\mathscr U_n\to\MM_n,f(z)=zA$是一个同构.
+
+  \ref{prob1.58.c} $\Rightarrow$ \ref{prob1.58.a} 这是显然的.
+\end{solution}
+
+\begin{solution}
+  容易验证$G$和$S$在矩阵乘法下构成群. 我们假定$G$同构于$S$，由于任意群同构将$G$中的元素映到$S$中的同阶元素，反之亦然，这意味着这两个群有相同数目的不超过2阶的元素. 因此，方程$X^2=I_2$在两个群中具有相同数目的解.
+
+  设$X\in S$使得$X^2=I_2$. 根据Cayley--Hamilton定理，我们有$X^2-tX+I_2=O_2$，其中$t=\Tr(X)$. 由此得到$tX=2I_2$，所以$t\ne0$且$X=\frac2tI_2$. 这意味着$t=\Tr(X)=\Tr\left(\frac2tI_2\right)=\frac4t\Rightarrow
+  t=\pm2$. 因此，$X\in\{-I_2,I_2\}$. 然而，在$G$中，方程$X^2=I_2$还有解$X_a=\begin{pmatrix}
+    0 & a \\
+    \frac1a & 0
+  \end{pmatrix},a\in\MC^\ast$.
+\end{solution}
+
+\begin{solution}
+  如果$G=\{O_2\}$，则$G$同构于$(\MC^\ast,\cdot)$的单位子群$\{1\}$. 如果$G\ne\{O_2\}$，我们有，如果$O_2\in G$，则$AO_2=O_2$，于是$G=\{O_2\}$. 因此，如果$G\ne\{O_2\}$，则$O_2\notin G$.
+
+  设$A\in G$. 由于$AE=A$且$A^2E=A^2$，根据Cayley--Hamilton定理，我们得到$(tA-dI_2)E=tA-dI_2$，其中$t=\Tr(A)$且$d=\det A$. 由此得到$tA-dE=tA-dI_2$，这意味着$d(E-I_2)=O_2$. 由于$E\ne I_2$，我们有$\det A=0$. 因此，$\det A=0$对任意$A\in G$成立，根据Cayley--Hamilton定理，我们有$A^2=tA$.
+
+  设$A'$是$A$在群$G$中的对称元. 我们有
+  \[
+    A^2A' = tAA' =tE \Leftrightarrow A(AA') = tE \Leftrightarrow AE = tE \Leftrightarrow
+    A = tE = \Tr(A)E.
+  \]
+  这意味着$G\subset\{\alpha E,\alpha\in\MC^\ast\}$. 令函数$f:G\to\MC^\ast$定义为$f(A)=\alpha\big(=\Tr(A)\big)$. 首先，我们说明$f$是良定义的，因为如果$A=\alpha E+\beta E$，由$E\ne O_2$，我们得到$\alpha=\beta$.
+
+  如果$A,B\in G$使得$A=\alpha E$且$B=\beta E$，我们有
+  \[
+    f(AB) = f(\alpha\beta E^2) = f(\alpha\beta E)
+     = \alpha\beta = f(A)f(B),
+  \]
+  这意味着$f$是一个群同构. 且由于$f$是单射（验证这一点!），我们得到$G\cong f(G)\le G(\MC^\ast,\cdot)$.
+\end{solution}
+
+\begin{solution}
+  \begin{enuma}
+    \item 我们可以验证问题的 \ref{prob1.61.d} 部分的结论$R_\alpha^{-1}=\begin{pmatrix}
+          \cos\alpha & \sin\alpha \\
+          -\sin\alpha & \cos\alpha
+        \end{pmatrix}$. 然而，这意味着$R_\alpha\TT=R_\alpha^{-1}$，这说明$R_\alpha$是正交矩阵.
+    \item 我们可以验证下面的性质成立：
+  \end{enuma}
+  \begin{itemize}
+      \item {\kaishu 结合律} $(R_\alpha R_\beta)R_\gamma=R_\alpha (R_\beta R_\gamma),\,\forall \alpha,\beta,\gamma\in\MR$；
+      \item {\kaishu 单位元} $R_\alpha I_2=I_2R_\alpha=R_\alpha,\,\forall \alpha\in\MR$（注意到$I_2=R_0$）；
+      \item {\kaishu 逆元} $R_\alpha R_{-\alpha}
+      =R_{-\alpha}R_\alpha = I_2$，这意味着$R_\alpha^{-1}=R_{-\alpha}$；
+      \item {\kaishu 交换律} $R_\alpha R_\beta = R_\beta R_\alpha,\,\forall \alpha,\beta\in\MR$.
+    \end{itemize}
+    我们将这些计算留给感兴趣的读者.
+
+    \begin{enuma}
+      \setcounter{enumi}{2}
+      \item 我们有
+    \end{enuma}
+      \[
+         R_\alpha R_\beta = \begin{pmatrix}
+           \cos\alpha & -\sin\alpha \\
+           \sin\alpha & \cos\alpha
+         \end{pmatrix} \begin{pmatrix}
+           \cos\beta & - \sin\beta \\
+           \sin\beta & \cos\beta
+         \end{pmatrix}
+         = \begin{pmatrix}
+           \cos(\alpha +\beta) & - \sin(\alpha +\beta) \\
+           \sin (\alpha +\beta)  & \cos (\alpha +\beta)
+         \end{pmatrix},
+      \]
+      且
+      \[
+         R_\beta R_\alpha =  \begin{pmatrix}
+           \cos\beta & - \sin\beta \\
+           \sin\beta & \cos\beta
+         \end{pmatrix}\begin{pmatrix}
+           \cos\alpha & -\sin\alpha \\
+           \sin\alpha & \cos\alpha
+         \end{pmatrix}
+         = \begin{pmatrix}
+           \cos(\beta + \alpha) & - \sin(\beta + \alpha) \\
+           \sin (\beta + \alpha)  & \cos (\beta + \alpha)
+         \end{pmatrix},
+      \]
+      这就意味着$R_\alpha R_\beta = R_\beta R_\alpha = R_{\alpha+\beta}$.
+
+      \begin{enuma}
+        \setcounter{enumi}{3}
+        \item 由 \ref{prob1.61.c}，我们有$R_\alpha R_{-\alpha}=R_{-\alpha}R_\alpha=I_2$，这就意味着$R_\alpha^{-1}=R_{-\alpha}$.
+        \item 注意到
+      \end{enuma}
+      \[
+         R_\alpha ^n = \begin{pmatrix}
+           \cos(n\alpha) & -\sin(n\alpha) \\
+           \sin(n\alpha) & \cos (n\alpha)
+         \end{pmatrix},\,n\ge1,
+      \]
+      这个公式可以用数学归纳法证明.
+\end{solution}
+
+\begin{solution}
+  显然$O_2\in G(A)$. 我们来证明：如果$X\in G(A)$，则$-X\in G(A)$. 由于
+  \begin{gather*}
+    \det (A + X) + \det (A - X) = 2\det A + 2\det X,\\
+    \det (A + X) = \det A + \det X,
+  \end{gather*}
+  我们得到
+  \[
+    \det (A - X) = \det A + \det X = \det A + \det (-X).
+  \]
+
+  如果$X,Y\in G(A)$，我们来证明$X+Y\in G(A)$. 设$X,Y\in G(A)$，由问题 \ref{problem1.32} 我们有
+  \begin{align*}
+    \det (A+X+Y) & = \det (A+X) + \det(A+Y) + \det (X+Y) - \det A - \det X - \det Y \\
+    & = \det A + \det X + \det A + \det Y + \det (X+Y) -\det A - \det X - \det Y \\
+    & = \det A + \det (X+Y),
+  \end{align*}
+  这就意味着$X+Y\in G(A)$.
+
+  现在我们证明$\big( H(A),+\big)$是$\big(
+  \MM_2(\MC),+\big)$的一个子群. 首先，我们注意到$O_2\in H(A)$. 其次，我们证明：如果$X,Y\in H(A)$，则$X-Y\in H(A)$. 我们有
+  \begin{align*}
+    \Tr \big(  A(X-Y)\big) & = \Tr(AX - AY)\\
+    & = \Tr(AX) - \Tr(AY) \\
+    & = \Tr(A)\Tr(X) - \Tr(A)\Tr(Y) \\
+    & = \Tr(A) \big( \Tr(X) - \Tr(Y) \big) \\
+    & = \Tr(A) \Tr(X - Y).
+  \end{align*}
+\end{solution}
+
+\begin{remark}
+  我们还可以验证$\big(G'(A),+\big)$是$\big(
+  \MM_2(\MC),+\big)$的一个子群，其中
+  \[
+    G'(A) = \{ X\in\MM_2(\MC): \det(A-X)
+    =\det A + \det X \}.
+  \]
+\end{remark}
+
+\begin{solution}
+  \begin{enuma}
+    \item $\det M(\theta)=\cosh^2\theta-\sinh^2\theta=1$.
+    \item 我们有
+  \end{enuma}
+  \begin{align*}
+    M(\theta_1)M(\theta_2) & = \begin{pmatrix}
+      \cosh\theta_1 & \sinh\theta_1 \\
+      \sinh\theta_1 & \cosh\theta_1
+    \end{pmatrix}
+     \begin{pmatrix}
+      \cosh\theta_2 & \sinh\theta_2 \\
+      \sinh\theta_2 & \cosh\theta_2
+    \end{pmatrix} \\
+    & = \begin{pmatrix}
+      \cosh\theta_1\cosh\theta_2 + \sinh\theta_1\sinh\theta_2
+       & \cosh\theta_1\sinh\theta_2 + \sinh\theta_1\cosh\theta_2 \\
+      \sinh\theta_1\cosh\theta_2 + \cosh\theta_1\sinh\theta_2
+       & \sinh\theta_1\sinh\theta_2 + \cosh\theta_1\cosh\theta_2
+    \end{pmatrix} \\
+    & = \begin{pmatrix}
+      \cosh(\theta_1+\theta_2) & \sinh(\theta_1+\theta_2) \\
+      \sinh(\theta_1+\theta_2) & \cosh(\theta_1+\theta_2)
+    \end{pmatrix} \\
+    & = M(\theta_1+\theta_2).
+  \end{align*}
+
+  \begin{enuma}
+    \setcounter{enumi}{2}
+    \item 根据 \ref{prob1.63.b} 结合数学归纳法即证.
+    \item $\mathscr H$的矩阵乘法是满足结合律和交换律的，其单位元为$M(0)=I_2$，且$M(\theta)$的逆为矩阵$M(-\theta)$.
+  \end{enuma}
+\end{solution}
+
+\begin{solution}
+  注意到
+  \[
+    D_{2n} = \left\{ R_\theta,SR_\theta:S=
+    \begin{pmatrix}
+      -1 & 0 \\ 0 & 1
+    \end{pmatrix},R_\theta\in\mathscr R_n \right\},
+  \]
+  其中$\mathscr R_n$是定理 \ref{thm1.3} 中的旋转群.
+
+  我们有下面的关系式：
+  \begin{itemize}
+    \item $R_{\theta_1}(SR_{\theta_2})
+        =SR_{\theta_2-\theta_1}$；
+    \item $(SR_{\theta_1})R_{\theta_2}
+    =SR_{\theta_1+\theta_2}$；
+    \item $(SR_{\theta_1})(SR_{\theta_2})=
+    R_{\theta_2-\theta_1}$.
+  \end{itemize}
+\end{solution}
+
+\begin{solution}
+  集合
+  \[
+    \MM_{\MC} = \left\{
+      A\in\MM_2(\MR): A = \begin{pmatrix}
+        x & -y \\
+        y & x
+      \end{pmatrix}
+    \right\}
+  \]
+  是$\big(\MM_2(\MR),+\big)$的子环，且与$\MC$同构（见定理 \ref{thm1.3}）.
+\end{solution}
+
+\begin{solution}
+  \begin{enuma}
+    \item 这个部分的结论可以直接计算得到.
+    \item 设函数$f:\MZ[\ii]\to\MM$定义为
+  \end{enuma}
+  \[
+    f(x + \ii y ) = \begin{pmatrix}
+      x & y \\
+      -y & x
+    \end{pmatrix}.
+  \]
+
+  容易看出$f$是双射. 要证明$f$是环同构，我们需要验证
+  \begin{align*}
+    f\big( (x + \ii y) + (x' + \ii y') \big ) & = f\big(  x + x' + \ii (y + y')\big) \\
+    & = \begin{pmatrix}
+      x + x' & y + y' \\
+      - (y + y') & x + x'
+    \end{pmatrix} \\
+    & = \begin{pmatrix}
+      x & y \\
+      -y & x
+    \end{pmatrix} + \begin{pmatrix}
+      x' & y' \\
+      -y' & x'
+    \end{pmatrix} \\
+    & = f(x + \ii y) + f(x' + \ii y'),
+  \end{align*}
+  且
+  \begin{align*}
+    f\big( (x + \ii y) (x' + \ii y') \big )
+    & = f(xx' - yy' + \ii\big(xy' + yx')\big) \\
+    & = \begin{pmatrix}
+      xx' - yy' & xy' + yx' \\
+      -(xy' + yx') & xx' - yy'
+    \end{pmatrix} \\
+    & = \begin{pmatrix}
+      x & y \\
+      -y & x
+    \end{pmatrix}
+    \begin{pmatrix}
+      x' & y' \\
+      -y' & x'
+    \end{pmatrix} \\
+    & = f(x + \ii y) f(x' + \ii y').
+  \end{align*}
+\end{solution}
+
+\begin{solution}
+  令$A(x,y)=\begin{pmatrix}
+    x & y \\
+    f(x,y) & g(x,y)
+  \end{pmatrix}$. 由于$\MM$在加法下封闭，那么对$x_1,y_1,x_2,y_2\in\MZ$，存在$x_3,y_3\in\MZ$使得$A(x_,y_1)+A(x_2,y_2)=A(x_3,y_3)$. 这意味着
+  \begin{equation}\label{sol1.67.1}
+    \left\{
+      \begin{aligned}
+        & f(x_1 + x_2, y_1 + y_2) = f(x_1,y_1) + f(x_2,y_2) \\
+        & g(x_1 + x_2, y_1 + y_2) = g(x_1,y_1) + g(x_2,y_2)
+      \end{aligned}
+    \right..
+  \end{equation}
+
+  如果$x_1=x_2=y_1=y_2=0$，我们得到$f(0,0)=g(0,0)=0$. 如果$x_1=y_2=0$且$x_2=x,y_1=y$，我们得到
+  \[
+    \left\{
+      \begin{aligned}
+        & f(x,y) = f(x,0) + f(0,y) = f_1(x) + f_2(y) \\
+        & g(x,y) = g(x,0) + g(0,y) =g_1(x) + g_2(y)
+      \end{aligned}
+    \right.,
+  \]
+  其中$f_1(x)=f(x,0),f_2(x)=f(0,x),
+  g_1(x)=g(x,0),g_2(x)=g(0,x)$。
+
+  在 \eqref{sol1.67.1} 中令$y_1=y_2=0$，我们得到
+  \[
+    \left\{
+      \begin{aligned}
+        & f_1(x_1 + x_2) = f_1(x_1) + f_1(x_2) \\
+        & g_1(x_1 + x_2) = g_1(x_1) + g_1(x_2)
+      \end{aligned}
+    \right.,\,\forall x_1,x_2\in\MZ.
+  \]
+  而在 \eqref{sol1.67.1} 中令$x_1=x_2=0$，我们得到同样的关系对$f_2$和$g_2$也是成立的，因此$f_1,g_1,f_2,g_2$是加性函数.
+
+  设$h:\MZ\to\MZ$是一个加性函数，即$h(x+y)=h(x)+h(y),\,\forall x,y\in\MZ$. 则
+  \[
+    h(0)=0,\,h(n) = nh(1),\, h(-n) = - h(n),
+  \]
+  所以$h(x)=xh(1),\,\forall x\in\MZ$. 因此
+  \[
+    f_1(x) = xf_1(1),\, f_2(x) = xf_2(1),\,
+    g_1(x) = xg_1(1),\, g_2(x) = xg_2(1).
+  \]
+  由于$I_2\in\MM$，我们得到
+  \[
+    I_2 \in \MM \quad \Rightarrow \quad
+    \begin{pmatrix}
+      1 & 0 \\
+      f(1,0) & g(1,0)
+    \end{pmatrix} = \begin{pmatrix}
+      1 & 0 \\
+      0 & 1
+    \end{pmatrix},
+  \]
+  这意味着$f(1,0)=0$且$g(1,0)=1$. 这反过来又说明$f_1(1)=0$且$g_1(1)=1$，所以$f_1(x)=0,\,\forall x\in\MZ$且$g_1(x)=x,\,\forall x\in\MZ$.
+
+  设$f_2(1)=a\in\MZ,g_2(1)=b\in\MZ$，我们有
+  \[
+    f(x,y) = ay,\,g(x,y) = x + by,\,\forall (x,y)\in\MZ \times \MZ.
+  \]
+  现在很容易验证这些条件也是充分的.
+\end{solution}
+
+\begin{solution}
+  令$A=\begin{pmatrix}
+    0 & 1 \\
+    0 & 0
+  \end{pmatrix}$且$B=\begin{pmatrix}
+    0 & 0 \\
+    1 & 0
+  \end{pmatrix}$，则$A^2=B^2=O$，因此$A$和$B$都是幂零矩阵.
+
+  另一方面，$A+B=\begin{pmatrix}
+    0 & 1 \\
+    1 & 0
+  \end{pmatrix}$，且我们有$(A+B)^2=I_2$. 这意味着不存在$k\in\MN$使得$(A+B)^k=O_2$，所以$A+B$不是幂零矩阵. 这也证明非交换环$\MM_2(\MZ)$中幂零矩阵的集合不是一个理想.
+\end{solution}
+\begin{nota}
+  这个问题指出，非交换环中的幂零矩阵的集合不必是理想. 然而，我们可以证明，如果$R$是一个交换环，则其中的幂零矩阵的集合构成一个理想，称之为$R$的{\kaishu 幂零根基}
+  \index{M!幂零根基}，记为$\mathscr N(R)$.
+\end{nota}
+
+\begin{solution}
+  令$A(x,y)=\begin{pmatrix}
+    x & f(x,y) \\
+    g(x,y) & y
+  \end{pmatrix}$，由于$\MM$在加法下封闭，我们有
+  \[
+    \left\{
+      \begin{aligned}
+        & f(x_1 + x_2, y_1 + y_2) = f(x_1,y_1) + f(x_2,y_2) \\
+        & g(x_1 + x_2, y_1 + y_2) = g(x_1,y_1) + g(x_2,y_2)
+      \end{aligned}
+    \right..
+  \]
+  如果$y_1=y_2=0$，我们得到$f(x_1+x_2,0)=f(x_1,0)+f(x_2,0)$，这意味着
+  \[
+    f(n,0) = nf(1,0),\, f(-n,0) = -nf(1,0),\,\forall n\in \MN.
+  \]
+  由于$f(0,0)=0$，我们得到$f(k,0)=ak,\,\forall k\in\MZ$，其中$a=f(1,0)\in\MZ$. 类似地，我们得到$f(0,k)=bk,\,\forall k\in\MZ$，其中$b=f(0,1)\in\MZ$. 因此，函数$f$和$g$具有如下形式：
+  \[
+    \left\{
+      \begin{aligned}
+        & f(x,y) = ax + by \\
+        & g(x,y) = cx + dy
+      \end{aligned}
+    \right.,\,\forall (x,y)\in\MZ \times \MZ.
+  \]
+  由于$I_2\in\MM$，我们得到
+  \[
+    \begin{pmatrix}
+      1 & 0 \\
+      0 & 1
+    \end{pmatrix} = \begin{pmatrix}
+      1 & f(1,1) \\
+      g(1,1) & 1
+    \end{pmatrix},
+  \]
+  且这意味着$f(1,1)=g(1,1)=0\Rightarrow a+b=c+d=0$.
+
+  现在我们可以验证集合
+  \[
+    \MM = \left\{
+      \begin{pmatrix}
+        x & a(x - y) \\
+        c(x - y ) & y
+      \end{pmatrix}:x,y\in\MZ
+    \right\}
+  \]
+  在矩阵加法和乘法下构成一个含幺环.
+
+  综上所述，函数$f(x,y)=a(x-y),\,\forall (x,y)\in\MZ\times\MZ$，函数$g(x,y)=c(x-y),\,\forall (x,y)\in\MZ\times\MZ$，其中$a,c\in\MZ$为任意常数.
+\end{solution}
+
+\begin{solution}
+  和 \textbf{\ref{problem1.71}}\hspace*{0.5em} 可以直接计算得到.
+\end{solution}
+
+\setcounter{solution}{71}
+
+\begin{solution}
+  令$A(x,y)=\begin{pmatrix}
+    x & f(x,y) \\
+    g(x,y) & y
+  \end{pmatrix}$，由于$\MM$在加法下封闭，我们有
+  \[
+    \left\{
+      \begin{aligned}
+        & f(x_1 + x_2, y_1 + y_2) = f(x_1,y_1) + f(x_2,y_2) \\
+        & g(x_1 + x_2, y_1 + y_2) = g(x_1,y_1) + g(x_2,y_2)
+      \end{aligned}
+    \right..
+  \]
+  如果$y_1=y_2=0$，我们得到$f(x_1+x_2,0)=f(x_1,0)+f(x_2,0)$，这意味着$f_1(x)=f(x,0),\,\forall x\in\MQ$是一个加性函数，即存在$a\in\MQ$使得$f_1(x)=ax,\,\forall x\in\MQ$. 类似地，我们得到
+  \[
+    f_2(y) = f(0,y),\,g_1(x) = g(x,0),\, g_2(y) = g_2(0,y)
+  \]
+  也都是$\MQ$上的加性函数，所以$g_2(y)=by,g_1(x)=cx$以及$g_2(y)=dy,\,\forall x,y\in\MQ$. 这些就说明$f(x,y)=ax+by$且$g(x,y)=cx+dy,\,\forall x,y\in\MQ$，其中$a,b,c,d\in\MQ$是固定的常数.
+
+  单位矩阵也应该属于$\MM$，即存在$x,y\in\MQ$使得
+  \[
+    A(x,y) = I_2 \Leftrightarrow f(1,1) = g(1,1) = 0 \Rightarrow a + b = c + d = 0.
+  \]
+
+  现在我们可以验证集合
+  \[
+    \MM = \left\{
+      \begin{pmatrix}
+        x & a(x-y) \\
+        c(x-y) & y
+      \end{pmatrix}:x,y\in\MQ
+    \right.
+  \]
+  在矩阵加法和乘法下构成一个环. 如果$\MM$中每个非零矩阵都有逆矩阵，即$\det A(x,y)\ne0$对$(x,y)\ne(0,0)$成立，则此环是一个域. 这意味着$xy-ac(x-y)^2\ne0,\,\forall
+   (x,y)\ne(0,0)$.
+
+   设$(x,y)\ne(0,0)$，考虑方程$ax^2-(2ac+1)xy+acy^2=0$. 条件$ac\ne0$是必要的，否则，$(1,0)\ne(0,0)$但$\det A(1,0)=0$. 如果$y=0$，则方程就意味着$x=0$，这与$(x,y)\ne(0,0)$矛盾. 如果$y\ne0$，我们考虑方程
+   \[
+     ac \Big( \frac xy \Big)^2 - (2ac+1)\frac xy + ac = 0,
+   \]
+   这个方程不能有有理根，因此$\varDelta=4ac+1<0$或$\varDelta\ge0$且
+   $\sqrt{4ac+1}\notin \MQ$.
+
+   综上所述，$f(x,y)=a(x-y)$且$g(x,y)=c(x-y),\,\forall x,y\in\MQ$，其中$a,c\in\MQ$是常数，使得$4ac+1<0$或$4ac+1\ge0$且$\sqrt{4ac+1}\notin\MQ$.
+\end{solution}
+
+\begin{solution}
+  \begin{enuma}
+    \item 如果$m=aE+bI+cJ$且$m'=a'E+b'I+c'J+d'K$，则
+  \end{enuma}
+  \[
+    m + m' = (a + a')E + (b + b')I + (c + c')J
+    + (d + d')K \in \MM,
+  \]
+  且
+  \begin{align*}
+    mm' = {}& (aa' - bb' - cc' - dd')E + (ab' + ba' + cd' - dc') I \\
+    & + (ac' + ca' + db' - bd')J + (ad' + da' + bc' - cb') K \in\MM.
+  \end{align*}
+
+  我们有$m\widetilde m =(a^2+b^2+c^2+d^2)E=\widetilde mm$.
+
+  \begin{enuma}
+    \setcounter{enumi}{1}
+    \item 我们可以验证$\MM$在矩阵加法和乘法下构成一个环，且单位元
+  \end{enuma}
+        \[
+          E=1E+0I+0J+0K\in\MM.
+        \]
+        如果$m\ne O_2$，即至少有一个系数$a,b,c,d$非零，则$a^2+b^2+c^2+d^2\ne0$，且
+
+    \[
+      m\frac1{a^2+b^2+c^2+d^2}\widetilde m =
+      \frac1{a^2+b^2+c^2+d^2}\widetilde mm = E.
+    \]
+    因此
+    \[
+      m^{-1} = \frac1{a^2+b^2+c^2+d^2}\widetilde m \in \MM.
+    \]
+    所以，$(\MM,+,\cdot)$是一个域. 这是一个非交换域，因为$IJ\ne JI$.
+
+  \begin{enuma}
+    \setcounter{enumi}{2}
+    \item 多项式$p(x)=x^2+E$有根$I,J,K,-I,-J$和$-K$，所以它至少有六个根. 事实上，可以证明$p$有无穷多个根. 要证明这一点，注意到$\MM$中的元素形如
+  \end{enuma}
+    \[
+      \begin{pmatrix}
+        a + b\ii & c + d\ii\\
+        -c + d\ii & a - b\ii
+      \end{pmatrix},\,a,b,c,d\in\MR.
+    \]
+    因此，要解方程$x^2+E=O_2$，我们需要求出实数$a,b,c,d$使得
+    \[
+      \begin{pmatrix}
+        a + b\ii & c + d\ii\\
+        -c + d\ii & a - b\ii
+      \end{pmatrix}^2
+      = \begin{pmatrix}
+        -1 & 0 \\
+        0 & -1
+      \end{pmatrix}.
+    \]
+    计算可知此方程组的解形如
+    \[
+      \begin{pmatrix}
+        b\ii & c + d\ii \\
+        -c + d\ii & -b\ii
+      \end{pmatrix} = bI + cJ + dK,
+    \]
+    其中$b,c,d\in\MR$满足$b^2+c^2+d^2=1$.
+\end{solution}
+
+
+
+
+
+
+

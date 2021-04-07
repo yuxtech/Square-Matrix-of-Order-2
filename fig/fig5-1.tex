@@ -1,0 +1,6 @@
+    \begin{tikzpicture}[yscale = 1.5,xscale = 1.2]
+      \draw (-1,0) -- (2.5,0)coordinate(M) node[below] {$M$} -- (4,0)coordinate(P) node[below] {$P$} -- (5,0) node[above]{$\mathscr D$};
+      \draw (0,1.5) coordinate(A) node[above left]{$A$} (0,-1.5) coordinate(A')node[below left] {$A'$} (3.5,0.6) coordinate(B) node[above] {$B$};
+      \draw [blue](A) -- (M) (A') -- (B);
+      \draw [red,densely dashed] (A) -- (P) (B) -- (P) (A') -- (P) (A) -- (A');
+    \end{tikzpicture} 

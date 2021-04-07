@@ -1,0 +1,59 @@
+\definecolor{titlepagecolor}{cmyk}{1,.60,0,.40}
+\definecolor{softblue}{rgb}{0.92,0.95,0.99}
+
+\pdfbookmark[0]{封面}{cover}
+
+\begin{titlepage}
+
+  \begin{tikzpicture}[remember picture,overlay,shorten >= -10pt]
+    \fill[softblue] (current page.south west) rectangle (current page.north east);
+
+    \coordinate (aux1) at ([xshift=8pt,yshift=-400pt]current page.north east);
+    \coordinate (aux2) at ([xshift=8pt,yshift=-125pt]current page.north east);
+    \coordinate (aux3) at ([xshift=50, yshift=-475pt]current page.north east);
+    \coordinate (aux4) at ([xshift=-10pt,yshift=300pt]current page.south west);
+    \coordinate (aux5) at ([xshift=-10pt,yshift=455pt]current page.south west);
+    \coordinate (aux6) at ([xshift=300pt,yshift=-15pt]current page.south west);
+    \coordinate (aux7) at ([xshift=0pt,yshift=80pt]current page.south west);
+
+    \begin{scope}[decoration=Koch snowflake]
+      \draw[titlepagecolor!20,line width=2pt]
+        decorate{decorate{decorate{decorate{(aux3) -- ++(137:7) -- ++(57:7)}}}};
+
+      \draw[titlepagecolor!30,line width=1.5pt]
+        decorate{decorate{decorate{decorate{(aux7) -- ++(40:8) -- ++(-5:8)}}}};
+
+      \draw[titlepagecolor!80,line width=1pt,fill = softblue]
+        decorate{decorate{decorate{decorate{(aux6) -- ++(80:10) --
+        (aux1)}}}} -- (current page.south east) -- cycle ;
+
+      \draw[titlepagecolor!40,line width=1pt]
+        decorate{decorate{decorate{(aux2) -- ++(115:3) -- ++(70:3)}}};
+
+      \draw[titlepagecolor!50,line width=1pt]
+        decorate{decorate{decorate{decorate{(aux2) -- ++(115:9)}}}};
+
+      \draw[titlepagecolor!30,line width=3pt,rounded corners=6pt]
+       (aux5) -- ++(45:2) -- ++(135:2);
+
+      \draw[titlepagecolor!60,line width=4pt,rounded corners=6pt]
+       (aux4) -- ++(45:5) -- ++(135:5);
+    \end{scope}
+
+  \node [xslant=0.2, scale = 3, anchor = north west,inner xsep = 0pt, font=\CJKfontspec{汉仪大宋简}](author) at ([shift={(0.1\paperwidth,0.35\paperheight)}]current page.west) {  Vasile Pop \& Ovidiu Furdui
+  \raisebox{-0.2ex}{\tikz{\draw(0.15,0.15)circle(0.15);
+  \draw(0.15,0.15)circle(0.1);}}   著};
+  
+  \draw[line width=3pt] (author.south west) -- (author.south east);
+  
+  \node [scale = 3, anchor = north west, inner xsep = 0pt, font=\CJKfontspec{汉仪大宋简}\color{cyan}] at ([shift={(0.1\paperwidth,0.25\paperheight)}]current page.west) {二阶矩阵论};
+
+  \node [scale = 2, anchor = north west,inner xsep = 0pt, font=\CJKfontspec{方正楷体_GBK}] at ([shift={(0.1\paperwidth,0.19\paperheight)}]current page.west) {理论，应用与问题};
+
+  \node [align = left, scale = 3, anchor = south east,inner xsep = 0pt, font=\CJKfontspec{汉仪大宋简}] at ([shift={(-0.1\paperwidth,0.15\paperheight)}]current page.south east) {  向禹
+  \raisebox{-0.2ex}{\tikz{\draw(0.15,0.15)circle(0.15);
+  \draw(0.15,0.15)circle(0.1);}}   译};
+\end{tikzpicture}%
+
+\end{titlepage}
+

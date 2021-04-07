@@ -1,0 +1,7 @@
+  \begin{tikzpicture}[yscale = 0.8]
+    \draw [->] (-2,0) -- (-1,0) node[below left] {$A$} -- (0,0) node[below left] {$O$} -- (1,0) node[below] {$F$} -- (5,0) node[below] {$x$};
+    \draw [->] (0,-4) -- (0,4) node [left]{$y$};
+    \draw [domain=-4:4,blue!60!black,semithick] plot (\x*\x/4,\x);
+    \draw [blue!70!cyan] (-1,-4)node[above left,black] {$x=-\frac p2$} -- (-1,4);
+    \draw [red!60!black](-1,2.8) node [left,black] {$B$} -- (1.96,2.8)node[above,black]{$M$} -- (1,0);
+  \end{tikzpicture}

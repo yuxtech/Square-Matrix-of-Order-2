@@ -1,0 +1,21 @@
+\begin{tikzpicture}[scale = 4]
+    \tkzDefPoints{0/0/B, 1.1/0/C, 0.22/1/A, 0.6/0.26/M}
+    \tkzDefEquilateral(B,A)
+    \tkzGetPoint{B'}
+    \tkzDefEquilateral(A,C)
+    \tkzGetPoint{C'}
+    \tkzDefEquilateral(A,M)
+    \tkzGetPoint{M'}
+    \tkzInterLL(C,B')(B,C')
+    \tkzGetPoint{T}
+    \draw [thick, red!60!black] (A) -- (T) (B) -- (T) (C) -- (T);
+    \draw [thick, blue!70!black] (A) -- (B) -- (C) -- (A);
+    \draw [blue] (A) -- (B') -- (B) (A) -- (C') -- (C) (A) -- (M) (B) -- (M) (C) -- (M) (A) -- (M') (M) -- (M') (C') -- (M');
+    \draw [red!70!black] (B') -- (T) (C') -- (T);
+    \tkzLabelPoints[below](B,C,T)
+    \tkzLabelPoints[above](A)
+    \tkzLabelPoints[above left=-5pt](B')
+    \tkzLabelPoints[above right=-5pt](C')
+    \tkzLabelPoints[below left](M')
+    \tkzLabelPoints[right](M)
+  \end{tikzpicture}

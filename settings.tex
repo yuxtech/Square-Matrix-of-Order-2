@@ -1,0 +1,366 @@
+\usepackage{etex,tabularx}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+\newcolumntype{Z}{>{\centering\arraybackslash $}X<{$}}
+\usepackage{fontspec}
+\IfFontExistsTF{FZShuSong-Z01}{
+  \PassOptionsToPackage{fontset=founder}{ctex}
+}{}
+\usepackage{xeCJK}
+\defaultCJKfontfeatures{Mapping=fullwidth-stop}
+\usepackage[heading]{ctex}
+\usepackage{manfnt}
+\usepackage{indentfirst}
+\usepackage{zhnumber}
+\usepackage[T1]{fontenc}
+\renewcommand\rmdefault{ptm}
+\usepackage[centering,
+           top=2.54cm,bottom=2.54cm,right=2.9cm,left=2.9cm,
+           headsep=25pt,headheight=20pt]{geometry}
+\IfFileExists{mtpro2.sty}{
+  \usepackage[zswash,amsbb,straightbraces]{mtpro2}
+}{\usepackage{amssymb}\let\SQRT\sqrt}
+
+\usepackage{mathtools,mathrsfs}
+\usepackage{caption}
+
+\usepackage{extarrows}
+\usepackage{graphicx}
+
+\setmainfont{Times New Roman}
+
+\usepackage{pifont}
+\usepackage{imakeidx}
+\makeindex[
+  title = {名词索引},
+  intoc = true,
+  columns = 2,
+  columnsep = 1cm,
+  columnseprule = true,
+  program = makeindex,
+  options = {-s mkind.ist},
+  noautomatic = false
+]
+\indexsetup{
+  toclevel = chapter,
+  headers = {名词索引}{名词索引},
+  othercode = {
+    \renewcommand{\indexspace}{\smallskip}
+  }
+}
+
+\usepackage[hyperindex]{hyperref}
+\hypersetup{
+  bookmarksopen = true ,
+  bookmarksopenlevel = 1 ,
+  bookmarksnumbered = true ,
+  pdftitle = {二阶矩阵} ,
+  pdfauthor = {Vasile Pop \& Ovidiu Furdui（向禹翻译）} ,
+  linktoc = all ,
+  CJKbookmarks = true,unicode,
+  colorlinks ,
+  linkcolor = blue ,
+  citecolor = blue ,
+  urlcolor = blue ,
+  anchorcolor = blue
+  }
+\usepackage[Symbol]{upgreek}
+\renewcommand{\pi}{\uppi}
+
+\DeclareSymbolFont{ugmL}{OMX}{yhex}{m}{n}
+\DeclareMathAccent{\wideparen}{\mathord}{ugmL}{"F3}
+
+\IfFontExistsTF{FZShuSong-Z01}{
+  \setCJKmainfont[BoldFont={FZHei-B01},ItalicFont={FZKai-Z03}]{FZShuSong-Z01}
+}{}
+\IfFontExistsTF{Microsoft YaHei}{
+  \newCJKfontfamily\wryh{Microsoft YaHei}
+}{
+  \let\wryh\sffamily
+}
+\IfFontExistsTF{汉仪大宋简}{
+  \newCJKfontfamily\hyds{汉仪大宋简}
+}{
+  \let\hyds\rmfamily
+}
+
+\defaultfontfeatures{Mapping=tex-text}
+
+
+
+
+%\everymath{\displaystyle}
+\lineskiplimit=2.5pt
+\lineskip=2.5pt plus .5pt
+
+\renewcommand{\le}{\leqslant}
+\renewcommand{\ge}{\geqslant}
+
+\allowdisplaybreaks[4]
+
+
+\newcommand\OR{\overrightarrow}
+
+
+
+\usepackage{fancyhdr}
+\usepackage{tkz-euclide}
+\usetikzlibrary{arrows.meta,decorations.fractals}
+\tikzset{>=Stealth,samples=200}
+%\renewcommand{\Re}{\operatorname{Re}}
+%\renewcommand{\Im}{\operatorname{Im}}
+\newcommand{\ii}{\mathrm i}
+\ctexset{punct=kaiming}
+\renewcommand\thempfootnote{\ding{45}}
+
+\usepackage{tocloft}
+\renewcommand\cftchapfont{\hyds}
+\renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}}
+\ctexset {
+  chapter = {
+  beforeskip = 0pt,
+  fixskip = true,
+  format = \Huge\hyds,
+  nameformat = \rule{\linewidth}{1bp}\par\bigskip\hfill\label{chap\thechapter}\chapternamebox,
+  number = \arabic{chapter},
+  aftername = \par\medskip,
+  aftertitle = \par\bigskip\nointerlineskip\rule{\linewidth}{2bp}\par
+},
+  section = {
+    titleformat+  = \hyds\label{sec\thesection}\raggedright
+  },
+  subsection = {
+    titleformat+  = \hyds
+  },
+  subsubsection = {
+    titleformat+  = \hyds
+  },
+  contentsname = \hyds{目 录}
+}
+\newcommand\chapternamebox[1]{%
+\parbox{\ccwd}{\linespread{1}\selectfont\centering #1}}
+
+
+\usepackage{paralist}
+\usepackage[inline]{enumitem}
+\newenvironment{enum}{\begin{enumerate}[label=(\alph*),left=-0.1cm]}
+{
+\end{enumerate}}
+\DeclareMathOperator{\ee}{\!\!\;\mathrm e}
+
+\newcommand{\MR}{\mathbb R}
+\newcommand{\MC}{\mathbb C}
+\newcommand{\MF}{\mathbb F}
+\newcommand{\MZ}{\mathbb Z}
+\newcommand{\MN}{\mathbb N}
+\newcommand{\MQ}{\mathbb Q}
+\newcommand{\MCF}{\mathscr F}
+\newcommand{\MM}{\mathscr M}
+
+\newenvironment{eenum}{\begin{enumerate}
+[label=(\arabic*)]}
+{
+\end{enumerate}}
+\newenvironment{enuma}{\begin{enumerate*}[label=(\alph*),listparindent=2em,itemjoin=\\\hspace*{2em}]}
+{
+\end{enumerate*}}
+\newcommand\quan[1]{
+\tikz[baseline=(a.base)]\node(a)[inner sep=0.5pt,draw,circle]{$#1$};
+}
+\newcommand\closure[1]{%
+{}\mkern2mu\overline{\mkern-2mu#1}
+}
+\renewcommand\bar{\closure}
+
+
+
+\newcounter{definition}
+\counterwithin{definition}{chapter}
+\renewcommand\thedefinition{\thechapter.\arabic{definition}}
+\newcommand{\defname}{定义}
+\newenvironment{definition}[1][]{\par%
+  \refstepcounter{definition}\label{def\thedefinition}%
+  \noindent\textbf{\defname\thedefinition}\quad\textbf{#1}
+}{\par}
+
+\newcounter{thm}
+\counterwithin{thm}{chapter}
+\renewcommand\thethm{\thechapter.\arabic{thm}}
+\newcommand{\theoremname}{定理}
+\newenvironment{theorem}[1][]{\par%
+  \refstepcounter{thm}\label{thm\thethm}%
+  \noindent\textbf{\theoremname\thethm}\quad\textbf{#1}
+  \parindent=2em\kaishu
+}{\par}
+
+\newcounter{prop}
+\counterwithin{prop}{chapter}
+\renewcommand\theprop{\thechapter.\arabic{prop}}
+\newcommand{\propname}{命题}
+\newenvironment{prop}{\par%
+  \refstepcounter{prop}\label{prop\theprop}%
+  \noindent\textbf{\propname\theprop}\quad
+}{\par}
+
+\newcounter{example}
+\counterwithin{example}{chapter}
+\renewcommand\theexample{\thechapter.\arabic{example}}
+\newcommand{\examplename}{例}
+\newenvironment{example}[1][]{\par%
+  \refstepcounter{example}\label{exam\theexample}%
+  \noindent\textbf{\examplename\theexample}\quad\textbf{#1}
+}{\par}
+
+\newcounter{lemma}
+\counterwithin{lemma}{chapter}
+\renewcommand\thelemma{\thechapter.\arabic{lemma}}
+\newcommand{\lemmaname}{引理}
+\newenvironment{lemma}[1][]{\par%
+  \refstepcounter{lemma}\label{lemma\thelemma}%
+  \noindent\textbf{\lemmaname\thelemma}\quad\textbf{#1}
+  \parindent=2em\kaishu
+}{\par}
+
+\newcounter{coro}
+\counterwithin{coro}{chapter}
+\renewcommand\thecoro{\thechapter.\arabic{coro}}
+\newcommand{\corname}{推论}
+\newenvironment{corollary}[1][]{\par%
+  \refstepcounter{coro}\label{coro\thecoro}%
+  \noindent\textbf{\corname\thecoro}\quad\textbf{#1}
+  \parindent=2em\kaishu
+}{\par}
+
+\newcounter{remark}
+\counterwithin{remark}{chapter}
+\renewcommand\theremark{\thechapter.\arabic{remark}}
+\newcommand{\remarkname}{注}
+\newenvironment{remark}[1][]{\par%
+  \refstepcounter{remark}\label{remark\theremark}%
+  \noindent\emph{\remarkname\theremark}\quad\textbf{#1}
+}{\par}
+
+\newcounter{property}
+\counterwithin{property}{chapter}
+\newcommand{\propertyname}{性质}
+\newenvironment{property}{\par%
+  \refstepcounter{property}\label{property\theproperty}%
+  \noindent\emph{\propertyname\theproperty}\quad
+}{\par}
+
+\newenvironment{nota}{\par%
+  \indent \textbf{注意.}
+}{\par}
+
+\newenvironment{proverb}{\par%
+  \leftskip=4cm\rightskip=2cm
+}{\par}
+
+\newcounter{problem}
+\counterwithin{problem}{chapter}
+\renewcommand\theproblem{\thechapter.\arabic{problem}}
+\newenvironment{problem}[1][]{\par%
+  \refstepcounter{problem}\label{problem\theproblem}%
+  \noindent\hyperlink{solution\thechapter-\arabic{problem}}{\textbf{\theproblem}}
+  \hypertarget{problem\thechapter-\arabic{problem}}{}\textbf{#1}
+}{\par}
+
+\newcounter{solution}
+\counterwithin{solution}{chapter}
+\renewcommand\thesolution{\thechapter.\arabic{solution}}
+\newenvironment{solution}{\par%
+  \refstepcounter{solution}\label{solution\thesolution}%
+  \noindent\hyperlink{problem\thechapter-\arabic{solution}}{\textbf{\thesolution}}
+  \hypertarget{solution\thechapter-\arabic{solution}}{}
+}{\par}
+
+
+
+\usepackage[amsmath,thmmarks]{ntheorem}
+{
+\theoremstyle{nonumberplain}
+\theoremheaderfont{\bfseries}
+\theorembodyfont{\normalfont}
+\theoremsymbol{\mbox{$\Box$}}
+\newtheorem{proof}{\noindent 证\hspace*{0.5em}}
+\newtheorem{solve}{\noindent 解\hspace*{0.5em}}
+}
+
+\setlist{itemsep=0pt}
+
+
+
+\newcommand\pp[2]{\frac{\partial #1}{\partial #2}}
+\newcommand\ppp[2]{\frac{\partial^2 #1}{\partial #2^2}}
+\newcommand\pppp[3]{\frac{\partial^2 #1}{\partial #2\partial #3}}
+\newcommand\dd[2]{\frac{\mathop{}\!\mathrm d#1}{\mathop{}\!\mathrm d#2}}
+\newcommand\ddd[2]{\frac{\mathop{}\!\mathrm d^2#1}{\mathop{}\!\mathrm d#2^2}}
+\newcommand\dx{\mathop{}\!\mathrm dx}
+\newcommand\dy{\mathop{}\!\mathrm dy}
+\newcommand\dz{\mathop{}\!\mathrm dz}
+\newcommand\dif{\mathop{}\!\mathrm d}
+\newcommand\TT{^{\mathrm T}}
+
+\usepackage[subrefformat=parens]{subcaption}
+\DeclareMathOperator{\Arg}{Arg}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\SL}{SL}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\Li}{Li}
+\DeclareMathOperator{\Ln}{Ln}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\Inv}{Inv}
+\DeclareMathOperator{\Fix}{Fix}
+\usepackage{tkz-euclide}
+
+\catcode`\;=\active
+\newcommand{;}{\text{；}}
+
+\usepackage[breakable,skins]{tcolorbox}
+\newenvironment{mybox}{\par%
+  \begin{tcolorbox}[colback=black!27,sharp corners,boxrule=-1pt,breakable]\parindent=2em
+}
+{\end{tcolorbox}\par}
+
+\usepackage[numbers,square]{natbib}
+\usepackage{mathdots}
+\renewcommand\bibnumfmt[1]{\textbf{#1.}}
+\let\olditem\itemize
+\def\itemize{\olditem[left=0cm,label=\rule{1ex}{1ex}]}
+
+\usepackage{longtable}
+
+\usepackage{zhlineskip}
+\def\Binom#1#2{
+\Big(\begin{array}{@{}c@{}}
+    #1\\#2
+  \end{array}\Big)
+}
+
+\let\originalleft\left
+\let\originalright\right
+\renewcommand{\left}{\mathopen{}\mathclose\bgroup\originalleft}
+\renewcommand{\right}{\aftergroup\egroup\originalright}
+
+\definecolor{BLUE}{RGB}{0,0,255}
+\let\MakeUppercase\relax
+\let\olim\lim
+\def\lim{\olim\limits}
+\let\omax\max
+\def\max{\omax\limits}
+\let\omin\min
+\def\min{\omin\limits}
+
+
+
+
+\makeatletter
+\renewcommand{\mod}[1]{\allowbreak\if@display\mkern4mu
+  \else\mkern2mu\fi{\operator@font mod}\,\,#1}
+\makeatother
+
+
+
+

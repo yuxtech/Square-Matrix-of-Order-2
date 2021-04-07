@@ -1,0 +1,15 @@
+  \begin{tikzpicture}
+    \draw [->] (-4,0) -- (-3,0) node[below left]
+    {$A'$} -- (-2.236,0)node[below] {$F'$} -- (0,0)
+    node[below left] {$O$} -- (2.236,0)node[below]
+    {$F$} -- (3,0) node[below right] {$A$} -- (4,0)
+    node[below] {$x$};
+    \draw [->] (0,-3) -- (0,-2) node[below left]
+    {$B'$} -- (0,2) node[above left]{$B$} -- (0,3)
+    node[left] {$y$};
+    \draw [domain=0:360,blue]
+    plot({3*cos(\x)},{2*sin(\x)});
+    \draw [red!70!black] (-2,0) --
+    ({3*cos(60)},{2*sin(60)})node[above,black]{$M$}
+    ({3*cos(60)},{2*sin(60)}) -- (2,0);
+  \end{tikzpicture}

@@ -1,0 +1,65 @@
+
+
+\begin{titlepage}
+
+  \begin{tikzpicture}[remember picture,overlay,shorten >= -10pt]
+    \fill[softblue] (current page.south west) rectangle (current page.north east);
+
+    \coordinate (B1) at ([xshift=-8pt,yshift=-400pt]current page.north west);
+    \coordinate (B2) at ([xshift=-8pt,yshift=-125pt]current page.north west);
+    \coordinate (B3) at ([xshift=-50, yshift=-475pt]current page.north west);
+    \coordinate (B4) at ([xshift=10pt,yshift=300pt]current page.south east);
+    \coordinate (B5) at ([xshift=10pt,yshift=455pt]current page.south east);
+    \coordinate (B6) at ([xshift=-300pt,yshift=-15pt]current page.south east);
+    \coordinate (B7) at ([xshift=0pt,yshift=80pt]current page.south east);
+
+    \begin{scope}[decoration=Koch snowflake]
+      \draw (B3)  ++(43:7)coordinate(C3)  ++(123:7)coordinate(D3);
+
+      \draw[titlepagecolor!20,line width=2pt]
+        decorate{decorate{decorate{decorate{(D3) -- (C3) -- (B3)}}}};
+
+      \draw (B7)  ++(140:8)coordinate(C7)  ++(-175:8)coordinate(D7);
+
+      \draw[titlepagecolor!30,line width=2pt]
+        decorate{decorate{decorate{decorate{(D7) -- (C7) -- (B7)}}}};
+
+      \draw (B6) ++(100:10) coordinate(C6)  ;
+
+      \draw[titlepagecolor!80,line width=1pt,fill = softblue]
+        decorate{decorate{decorate{decorate{(current page.south west) -- (B1) -- (C6) --
+        (B6)}}}} -- cycle ;
+
+      \draw (B2)  ++(65:3) coordinate(C2)  ++(110:3) coordinate(D2);
+
+      \draw[titlepagecolor!40,line width=1pt]
+        decorate{decorate{decorate{decorate{(D2) -- (C2) -- (B2)}}}};
+
+      \draw (B2) ++(65:9)coordinate(E2);
+
+      \draw[titlepagecolor!50,line width=1pt]
+        decorate{decorate{decorate{decorate{(E2) -- (B2)}}}};
+
+      \draw[titlepagecolor!30,line width=3pt,rounded corners=6pt]
+       (B5) -- ++(135:2) -- ++(45:2);
+
+      \draw[titlepagecolor!60,line width=4pt,rounded corners=6pt]
+       (B4) -- ++(135:5) -- ++(45:5);
+    \end{scope}
+  \node [xslant=0.2, scale = 3, anchor = north east,inner xsep = 0pt, font=\CJKfontspec{汉仪大宋简}](author) at ([shift={(-0.1\paperwidth,0.35\paperheight)}]current page.east) {  Vasile Pop \& Ovidiu Furdui
+  \raisebox{-0.2ex}{\tikz{\draw(0.15 , 0.15)circle(0.15);
+  \draw(0.15 , 0.15)circle(0.1);}}   著};
+
+  \draw[line width=3pt] (author.south west) -- (author.south east);
+
+  \node [scale = 3, anchor = north east, inner xsep = 0pt, font=\CJKfontspec{汉仪大宋简}\color{cyan}] at ([shift={(-0.1\paperwidth,0.25\paperheight)}]current page.east) {二阶矩阵论};
+
+  \node [scale = 2, anchor = north east,inner xsep = 0pt, font=\CJKfontspec{方正楷体_GBK}] at ([shift={(-0.1\paperwidth,0.19\paperheight)}]current page.east) {理论，应用与问题};
+
+
+  \node [align = left, scale = 3, anchor = south west,inner xsep = 0pt, font=\CJKfontspec{汉仪大宋简}] at ([shift={(0.1\paperwidth,0.15\paperheight)}]current page.south west) {  向禹
+  \raisebox{-0.2ex}{\tikz{\draw(0.15,0.15)circle(0.15);
+  \draw(0.15,0.15)circle(0.1);}}   译};
+\end{tikzpicture}%
+\pdfbookmark[0]{封底}{cover1}
+\end{titlepage} 

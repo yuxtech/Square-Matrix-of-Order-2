@@ -1,0 +1,604 @@
+\appendix
+\chapter{经典分析与线性代数的瑰宝}
+\section{级数荟萃}
+\begin{proverb}
+  { \itshape
+   \hfill Chance favours only the prepared mind.
+  }
+
+\hfill Louis Pasteur（1822–1895）
+\end{proverb}
+
+\begin{mybox}
+  \begin{lemma}[\cite{32} 截尾$\ln\frac12$的一个幂级数.]
+
+  幂级数
+  \[
+    \sum_{n=1}^\infty \left( \ln\frac12 + 1 - \frac12 + \cdots + \frac{(-1)^{n-1}}n \right) x^n
+  \]
+  的收敛域为$(-1,1]$，且成立如下等式：
+    \[
+      \sum_{n=1}^\infty \left( \ln\frac12 + 1 - \frac12 + \cdots + \frac{(-1)^{n-1}}n \right)x^n =
+      \begin{cases}
+        \ln2 - \frac12, & \text{如果}\, x = 1 \\
+        \frac{\ln(1+x)-x\ln2}{1-x}, & \text{如果}\, x\in(-1,1)
+      \end{cases}.
+    \]
+  \end{lemma}
+\end{mybox}
+
+\begin{proof}
+  首先我们证明，如果整数$n\ge1$，则
+  \[
+    \ln\frac12 + 1 - \frac12 + \cdots + \frac{(-1)^{n-1}}n = (-1)^{n-1}\int_0^1 \frac{x^n}{1+x} \dif x .
+  \]
+  我们有
+  \begin{align*}
+    \ln\frac12 + 1 - \frac12 + \cdots + \frac{(-1)^{n-1}}n & =  \ln\frac12 - \sum_{k=1}^n \frac{(-1)^k}k \\
+    & = \ln\frac12 - \sum_{k=1}^n(-1)^k\int_0^1 x^{k-1} \dif x \\
+    & = \ln\frac12 + \int_0^1\sum_{k=1}^n(-x)^{k-1} \dif x \\
+    & = \ln\frac12 + \int_0^1 \frac{1-(-x)^n}{1+x} \dif x \\
+    & = (-1)^{n-1} \int_0^1 \frac{x^n}{1+x} \dif x.
+  \end{align*}
+
+  令$a_n=\ln\frac12 + 1 - \frac12 + \cdots + \frac{(-1)^{n-1}}n$，幂级数$\sum_{n=1}^\infty a_nx^n$的收敛半径可由$R=\lim_{n\to\infty}\frac{|a_n|}{|a_{n+1}|}$得到，计算可得
+  \[
+    \frac{a_{n+1}}{a_n} = 1 - \frac1{(n+1)\int_0^1\frac{x^n}{1+x} \dif x}.
+  \]
+  另一方面，
+  \[
+    (n+1)\int_0^1\frac{x^n}{1+x} \dif x =
+    \frac{x^{n+1}}{1+x} \bigg|_0^1 + \int_0^1 \frac{x^{n+1}}{(1+x)^2} \dif x = \frac12
+    + \int_0^1 \frac{x^{n+1}}{(1+x)^2} \dif x,
+  \]
+  由于$\int_0^1 \frac{x^{n+1}}{(1+x)^2} \dif x<\int_0^1x^{n+1}\dif x=\frac1{n+2}$，则$\lim_{n\to\infty}
+  (n+1)\int_0^1\frac{x^n}{1+x} \dif x=\frac12$. 因此，$R=1$，此幂级数在$(-1,1)$上收敛.
+
+  现在，我们证明级数当$x=1$时收敛，而当$x=-1$时发散.
+
+  设$x=1$，我们证明此级数的和为$\ln2-\frac12$. 设$N\in\MN$，我们计算此级数的部分和，我们得到
+  \begin{align*}
+    s_N & = \sum_{n=1}^N \left( \ln\frac12 + 1 - \frac12 + \cdots + \frac{(-1)^{n-1}}n \right) = \sum_{n=1}^N(-1)^N{n-1} \int_0^1 \frac{t^n}{1+t} \dif t \\
+    & = -\int_0^1 \frac1{1+t} \sum_{n=1}^{n-1} \dif t = \int_0^1 \frac{t\big(1-(-t)^N\big)}{(1+t)^2} \dif t \\
+    & = \int_0^1 \frac t{(1+t)^2} \dif t - (-1)^N \int_0^1 \frac{t^{N+1}}{(1+t)^2} \dif t \\
+    & = \ln2 - \frac12 - (-1)^N\int_0^1 \frac{t^{N+1}}{(1+t)^2} \dif t.
+  \end{align*}
+  由于$0<\int_0^1\frac{t^{N+1}}{(1+t)^2} \dif t<\int_0^1t^{N+1}\dif t=\frac1{N+2}$，这意味着$\lim_{N\to\infty}s_N=\ln2-\frac12$.
+
+  当$x=-1$时，我们得到
+  \begin{align*}
+    \sum_{n=1}^\infty \left( \ln\frac12 + 1 - \frac12 + \cdots + \frac{(-1)^{n-1}}n \right) & = -\sum_{n=1}^\infty \int_0^1 \frac{t^n}{1+t} \dif t \\
+    & \overset{\dag}{=} - \int_0^1\frac1{1+t}\sum_{n=1}^\infty t^n \dif t \\
+    & = - \int_0^1 \frac t{1-t^2} \dif t \\
+    & = \frac12\ln(1 - t^2) \bigg|_0^{1^-} \\
+    & = -\infty.
+  \end{align*}
+  在(\dag)步骤中我们用到了非负函数的Tonelli定理，可以交换求和与积分的次序.
+
+  设$x\in(-1,1)$且$N\in\MN$，我们有
+  \begin{align*}
+    s_N(x) & = \sum_{n=1}^N \left( \ln\frac12 + 1 - \frac12 + \cdots + \frac{(-1)^{n-1}}n \right) x^n \\
+    & = \sum_{n=1}^N(-1)^{n-1}\int_0^1 \frac{x^nt^n}{1+t} \dif t = - \int_0^1 \frac1{1+t} \sum_{n=1}^N(-xt)^n \dif t \\
+    & = \int_0^1 \frac{tx\big(1 - (-tx)^N\big)}{(1+t)(1+xt)} \dif t \\
+    & = \int_0^1 \frac{tx}{(1+t)(1+tx)} \dif t - (-1)^N\int_0^1 \frac{(tx)^{N+1}}{(1+t)(1+tx)} \dif t.
+  \end{align*}
+  另一方面，
+  \begin{align*}
+    \left| \int_0^1 \frac{(tx)^{N+1}}{(1+t)(1+tx)} \dif t \right| & \le \int_0^1 \frac{t^{N+1}}{|1+tx|} \dif t \le \frac1{1-|x|} \int_0^1 t^{N+1} \dif t \\
+    & = \frac1{(N+2)(1-|x|)},
+  \end{align*}
+  这意味着
+  \[
+    \lim_{N\to\infty}s_N(x) = \int_0^1 \frac{tx}{(1+t)(1+tx)} \dif t.
+  \]
+  计算可知
+  \[
+    \int_0^1 \frac{tx}{(1+t)(1+tx)} \dif t =
+    \int_0^1 \frac x{1-x} \left( -\frac1{1+t} + \frac1{1+tx} \right) \dif t = \frac{\ln(1+x)-x\ln2}{1-x}.
+  \]
+  引理 \ref{lemmaA.1} 得证.
+\end{proof}
+
+{\kaishu 多重对数函数}\index{D!多重对数函数} $\Li_n(z)$当$|z|\le1,n\ne1,2$时定义为
+\[
+  \Li_n(z) = \sum_{k=1}^\infty \frac{z^k}{k^n} = \int_0^z \frac{\Li_{n-1(t)}}t \dif t .
+\]
+
+当$n=1$时，我们定义$\Li_1(z)=-\ln(1-z)$，当$n=2$时，我们有$\Li_2(z)$，也叫{\kaishu 二重对数函数}，\index{E!二重对数函数}其定义为
+\[
+  \Li_2(z) = \sum_{n=1}^\infty \frac{z^2}{n^2} = - \int_0^z\frac{\ln(1-t)} t \dif t.
+\]
+
+在给出证明接下来的两个引理之前，我们整理一些级数理论中的结论. 回顾Abel求和公式 \cite[p.55]{11}，\cite[p.258]{22}，如果$(a_n)_{n\ge1}$和$(b_n)_{n\ge1}$是两个实或复数列，且$A_n=\sum_{k=1}^na_k$，则
+\[
+  \sum_{k=1}^na_kb_k = A_nb_{n+1} + \sum_{k=1}^{n-1} A_k(b_k - b_{k+1}),\quad n \in\MN.
+\]
+在我们的计算中，我们还会用到Abel求和公式的无穷形式
+\[
+  \sum_{k=1}^\infty a_kb_k = \lim_{n\to\infty} (A_nb_{n+1}) + \sum_{k=1}^\infty A_k(b_k - b_{k+1}),
+\]
+假定上述无穷级数收敛，且极限存在.
+
+\begin{mybox}
+  \begin{lemma}[截尾$\zeta(k)$的母函数]
+    \[
+      \sum_{n=1}^\infty \left(\zeta(k) - \frac1{1^k} - \frac1{2^k} - \cdots - \frac1{n^k}\right)x^n =
+      \begin{cases}
+        \frac{x\zeta(k)-\Li_k(x)}{1-x} , & \text{如果}\, x\in[-1,1) \\
+        \zeta(k-1) - \zeta(k), & \text{如果}\, x = 1
+      \end{cases},
+    \]
+    其中$\Li_k$表示多重对数函数.
+  \end{lemma}
+\end{mybox}
+
+\begin{proof}
+  如果$x=0$，结论显然，我们只需考虑$x\in[-1,1)$且$x\ne0$. 我们对$a_n=x^n$和$b_n=\zeta(k)-\frac1{1^k}-\frac1{2^k}-\cdots
+  -\frac1{n^k}$利用Abel求和公式可得
+  \begin{align*}
+    & \sum_{n=1}^\infty \left(\zeta(k) - 1 - \frac1{2^k} - \cdots - \frac1{n^k}\right)x^n \\
+    = {}& \lim_{n\to\infty}(x + x^2 + \cdots + x^n)\left(\zeta(k) - \frac1{1^k} - \frac1{2^k} - \cdots - \frac1{(n+1)^k}\right) \\
+    & + \sum_{n=1}^\infty (x + x^2 + \cdots + x^n)\frac1{(n + 1)^k} \\
+    = {}& \frac x{1-x} \sum_{n=1}^\infty \left( \frac1{(n+1)^k} - \frac{x^n}{(n+1)^k} \right) \\
+    = {}& \frac x{1-x} \left[ \zeta(k) - 1 - \frac1x\big( \Li_k(x) - x \big) \right] \\
+    = {}& \frac{x\zeta(k) - \Li_k(x)}{1-x}.
+  \end{align*}
+
+  现在我们考虑$x=1$的情形. 我们对$a_n=1$和$b_n=\zeta(k)-\frac1{1^k}-\frac1{2^k}-\cdots
+  -\frac1{n^k}$利用Abel求和公式可得
+  \begin{align*}
+     &\sum_{n=1}^\infty \left(\zeta(k) - 1 - \frac1{2^k} - \cdots - \frac1{n^k}\right)\\
+    = {}& \lim_{n\to\infty}n \left(\zeta(k) - \frac1{1^k} - \frac1{2^k} - \cdots - \frac1{(n+1)^k}\right) + \sum_{n=1}^\infty \frac n{(n + 1)^k} \\
+    = {}& \sum_{n=1}^\infty \left( \frac1{(n+1)^{k-1}} - \frac1{(n+1)^k} \right) \\
+    = {}& \zeta(k-1) - \zeta(k),
+  \end{align*}
+  引理得证.
+\end{proof}
+
+\begin{mybox}
+  \begin{lemma}[将$\zeta(k)$截尾$n$次的母函数.]
+    \begin{enum}
+      \item 设整数$k\ge3$，且设$x\in[-1,1)$，则成立以下公式：
+       \[
+         \sum_{n=1}^\infty n\left(\zeta(k) - \frac1{1^k} - \frac1{2^k} - \cdots - \frac1{n^k}\right)x^{n-1} =
+         \frac{\zeta(k)-\frac{1-x}x\Li_{k-1}(x)-\Li_k(x)}{
+         (1-x)^2},
+       \]
+      其中$\Li_k$表示多重对数函数.
+      \item 设实数$k>3$，则
+       \[
+         \sum_{n=1}^\infty n\left(\zeta(k) - \frac1{1^k} - \frac1{2^k} - \cdots - \frac1{n^k}\right) = \frac12\big( \zeta(k-2) - \zeta(k-1) \big).
+       \]
+    \end{enum}
+  \end{lemma}
+\end{mybox}
+
+\begin{proof}
+  \begin{inparaenum}[(a)]
+    \item 将引理 \ref{lemmaA.2} 中的级数逐项微分即可.
+
+    \item 引理的这一部分只需要对$a_n=n$和$b_n=\zeta(k)-\frac1{1^k}-\frac1{2^k}
+        -\cdots-\frac1{n^k}$利用Abel求和公式即可.
+  \end{inparaenum}
+\end{proof}
+
+\section{两个二次Frullani积分}
+在本节中，我们证明一个在问题 \ref{problem4.102} 中用到的引理.
+
+\begin{mybox}
+  \begin{lemma}[伪装的Frullani积分.]
+
+    设$\alpha$是一个正实数，则以下等式成立：
+    \[
+      \int_0^{+\infty}\int_0^{+\infty}\left( \frac{\ee^{-\alpha x} - \ee^{-\alpha y}}{x-y} \right)^2 \dif x\dif y =
+      \int_0^{+\infty} \left( \frac{1-\ee^{-x}}x \right)^2 \dif x = 2\ln2.
+    \]
+  \end{lemma}
+\end{mybox}
+\begin{proof}
+  首先我们计算这里的定积分，只需要注意到它是一个Frullani积分 \cite{33}. 设函数$f:[0,+\infty)\to\MR$为$f(x)=\frac{1-\ee^{-x}}x,x\ne0$， 而$f(0)=1$. 计算知
+  \[
+    \left( \frac{1-\ee^{-x}}x \right)^2 = 2 \frac{f(x) - f(2x)} x.
+  \]
+  由Frullani公式，可得
+  \[
+    \int_0^{+\infty} \left( \frac{1-\ee^{-x}}x \right)^2 \dif x = 2\int_0^{+\infty} \frac{f(x) - f(2x)}x \dif x = 2\big( f(0) - f(+\infty) \big)\ln2 = 2\ln2,
+  \]
+  引理的第二个等号得证.
+
+  现在我们来计算这里的二重积分，作替换$\alpha x=u,\alpha y=v$，我们得到
+  \begin{align*}
+    I & = \int_0^{+\infty}\int_0^{+\infty}\left( \frac{\ee^{-\alpha x} - \ee^{-\alpha y}}{x-y} \right)^2 \dif x\dif y \\
+    & = \int_0^{+\infty}\int_0^{+\infty}\left( \frac{\ee^{-u} - \ee^{-v}}{u-v} \right)^2 \dif u\dif v \\
+    & = 2\int_0^{+\infty}\left( \int_0^u\left( \frac{\ee^{-u} - \ee^{-v}}{u - v}\right) ^2 \dif v \right) \dif u .
+  \end{align*}
+
+  作替换$u-v=t$，可知内层积分变为
+  \[
+    \int_0^u\left( \frac{\ee^{-u} - \ee^{-v}}{u - v}\right) ^2 \dif v = \ee^{-2u} \int_0^u
+    \left( \frac{1-\ee^t}t \right)^2 \dif t.
+  \]
+  这意味着$I=2\int_0^{+\infty}\ee^{-2u}\left( \int_0^u
+    \left( \frac{1-\ee^t}t \right)^2 \dif t \right)\dif u$. 我们利用分部积分来计算此积分，考虑
+    \[
+      f(u) = \int_0^u
+    \left( \frac{1-\ee^t}t \right)^2 \dif t,\quad f'(u) = \left( \frac{1-\ee^u}u\right)^2,\quad g'(u)=\ee^{-2u},\quad g(u) = - \frac{\ee^{-2u}}2,
+    \]
+    我们得到
+    \begin{align*}
+      I & = -\ee^{-2u} \int_0^u
+    \left( \frac{1-\ee^t}t \right)^2 \dif t\bigg|_0^{+\infty} + \int_0^{+\infty}
+    \left( \frac{1-\ee^{-u}}u \right)^2 \dif u \\
+    & = \int_0^{+\infty}
+    \left( \frac{1-\ee^{-u}}u \right)^2 \dif u \\
+    & = 2\ln2.
+    \end{align*}
+    引理得证.
+\end{proof}
+
+更一般地 \cite{21}，我们可以证明，如果整数$n\ge2$，则
+\begin{align*}
+  \int_0^{+\infty}\int_0^{+\infty}\left( \frac{\ee^{- x} - \ee^{- y}}{x-y} \right)^n \dif x\dif y  & = \frac{2(-1)^n}n \int_0^{+\infty} \left( \frac{1-\ee^{-x}} x \right)^n \dif x \\
+  & = \frac2{n!}\sum_{j=2}^n \Binom nj j^{n-1}(-1)^l\ln j.
+\end{align*}
+而当$n=2$的情形就约化为一个Frullani积分.
+
+\section{计算$\ee^{Ax}$}
+在本节中，我们给出计算$\ee^{Ax}$的一个一般的方法，其中$A\in\MM_2(\MR),x\in\MR$. 此方法结合了Cayley--Hamilton定理与指数函数的幂级数展开式.
+
+\begin{mybox}
+  \begin{theorem}[指数矩阵$\ee^{Ax}$.]
+
+    设$A\in\MM_2(\MR),x\in\MR.\Tr(A)=t,\det A=d$，则：
+    \[
+      \ee^{Ax} =
+      \begin{cases}
+        \ee^{\frac{tx}2} \left[ \cosh\frac{\sqrt\varDelta x}2I_2 + \frac2{\sqrt{\varDelta}}\sinh\frac{\sqrt\varDelta x}2\Big( A - \frac t2I_2 \Big) \right], & \text{如果}\, \varDelta > 0 \\
+        \ee^{\frac{tx}2} \left[ I_2 + \Big( A - \frac t2I_2 \Big)x \right], & \text{如果}\, \varDelta = 0 \\
+        \ee^{\frac{tx}2} \left[ \cos\frac{\sqrt{-\varDelta} x}2I_2 + \frac2{\sqrt{-\varDelta}}\sin
+        \frac{\sqrt{-\varDelta} x}2\Big( A - \frac t2I_2 \Big) \right], & \text{如果}\, \varDelta < 0
+      \end{cases}.
+    \]
+    其中$\varDelta=t^2-4d$.
+  \end{theorem}
+\end{mybox}
+
+\begin{proof}
+  由Cayley--Hamilton定理，我们有$A^2-tA+dI_2=O_2$，于是可得$\left(A - \frac t2I_2\right)^2=\frac{\varDelta}4I_2$.
+
+  如果$\varDelta>0$，令$b=\frac{\sqrt{\varDelta}}2,B=A-\frac t2I_2$. 我们有$B^2=b^2I_2$，且这意味着$B^{2k}=b^{2k}I_2$对任意$k\ge0$成立，而$B^{2k-1}=b^{2k-2}B$对任意$k\ge1$成立. 计算可得
+  \begin{align*}
+    \ee^{Bx} & = \sum_{k=0}^\infty \frac{(Bx)^{2k}}{(2k)!} + \sum_{k=1}^\infty \frac{(Bx)^{2k-1}}{(2k-1)!} \\
+    & = \sum_{k=0}^\infty \frac{(bx)^{2k}}{(2k)!}I_2 + \sum_{k=1}^\infty \frac{(bx)^{2k-1}}{(2k-1)!}\cdot \frac Bb \\
+    & = \cosh(bx)I_2 + \frac{\sinh(bx)}bB \\
+    & = \cosh\frac{\sqrt\varDelta x}2I_2 + \frac2{\sqrt{\varDelta}}\sinh\frac{\sqrt\varDelta x}2B.
+  \end{align*}
+  这意味着
+  \[
+    \ee^{Ax} = \ee^{\frac{tx}2I_2} \ee^{Bx} =
+    \ee^{\frac{tx}2} \left[ \cosh\frac{\sqrt\varDelta x}2I_2 + \frac2{\sqrt{\varDelta}}\sinh\frac{\sqrt\varDelta x}2\Big( A - \frac t2I_2 \Big) \right].
+  \]
+
+  如果$\varDelta=0$，我们有$B^2=O_2$，且这意味着$B^k=O_2$对任意$k\ge2$成立，所以$\ee^{Bx}=I_2+Bx$，且
+  \[
+    \ee^{Ax} = \ee^{\frac{tx}2I_2} \ee^{Bx} = \ee^{\frac{tx}2} \left[ I_2 + \Big( A - \frac t2I_2 \Big)x \right].
+  \]
+
+  如果$\varDelta<0$，我们有$B^2=\frac{\varDelta}4I_2$或$B^2=-b^2I_2$，其中$b=\frac{\sqrt{-\varDelta}}2$. 这意味着$B^{2k}=(-1)^kb^{2k}I_2$对任意$k\ge0$成立，而$B^{2k-1}=(-1)^{k-1}b^{2k-2}B$对任意$k\ge1$成立. 计算可得
+  \begin{align*}
+    \ee^{Bx} & = \sum_{k=0}^\infty \frac{(Bx)^{2k}}{(2k)!} + \sum_{k=1}^\infty \frac{(Bx)^{2k-1}}{(2k-1)!} \\
+    & = \sum_{k=0}^\infty (-1)^k\frac{(bx)^{2k}}{(2k)!}I_2 + \sum_{k=1}^\infty(-1)^{k-1} \frac{(bx)^{2k-1}}{(2k-1)!}\cdot \frac Bb \\
+    & = \cos(bx)I_2 + \frac{\sin(bx)}bB \\
+    & = \cos\frac{\sqrt{-\varDelta} x}2I_2 + \frac2{\sqrt{-\varDelta}}\sin
+        \frac{\sqrt{-\varDelta} x}2\Big( A - \frac t2I_2 \Big)
+  \end{align*}
+  这意味着
+  \[
+    \ee^{Ax} = \ee^{\frac{tx}2I_2} \ee^{Bx} =
+    \ee^{\frac{tx}2} \left[ \cos\frac{\sqrt{-\varDelta} x}2I_2 + \frac2{\sqrt{-\varDelta}}\sin
+        \frac{\sqrt{-\varDelta} x}2\Big( A - \frac t2I_2 \Big) \right].
+  \]
+  定理得证.
+\end{proof}
+
+\begin{remark}
+  我们顺便一提，双曲函数$\sinh(Ax)$和$\cosh(Ax)$也可以根据定理 \ref{thmA.1} 计算出来，我们将这些计算留给感兴趣的读者.
+\end{remark}
+
+\section{计算$\sin Ax$和$\cos Ax$}
+
+在本节中，我们给出一种不同于Jordan标准形的方法来计算三角函数$\sin(Ax)$和$\cos(Ax)$，其中$A\in\MM_2(\MR),x\in\MR$.
+\begin{mybox}
+  \begin{theorem}[三角函数$\sin(Ax)$.]
+
+    设$A\in\MM_2(\MR),x\in\MR,\Tr(A)=t,\det A=d$，则：
+    \[
+      \sin(Ax) = \begin{cases}
+        \cos\frac{\sqrt{\varDelta}x}2\sin\frac{tx}2I_2 + \frac2{\sqrt{\varDelta}} \cos\frac{tx}2 \sin\frac{\sqrt{\varDelta}x}2 \Big( A - \frac t2I_2 \Big), & \text{如果}\, \varDelta > 0 \\
+        \sin \frac{tx}2I_2 + x\cos\frac{tx}2 \Big( A - \frac t2I_2 \Big), & \text{如果}\, \varDelta = 0 \\
+        \cosh\frac{\sqrt{-\varDelta}x}2\sin\frac{tx}2I_2 + \frac2{\sqrt{-\varDelta}} \sinh\frac{\sqrt{-\varDelta}x}2\cos\frac{tx}2 \Big( A - \frac t2I_2 \Big), & \text{如果}\, \varDelta < 0
+      \end{cases},
+    \]
+    其中$\varDelta=t^2-4d$.
+  \end{theorem}
+\end{mybox}
+
+\begin{proof}
+  Cayley--Hamilton定理意味着$A^2-tA+dI_2=O_2$，于是$\left(A-\frac t2I_2)\right)^2=\frac{\varDelta}4I_2$.
+
+  如果$\varDelta>0$，令$b=\frac{\sqrt{\varDelta}}2,B=A-\frac t2I_2$. 我们有$B^2=b^2I_2$，且这意味着$B^{2k}=b^{2k}I_2$对任意$k\ge0$成立，而$B^{2k-1}=b^{2k-2}B$对任意$k\ge1$成立. 我们有
+  \begin{align*}
+    \sin (Bx) & = \sum_{n=1}^\infty (-1)^{n-1} \frac{(Bx)^{2n-1}}{(2n-1)!} \\
+    & = \sum_{n=1}^\infty (-1)^{n-1}\frac{(bx)^{2n-1}}{(2n-1)!} \cdot \frac Bb \\
+    & = \frac{\sin(bx)}bB \\
+    & = \frac2{\sqrt\varDelta}\sin\frac{\sqrt\varDelta x}2\Big( A - \frac t2I_2 \Big),
+  \end{align*}
+  且
+  \[
+    \cos(Bx) = \sum_{n=0}^\infty (-1)^n\frac{(Bx)^{2n}}{(2n)!} = \sum_{n=0}^\infty (-1)^n \frac{(bx)^{2n}}{(2n)!}I_2 = \cos(bx)I_2 = \cos \frac{\sqrt\varDelta x}2I_2.
+  \]
+  于是
+  \begin{align*}
+    \sin(Ax) & = \sin \Big( Bx + \frac{tx}2 I_2 \Big) \\
+    & = \sin(Bx) \cos \Big( \frac{tx}2I_2\Big) + \cos(Bx) \sin \Big( \frac{tx}2I_2\Big) \\
+    & = \sin (Bx) \cos \Big( \frac{tx}2\Big) + \cos(Bx) \sin \Big( \frac{tx}2\Big) \\
+    & = \cos \frac{\sqrt\varDelta x}2\sin\frac{tx}2I_2 + \frac2{\sqrt\varDelta}\cos \frac{tx}2\sin \frac{\sqrt\varDelta x}2 \Big( A - \frac t2I_2 \Big).
+  \end{align*}
+
+  如果$\varDelta=0$，我们有$B^2=O_2$，这意味着$B^k=O_2$对任意$k\ge2$成立. 计算可得
+  \[
+    \sin (Bx) = Bx = \Big( A - \frac t2I_2 \Big)x\quad \text{且} \quad
+    \cos(Bx) = I_2.
+  \]
+  因此，
+  \begin{align*}
+    \sin(Ax) & = \sin \Big( Bx + \frac{tx}2I_2 \Big) \\
+    & = \sin(Bx)\cos\Big( \frac{tx}2I_2 \Big) + \cos(Bx) \sin \Big( \frac{tx}2I_2 \Big) \\
+    & = \sin \frac{tx}2I_2 + x\cos \frac{tx}2 \Big( A - \frac t2I_2 \Big).
+  \end{align*}
+
+  如果$\varDelta<0$，我们有$B^2=\frac{\varDelta}4I_2$或$B^2=-b^2I_2$，其中$b=\frac{\sqrt{-\varDelta}}2$. 这意味着$B^{2k}=(-1)^kb^{2k}I_2$对任意$k\ge0$成立，而$B^{2k-1}=(-1)^{k-1}b^{2k-2}B$对任意$k\ge1$成立. 计算可得
+  \begin{align*}
+    \sin(Bx) & = \sum_{n=1}^\infty(-1)^{n-1} \frac{(Bx)^{2n-1}}{(2n-1)!} \\
+    & = \sum_{n=1}^\infty \frac{(bx)^{2n-1}}{(2n-1)!} \cdot \frac Bb \\
+    & = \frac{\sinh(bx)}b B \\
+    & = \frac2{\sqrt{-\varDelta}} \sinh \frac{\sqrt{-\varDelta}x}2 \Big( A - \frac t2I_2 \Big),
+  \end{align*}
+  且
+  \[
+    \cos(Bx) = \sum_{n=0}^\infty (-1)^n \frac{(Bx)^{2n}}{(2n)!} = \sum_{n=0}^\infty \frac{(bx)^{2n}}{(2n)!}I_2 = \cosh(bx)I_2 = \cosh \frac{\sqrt{-\varDelta}x}2I_2.
+  \]
+  于是
+  \begin{align*}
+    \sin(Ax) & = \sin \Big( Bx + \frac{tx}2 I_2 \Big) \\
+    & = \sin(Bx) \cos \Big( \frac{tx}2I_2\Big) + \cos(Bx) \sin \Big( \frac{tx}2I_2\Big) \\
+    & = \sin (Bx) \cos \Big( \frac{tx}2\Big) + \cos(Bx) \sin \Big( \frac{tx}2\Big) \\
+    & = \cosh \frac{\sqrt{-\varDelta } x}2\sin\frac{tx}2I_2 + \frac2{\sqrt{-\varDelta}}\sinh \frac{\sqrt{-\varDelta} x}2\cos \frac{tx}2 \Big( A - \frac t2I_2 \Big).
+  \end{align*}
+  定理得证.
+\end{proof}
+
+\begin{mybox}
+  \begin{theorem}[三角函数$\cos(Ax)$.]
+
+   设$A\in\MM_2(\MR),x\in\MR,\Tr(A)=t,\det A=d$，则：
+   \[
+     \cos(Ax) = \begin{cases}
+       \cos \frac{\sqrt\varDelta x}2 \cos \frac{tx}2I_2 - \frac2{\sqrt\varDelta} \sin \frac{tx}2 \sin \frac{\sqrt\varDelta x}2\Big( A - \frac t2I_2 \Big), & \text{如果}\, \varDelta > 0 \\
+       \cos \frac{tx}2I_2 - x\sin \frac{tx}2 \Big( A - \frac t2I_2 \Big), & \text{如果}\, \varDelta = 0 \\
+       \cosh \frac{\sqrt{-\varDelta} x}2 \cos \frac{tx}2I_2 - \frac2{\sqrt{-\varDelta}} \sin \frac{tx}2 \sinh \frac{\sqrt{-\varDelta} x}2\Big( A - \frac t2I_2 \Big), & \text{如果}\, \varDelta < 0
+     \end{cases}.
+   \]
+  \end{theorem}
+\end{mybox}
+\begin{proof}
+  此定理的证明类似于定理 \ref{thmA.2} 的证明.
+\end{proof}
+
+\chapter{三角矩阵方程}
+\section{四个三角方程}
+
+\begin{proverb}
+  { \itshape
+  \hfill Read to get wise and teach others
+              when it will be needed.
+  }
+
+\hfill Louis Pasteur（1822–1895）
+\end{proverb}
+
+在本附录中，我们解决基本的三角矩阵方程. 首先我们给出一个引理，它将会在引理 \ref{lemmaB.2} 和 \ref{lemmaB.4} 的证明中用到.
+
+\begin{lemma}
+  设函数$f$在0处的Taylor级数展开式为$f(z)=\sum_{n=0}^\infty\frac{f^{(n)}(0)}{n!}z^n,|z|<R$，其中$R\in(0,+\infty]$，且设$A\in\MM_2(\MC)$满足$\rho(A)<R$. 设$\alpha\in\MC$，且$B\in\MM_2(\MC)$使得$A$与$B$是相似的. 则$f(A)=\alpha I_2$当且仅当$f(B)=\alpha I_2$.
+\end{lemma}
+\begin{proof}
+  证明留给感兴趣的读者.
+\end{proof}
+
+\begin{mybox}
+\begin{lemma}
+  设$A\in\MM_2(\MR)$. 方程$\sin A=O_2$的解为
+  \[
+    A = Q\begin{pmatrix}
+      k\pi & 0 \\
+      0 & l\pi
+    \end{pmatrix}Q^{-1},
+  \]
+  其中$l,k\in\MZ$且$Q\in\MM_2(\MR)$是任意一个可逆矩阵.
+\end{lemma}
+\end{mybox}
+
+\begin{proof}
+  设$J_A$是$A$的Jordan标准形. 由于$A\sim J_A$，由引理 \ref{lemmaB.1}，只需要研究方程$\sin J_A=O_2$即可. 设$\lambda_1,\lambda_2$是$A$的特征值，我们分下面两种情形.
+
+  {\bfseries $A$的特征值为实数的情形.} 如果$J_A=\begin{pmatrix}
+    \lambda_1 & 0 \\
+    0 & \lambda_2
+  \end{pmatrix}$，则$\sin J_A=\begin{pmatrix}
+    \sin\lambda_1 & 0 \\
+    0 & \sin\lambda_2
+  \end{pmatrix}=O_2$，这意味着$\sin\lambda_1=0,\sin\lambda_2=0$，因此$\lambda_1=k\pi,\lambda_2=l\pi$，其中$k,l\in\MZ$.
+
+  如果$J_A=\begin{pmatrix}
+    \lambda & 1 \\
+    0 & \lambda
+  \end{pmatrix}$，则$\sin J_A=\begin{pmatrix}
+    \sin\lambda & \cos \lambda \\
+    0 & \sin \lambda
+  \end{pmatrix}=O_2$，这意味着$\sin\lambda=0,\cos\lambda=0$，这是不可能的，因为$\sin^2\lambda+\cos^2\lambda=1$.
+
+  {\bfseries $A$的特征值为复数的情形.} 设$\beta\in\MR^\ast$，且$\lambda_1=\alpha+\ii\beta,\lambda_2
+  =\alpha-\ii\beta$是$A$的特征值. 由定理 \ref{thm2.10}，我们有$J_A=\begin{pmatrix}
+    \alpha & \beta \\
+    -\beta & \alpha
+  \end{pmatrix}$. 方程$\sin A=O_2$意味着$\sin A=P\sin J_AP^{-1}=O_2$，这又说明$\sin J_A=O_2$. 由定理 \ref{thmA.2}，计算可得
+  \begin{align*}
+    \sin J_A & = \frac{\sinh|\beta|\cos\alpha}{|\beta|}J_A +
+      \left[ \cosh|\beta|\sin\alpha - \frac\alpha{|\beta|}\sinh\beta\cos\alpha \right]I_2 \\
+      & = \begin{pmatrix}
+        \cosh|\beta|\sin\alpha & \frac\beta{|\beta|}\sinh|\beta|\cos\alpha \\
+        -\frac\beta{|\beta|}\sinh|\beta|\cos\alpha & \cosh|\beta|\sin\alpha
+      \end{pmatrix}.
+  \end{align*}
+  这意味着
+  \[
+    \left\{
+      \begin{aligned}
+        & \cosh|\beta|\sin\alpha = 0\\
+        & \frac\beta{|\beta|}\sinh|\beta|\cos\alpha = 0
+      \end{aligned}
+    \right..
+  \]
+  第一个方程说明$\sin\alpha=0$，又因为$\beta\ne0$，第二个方程说明$\cos\alpha=0$，这与$\sin^2\alpha+\cos^2\alpha=1$矛盾.
+\end{proof}
+
+\begin{mybox}
+\begin{lemma}
+  设$A\in\MM_2(\MR)$. 方程$\cos A=O_2$的解为
+  \[
+    A = Q\begin{pmatrix}
+      \frac\pi2 + k\pi & 0 \\
+      0 & \frac\pi2 + l\pi
+    \end{pmatrix}Q^{-1},
+  \]
+  其中$l,k\in\MZ$且$Q\in\MM_2(\MR)$是任意一个可逆矩阵.
+\end{lemma}
+\end{mybox}
+\begin{proof}
+  由于$\cos A=\sin\left(\frac\pi2I_2-A\right)$，我们要解的方程变为
+  \[
+    \sin\left(\frac\pi2I_2-A\right) = O_2,
+  \]
+  结论由引理 \ref{lemmaB.2} 即得.
+\end{proof}
+
+\begin{mybox}
+\begin{lemma}
+  设$A\in\MM_2(\MR)$. 方程$\sin A=I_2$的解为
+  \[
+    A = Q\begin{pmatrix}
+      \frac\pi2 + 2k\pi & 0 \\
+      0 & \frac\pi2 + 2l\pi
+    \end{pmatrix}Q^{-1},
+  \]
+  其中$l,k\in\MZ$且$Q\in\MM_2(\MR)$是任意一个可逆矩阵. 或者
+  \[
+    A = Q\begin{pmatrix}
+      \frac\pi2 + 2m\pi & 0 \\
+      0 & \frac\pi2 + 2m\pi
+    \end{pmatrix}Q^{-1},
+  \]
+  其中$m\in\MZ$且$Q\in\MM_2(\MR)$是任意一个可逆矩阵.
+\end{lemma}
+\end{mybox}
+
+\begin{proof}
+  设$J_A$是$A$的Jordan标准形. 由于$A\sim J_A$，由引理 \ref{lemmaB.1}，只需要研究方程$\sin J_A=O_2$即可. 设$\lambda_1,\lambda_2$是$A$的特征值，我们分下面两种情形.
+
+  {\bfseries $A$的特征值为实数的情形.} 如果$J_A=\begin{pmatrix}
+    \lambda_1 & 0 \\
+    0 & \lambda_2
+  \end{pmatrix}$，则$\sin J_A=\begin{pmatrix}
+    \sin\lambda_1 & 0 \\
+    0 & \sin\lambda_2
+  \end{pmatrix}=I_2$，这意味着$\sin\lambda_1=1,\sin\lambda_2=1$，因此$\lambda_1=\frac\pi2+2k\pi,\lambda_2=\frac\pi2+2l\pi$，其中$k,l\in\MZ$.
+
+  如果$J_A=\begin{pmatrix}
+    \lambda & 1 \\
+    0 & \lambda
+  \end{pmatrix}$，则$\sin J_A=\begin{pmatrix}
+    \sin\lambda & \cos \lambda \\
+    0 & \sin \lambda
+  \end{pmatrix}=I_2$，这意味着$\sin\lambda=1,\cos\lambda=0$，这意味着$\lambda=\frac\pi2+2m\pi,m\in\MZ$.
+
+  {\bfseries $A$的特征值为复数的情形.} 设$\beta\in\MR^\ast$，且$\lambda_1=\alpha+\ii\beta,\lambda_2
+  =\alpha-\ii\beta$是$A$的特征值. 由定理 \ref{thm2.10}，我们有$J_A=\begin{pmatrix}
+    \alpha & \beta \\
+    -\beta & \alpha
+  \end{pmatrix}$. 方程$\sin A=I_2$意味着$\sin A=P\sin J_AP^{-1}=I_2$，这又说明$\sin J_A=I_2$. 由定理 \ref{thmA.2}，计算可得
+  \begin{align*}
+    \sin J_A & = \frac{\sinh|\beta|\cos\alpha}{|\beta|}J_A +
+      \left[ \cosh|\beta|\sin\alpha - \frac\alpha{|\beta|}\sinh\beta\cos\alpha \right]I_2 \\
+      & = \begin{pmatrix}
+        \cosh|\beta|\sin\alpha & \frac\beta{|\beta|}\sinh|\beta|\cos\alpha \\
+        -\frac\beta{|\beta|}\sinh|\beta|\cos\alpha & \cosh|\beta|\sin\alpha
+      \end{pmatrix}.
+  \end{align*}
+  这意味着
+  \[
+    \left\{
+      \begin{aligned}
+        & \cosh|\beta|\sin\alpha = 1\\
+        & \frac\beta{|\beta|}\sinh|\beta|\cos\alpha = 0
+      \end{aligned}
+    \right..
+  \]
+  由于$\beta\ne0$，第二个方程说明$\cos\alpha=0$，这说明$\sin\alpha=\pm1$，我们由第一个方程得到$\cosh|\beta|=1$. 此方程的解为$\beta=0$，这是不可能的.
+\end{proof}
+
+\begin{mybox}
+\begin{lemma}
+  设$A\in\MM_2(\MR)$. 方程$\cos A=I_2$的解为
+  \[
+    A = Q\begin{pmatrix}
+      2k\pi & 0 \\
+      0 & 2l\pi
+    \end{pmatrix}Q^{-1},
+  \]
+  其中$l,k\in\MZ$且$Q\in\MM_2(\MR)$是任意一个可逆矩阵. 或者
+  \[
+    A = Q\begin{pmatrix}
+      2m\pi & 0 \\
+      0 & 2m\pi
+    \end{pmatrix}Q^{-1},
+  \]
+  其中$m\in\MZ$且$Q\in\MM_2(\MR)$是任意一个可逆矩阵.
+\end{lemma}
+\end{mybox}
+\begin{proof}
+  注意到$\sin\left(\frac\pi2I_2-A\right)=\cos A$，然后由引理 \ref{lemmaB.4} 即得.
+\end{proof}
+
+其他涉及三角函数的方程可以通过将它们简化为这四个基本矩阵方程来求解. 我们在这里停止我们的研究，并邀请读者进一步研究涉及三角函数或三角函数的逆矩阵方程.
+
+\section*{后记}
+作者希望你们能成功解决与二阶矩阵相关的问题. 为什么只是二阶矩阵呢? 很简单，因为很多关于$2\times2$矩阵的优美结论，对于非二阶的矩阵是不成立的，比如在第 \ref{chap1} 章中的行列式公式. 甚至是，有些结论推广到高于二阶的矩阵时，这些公式就失去了优美性，更不用提它们的证明技巧了.
+
+这里的问题是不是优美的，这由读者你们来决定. 我们希望你们能享受这里的问题和理论. 如果有关改进本材料的问题、概括、评论、意见，请不吝批评指正，随时联系我们：
+
+\begin{tabular}{l}
+  \bfseries Vasile Pop \\
+  Technical University of Cluj-Napoca \\
+  Department of Mathematics \\
+  Str. Memorandumului Nr. 28, 400114\\
+  Cluj-Napoca, Romania \\
+  \href{mailto:Vasile.Pop@math.utcluj.ro}{E-mail: Vasile.Pop@math.utcluj.ro}\\
+  \kaishu and \\
+  Technical University of Cluj-Napoca \\
+  Department of Mathematics \\
+  Str. Memorandumului Nr. 28, 400114 \\
+  Cluj-Napoca, Romania \\
+  \href{mailto:Ovidiu.Furdui@math.utcluj.ro}{E-mail: Ovidiu.Furdui@math.utcluj.ro} \\
+  \href{mailto:ofurdui@yahoo.com}{E-mail: ofurdui@yahoo.com}
+\end{tabular} 

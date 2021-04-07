@@ -1,0 +1,9 @@
+  \begin{tikzpicture}
+    \draw [->] (-6,0) -- (-3,0) node[below] {$F'$} -- (-2.236,0) node[below right] {$A'$} -- (0,0) node[below left] {$O$} -- (2.236,0) node[below left]{$A$} -- (3,0) node[below] {$F$} -- (6,0) node [below] {$x$};
+    \draw [->] (0,-4) -- (0,4) node[left] {$y$};
+    \draw [thick,blue,domain = -60:60] plot ({2.236*sec(\x)},{2*tan(\x)});
+    \draw [thick,blue,xscale=-1, domain = -60:60] plot ({2.236*sec(\x)},{2*tan(\x)});
+    \draw [blue!70!cyan,domain=-4:4] plot (\x,{2*\x/2.236}) node [above,black]{$y=\frac bax$};
+    \draw [blue!70!cyan,domain=4:-4] plot (\x,{-2*\x/2.236})node [above,black]{$y=-\frac bax$};
+    \draw [red!50!black] (-3,0) -- ({2.236*sec(45)},{2*tan(45)}) node[right,black]{$M$} -- (3,0);
+  \end{tikzpicture}

@@ -1,0 +1,5552 @@
+\chapter{矩阵函数与矩阵微积分}
+\begin{proverb}
+  { \itshape
+   Sleepiness and fatigue are the enemies of learning.
+  }
+
+\hfill Platon （427 B.C.--347 B.C.）
+\end{proverb}
+
+\section{矩阵数列与级数}
+设$A\in\MM_2(\MC)$，且$f\in \MC[x]$是多项式函数
+\[
+  f(x) = a_0 + a_1x + a_2x^2 + \cdots + a_nx^n.
+\]
+
+矩阵$f(A)=a_0I_2+a_1A+a_2A^2+\cdots+a_nA^n$称为 多项式函数$f$在$A$的取值. 对任意矩阵$A$和任意多项式函数$f$，我们可以定义矩阵$f(A)$.
+
+我们把这个定义推广到其他函数，非多项式函数，推广到数学的其他分支，如求解微分方程组和研究由微分方程组模拟的各种现象的稳定性. 这种推广的难处在于，如果给定一个定义在集合$D$上的一个数值函数，而$A$是一个矩阵，要定义矩阵$f(A)$，我们需要让$A$满足一些条件.
+
+研究多项式函数的极限是非常有意义的，因此有必要定义矩阵序列的极限.
+
+设$(A_n)_{n\in\MN}$是一列矩阵，$A_n=\left(a_{ij}^{(n)}\right)_{i,j=1,2}\in\MM_2(\MC)$.
+
+\begin{definition}
+  我们称序列$(A_n)_{n\in\MN}${\kaishu 收敛}，是指数列$\left(a_ {ij}^{(n)}\right)\in\MM_2(\MC)$对所有的$i,j=1,2$都收敛. 如果$a_{ij}=\lim_{n\to\infty}a_{ij}^{(n)}$，则矩阵$A=(a_{ij})_{i,j=1,2}$称为{\kaishu 序列$(A_n)_{n\in\MN}$的极限}，并且我们记作$A=\lim_{n\to\infty}A_n$，有时候也用记号$A_\infty=\lim_{n\to\infty}A_n$.
+\end{definition}
+
+下一个命题，其证明是直接的，给出了矩阵序列极限最基本的性质.
+\begin{prop}
+  如果$A=\lim_{n\to\infty}A_n,B=\lim_{n\to\infty}B_n$，且$P\in\MM_2(\MC)$是一个可逆矩阵，则：
+  \begin{enum}
+    \item $\lim_{n\to\infty}(\alpha A_n+\beta B_n)=\alpha A+\beta B,\,\alpha,\beta\in\MC$；
+    \item $\lim_{n\to\infty}(A_nB_n)=AB$；
+    \item\label{prop4.1c} $\lim_{n\to\infty}(P^{-1}A_nP)=P^{-1}AP$.
+  \end{enum}
+\end{prop}
+
+\begin{remark}
+  我们提及一下，一列可逆矩阵的极限不一定是可逆矩阵，即如果$(A_n)_{n\in\MN}$是一列可逆矩阵，且$A=\lim_{n\to\infty}A_n$，则矩阵$A$不一定是可逆的（比如$\lim_{n\to\infty}\frac1nI_2=O_2$）.
+\end{remark}
+
+设$(f_n)_{n\in\MN}$是一列多项式，$f_n\in\MC[x]$，且设$A\in\MM_2(\MC)$.
+\begin{theorem}
+  如果$J_A$是$A$的Jordan标准形，则$\lim_{n\to\infty}f_n(A)$存在当且仅当$\lim_{n\to\infty}f_n(J_A)$存在. 此时，如果可逆矩阵$P$满足$J_A=P^{-1}AP$，则
+  \[
+    \lim_{n\to\infty} f_n(A) = P\left( \lim_{n\to\infty}f_n(J_A) \right) P^{-1}.
+  \]
+\end{theorem}
+
+\begin{proof}
+  对任意多项式函数$f\in \MC[x]$，我们有$f(J_A)=P^{-1}f(A)P$. 这只需要注意到由$J_A=P^{-1}AP$可得$J_A^n=P^{-1}A^nP$. 现在我们对等式$f_n(J_A)=P^{-1}f_n(A)P$和$f_n(A)=Pf_n(J_A)P^{-1}$应用命题 \ref{prop4.1} 中的 \ref{prop4.1c}，我们得到极限$\lim_{n\to\infty}f_n(A)$和$\lim_{n\to\infty}f_n(J_A)$是同时存在或同时不存在的，以及这两个极限的关系.
+\end{proof}
+
+\begin{remark}
+  定理 \ref{thm4.1} 将计算一个矩阵$A$的多项式函数序列的极限约化为研究其相应的Jordan标准形 $J_A$的多项式函数序列的极限.
+\end{remark}
+
+我们提及一下的是，一个$2\times2$矩阵可以有两个1阶Jordan块，即矩阵$J_\lambda=[\lambda]$，或一个2阶Jordan块$J_\lambda=\begin{pmatrix}
+  \lambda & 1 \\
+  0 & \lambda
+\end{pmatrix}$.
+
+\begin{theorem}
+  设$\lambda\in\MC$，且令
+  \[
+    J_\lambda = \begin{pmatrix}
+      \lambda & 1 \\
+      0 & \lambda
+    \end{pmatrix}
+  \]
+  是一个二阶Jordan块. 则对任意多项式$f\in\MC[x]$，我们有
+  \[
+    f(J_\lambda) = \begin{pmatrix}
+      f(\lambda) & f'(\lambda) \\
+      0 & f(\lambda)
+    \end{pmatrix}.
+  \]
+\end{theorem}
+\begin{proof}
+  设$g_n(\lambda)=\lambda^n$，且令$J_0=\begin{pmatrix}
+    0 & 1 \\
+    0 & 0
+  \end{pmatrix}$. 首先我们注意到$J_0^2=O_2$，且我们有
+  \[
+    J_\lambda^n = (\lambda I_2 + J_0)^n = \lambda^nI_2 + \Binom n1\lambda^{n-1}J_0 = g_n(\lambda)I_2 + g_n'(\lambda)J_0.
+  \]
+  因此，此定理对任意形如$f(x)=x^n$的多项式都是成立的，那么由线性性可知其对任意多项式函数$f\in\MC[x]$也成立.
+\end{proof}
+
+\begin{theorem}
+  矩阵序列$\big(f_n(\lambda)\big)_{n\in\MN}$收敛当且仅当数值函数列$\big(f_n(\lambda)\big)_{n\in\MN}$ 与$\big(f_n'(\lambda)\big)_{n\in\MN}$都收敛. 如果$\lim_{n\to\infty}f_n(\lambda)=f(\lambda)$且
+  $\lim_{n\to\infty}f_n'(\lambda)=f'(\lambda)$，则
+  \[
+    f(J_\lambda) = \lim_{n\to\infty}f_n(J_\lambda) =
+    \begin{pmatrix}
+      f(\lambda) & f'(\lambda) \\
+      0 & f(\lambda)
+    \end{pmatrix}.
+  \]
+\end{theorem}
+
+\begin{proof}
+  应用定理 \ref{thm4.2} 即可.
+\end{proof}
+
+回顾一个矩阵$A$的谱$\Spec(A)$是$A$的所有特征值构成的集合. 在我们讨论的情形中，$\Spec(A)=\{\lambda_1,\lambda_2\}\subset \MC$.
+
+\begin{definition}
+  我们称一个序列$(f_n)_{n\in\MN}$在$A$的谱上收敛，是指对任意$\lambda_i\in\Spec(A),i=1,2$，极限$\lim_{n\to\infty}f_n(\lambda_i),i=1,2$和
+  $\lim_{n\to\infty}f_n'(\lambda_i),i=1,2$都存在且有限. 进一步，如果存在定义在$\MC$上的一个包含$\Spec(A)$的子集的函数$f$，满足$\lim_{n\to\infty}f_n(\lambda_i)=f(\lambda_i)$且$\lim_ {n\to\infty}f_n'(\lambda_i)=f'(\lambda_i)$对$i=1,2$成立，则函数$f$称为序列$(f_n)_{n\in\MN}$在$A$的谱上的极限，我们记为$\lim_{\Spec(A)}f_n=f$.
+\end{definition}
+
+\begin{theorem}
+  矩阵序列$\big(f_n(A)\big)_{n\in\MN}$收敛当且仅当多项式序列$(f_n)_{n\in\MN}$在$A$的谱上收敛. 如果
+  \[
+    \lim_{\Spec(A)} f_k = f\quad \text{则}\quad
+    \lim_{n\to\infty}f_n(A) = f(A).
+  \]
+\end{theorem}
+\begin{proof}
+  直接由定理 \ref{thm4.1}，\ref{thm4.2} 和 \ref{thm4.3} 可得.
+\end{proof}
+
+\begin{definition}
+  如果序列$(f_n)_{n\in\MN}$在$A$的谱上收敛，且$\lim_{\Spec(A)}f_n=f$，则矩阵$f(A)=\lim_{n\to\infty}f_n(A)$称为矩阵$A$的函数$f$.
+\end{definition}
+
+\begin{remark}
+  我们有$\lim_{n\to\infty}f_n(A)=\Big(\lim_{\Spec(A)}f_n\Big)(A)$.
+\end{remark}
+
+\begin{remark}
+  设$D\subset \MC$，令函数$f:D\to\MC$是多项式序列$(f_n)_{n\in\MN}$的极限，$A$是一个矩阵. 则为了定义矩阵$f(A)$，验证$\Spec(A)\subset D$和序列$(f_n)_{n\in\MN}$在$A$的谱上的收敛性是有必要的. 基于前面的定理，计算矩阵$f(A)$的一种算法有下面几步：
+  \begin{enum}
+    \item 求出$A$的谱，并验证序列$(f_n)_{n\in\MN}$在$A$的谱上收敛到函数$f$；
+    \item 求矩阵$P$以及矩阵$A$的Jordan标准形$J_A$；
+    \item 求$f(J_A)$；
+    \item 写出$f(A)=Pf(J_A)P^{-1}$.
+  \end{enum}
+\end{remark}
+
+有时候要求$\lim_{n\to\infty}f_n(A)$是不需要利用$A$的Jordan标准形的.
+
+接下来，我们考虑当$f$是一个解析函数的情形，这些函数可以写成幂级数的形式.
+
+设幂级数$\sum_{m=0}^\infty a_mz^m$的收敛半径为$R$，令$f_n(z)=\sum_{m=0}^na_mz^m$，且$f(z)$为幂级数的和函数. 我们有
+\begin{equation}\label{eq4.1}
+  \begin{aligned}
+    & \lim_{n\to\infty}f_n(z) = f(z), \quad z\in D_R =
+    \{ z\in \MC:|z| < R\}, \\
+    & \lim_{n\to\infty}f_n^{(i)}(z) = f^{(i)}(z),\; i \in\MN,\;z\in D_R,
+  \end{aligned}
+\end{equation}
+而对$|z|>R$，上述极限是不存在的，所以函数$f$只定义在$D_R$和圆$\mathscr C_R=\partial D_R=\{z\in\MC:|z|=R\}$的某些点上.
+
+\begin{mybox}
+  \begin{definition}
+    设$A\in\MM_2(\MC)$. $A$的 {\kaishu 谱半径}\index{P!谱!谱半径}是一个实数，其定义为
+    \[
+      \rho(A) = \max\{|\lambda_1|,|\lambda_2|\}.
+    \]
+  \end{definition}
+\end{mybox}
+
+我们要求出可以定义矩阵$f(A)$的条件. 显然$f_n(z)=\sum_{m=0}^na_mz^m$是多项式，且由定理 \ref{thm4.4}，我们有矩阵$f(A)=\lim_{n\to\infty}f_n(A)$是存在的当且仅当多项式序列$(f_n)_{n\in\MN}$在$A$的谱上收敛到$f$.
+\begin{theorem}
+  设幂级数$f(z)=\sum_{m=0}^\infty a_mz^m$的收敛半径为$R$，且$A\in\MM_2(\MC)$. 则：
+  \begin{enum}
+    \item 如果$\rho(A)<R$，即$A$的特征值都在圆盘$D_R$内，则矩阵级数$\sum_{m=0}^\infty a_mA^m$收敛当且仅当矩阵$f(A)$存在，且$f(A)=\sum_{m=0}^\infty a_mA^m$；
+    \item 如果$\rho(A)=R$，即在圆$\mathscr C_R$上存在$A$的特征值，如果对任意满足$|\lambda|=R$的特征值，
+        \begin{equation}\label{eq4.2}
+          \sum_{m=0}^\infty a_m\lambda^m \quad
+          \text{与}\quad \sum_{m=1}^\infty ma_m\lambda^{m-1}
+        \end{equation}
+        都收敛，则矩阵级数$\sum_{m=0}^\infty a_mA^m$收敛.
+  \end{enum}
+\end{theorem}
+
+\begin{proof}
+  \begin{enuma}
+    \item 由于$A$的特征值都在圆盘$D_R$内，由 \eqref{eq4.1}，我们有幂级数$\sum_{m=0}^\infty a_mz^m$的部分和序列$(f_n)_{n\in\MN}$在$A$的谱上收敛于$f$，再根据定理 \ref{thm4.4}，这就说明$f(A)$存在，且$f(A)=\sum_{m=0}^\infty a_mA^m$.
+
+    \item 部分和序列$(f_n)_{n\in\MN}$在$A$的谱上收敛的情形就化归到了条件 \eqref{eq4.2}. 由 \eqref{eq4.1}，这些条件对$A$在收敛圆盘内的特征值成立，需要研究$A$在$\mathscr C_R$上的特征值的情形.
+  \end{enuma}
+\end{proof}
+
+\begin{mybox}
+  \begin{theorem}
+    设函数$f$在$z_0$处的Taylor展开式为
+    \[
+      f(z) = \sum_{n=0}^\infty \frac{f^{(n)}(z_0)}{n!}(z-z_0)^n,\quad |z-z_0|<R,
+    \]
+    其中$R\in(0,+\infty]$. 如果$A\in\MM_2(\MC)$的特征值$\lambda_1,\lambda_2\in\MC$满足$|\lambda_i-z_0|<R,i=1,2$，则矩阵$f(A)$的特征值为$f(\lambda_1)$和$f(\lambda_2)$.  \end{theorem}
+\end{mybox}
+
+\begin{proof}
+  由于相似的矩阵具有相同的特征值，而$f(A)$相似于$f(J_A)$，由定理 \ref{thm4.2} 和 \ref{thm4.3} 即证.
+
+另一种证明是直接计算. 设$X\ne0$是相应于特征值$\lambda$的特征向量，即$AX=\lambda X$，我们有
+\[
+  f(A)X = \left( \sum_{n=0}^\infty \frac{f^{(n)}(z_0)}{n!}(A-z_0I_2)^n \right)X =
+  \sum_{n=0}^\infty \frac{f^{(n)}(z_0)}{n!}(\lambda-z_0)^nX = f(\lambda)X,
+\]
+定理得证.
+\end{proof}
+
+\section{初等矩阵函数}
+本节中我们介绍一些贯穿全书的初等矩阵函数.
+
+\begin{mybox}
+  \begin{itemize}
+    \item {\bfseries 多项式函数}
+
+    如果多项式函数$f\in\MC[x]$定义为$f(x)=a_0+a_1x+\cdots+a_nx^n,a_i\in\MC,
+        i=0,1,\cdots,n $，则
+        \[
+          f(A) = a_0I_2 + a_1A + \cdots + a_nA^n,\quad A\in\MM_2(\MC).
+        \]
+    \item {\bfseries 指数函数}
+        \[
+          \ee^A = \sum_{n=0}^\infty \frac{A^n}{n!},\quad A\in\MM_2(\MC).
+        \]
+    \item {\bfseries 双曲函数}
+
+    双曲余弦函数
+    \[
+      \cosh A = \sum_{n=0}^\infty \frac{A^{2n}}{(2n)!},\quad A\in\MM_2(\MC).
+    \]
+    双曲正弦函数
+    \[
+      \sinh A = \sum_{n=0}^\infty \frac{A^{2n+1}}{(2n+1)!},\quad A\in\MM_2(\MC).
+    \]
+    \item {\bfseries 三角函数}
+
+    余弦函数
+    \[
+      \cos A = \sum_{n=0}^\infty \frac{(-1)^n}{(2n)!} A^{2n},\quad A\in\MM_2(\MC).
+    \]
+    正弦函数
+    \[
+      \sin A = \sum_{n=0}^\infty \frac{(-1)^n}{(2n+1)!}A^{2n+1},\quad A\in\MM_2(\MC).
+    \]
+    \item {\bfseries Neumann{\hyds （}几何{\hyds ）}级数}
+    \[
+      (I_2 - A)^{-1} = \sum_{n=0}^\infty A^n,\quad A\in\MM_2(\MC),\;\rho(A)<1.
+    \]
+    \item {\bfseries 二项式级数}
+    \[
+      (I_2 - A)^{-\alpha} = \sum_{n=0}^\infty \frac{\Gamma(n+\alpha)}{\Gamma(\alpha)n!}A^n,\quad A\in\MM_2(\MC),\;\rho(A)<1,\;\alpha>0,
+    \]
+    其中$\Gamma$表示{\kaishu Gamma}函数.
+    \item {\bfseries 对数函数}
+    \begin{align*}
+      & \ln(I_2 + A) = \sum_{n=1}^\infty \frac{(-1)^{n-1}}n A^n,\quad A\in\MM_2(\MC), \;\rho(A)<1. \\
+      & \ln(I_2 - A) = - \sum_{n=1}^\infty \frac{A^n}n,\quad A\in\MM_2(\MC), \;\rho(A)<1.
+    \end{align*}
+    \item {\bfseries 幂函数}
+
+    如果$z\in\MC^\ast$，则
+    \[
+      z^A = \ee^{(\ln z)A} = \sum_{n=0}^\infty \frac{\ln^nz}{n!}A^n,\quad A\in\MM_2(\MC).
+    \]
+  \end{itemize}
+\end{mybox}
+
+\begin{nota}
+  如果一个形如
+  $\varPhi\big(f_1(z_1),f_2(z_2),\cdots,f_p(z_p)\big)=0$的公式在$\MC$上成立，其中$f_i,i=1,2,\cdots,p$是某些函数，且$z_i\in\MC,i=1,2,\cdots,p$，则如果存在矩阵$A_i\in\MM_2(\MC),i=1,2,\cdots,p$与$f_i(A_i),
+  i=1,2,\cdots,p$可交换，我们也有矩阵公式
+  \[
+    \varPhi\big(f_1(A_1),f_2(A_2),\cdots,
+    f_p(A_p)\big)=O_2.
+  \]
+\end{nota}
+
+\begin{lemma}[指数函数的性质.]
+
+以下结论成立：
+\begin{enum}
+  \item 如果$a\in\MC$，则$\ee^{aI_2}=\ee^aI_2$；
+  \item\label{lemma4.1b} {\bfseries Euler矩阵公式.} 如果$A\in\MM_2(
+  \MC)$，则$\ee^{\ii A}=\cos A+\ii\sin A$；
+  \item\label{lemma4.1c} 如果$A,B\in\MM_2(\MC)$可交换，则$\ee^A\ee^B=\ee^B\ee^A=\ee^{A+B}$.
+\end{enum}
+\end{lemma}
+
+\begin{proof}
+  \begin{inparaenum}[(a)]
+    \item 我们有
+    \[
+      \ee^{aI_2} = \sum_{n=0}^\infty \frac{(aI_2)^n}{n!} = \left(\sum_{n=0}^\infty \frac{a^n}{n!}\right) I_2 = \ee^aI_2.
+    \]
+
+    \item 直接计算可得
+    \begin{align*}
+      \ee^{\ii A} & = \sum_{n=0}^\infty \frac{(\ii A)^n}{n!} \\
+      & = \sum_{k=0}^\infty \frac{(\ii A)^{2k}}{(2k)!} + \sum_{k=1}^\infty \frac{(\ii A)^{2k-1}}{(2k-1)!} \\
+      & = \sum_{k=0}^\infty (-1)^k\frac{A^{2k}}{(2k)!} + \ii
+      \sum_{k=1}^\infty (-1)^{k-1}\frac{A^{2k-1}}{(2k-1)!} \\
+      & = \cos A + \ii \sin A.
+    \end{align*}
+
+    \item 我们有
+    \begin{align*}
+      \ee^A\ee^B & = \sum_{n=0}^\infty \frac{A^n}{n!} \sum_{m=0}^\infty \frac{B^m}{m!} \\
+      & = \sum_{n=0}^\infty \sum_{m=0}^\infty \frac{A^nB^m}{n!m!} \\
+      & = \sum_{n=0}^\infty\sum_{m=0}^\infty \frac1{(n+m)!}\Binom{n+m}nA^nB^m \\
+      & = \sum_{k=0}^\infty \frac1{k!}\sum_{n+m=k} \Binom{n+m}n A^nB^m \\
+      & = \sum_{k=0}^\infty \frac{(A+B)^k}{k!} \\
+      & = \ee^{A+B},
+    \end{align*}
+    引理得证.
+  \end{inparaenum}
+\end{proof}
+
+\begin{lemma}[正弦和余弦函数的性质.]
+  设$A\in\MM_2(\MC)$，则下列结论成立：
+  \begin{enum}
+    \item\label{lemma4.2a} $\sin A=\frac{\ee^{\ii A}-\ee^{-\ii A}}{2\ii}$；
+    \item\label{lemma4.2b} $\cos A=\frac{\ee^{\ii A}+\ee^{-\ii A}}2$；
+    \item {\bfseries 矩阵三角恒等式}
+    \[
+      \sin^2A + \cos^2A = I_2;
+    \]
+    \item {\kaishu 二倍角公式}
+    \[
+      \sin(2A) = 2\sin A\cos A\quad \text{且}
+      \quad \cos(2A) = 2\cos^2A - I_2
+      = I_2 - 2\sin^2A;
+    \]
+    \item 如果$A,B\in\MM_2(\MC)$可交换，则$\sin(A+B)
+        =\sin A\cos B+\cos A\sin B$；
+    \item 如果$A\in\MM_2(\MC)$是对合矩阵且$k\in\MZ$，则$\cos(k\pi A)=(-1)^kI_2$.
+  \end{enum}
+\end{lemma}
+
+\begin{proof}
+  \begin{inparaenum}[(a)]
+    \item 和 \item 首先我们证明，如果$A\in\MM_2(\MC)$，则$\sin(-A)=-\sin A$且$\cos(-A)=\cos A$. 我们有
+        \begin{align*}
+          & \sin (-A) = \sum_{n=1}^\infty (-1)^{n-1}\frac{(-A)^{2n-1}}{(2n-1)!} =
+          - \sum_{n=1}^\infty(-1)^{n-1} \frac{A^{2n-1}}{(2n-1)!} = -\sin A,\\
+          & \cos (-A) = \sum_{n=0}^\infty(-1)^n
+          \frac{(-A)^{2n}}{(2n)!} = \sum_{n=0}^\infty(-1)^n
+          \frac{A^{2n}}{(2n)!} = \cos A.
+        \end{align*}
+        于是由引理 \ref{lemma4.1} 的 \ref{lemma4.1b} 可得
+        \begin{align*}
+          & \ee^{\ii A} = \cos A + \ii \sin A, \\
+          & \ee^{-\ii A} = \cos (-A) + \ii \sin(-A) = \cos A - \ii \sin A.
+        \end{align*}
+       解此关于$\cos A$与$\sin A$的方程组，我们就证明了引理的 \ref{lemma4.2a} 和 \ref{lemma4.2b}.
+
+    \item 由 \ref{lemma4.2a} 和 \ref{lemma4.2b} 我们有
+        \begin{align*}
+          \sin^2A + \cos^2A & = \left( \frac{\ee^{\ii A}-\ee^{-\ii A}}{2\ii} \right)^2 + \left( \frac{\ee^{\ii A} + \ee^{-\ii A}}2 \right)^2 \\
+          & = -\frac{\ee^{2\ii A}-2I_2+\ee^{2\ii A}}4 + \frac{\ee^{2\ii A}+2I_2+\ee^{2\ii A}}4 \\
+          & = I_2.
+        \end{align*}
+
+    \item 由 \ref{lemma4.2a} 和 \ref{lemma4.2b} 我们有
+        \begin{align*}
+          & 2\sin A\cos A = 2\frac{\ee^{\ii A}-\ee^{-\ii A}}{2\ii} \cdot \frac{\ee^{\ii A}+\ee^{-\ii A}}2 =
+          \frac{\ee^{2\ii A}-\ee^{-2\ii A}}{2\ii} = \sin(2A), \\
+          & 2\cos^2A - I_2 = 2\left(\frac{\ee^{\ii A}+\ee^{-\ii A}}2\right)^2 - I_2 = \frac{\ee^{2\ii A}+\ee^{-2\ii A}}2 = \cos(2A).
+        \end{align*}
+
+    \item 由于矩阵$A$和$B$可交换，由引理 \ref{lemma4.1} 的 \ref{lemma4.1c} 我们有
+        \begin{align*}
+          \sin A\cos B + \cos A\sin B & =
+          \frac{\ee^{\ii A}-\ee^{-\ii A}}{2\ii} \cdot \frac{\ee^{\ii B}+\ee^{-\ii B}}2 + \frac{\ee^{\ii A}+\ee^{-\ii A}}2 \cdot \frac{\ee^{\ii B}-\ee^{-\ii B}}{2\ii} \\
+          & = \frac{\ee^{\ii(A+B)} - \ee^{-\ii(A+B)}}{2\ii} \\
+          & = \sin(A+B).
+        \end{align*}
+
+    \item 由于$A^{2n}=I_2$对任意$n\ge0$成立，则
+    \begin{align*}
+      \cos(k\pi A) & = \sum_{n=0}^\infty (-1)^n\frac{(k\pi A)^{2n}}{(2n)!} \\
+      & = \left( \sum_{n=0}^\infty(-1)^n \frac{(k\pi)^{2n}}{(2n)!} \right) I_2 = \cos(k\pi) I_2 = (-1)^kI_2,
+    \end{align*}
+    引理得证.
+  \end{inparaenum}
+\end{proof}
+
+\begin{mybox}
+  \begin{lemma}[极限与导数.]
+    设$A\in\MM_2(\MC)$，则
+    \begin{enum}
+      \item\label{lemma4.3a} $\lim_{t\to0}\frac{\ee^{At}-I_2}t=A$；
+      \item\label{lemma4.3b} $\lim_{t\to0}\frac{\sin(At)}t=A$；
+      \item\label{lemma4.3c} $\lim_{t\to0}\frac{I_2-\cos(At)}{t^2}=
+          \frac{A^2}2$；
+      \item\label{lemma4.3d} $(\ee^{At})'=A\ee^{At}$；
+      \item\label{lemma4.3e} $\big(\sin(At)\big)'=A\cos(At)$；
+      \item\label{lemma4.3f} $\big(\cos(At)\big)'=-A\sin(At)$.
+    \end{enum}
+  \end{lemma}
+\end{mybox}
+
+\begin{proof}
+  \begin{inparaenum}[(a)]
+    \item 由于$A=PJ_AP^{-1}$，我们有
+    \begin{equation}\label{eq4.3}
+      \frac{\ee^{At}-I_2}t = P\frac{\ee^{J_At}-I_2}tP^{-1}.
+    \end{equation}
+    设$A$的特征值为$\lambda_1$和$\lambda_2$，则
+    \begin{equation}\label{eq4.4}
+      \frac{\ee^{J_At}-I_2}t = \begin{cases}
+        \begin{pmatrix}
+          \frac{\ee^{\lambda_1t}-1}t & 0 \\
+          0 & \frac{\ee^{\lambda_2t}-1}t
+        \end{pmatrix}, & \text{如果}\, J_A = \begin{pmatrix}
+          \lambda_1 & 0 \\
+          0 & \lambda_2
+        \end{pmatrix} \\
+        \begin{pmatrix}
+          \frac{\ee^{\lambda t}-1}t & \ee^{\lambda t}\\
+          0 & \frac{\ee^{\lambda t}-1}t
+        \end{pmatrix}, & \text{如果}\, J_A = \begin{pmatrix}
+          \lambda & 1 \\
+          0 & \lambda
+        \end{pmatrix}
+      \end{cases}.
+    \end{equation}
+    结合 \eqref{eq4.3} 和 \eqref{eq4.4}，当$t\to0$时取极限，我们就证明了引理的 \ref{lemma4.3a}.
+
+    \item 由于
+    \[
+      \sin (At) = \frac{\ee^{\ii At} - \ee^{-\ii At}}{2\ii},
+    \]
+    我们得到
+    \begin{align*}
+      \lim_{t\to0} \frac{\sin(At)}t & = \lim_{t\to0} \frac{\ee^{\ii At} - \ee^{-\ii At}}{2\ii t} \\
+      & = \lim_{t\to0} \frac{\ee^{\ii At} - I_2}{2\ii t} - \lim_{t\to0} \frac{\ee^{-\ii At} - I_2}{2\ii t} \\
+      & \overset{\ref{lemma4.3a}}{=} \frac{\ii A-(-\ii A)}{2\ii} \\
+      & = A.
+    \end{align*}
+
+    \item 由于$2\sin^2\frac{At}2=I_2-\cos(At)$，由 \ref{lemma4.3b}，我们得到
+      \[
+        \lim_{t\to0} \frac{I_2-\cos(At)}{t^2} = 2\lim_{t\to0} \left( \frac{\sin\frac{At}2}t \right) ^2 = \frac{A^2}2.
+      \]
+
+    \item 令$f(t)=\ee^{At}$，则
+    \begin{align*}
+      f(t) & = \lim_{h\to0} \frac{f(t+h) - f(t)}h \\
+      & = \lim_{h\to0} \frac{\ee^{At}(\ee^{Ah}-I_2)}h =
+      \ee^{At}\lim_{h\to0} \frac{\ee^{Ah}-I_2}h
+      \overset{\ref{lemma4.3a}}{=} A\ee^{At}.
+    \end{align*}
+
+    \item 由 \ref{lemma4.3d}，我们有
+    \begin{align*}
+      \big(\sin(At)\big)' & = \left( \frac{\ee^{\ii At} - \ee^{-\ii At}}{2\ii} \right)' = \frac{\ii A\ee^{\ii At} - (-\ii A)\ee^{-\ii At}}{2\ii} \\
+      & = A\frac{\ee^{\ii At} + \ee^{-\ii At}}2 = A\cos(At).
+    \end{align*}
+
+    \item 这一部分的证明与 \ref{lemma4.3e} 类似.
+  \end{inparaenum}
+\end{proof}
+
+\section{一种新的矩阵函数计算方法}
+在本节中我们给出一种（{\kaishu 应该是新的?!}）计算矩阵函数$f(A)$的技巧，其中$f$是一个解析函数而$A\in\MM_2(\MC)$. 我们证明$f(A)$可以表示成$A$和$I_2$的线性组合，这种技巧不同于用$A$的Jordan标准形的方法.
+
+\begin{mybox}
+  \begin{theorem}[将$f(A)$表示成$A$和$I_2$的线性组合.]
+  设函数$f$在0处的Taylor展开式为
+  \[
+    f(z) = \sum_{n=0}^\infty \frac{f^{(n)}(0)}{n!}z^n,\; |z|<R,
+  \]
+  其中$R\in(0,+\infty]$，且设$A\in\MM_2(\MC)$满足$\rho(A)<R$. 则：
+  \[
+    f(A) = \begin{cases}
+      \frac{f(\lambda_1) - f(\lambda_2)}{\lambda_1 - \lambda_2}A + \frac{\lambda_1f(\lambda_2) - \lambda_2f(\lambda_1)}{\lambda_1 - \lambda_2} I_2, & \text{如果}\, \lambda_1\ne \lambda_2 \\
+      f'(\lambda)A + \big( f(\lambda) - \lambda f'(\lambda) \big)I_2, & \text{如果}\, \lambda_1 = \lambda_2 = \lambda
+    \end{cases}.
+  \]
+  \end{theorem}
+\end{mybox}
+
+\begin{proof}
+  首先考虑$\lambda_1\ne\lambda_2$的情形. 由定理 \ref{thm3.1}，我们有如果整数$n\ge1$，则$A^n=\lambda_1^nB+\lambda_2^nC$，其中
+  \[
+    B = \frac{A-\lambda_2I_2}{\lambda_1-\lambda_2}\quad
+    \text{且}\quad C = \frac{A-\lambda_1I_2}{\lambda_2-\lambda_1}.
+  \]
+
+  于是
+  \begin{align*}
+    f(A) & = \sum_{n=0}^\infty \frac{f^{(n)}(0)}{n!}A^n \\
+    & = I_2 + \sum_{n=1}^\infty \frac{f^{(n)}(0)}{n!} (\lambda_1^nB + \lambda_2^n C) \\
+    & = B + \sum_{n=1}^\infty \frac{f^{(n)}(0)}{n!} \lambda_1^nB + C +
+    \sum_{n=1}^\infty \frac{f^{(n)}(0)}{n!}\lambda_2^nC \\
+    & = \sum_{n=0}^\infty \frac{f^{(n)}(0)}{n!}\lambda_1^nB +
+    \sum_{n=0}^\infty \frac{f^{(n)}(0)}{n!}\lambda_2^nC \\
+    & = f(\lambda_1)B + f(\lambda_2)C \\
+    & = \frac{f(\lambda_1) - f(\lambda_2)}{\lambda_1 - \lambda_2} A + \frac{\lambda_1f(\lambda_2) - \lambda_2f(\lambda_1)}{\lambda_1 - \lambda_2}I_2.
+  \end{align*}
+
+  现在我们考虑当$\lambda_1=\lambda_2=\lambda$的情形. 由定理 \ref{thm3.1}，我们有当整数$n\ge1$时，$A^n=\lambda^nB+n\lambda^{n-1}C$，其中$B=I_2$而$C=A-\lambda I_2$，这意味着
+  \begin{align*}
+    f(A) & = \sum_{n=0}^\infty \frac{f^{(n)}(0)}{n!}A^n \\
+    & = I_2 + \sum_{n=1}^\infty \frac{f^{(n)}(0)}{n!} (\lambda^nB + n\lambda^{n-1} C) \\
+    & = I_2 + \sum_{n=1}^\infty \frac{f^{(n)}(0)}{n!}\lambda^nB + \sum_{n=1}^\infty \frac{f^{(n)}(0)}{(n-1)!}\lambda^{n-1}C \\
+    & = \sum_{n=0}^\infty \frac{f^{(n)}(0)}{n!}\lambda^n I_2 + \sum_{n=1}^\infty \frac{f^{(n)}(0)}{(n-1)!}
+    \lambda^{n-1}(A - \lambda I_2) \\
+    & = f(\lambda)I_2 + f'(\lambda)(A - \lambda I_2) \\
+    & = f'(\lambda) A + \big( f(\lambda) - \lambda f'(\lambda) \big)I_2.
+  \end{align*}
+  定理得证.
+\end{proof}
+
+\begin{mybox}
+  \begin{remark}
+    更一般地，我们可以证明如果函数$f$在$z_0$出的Taylor级数为
+    \[
+      f(z） = \sum_{n=0}^\infty \frac{f^{(n)}(z_0)}{n!}(z - z_0)^n,\; |z-z_0|<R,
+    \]
+    其中$R\in(0,+\infty]$且$A\in\MM_2(\MC)$满足$\lambda_1,\lambda_2\in D(z_0,R)$，则
+    \[
+      f(A) = \begin{cases}
+        \frac{f(\lambda_1) - f(\lambda_2)}{\lambda_1 - \lambda_2}A + \frac{\lambda_1f(\lambda_2) - \lambda_2f(\lambda_1)}{\lambda_1 - \lambda_2} I_2, & \text{如果}\, \lambda_1\ne \lambda_2 \\
+        f'(\lambda)A + \big( f(\lambda) - \lambda f'(\lambda) \big)I_2, & \text{如果} \lambda_1 = \lambda_2 = \lambda
+     \end{cases}.
+    \]
+    上述公式的证明留给感兴趣的读者作为练习，只需要和$z_0=0$的情形一样的步骤即可.
+  \end{remark}
+\end{mybox}
+
+\begin{mybox}
+  \begin{corollary}
+    设$f$如定理 \ref{thm4.7} 所述，且$\alpha\in\MC$.
+    \begin{enum}
+      \item 如果$\lambda_1\ne\lambda_2\in\MC$满足$|\lambda_i|<R,i=1,2$，则
+          \[
+            f\begin{pmatrix}
+              \lambda_1 & \alpha \\
+              0 & \lambda_2
+            \end{pmatrix} = \begin{pmatrix}
+              f(\lambda_1) & \frac{f(\lambda_1)-
+              f(\lambda_2)}{\lambda_1-\lambda_2}\alpha \\
+              0 & f(\lambda_2)
+            \end{pmatrix}.
+          \]
+      \item 如果$\lambda\in\MC$满足$|\lambda|<R$，则
+      \[
+         f\begin{pmatrix}
+           \lambda & \alpha \\
+           0 & \lambda
+         \end{pmatrix} = \begin{pmatrix}
+           f(\lambda) & \alpha f'(\lambda) \\
+           0 & f(\lambda)
+         \end{pmatrix}.
+      \]
+    \end{enum}
+  \end{corollary}
+\end{mybox}
+
+\begin{mybox}
+  \begin{theorem}[用$\Tr(A)$和$\det A$表示$f(A)$.]
+    设函数$f$在0处的Taylor展开式为
+    \[
+      f(z) = \sum_{n=0}^\infty \frac{f^{(n)}(0)}{n!} z^n,\; |z|<R,
+    \]
+    其中$R\in(0,+\infty]$且$A\in\MM_2(\MC)$满足$\rho(A)<R$.
+
+    如果$t=\Tr(A),d=\det A$且$\varDelta=t^2-4d$，如果$\varDelta<0$或$\varDelta>0$，则：
+    \[
+      f(A) = \frac{f\left( \frac{t+\sqrt\varDelta}2 \right) - f\left( \frac{t+\sqrt\varDelta}2 \right)}{\sqrt{\varDelta}} A + \frac{ (t+\sqrt{\varDelta})f\left( \frac{t-\sqrt\varDelta}2 \right) - (t-\sqrt{\varDelta})f\left( \frac{t+\sqrt\varDelta}2 \right) }{2\sqrt{\varDelta}} I_2.
+    \]
+    如果$\varDelta=0$，则
+    \[
+      f(A) = f'\Big( \frac t2 \Big) A + \left[ f\Big( \frac t2 \Big) - \frac t2f'\Big( \frac t2 \Big)\right]I_2.
+    \]
+  \end{theorem}
+\end{mybox}
+
+\begin{proof}
+  由于$A$的特征值是特征方程$\lambda^2-t\lambda+d=0$的根，这个定理直接由定理 \ref{thm4.7} 可得.
+\end{proof}
+
+作为定理 \ref{thm4.7} 的应用，接下来我们证明矩阵理论中的一个经典极限. 确切地说，我们要证明如果$A\in\MM_2(\MC)$，则
+\begin{mybox}
+  \[
+    \lim_{n\to\infty}\left( I_2 + \frac An \right)^n = \ee^A.
+  \]
+\end{mybox}
+
+设$n\in\MN$，多项式函数$f$定义为$f(x)=\left(1+\frac xn\right)^n$. 设$A\in\MM_2(\MC)$，且$A$的特征值为$\lambda_1,\lambda_2$. 由定理 \ref{thm4.7}，我们有
+\begin{align*}
+   & \left( I_2 + \frac An \right)^n \\
+  = {}& \begin{cases}
+    \frac{\left(1+\frac{\lambda_1}n\right)^n-
+    \left(1+\frac{\lambda_2}n\right)^n}{\lambda_1-\lambda_2}
+    A + \frac{\lambda_1\left(1+\frac{\lambda_2}n\right)^n
+    -\lambda_2\left(1+\frac{\lambda_1}n\right)^n}{
+    \lambda_1-\lambda_2}I_2, & \text{如果}\, \lambda_1\ne\lambda_2 \\
+    \left(1+\frac\lambda n\right)^{n-1}A + \left[ \left(1+\frac\lambda n\right)^n - \lambda \left(1+\frac\lambda n\right)^{n-1} \right]I_2, & \text{如果}\,\lambda_1=\lambda_2=\lambda
+  \end{cases}.
+\end{align*}
+在上述等式中令$n\to\infty$，我们得到
+\begin{align*}
+  \lim_{n\to\infty}\left( I_2 + \frac An \right)^n & = \begin{cases}
+    \frac{\ee^{\lambda_1}-\ee^{\lambda_2}}{\lambda_1-\lambda_2}
+    A + \frac{\lambda_1\ee^{\lambda_2}-\lambda_2\ee^{\lambda_1}}{
+    \lambda_1-\lambda_2}I_2, & \text{如果}\, \lambda_1\ne\lambda_2 \\
+    \ee^\lambda A + (\ee^\lambda - \lambda\ee^\lambda)I_2, & \text{如果}\,\lambda_1=\lambda_2=\lambda
+  \end{cases} \\
+  & = \ee^A.
+\end{align*}
+
+这个公式的另一种证明是问题 \ref{problem4.5} 的解答中利用Jordan标准形的方法. 上面的公式是一种更一般的矩阵函数极限的特殊情形.
+
+\begin{mybox}
+  \begin{theorem}[一个一般形式的指数极限.]
+
+    如果整函数$f:\MC\to\MC$满足$f(0)=1$且$A\in\MM_2(\MC)$，则
+    \[
+      \lim_{n\to\infty} f^n\left(\frac An\right)^n = \ee^{f'(0)A}.
+    \]
+  \end{theorem}
+\end{mybox}
+
+\begin{proof}
+  设$A$的特征值为$\lambda_1,\lambda_2$，$J_A$是$A$的Jordan标准形，且设可逆矩阵$P$满足$A=PJ_AP^{-1}$. 我们有$f\left(\frac An\right)=Pf\left(\frac{J_A}n\right)P^{-1}$，这意味着$f^n\left(\frac An\right)=Pf^n\left(\frac{J_A}n\right)P^{-1}$.
+
+  我们分$\lambda_1\ne\lambda_2$和$\lambda_1=\lambda_2$两种情形.
+
+  如果$\lambda\ne\lambda_2$，则$J_A=\begin{pmatrix}
+    \lambda_1 & 0 \\
+    0 & \lambda_2
+  \end{pmatrix}$，由推论 \ref{coro4.1}，我们有
+  \[
+    f\left(\frac{J_A}n\right) = \begin{pmatrix}
+      f\left(\frac{\lambda_1}n\right) & 0 \\
+      0 & f\left(\frac{\lambda_2}n\right)
+    \end{pmatrix}.
+  \]
+  这意味着
+  \[
+    f^n\left(\frac An\right) = P\begin{pmatrix}
+      f^n\left(\frac{\lambda_1}n\right) & 0 \\
+      0 & f^n\left(\frac{\lambda_2}n\right)
+    \end{pmatrix}P^{-1},
+  \]
+  于是
+  \[
+    \lim_{n\to\infty}f^n\left(\frac An\right) = P\begin{pmatrix}
+      \ee^{f'(0)\lambda_1} & 0 \\
+      0 & \ee^{f'(0)\lambda_2}
+    \end{pmatrix}P^{-1} = \ee^{f'(0)A}。
+  \]
+
+  如果$\lambda_1=\lambda_2=\lambda$，在这种情形下，分$J_A=\begin{pmatrix}
+    \lambda & 0 \\
+    0 & \lambda
+  \end{pmatrix}$和$J_A=\begin{pmatrix}
+    \lambda & 1 \\
+    0 & \lambda
+  \end{pmatrix}$两种情形. 如果$J_A=\begin{pmatrix}
+    \lambda & 0 \\
+    0 & \lambda
+  \end{pmatrix}$，则$A=\lambda I_2$. 所以，
+  \[
+    \lim_{n\to\infty}f^n\left(\frac An\right) = \lim_{n\to\infty}f^n\left(\frac \lambda n\right) I_2 = \ee^{f'(0)\lambda}I_2 = \ee^{f'(0)A}.
+  \]
+
+  现在我们考虑$J_A=\begin{pmatrix}
+    \lambda & 1 \\
+    0 & \lambda
+  \end{pmatrix}$的情形. 应用推论 \ref{coro4.1} 可知
+  \[
+    f\left(\frac{J_A}n\right) = \begin{pmatrix}
+      f\left(\frac\lambda n\right) & \frac1nf'\left(\frac\lambda n\right) \\
+      0 & f\left(\frac\lambda n\right)
+    \end{pmatrix},
+  \]
+  这意味着
+  \[
+    f^n\left(\frac An\right) = P\begin{pmatrix}
+      f^n\left(\frac\lambda n\right) & f'\left(\frac\lambda n\right) f^{n-1}\left(\frac\lambda n\right) \\
+      0 & f\left(\frac\lambda n\right)
+    \end{pmatrix}P^{-1}.
+  \]
+  因此，
+  \[
+    \lim_{n\to\infty}f^n\left(\frac An\right) = P\begin{pmatrix}
+      \ee^{f'(0)\lambda} & f'(0)\ee^{f'(0)\lambda} \\
+      0 & \ee^{f'(0)\lambda}
+    \end{pmatrix}P^{-1} = \ee^{f'(0)A},
+  \]
+  定理得证.
+\end{proof}
+
+\begin{remark}
+  这里说明一下，定理 \ref{thm4.9} 是一个更一般结果 \cite{37} 的特殊情形，如果$A,B\in\MM_k(\MC)$，且整函数$f,g$满足$f(0)=g(0)=1$，则
+  \begin{equation}\label{eq4.5}
+    \lim_{n\to\infty} \left( f\Big( \frac An\Big) g\Big(\frac Bn\Big) \right)^n = \ee^{f'(0)A+g'(0)B}.
+  \end{equation}
+  当$f=g=\exp$时，我们得到著名的{\kaishu 李氏矩阵乘积公式}. Herzog用矩阵范数的技巧证明了公式 \eqref{eq4.5}. 然而，当$g(x)=1$且$A\in\MM_2(\MC)$时，我们在本书应用推论 \ref{coro4.1} 结合Jordan标准形给出的定理 \ref{thm4.9} 的证明，我们相信是新颖的.
+\end{remark}
+
+\section{$\ee^A,\sin A$和$\cos A$的直接表达式}
+在本节中，我们给出计算一个一般的矩阵$A\in\MM_2(\MC)$的指数函数$\ee^A$和三角函数$\sin A$与$\cos A$的直接表达式.
+
+\begin{theorem}
+  设$A\in\MM2_(\MC)$，其特征值为$\lambda_1,\lambda_2$，则
+  \[
+    \ee^A = \begin{cases}
+      \frac{\ee^{\lambda_1} - \ee^{\lambda_2}}{\lambda_1-\lambda_2} A + \frac{\lambda_1\ee^{\lambda_2}-\lambda_2
+      \ee^{\lambda_1}}{\lambda_1-\lambda_2}I_2, & \text{如果}\,\lambda_1 \ne \lambda_2 \\
+      \ee^\lambda\big( A+(1-\lambda)I_2 \big), & \text{如果}\, \lambda_1=\lambda_2=\lambda
+    \end{cases}.
+  \]
+\end{theorem}
+\begin{proof}
+  这由定理 \ref{thm4.7} 直接得到. 也参见 \cite[Theorem 2.2, p.1228]{10}.
+\end{proof}
+
+\begin{corollary}
+  \cite[p.176]{9} 如果$A=\begin{pmatrix}
+    a & b \\
+    0 & d
+  \end{pmatrix}\in\MM_2(\MC)$，则
+  \[
+    \ee^A = \begin{cases}
+      \ee^a \begin{pmatrix}
+              1 & b \\
+              0 & 1
+             \end{pmatrix}, & \text{如果}\, a=d \\
+      \begin{pmatrix}
+        \ee^a & \frac{\ee^a-\ee^d}{a-d}b \\
+        0 & \ee^d
+      \end{pmatrix}, & \text{如果}\, a\ne d
+    \end{cases}.
+  \]
+\end{corollary}
+
+\begin{corollary}
+  \cite[p.717]{9} 设$t\in\MC$且$A=\begin{pmatrix}
+    0 & 1 \\
+    0 & \alpha
+  \end{pmatrix}\in\MM_2(\MC)$，则
+  \[
+    \ee^{tA} = \begin{cases}
+      \begin{pmatrix}
+        1 & \frac{\ee^{\alpha t}-1}\alpha \\
+        0 & \ee^{\alpha t}
+      \end{pmatrix}, & \text{如果}\, \alpha \ne 0\\
+      \begin{pmatrix}
+        1 & t \\
+        0 & 1
+      \end{pmatrix}, & \text{如果}\, \alpha = 0
+    \end{cases}.
+  \]
+\end{corollary}
+
+\begin{corollary}
+  \cite[p.717]{9} 如果$\theta\in\MR,A=\begin{pmatrix}
+    0 & \theta \\
+    -\theta & 0
+  \end{pmatrix}$且$B=\begin{pmatrix}
+    0 & \frac\pi2 - \theta \\
+    -\frac\pi2 + \theta & 0
+  \end{pmatrix}$，则
+  \[
+    \ee^A = \begin{pmatrix}
+      \cos\theta & \sin \theta \\
+      -\sin\theta & \cos\theta
+    \end{pmatrix}\quad \text{且}\quad
+    \ee^B = \begin{pmatrix}
+      \sin\theta & \cos\theta \\
+      -\cos\theta & \sin\theta
+    \end{pmatrix}.
+  \]
+\end{corollary}
+
+接下来的引理给出了一些特殊矩阵的指数函数表达式.
+\begin{lemma}
+  设$A\in\MM_2(\MC)$且$t\in\MC$，则以下结论成立：
+  \begin{enum}
+    \item\label{lemma4.4a} （幂零矩阵）如果$A^2=O_2$，则$\ee^{tA}=I_2+tA$；
+    \item （对合矩阵）如果$A^2=I_2$，则$\ee^{tA}=(\cosh t)I_2+(\sinh t)A$；
+    \item （反对合矩阵）如果$A^2=-I_2$，则$\ee^{tA}=(\cos t)I_2+(\sin t)A$；
+    \item （幂等矩阵）如果$A^2=A$，则$\ee^{tA}=I_2+(\ee^t-1)A$；
+    \item 如果$A^2=-A$，则$\ee^{tA}=I_2+(1-\ee^{-t})A$.
+  \end{enum}
+\end{lemma}
+
+\begin{proof}
+  我们证明引理的 \ref{lemma4.4a}，将其他的留给感兴趣的读者作为练习. 首先，我们注意到由于$A^2=O_2$，则$A^n=O_2$对任意$n\ge2$成立，则
+  \[
+    \ee^{tA} = \sum_{n=0}^\infty \frac{(tA)^n}{n!} = I_2 + tA + \sum_{n=2}^\infty \frac{(tA)^n}{n!} = I_2 + tA,
+  \]
+  则引理的 \ref{lemma4.4a} 得证.
+\end{proof}
+
+设矩阵$J_2\in\MM_2(\MR)$为
+\[
+  J_2 = \begin{pmatrix}
+    0 & 1 \\
+    -1 & 0
+  \end{pmatrix}.
+\]
+则$J_2$是反对称的正交矩阵，即$J_2\TT=-J_2=J_2^{-1}$. 由定理 \ref{thm1.3}，注意到此矩阵相应于复数$-\ii$.
+
+\begin{lemma}
+  如果$A=\begin{pmatrix}
+    0 & 1 \\
+    1 & 0
+  \end{pmatrix}$，则
+  \[
+    \ee^{tA} = (\cosh t)I_2 + (\sinh t)A
+  \]
+  且
+  \[
+    \ee^{tJ_2} = (\cos t)I_2 + (\sin t)A.
+  \]
+\end{lemma}
+\begin{proof}
+  用定理 \ref{thm4.7} 即可.
+\end{proof}
+
+\begin{theorem}
+  设$A\in\MM_2(\MC)$，且其特征值为$\lambda_1,\lambda_2$，则
+  \[
+    \sin A = \begin{cases}
+      \frac{\sin \lambda_1-\sin\lambda_2}{\lambda_1-\lambda_2}A + \frac{\lambda_1\sin\lambda_2 - \lambda_2\sin\lambda_1}{\lambda_1-\lambda_2}I_2, & \text{如果}\, \lambda_1 \ne \lambda_2 \\
+      (\cos\lambda)A + (\sin\lambda-\lambda \cos\lambda)I_2, & \text{如果}\,\lambda_1=\lambda_2=\lambda
+    \end{cases}
+  \]
+  且
+  \[
+    \cos A = \begin{cases}
+      \frac{\cos \lambda_1-\cos\lambda_2}{\lambda_1-\lambda_2}A + \frac{\lambda_1\cos\lambda_2 - \lambda_2\cos\lambda_1}{\lambda_1-\lambda_2}I_2, & \text{如果}\, \lambda_1 \ne \lambda_2 \\
+      (-\sin\lambda)A + (\cos\lambda+\lambda \sin\lambda)I_2, & \text{如果}\,\lambda_1=\lambda_2=\lambda
+    \end{cases}
+  \]
+\end{theorem}
+\begin{proof}
+  由定理 \ref{thm4.7} 即得.
+\end{proof}
+
+\section{常系数一阶常微分方程组}
+在本节中，我们利用矩阵理论中的经典方法来求解常系数线性微分方程组.
+
+设$A(t)=\begin{pmatrix}
+  a(t) & b(t) \\
+  c(t) & d(t)
+\end{pmatrix}$，其中$a,b,c,d:I\to\MR$都是$t$的函数，则
+\[
+  A'(t) = \begin{pmatrix}
+    a'(t) & b'(t) \\
+    c'(t) & d'(t)
+  \end{pmatrix}\quad \text{且} \quad
+  \int A(t)\dif t = \begin{pmatrix}
+    \int a(t)\dif t & \int b(t)\dif t \\
+    \int c(t)\dif t& \int d(t) \dif t
+  \end{pmatrix}.
+\]
+
+即对矩阵微分或积分，就是对矩阵的每一项分别微分或积分. 可以证明，微积分中导数的乘积法则对矩阵成立，而幂法则不成立.
+
+设$\mathscr S_0$表表示常系数齐次线性微分方程组
+\[
+  \mathscr S_0:\left\{\begin{aligned}
+    & x' = a_{11}x + a_{12}y \\
+    & y' = a_{21}x + a_{22}y
+  \end{aligned}\right.,
+\]
+其中$a_{ij}\in\in\MR,i,j=1,2,$，且$x=x(t),y=y(t)$是待求的函数. 由于常系数微分方程组的解是在$\MR$上定义的，所以我们在$\MR$上求解.
+
+设$X(t)=\begin{pmatrix}
+  x(t) \\ y(t)
+\end{pmatrix}$且$A=\begin{pmatrix}
+  a_{11} & a_{12} \\
+  a_{21} & a_{22}
+\end{pmatrix}$，我们注意到方程组$\mathscr S_0$变为
+\[
+  \mathscr S_0: X'(t) = AX(t).
+\]
+这意味着$X'(t)-AX(t)=O_2$，在此方程组两边乘以矩阵$\ee^{-At}$，我们得到
+\[
+  -\ee^{-At}AX(t) + \ee^{-AT}X'(t) = O_2.
+\]
+由于$(\ee^{-At})'=-A\ee^{-AT}$，这意味着方程组等价于
+\[
+  \big( \ee^{-At}X(t) \big)' = O_2,
+\]
+于是我们的方程组的通解为
+\[
+  X(t) = \ee^{At}C,
+\]
+其中$C=\begin{pmatrix}
+  c_1 \\ c_2
+\end{pmatrix}$是常向量.
+
+如果方程组$\mathscr S_0$增加初值条件$X(t_0)=X_0,t_0\in\MR$，则我们有$X_0=\ee^{At_0}C$，由此得到$C=\ee^{-At_0}X_0$. 因此，{\kaishu Cauchy问题}\index{C!Cauchy问题}（或者带初值条件的方程组）的解为
+\[
+  X(t) = \ee^{A(t-t_0)}X_0.
+\]
+
+现在我们将注意力转移到研究常系数非齐次线性为方程组.
+
+我们考虑方程组
+\[
+  \mathscr S: \left\{
+    \begin{aligned}
+      & x' = a_{11}x + a_{12}y + f\\
+      & y' = a_{21}x + a_{22}y + g
+    \end{aligned}
+  \right.,
+\]
+其中$f=f(t)$和$g=g(t)$都是连续函数，$t\in\MR$.
+
+设$F(t)=\begin{pmatrix}
+  f(t) \\ g(t)
+\end{pmatrix}$，和前面的情形一样，我们得到这里的方程组可以写成矩阵形式
+\[
+  X'(t) = AX(t) + F(t).
+\]
+这意味着$X'(t)-AX(t)=F(t)$，在等式两边乘以非奇异矩阵$\ee^{-At}$，我们得到
+\[
+  \big( \ee^{-At}X(t) \big)' = \ee^{-At}F(t),
+\]
+于是可得
+\[
+  \ee^{-At}X(t) = \int\ee^{-At}F(t)\dif t + C,
+\]
+其中$\MC$是一个常向量. 因此，非齐次方程的通解变为
+\[
+  X(t) = \ee^{At} \left[ \int\ee^{-At}F(t)\dif t \right] + \ee^{At}C.
+\]
+
+如果我们给方程组$\mathscr S$增加初值条件$X(t_0)=X_0,t_0\in\MR$，则通过简单的计算（欢迎读者完成），Cauchy问题的解变为
+\[
+  X(t) = \int_{t_0}^t \ee^{A(t-u)}F(u)\dif u + \ee^{A(t-t_0)}X_0.
+\]
+
+由于要解常系数线性微分方程组，我们需要计算指数矩阵$\ee^{At}$，下面我们给出一个计算$\ee^{At}$的简单算法.
+
+\begin{mybox}
+  {\bfseries 计算指数矩阵$\ee^{At}$的算法}
+  \begin{description}
+    \item[步骤一.] 求出$A$的特征值，确定矩阵$J_A$和可逆矩阵$P$使得$A=PJ_AP^{-1}$.
+    \item[步骤二.] 注意到$\ee^{At}=P\ee^{J_At}P^{-1}$.
+    \item[步骤三.] 求出$\ee^{J_At}$和$\ee^{At}$.
+  \end{description}
+  \begin{itemize}
+    \item 如果$A$的特征值为$\lambda_1$和$\lambda_2$，且$J_A=\begin{pmatrix}
+          \lambda_1 & 0 \\
+          0 & \lambda_2
+        \end{pmatrix}$，则
+        \[
+          \ee^{J_At} = \begin{pmatrix}
+            \ee^{\lambda_1t} & 0 \\
+            0 & \ee^{\lambda_2t}
+          \end{pmatrix}.
+        \]
+        这意味着
+        \[
+          \ee^{At} = P\begin{pmatrix}
+            \ee^{\lambda_1t} & 0 \\
+            0 & \ee^{\lambda_2t}
+          \end{pmatrix}P^{-1}.
+        \]
+    \item 如果$A$的特征值为$\lambda_1=\lambda_2=\lambda$，且
+        $J_A=\begin{pmatrix}
+          \lambda & 1 \\
+          0 & \lambda
+        \end{pmatrix}$，则
+        \[
+          \ee^{J_At} = \ee^{\lambda t}\begin{pmatrix}
+            1 & t \\
+            0 & 1
+          \end{pmatrix}.
+        \]
+        这意味着
+        \[
+          \ee^{At} = \ee^{\lambda t}P\begin{pmatrix}
+            1 & t \\
+            0 & 1
+          \end{pmatrix}P^{-1}.
+        \]
+  \end{itemize}
+\end{mybox}
+
+\begin{remark}
+  齐次方程组$\mathscr S_0:X'(t)=AX(t),t\in\MR$的解为
+  \begin{enum}
+    \item 如果$\lambda_1,\lambda_2\in\MR$且
+        $\lambda_1\ne\lambda_2 $，则
+        \[
+          \begin{cases}
+            x(t) = \alpha_1\ee^{\lambda_1t} + \beta_1\ee^{\lambda_2t}, & \alpha_1,\beta_1 \in\MR,t\in\MR \\
+            y(t) = \alpha_2\ee^{\lambda_1t}+\beta_2
+            \ee^{\lambda_2t}, & \alpha_2,\beta_2\in\MR,t\in\MR
+          \end{cases}.
+        \]
+    \item 如果$\lambda_1,\lambda_2\in\MR$且$\lambda_1
+        =\lambda_2=\lambda$但$A\ne\lambda I_2$，则
+        \[
+          \begin{cases}
+            x(t)= \ee^{\lambda t}(\alpha_1+\beta_1t), & \alpha_1,\beta_1 \in\MR,t\in\MR \\
+            y(t) = \ee^{\lambda t}(\alpha_2+\beta_2t), & \alpha_2,\beta_2\in\MR,t\in\MR
+          \end{cases}.
+        \]
+    \item 如果$\lambda_1,\lambda_2\in\MC,\lambda_{1,2}=r\pm\ii s,r,s\in\MR,s\ne0$，则
+        \[
+          \begin{cases}
+            x(t) = \ee^{rt}(\alpha_1\cos st + \beta_1\sin st), & \alpha_1,\beta_1 \in\MR,t\in\MR \\
+            y(t) = \ee^{rt}(\alpha_2\cos st + \beta_2\sin st), & \alpha_2,\beta_2\in\MR,t\in\MR
+          \end{cases}.
+        \]
+  \end{enum}
+\end{remark}
+
+\begin{definition}{\kaishu 齐次线性方程组的稳定性.}
+
+  设$\mathscr S_0:X'(t)=AX(t),t\in\MR$是一个微分方程组.
+
+  \begin{enum}
+    \item $\mathscr S_0$的满足初值条件$X_0(t_0)=C_0$的解$X_0$称为是{\kaishu 稳定的（在Liapunov意义下）}，是指如果对任意$\varepsilon>0$，存在$\delta(\varepsilon)>0$使得对任意满足$\|C-C_0\|$的$C\in\MR^2$，我们有$\|X(t)-X_0(t)\|<\varepsilon$对任意$t>t_0$成立，其中$X(t)$是方程组$\mathscr S_0$满足初值条件$X(t_0)=C$的解.
+    \item 不稳定的解$X_0$称为{\kaishu 非稳定的}.
+    \item 解$X_0$称为是{\kaishu 渐近稳定的}，如果它是稳定的，且
+        \[
+          \lim_{t\to\infty}\|X(t) - X_0(t) \| =0
+        \]
+        对任意满足初值条件$X(t_0)=C$的解$X$成立，其中$C$是$C_0$在$\MR^2$上的一个邻域.
+  \end{enum}
+\end{definition}
+
+\begin{theorem}
+  方程组$\mathscr S_0$的所有解和零解具有相同的稳定性.
+\end{theorem}
+
+\begin{proof}
+  如果$X_{C_0}$是方程组满足初值条件$X_{C_0}(t_0)=C_0$的唯一解，而$X_C$是满足初值条件$X_C(t_0)=C$的解，则$X_C-X_{C_0}$是方程组满足初值条件$(X_C-X_{C_0})(t_0)=C-C_0$的解，所以$X_C-X_{C_0}=X_{C-C_0}$. 我们有$\|X_C(t)-X_{C_0}(t)\|=\|X_{C-C_0}(t)-0\|=\|X_{C-C_0}(t)\|$且
+  $\lim_{t\to\infty}\|X_C(t)-X_{C_0}(t)\|=0
+  \Leftrightarrow\lim_{t\to\infty}\|X_{C-C_0}(t)-0\|=0$.
+\end{proof}
+
+\begin{remark}
+  我们提及一下，如果方程组$\mathscr S_0$的非零解是稳定的，渐近稳定的或者不稳定的，我们就称方程组$\mathscr S_0$是稳定的，渐近稳定的或者不稳定的.
+\end{remark}
+
+为了研究方程组$\mathscr S_0$的稳定性，由注 \ref{remark4.7} 和定理 \ref{thm4.12} 我们下面的观察结果：
+\begin{enum}
+  \item 如果$\lambda_1,\lambda_2\in\MR$且$\max\{\lambda_1,
+      \lambda_2\}>0$，则函数$f(t)=\alpha\ee^{\lambda_1t}+\beta\ee^{\lambda_2t},t\ge t_0,\alpha^2+\beta^2\ne0$是无界的；
+  \item 如果$\lambda_1,\lambda_2\in\MR$且$\max\{\lambda_1,
+      \lambda_2\}<0$，则$\lim_{t\to\infty}|\alpha
+      \ee^{\lambda_1t}+\beta\ee^{\lambda_2t}|=0$；
+  \item\label{remark4.8c} 如果$\lambda_1=\lambda_2=0$，则函数$f(t)=\alpha+\beta t.\beta\ne0,t\ge t_0$是无界的；
+  \item\label{remark4.8d} 如果$r>0$且$\alpha^2+\beta^2\ne0$，则函数$f(t)=\ee^{rt}(\alpha\cos st+\beta\sin st),t\ge t_0$是无界的；
+  \item 如果$r<0$，则$\lim_{t\to\infty}|\ee^{rt}(\alpha\cos st+\beta \sin st)|=0$；
+  \item 函数$f(t)=\alpha\cos st+\beta \sin st,t\ge t_0$是无界的.
+\end{enum}
+
+\section{矩阵Riemann zeta函数}
+著名的Riemann zeta函数 \cite[p.265]{61}是一个复变量函数定义为
+\[
+  \zeta(z) = \sum_{n=1}^\infty \frac1{n^z} = 1 + \frac1{2^z} + \cdots + \frac1{n^z} + \cdots ,\;\Re(z)>1.
+\]
+
+在本节中，我们考虑一个矩阵$A\in\MM_2(\MC)$，然后引入（希望是第一次在教材中?!）矩阵Riemann zeta函数$\zeta(A)$，并讨论它的一些相关性质. 首先，我们定义幂矩阵函数$a^A$，其中$a\in \MC^\ast$且$A\in\MM_2(\MC)$.
+
+\begin{definition}
+  如果$A\in\MM_2(\MC)$且$A\in\MM_2(\MC)$，则$a^A=\ee^{(\Ln a)A} $.
+\end{definition}
+
+\begin{remark}
+  我们提及一下 \cite[p.224]{42} 函数$\Ln$，称为{\kaishu 对数函数}，是一个多值函数，对任意$z\in\MC^\ast$，定义$\Ln(z)=\ln|z|+\ii(\arg z+2k\pi),k\in\MZ$. 函数$\ln z=\ln|z|+\ii\arg z$，其中$\arg z\in(-\pi,\pi]$称为主值. 在接下来的内容，在这本书中，我们考虑的无论是在理论和问题上，幂矩阵函数的定义公式$a^A=\ee^{(\ln a)A}$都指的是主值.
+\end{remark}
+
+\begin{theorem}
+  设$a\in\MC^\ast$，且$\lambda_1,\lambda_2$是$A\in\MM_2(\MC)$的特征值，则
+  \[
+    a^A = \begin{cases}
+      \frac{a^{\lambda_1}-a^{\lambda_2}}{\lambda_1-\lambda_2}
+      A + \frac{\lambda_1a^{\lambda_2}
+      -\lambda_2a^{\lambda_1}}{\lambda_1-\lambda_2}I_2,
+      & \text{如果}\,\lambda_1 \ne \lambda_2 \\
+      (a^\lambda \ln a)A + a^\lambda(1-\lambda \ln a)I_2, & \text{如果}\,\lambda_1=\lambda_2= \lambda
+    \end{cases}.
+  \]
+\end{theorem}
+\begin{proof}
+  这里的证明只需要根据公式$a^A=\ee^{(\ln a)A}$，结合定理 \ref{thm4.7} 即可.
+\end{proof}
+
+\begin{corollary}[幂矩阵函数的性质.]
+  \begin{enum}
+    \item 如果$a\in\MC^\ast$且$\alpha\in\MC$，则$a^{\alpha I_2}=a^\alpha I_2 $.
+    \item 如果$A\in\MM_2(\MC)$，则$1^A=I_2$.
+    \item 如果$a\in\MC^\ast$，则$a^{O_2}=I_2$.
+    \item 如果$A\in\MM_2(\MC)$，则
+    \[
+      \ii^A = \cos\Big( \frac\pi2A \Big) + \ii \sin\Big( \frac\pi2 A\Big).
+    \]
+    \item 如果$a\in\MC^\ast$且$A\in\MM_2(\MC)$是一个对称矩阵，则$a^A$也是一个对称矩阵.
+    \item 如果$AB=BA$，则$a^Aa^B=a^{A+B}$.
+    \item 如果$a,b\in\MC^\ast$，则$a^Ab^A=(ab)^A$.
+  \end{enum}
+\end{corollary}
+
+\begin{corollary}[特殊幂矩阵函数]
+  \begin{enum}
+    \item 如果$a\in\MC^\ast$且$\alpha,\beta\in\MC$，则
+        \[
+          a^{\begin{pmatrix}
+            \alpha & 0 \\
+            0 & \beta
+          \end{pmatrix}} = \begin{pmatrix}
+            a^\alpha & 0 \\
+            0 & a^\beta
+          \end{pmatrix}.
+        \]
+    \item 如果$a\in\MC^\ast$且$\alpha,\beta\in\MC$，则
+        \[
+          a^{\begin{pmatrix}
+            \alpha & \beta \\
+            0 & \alpha
+          \end{pmatrix}} =
+          a^\alpha \begin{pmatrix}
+            1 & \beta \ln a \\
+            0 & 1
+          \end{pmatrix}.
+        \]
+    \item 如果$a\in\MC^\ast$且$\alpha,\beta\in\MC$，则
+        \[
+          a^{\begin{pmatrix}
+            \alpha & 0 \\
+            \beta & \alpha
+          \end{pmatrix}} = a^\alpha \begin{pmatrix}
+            1 & 0 \\
+            \beta \ln a & 1
+          \end{pmatrix}.
+        \]
+    \item 如果$a\in\MC^\ast$且$\alpha\in\MC$，则
+        \[
+          a^{\begin{pmatrix}
+            \alpha & \alpha \\
+            \alpha & \alpha
+          \end{pmatrix}} = \frac12 \begin{pmatrix}
+            a^{2\alpha} + 1 & a^{2\alpha} - 1 \\
+            a^{2\alpha} - 1 & a^{2\alpha} + 1
+          \end{pmatrix}.
+        \]
+    \item 如果$\alpha\in\MC^\ast$且$\alpha,\beta\in\MC,\beta\ne0$，则
+        \[
+          a^{\begin{pmatrix}
+            \alpha & \beta \\
+            \beta & \alpha
+          \end{pmatrix}} = \frac12 \begin{pmatrix}
+            a^{\alpha+\beta} + a^{\alpha-\beta} & a^{\alpha+\beta} - a^{\alpha-\beta} \\
+            a^{\alpha+\beta} - a^{\alpha-\beta} & a^{\alpha+\beta} + a^{\alpha-\beta}
+          \end{pmatrix}.
+        \]
+  \end{enum}
+\end{corollary}
+
+\begin{mybox}
+  \begin{definition}[$2\times2$矩阵的Riemann zeta函数.]
+
+   设$A\in\MM_2(\MC)$，$\lambda_1,\lambda_2$是其特征值. 矩阵$A$的{\kaishu Riemann zeta函数}定义为\index{R!Riemann zeta函数}
+   \[
+     \zeta(A) = \sum_{n=1}^\infty \left(\frac1n\right)^A,\quad \Re(\lambda_1)>1,\;\Re(\lambda_2)>1.
+   \]
+  \end{definition}
+\end{mybox}
+
+允许记号的滥用，我们也可以写成$\zeta(A)=\sum_{n=1}^\infty\frac1{n^A}$. 接下来的定理利用$A$的每一项的值和$A$的特征值给出$\zeta(A)$的表达式.
+
+\begin{mybox}
+  \begin{theorem}
+    设$A\in\MM_2(\MC)$，且$\lambda_1,\lambda_2$是其特征值，满足$\Re(\lambda_1)>1,\Re(\lambda_2)>1$，则
+    \[
+      \zeta(A) = \begin{cases}
+        \frac{\zeta(\lambda_1)-\zeta(\lambda_2)}{
+        \lambda_1-\lambda_2}A + \frac{\lambda_1\zeta(\lambda_2)-\lambda_2\zeta
+        (\lambda_1)}{\lambda_1-\lambda_2}I_2, & \text{如果}\, \lambda_1 \ne \lambda_2 \\
+        \zeta'(\lambda)A + \big(\zeta(\lambda)-\lambda\zeta'(\lambda)\big)
+        I_2, & \text{如果}\, \lambda_1=\lambda_2=\lambda
+      \end{cases}.
+    \]
+  \end{theorem}
+\end{mybox}
+\begin{proof}
+  由定理 \ref{thm4.13}，我们有
+  \[
+    \left(\frac1n\right)^A = \begin{cases}
+      \frac{\frac1{n^{\lambda_1}} - \frac1{n^{\lambda_2}}}{\lambda_1-\lambda_2}A + \frac{\frac{\lambda_1}{n^{\lambda_2}} - \frac{\lambda_2}{n^{\lambda_1}}}{\lambda_1-\lambda_2}
+      I_2, \text{如果}\, \lambda_1 \ne \lambda_2 \\
+      \left(\frac1{n^\lambda}\ln\frac1n\right)A + \frac1{n^\lambda} \left( 1 - \lambda \ln\frac1n \right) I_2, \text{如果}\, \lambda_1=\lambda_2=\lambda
+    \end{cases}.
+  \]
+
+  如果$\lambda_1\ne\lambda_2$，则
+  \begin{align*}
+    \zeta(A) & = \frac1{\lambda_1-\lambda_2} \left( \sum_{n=1}^\infty \frac1{n^{\lambda_1}} - \sum_{n=1}^\infty \frac1{n^{\lambda_2}} \right) A + \frac1{\lambda_1-\lambda_2} \left( \lambda_2\sum_{n=1}^\infty \frac1{n^{\lambda_2}} - \lambda_1\sum_{n=1}^\infty \frac1{n^{\lambda_1}} \right)I_2 \\
+    & = \frac{\zeta(\lambda_1)-\zeta(\lambda_2)}{
+        \lambda_1-\lambda_2}A + \frac{\lambda_1\zeta(\lambda_2)-\lambda_2\zeta
+        (\lambda_1)}{\lambda_1-\lambda_2}I_2.
+  \end{align*}
+
+  如果$\lambda_1=\lambda_2=\lambda$，则
+  \begin{align*}
+    \zeta(A) & = \left(\sum_{n=1}^\infty \frac1{n^\lambda} \ln\frac1n\right) A + \sum_{n=1}^\infty \frac1{n^\lambda} \left(1-\lambda\ln\frac1n\right)I_2 \\
+    & = \zeta'(\lambda)A + \big(\zeta(\lambda)-\lambda\zeta'(\lambda)\big)
+        I_2,
+  \end{align*}
+  定理得证.
+\end{proof}
+
+\begin{corollary}
+  如果$A\in\MM_2(\MC)$是一个对称矩阵，则$\zeta(A)$也是一个对称矩阵.
+\end{corollary}
+
+\begin{corollary}
+  设$a\in\MC$满足$\Re(a)>1$，则$\zeta(aI_2)=\zeta(a)I_2$.
+\end{corollary}
+
+\begin{mybox}
+  \begin{corollary}[特殊矩阵的zeta函数]
+    \begin{enum}
+      \item 如果$a,b\in\MC$满足$\Re(a)>1,\Re(b)>1$且$a\ne b$，则
+          \[
+            \zeta\begin{pmatrix}
+              a & 0 \\
+              0 & b
+            \end{pmatrix} = \begin{pmatrix}
+              \zeta(a) & 0 \\
+              0 & \zeta(b)
+            \end{pmatrix}.
+          \]
+      \item\label{coro4.9b} 如果$a,b\in\MC$满足$\Re(a)>1$，则
+          \[
+            \zeta \begin{pmatrix}
+              a & b \\
+              0 & a
+            \end{pmatrix} = \begin{pmatrix}
+              \zeta(a) & b\zeta'(a) \\
+              0 & \zeta(a)
+            \end{pmatrix}.
+          \]
+      \item 如果$a,b\in\MC$满足$\Re(a)>1$，则
+          \[
+            \zeta \begin{pmatrix}
+              a & 0 \\
+              b & a
+            \end{pmatrix} = \begin{pmatrix}
+              \zeta(a) & 0 \\
+              b\zeta'(a) & \zeta(a)
+            \end{pmatrix}.
+          \]
+      \item 如果$a,b\in\MC$满足$\Re(a\pm b)>1$，则
+          \[
+            \zeta \begin{pmatrix}
+              a & b \\
+              b & a
+            \end{pmatrix} = \frac12 \begin{pmatrix}
+              \zeta(a+b) + \zeta(a-b) & \zeta(a+b) - \zeta(a-b) \\
+              \zeta(a+b) - \zeta(a-b) & \zeta(a+b) + \zeta(a-b)
+            \end{pmatrix}.
+          \]
+    \end{enum}
+  \end{corollary}
+\end{mybox}
+
+\section{矩阵Gamma函数}
+Euler的Gamma函数 $\Gamma$ \cite[p.235]{61} 是一个复变量函数，定义为
+\[
+  \Gamma(z) = \int_0^\infty t^{z-1} \ee^{-t}\dif t,\quad \Re(z)>0.
+\]
+我们将此定义推广到二阶矩阵.
+
+\begin{mybox}
+  \begin{definition}[$2\times2$矩阵Gamma函数]
+
+    如果$A\in\MM_2(\MC)$，$\lambda_1,\lambda_2$是$A$的特征值，且$\Re(\lambda_i)>0,i=1,2$，则我们定义
+    \[
+      \Gamma(A) = \int_0^\infty t^A t^{-1}\ee^{-t}\dif t = \int_0^\infty t^{A-I_2}\ee^{-t}\dif t.
+    \]
+  \end{definition}
+\end{mybox}
+
+接下来的定理用$A$的每一项的值和$A$的特征值给出$\Gamma(A)$的表达式.
+
+\begin{mybox}
+  \begin{theorem}
+    设$A\in\MM_2(\MC)$，$\lambda_1,\lambda_2$是$A$的特征值，且$\Re(\lambda_i)>0,i=1,2$，则
+    \[
+      \Gamma(A) = \begin{cases}
+        \frac{\Gamma(\lambda_1)-\Gamma(\lambda_2)}{
+        \lambda_1-\lambda_2}A + \frac{
+        \lambda_1\Gamma(\lambda_2)-\lambda_2
+        \Gamma(\lambda_1)}{\lambda_1-\lambda_2}I_2, & \text{如果}\, \lambda_1\ne \lambda_2 \\
+        \Gamma'(\lambda)A + \big( \Gamma(\lambda) - \lambda\Gamma'(\lambda) \big)I_2, & \text{如果}\, \lambda_1=\lambda_2=\lambda
+      \end{cases}.
+    \]
+  \end{theorem}
+\end{mybox}
+
+\begin{proof}
+  由定理 \ref{thm4.13}，我们有
+  \[
+    t^A = \begin{cases}
+      \frac{t^{\lambda_1}-t^{\lambda_2}}{\lambda_1-\lambda_2}
+      A + \frac{\lambda_1t^{\lambda_2}-\lambda_2t^{\lambda_1}}{\lambda_1-\lambda_2}I_2,
+      & \text{如果}\, \lambda_1\ne \lambda_2 \\
+      (t^\lambda\ln t)A + t^\lambda(1-\lambda\ln t)I_2, & \text{如果}\, \lambda_1=\lambda_2=\lambda
+    \end{cases}.
+  \]
+
+  如果$\lambda_1\ne\lambda_2$，则
+  \begin{align*}
+    \Gamma(A) = {}& \frac1{\lambda_1-\lambda_2} \left( \int_0^\infty t^{\lambda_1-1}\ee^{-t}\dif t - \int_0^\infty t^{\lambda_2-1}\ee^{-t}\dif t \right)A \\
+    & + \frac1{\lambda_1-\lambda_2} \left( \lambda_1\int_0^\infty t^{\lambda_2-1}\ee^{-t}\dif t - \lambda_2\int_0^\infty t^{\lambda_1-1}\ee^{-t}\dif t \right)I_2 \\
+    = {}& \frac{\Gamma(\lambda_1)-\Gamma(\lambda_2)}{
+        \lambda_1-\lambda_2}A + \frac{
+        \lambda_1\Gamma(\lambda_2)-\lambda_2
+        \Gamma(\lambda_1)}{\lambda_1-\lambda_2}I_2,
+  \end{align*}
+
+  如果$\lambda_1=\lambda_2=\lambda$，则
+  \begin{align*}
+    \Gamma(A) & = \left( \int_0^\infty t^{\lambda-1}\ee^{-t}\ln t\dif t \right) A
+    + \left( \int_0^\infty t^{\lambda-1}\ee^{-t}\dif t - \lambda\int_0^\infty t^{\lambda-1}\ee^{-t}\ln t\dif t \right)I_2 \\
+    & = \Gamma'(\lambda)A + \big( \Gamma(\lambda) - \lambda\Gamma'(\lambda) \big)I_2,
+  \end{align*}
+  定理得证.
+\end{proof}
+
+\begin{corollary}[特殊矩阵的gamma函数]
+  \begin{enum}
+    \item 如果$a\in\MC$满足$\Re(a)>0$，则$\Gamma(aI_2)=\Gamma(a)I_2$.
+    \item 如果$\alpha,\beta\in\MC$满足$\Re(a)>0,\Re(\beta)>0$，则
+        \[
+          \Gamma\begin{pmatrix}
+            \alpha & 0 \\
+            0 & \beta
+          \end{pmatrix} = \begin{pmatrix}
+            \Gamma(\alpha) & 0 \\
+            0 & \Gamma(\beta)
+          \end{pmatrix}.
+        \]
+    \item\label{coro4.10c} 如果$\alpha,\beta\in\MC$满足$\Re(a)>0$，则
+        \[
+          \Gamma\begin{pmatrix}
+            \alpha & \beta \\
+            0 & \alpha
+          \end{pmatrix} = \begin{pmatrix}
+            \Gamma(\alpha) & \beta\Gamma'(\alpha) \\
+            0 & \Gamma(\alpha)
+          \end{pmatrix}.
+        \]
+    \item 如果$\alpha,\beta\in\MC$满足$\Re(\alpha\pm\beta)>0$，则
+        \[
+          \Gamma\begin{pmatrix}
+            \alpha & \beta \\
+            \beta & \alpha
+          \end{pmatrix} = \frac12 \begin{pmatrix}
+            \Gamma(\alpha+\beta) + \Gamma(\alpha-\beta) & \Gamma(\alpha+\beta) - \Gamma(\alpha-\beta) \\
+            \Gamma(\alpha+\beta) - \Gamma(\alpha-\beta) & \Gamma(\alpha+\beta) + \Gamma(\alpha-\beta)
+          \end{pmatrix}.
+        \]
+  \end{enum}
+\end{corollary}
+
+\begin{mybox}
+  \begin{lemma}[一个矩阵差分公式.]
+
+    如果$A\in\MM_2(\MC)$满足$\Re(\lambda_i)>0,i=1,2$，则$\Gamma(I_2+A)=A\Gamma(A)$.
+  \end{lemma}
+\end{mybox}
+
+\begin{proof}
+  首先我们注意到$I_2+A$的特征值为$1+\lambda_1$和$1+\lambda_2$. 利用定理 \ref{thm4.15} 我们有
+  \[
+    \Gamma(I_2 + A) = \begin{cases}
+      \frac{\lambda_1\Gamma(\lambda_1)-\lambda_2\Gamma(\lambda_2)}{\lambda_1-\lambda_2}
+      A - \frac{\lambda_1\lambda_2\big( \Gamma(\lambda_1) - \Gamma(\lambda_2) \big)}{\lambda_1 - \lambda_2} I_2, & \text{如果}\, \lambda_1 \ne \lambda_2 \\
+      \Gamma'(1+\lambda)A - \lambda^2\Gamma'(\lambda)I_2, & \text{如果}\, \lambda_1=\lambda_2=\lambda
+    \end{cases}.
+  \]
+
+  如果$\lambda_1\ne\lambda_2$，Cayley--Hamilton定理说明$A^2-(\lambda_1+\lambda_2)A+\lambda_1\lambda_2I_2=O_2$. 我们应用定理 \ref{thm4.15} 得到
+  \begin{align*}
+    A\Gamma(A) & = \frac{\Gamma(\lambda_1)-\Gamma(\lambda_2)}{
+        \lambda_1-\lambda_2}A^2 + \frac{
+        \lambda_1\Gamma(\lambda_2)-\lambda_2
+        \Gamma(\lambda_1)}{\lambda_1-\lambda_2}A \\
+    & = \frac{\lambda_1\Gamma(\lambda_1)-\lambda_2\Gamma(\lambda_2)}{
+        \lambda_1-\lambda_2}A - \frac{
+        \lambda_1\lambda_2\big(\Gamma(\lambda_1)-
+        \Gamma(\lambda_2)\big)}{\lambda_1-\lambda_2}I_2.
+  \end{align*}
+
+  如果$\lambda_1=\lambda_2=\lambda$，Cayley--Hamilton定理说明$A^2-2\lambda A+\lambda^2I_2=O_2$. 由定理 \ref{thm4.15} 我们有
+  \[
+    A\Gamma(A) = \Gamma'(\lambda) A^2 + \big( \Gamma(\lambda) - \lambda\Gamma'(\lambda)\big)A = \Gamma'(1+\lambda)A - \lambda^2\Gamma'(\lambda)I_2,
+  \]
+  引理得证.
+\end{proof}
+
+\begin{mybox}
+  \begin{corollary}[两个Gamma函数称的乘积.]
+
+    设实数$\alpha$满足$0<\alpha<1$，$\beta=\MC$且$A=\begin{pmatrix}
+      \alpha & \beta \\
+      0 & \alpha
+    \end{pmatrix}$. 则
+    \[
+      \Gamma(A) \Gamma(I_2 - A) = \frac\pi{\sin(\pi\alpha)}\begin{pmatrix}
+        1 & - \pi\beta \cos(\pi\alpha) \\
+        0 & 1
+      \end{pmatrix}.
+    \]
+  \end{corollary}
+\end{mybox}
+
+\begin{proof}
+  利用推论 \ref{coro4.10} 的 \ref{coro4.10c} 和公式$\Gamma(\alpha)\Gamma(1-\alpha)=\frac\pi{\sin(\pi\alpha)}$.
+\end{proof}
+
+\section{问题}
+\begin{problem}
+  证明：如果$A=\begin{pmatrix}
+    0 & 1 \\
+    1 & 0
+  \end{pmatrix}$，则
+  \[
+    A^n = \begin{cases}
+      \begin{pmatrix}
+        0 & 1 \\
+        1 & 0
+      \end{pmatrix}, & \text{如果$n$为奇数} \\
+      \begin{pmatrix}
+        1 & 0 \\
+        0 & 1
+      \end{pmatrix} , & \text{如果$n$为偶数}
+    \end{cases}.
+  \]
+  推断$A_\infty=\lim_{n\to\infty}A^n$不存在. 提示：可以通过检验$A$的特征值是$\pm1$来得到这里的结论.
+\end{problem}
+
+\begin{remark}
+  上述问题中的矩阵$A$称为 {\kaishu 转移矩阵}或{\kaishu 双随机矩阵}. \index{S!随机矩阵!双随机矩阵} 这种矩阵具有的一条性质就是其所有项大于或等于0且其所有行和列项之和等于1.
+\end{remark}
+
+\begin{problem}
+  设$A\in\MM_2(\MC)$，证明：$\lim_{n\to\infty}A^n=O_2$当且仅当$\rho(A)<1$.
+\end{problem}
+
+\begin{problem}
+  设$A\in\MM_2(\MC)$满足$\rho(A)<1$，且整数$k\ge1$，证明：$\lim_{n\to\infty}n^kA^n=O_2$.
+\end{problem}
+
+\begin{problem}
+  如果$A,B\in\MM_2(\MC)$满足$AB=BA$且$\lim_{n\to\infty}A^n=O_2,\lim_{N\to\infty}B^n=O_2$，
+  则$\lim_{n\to\infty}(AB)^n=O_2$.
+\end{problem}
+
+\begin{problem}
+  设$A\in\MM_2(\MC)$，且$n\in\MN$，利用$A$的Jordan标准形证明
+  \[
+    \lim_{n\to\infty}\left( I_2 + \frac An \right)^n = \ee^A \quad \text{且}\quad
+    \lim_{n\to\infty}\left( I_2 - \frac An \right)^n = \ee^{-A}.
+  \]
+\end{problem}
+
+\begin{problem}
+  \cite[p.339]{63} 设$A=\begin{pmatrix}
+    1-a & b \\
+    a & 1-b
+  \end{pmatrix},B=\begin{pmatrix}
+    -a & b \\
+    a & -b
+  \end{pmatrix}$，其中$0<a<1,0<b<1$. 证明：$A^n=I_2+\frac{1-(1-a-b)^n}{a+b}B,n\in\MN$，并计算$\lim_{n\to\infty}A^n$.
+\end{problem}
+\begin{remark}
+  上述问题中的矩阵$A$称为{\kaishu 左随机} 矩阵或者{列随机}矩阵. \index{S!随机矩阵!左随机矩阵} 一个左随机矩阵是一个方阵，其每个元素都是非负的，且每一列的和等于1.
+\end{remark}
+
+\begin{problem}
+  \cite{1} 令$B(x)=\begin{pmatrix}
+    1 & x \\
+    x & 1
+  \end{pmatrix}$. 考虑无穷矩阵乘积
+  \[
+    M(t) = B(2^{-t}) B(3^{-t}) B(5^{-t}) \cdots =\prod_p B(p^{-t}),\; t>1,
+  \]
+  其中乘积按从小到大的顺序遍历所有的素数，计算$M(t)$.
+\end{problem}
+
+\begin{problem}
+  令
+  \[
+    A(x) = \begin{pmatrix}
+      x^x & 1 \\
+      (1-x)^3 & x^x
+    \end{pmatrix}\in\MM_2(\MR) \quad \text{且设}\quad
+    A^n(x) = \begin{pmatrix}
+      a_n(x) & b_n(x) \\
+      c_n(x) & d_n(x)
+    \end{pmatrix},\; n\in\MN.
+  \]
+  计算$\lim_{n\to\infty}\frac{a_n(x)-d_n(x)}{c_n(x)}$.
+\end{problem}
+
+\begin{problem}
+  计算
+  \[
+    \begin{pmatrix}
+      1 + \frac1n & \frac1n \\
+      \frac1n & 1
+    \end{pmatrix}^n,\; n\in\MN.
+  \]
+\end{problem}
+
+\begin{problem}
+  证明：
+  \[
+    \lim_{n\to\infty}\begin{pmatrix}
+      1 & \frac1n \\
+      \frac1n & 1 + \frac1{n^2}
+    \end{pmatrix}^n = \begin{pmatrix}
+      \cosh 1 & \sinh 1 \\
+      \sinh 1 & \cosh 1
+    \end{pmatrix}.
+  \]
+\end{problem}
+
+\begin{problem}
+  计算
+  \[
+    \lim_{n\to\infty} \begin{pmatrix}
+      1 - \frac1{n^2} & \frac1n \\
+      \frac1n & 1 + \frac1{n^2}
+    \end{pmatrix}.
+  \]
+\end{problem}
+
+\begin{problem}
+  \cite{29} 令$A=\begin{pmatrix}
+    3 & 1 \\
+    -4 & -1
+  \end{pmatrix}$，计算
+  \[
+    \lim_{n\to\infty}\frac1n\left( I_2 + \frac{A^n}n\right)^n \quad \text{和}\quad
+    \lim_{n\to\infty}\frac1n\left( I_2 - \frac{A^n}n\right)^n.
+  \]
+\end{problem}
+
+\begin{problem}
+  令$A=\begin{pmatrix}
+    2 & -1 \\
+    -2 & 3
+  \end{pmatrix}$，计算
+  \[
+    \lim_{n\to\infty} \left(
+      \frac{\cos^2A}{n+1} + \frac{\cos^2(2A)}{n+2} + \cdots + \frac{\cos^2(nA)}{2n}
+    \right).
+  \]
+\end{problem}
+
+\begin{mybox}
+  \begin{problem}[Gelfand谱半径公式，1941.]
+
+    设$A=\begin{pmatrix}
+      a & b \\
+      c & d
+    \end{pmatrix}\in\MM_2(\MC)$，且设$\|A\|$表示$A$的{\kaishu Frobenius}范数，其定义为
+    \[
+      \|A\| = \sqrt{\Tr(AA^\ast)} = \sqrt{|a|^2+|b^2|+|c|^2+|d|^2}.
+    \]
+    证明：
+    \[
+      \rho(A) = \lim_{n\to\infty}\|A^n\|^{\frac1n}.
+    \]
+  \end{problem}
+\end{mybox}
+
+\begin{problem}[\kaishu 矩阵的极限，$n$次方根与范数.]
+  令$A=\begin{pmatrix}
+    3 & -1 \\
+    4 & -2
+  \end{pmatrix}$.
+  \begin{enum}
+    \item 计算
+    \[
+      \lim_{n\to\infty} \frac{\sqrt[n]{\|
+        A(A+I_2)(A+2I_2)\cdots(A+nI_2)
+      \|}}n.
+    \]
+    \item 计算
+    \[
+      \lim_{n\to\infty} \sqrt[\uproot{10}\leftroot{-3}n]{\frac{\|
+        A(A+2I_2)(A+4I_2)\cdots(A+2nI_2)
+      \|}{n!}}.
+    \]
+    \item 计算
+    \[
+      \lim_{n\to\infty} \frac{\|
+      (A+(n+1)I_2)(A+(n+4)I_2)\cdots (A+(4n-2)I_2)
+      \|}{\|
+      (A+nI_2)(A+(n+3)I_2)\cdots (A+(4n-3)I_2)
+      \|},
+    \]
+    其中$\|A|$表示问题 \ref{problem4.14} 中定义的$A$的范数.
+  \end{enum}
+\end{problem}
+
+\begin{problem}[矩阵形式的勾股定理]
+  矩阵$A$的{\kaishu Frobenius}范数，也称为{\kaishu Euclid}范数或{\kaishu Hilbert--Schmidt} 范数，定义为$\|A\|=\sqrt{\Tr(AA^\ast)}$. 证明：如果$A\in\MM_2(\MC)$，则$\|A\|^2=\|\Re(A)\|^2+\|\Im(A)\|^2$，其中$\Re(A)$和$\Im(A)$分别表示$A$的实部和虚部.
+\end{problem}
+
+\begin{problem}
+  一个{\kaishu 好问题}. 令$A=\begin{pmatrix}
+    2 & 1 \\
+    -1 & 0
+  \end{pmatrix}$，证明：
+  \begin{enum}
+    \item\label{prob4.17.a} 对$n\ge1$，有$A^n=\begin{pmatrix}
+      n + 1 & n \\
+      -n & 1 - n
+    \end{pmatrix}
+    $；
+    \item\label{prob4.17.b} $\ee^A=\ee A$；
+    \item\label{prob4.17.c} $\ee^{Ax}=\ee^x\begin{pmatrix}
+      x + 1 & x \\
+      -x & 1-x
+    \end{pmatrix},x\in\MR$.
+  \end{enum}
+\end{problem}
+
+\begin{problem}
+  对下列矩阵，计算$\ee^A$：
+  \begin{enum}
+    \item $A=\begin{pmatrix}
+      3 & -1 \\
+      1 & 1
+    \end{pmatrix}$；
+    \item $A=\begin{pmatrix}
+      4 & -2 \\
+      6 & -3
+    \end{pmatrix}$.
+  \end{enum}
+\end{problem}
+
+\begin{problem}
+  证明：
+  \[
+    \ee^{\begin{pmatrix}
+      0 & 1 \\
+      1 & 0
+    \end{pmatrix}} = \begin{pmatrix}
+      \cosh 1 & 1\sinh 1 \\
+      \sinh 1 & \cosh 1
+    \end{pmatrix}.
+  \]
+\end{problem}
+
+\begin{problem}
+  设$\alpha,\beta\in\MR$.
+  \begin{enum}
+    \item 证明：
+    \[
+      \ee^{\begin{pmatrix}
+        0 & \ii\beta \\
+        \ii\beta & 0
+      \end{pmatrix}} = \begin{pmatrix}
+        \cos\beta & \ii\sin\beta \\
+        \ii\sin\beta & \cos\beta
+      \end{pmatrix}.
+    \]
+    \item 证明：
+    \[
+      \ee^{\begin{pmatrix}
+        \alpha & \ii\beta \\
+        \ii\beta & \alpha
+      \end{pmatrix}} = \ee^{\alpha}\begin{pmatrix}
+        \cos\beta & \ii\sin\beta \\
+        \ii\sin\beta & \cos\beta
+      \end{pmatrix}.
+    \]
+  \end{enum}
+\end{problem}
+
+\begin{mybox}
+  \begin{problem}[一个指数形式的旋转矩阵.]
+
+    如果$\theta\in\MR$且$J_2=\begin{pmatrix}
+      0 & 1 \\
+      -1 & 0
+    \end{pmatrix}$，则
+    \[
+      \ee^{-\theta J_2} = \begin{pmatrix}
+        \cos\theta & -\sin\theta \\
+        \sin\theta & \cos\theta
+      \end{pmatrix}.
+    \]
+  \end{problem}
+\end{mybox}
+\begin{remark}
+  我们注释一下，根据定理 \ref{thm1.3}，这个问题其实是复分析里面著名的Euler公式$\ee^{\ii\theta}=\cos\theta+\ii\sin\theta$的矩阵版本.
+\end{remark}
+
+\begin{problem}
+  设$A\in\MM_2(\MC)$.
+  \begin{enum}
+    \item 证明：如果$\ee^A$是一个三角形矩阵，且不形如$\alpha I_2,\alpha\in\MC$，则$A$也是一个三角形矩阵.
+    \item 说明如果$\ee^A$是三角形矩阵，$A$不一定是三角形矩阵.
+  \end{enum}
+\end{problem}
+
+\begin{problem}
+  证明：
+  \[
+    \ee^{\begin{pmatrix}
+      a & 1 \\
+      -1 & a
+    \end{pmatrix}} = \ee^a \begin{pmatrix}
+      \cos 1 & \sin 1 \\
+      -\sin 1 & \cos 1
+    \end{pmatrix},\; a\in\MR.
+  \]
+\end{problem}
+
+\begin{problem}
+  设$a,b\in\MR$，计算$\ee^A$，其中$A=\begin{pmatrix}
+    a & b \\
+    -b & a
+  \end{pmatrix}$.
+\end{problem}
+
+\begin{problem}
+  \cite[p.205]{6} 设$t\in\MR$且令$A(t)=\begin{pmatrix}
+    t & t - 1 \\
+    0 & 1
+  \end{pmatrix}$，证明：$\ee^{A(t)}=\ee A(\ee^{t-1})$.
+\end{problem}
+
+\begin{problem}
+  设$A\in\MM_2(\MC)$，证明：如果$\lambda$是$A$的特征值，则$\ee^\lambda$是$\ee^A$的特征值，且$\det(\ee^A)=\ee^{\Tr(A)}$.
+\end{problem}
+
+\begin{mybox}
+  \begin{problem}[交换指数.]
+
+    设$A,B\in\MM_2(\MC)$的特征值都是实数，证明：如果$\ee^A$与$\ee^B$可交换，则$A$与$B$可交换.
+    \begin{nota}
+      如果$A$和$B$有复特征值，结论就不再成立了. 如果$A=\begin{pmatrix}
+        0 & \pi \\
+        -\pi & 0
+      \end{pmatrix}$且$B=\begin{pmatrix}
+        0 & (7+4\sqrt3)\pi \\
+        (-7+4\sqrt3)\pi & 0
+      \end{pmatrix}$，则$\ee^A=\ee^B=-I_2,\ee^{A+B}=I_2$，
+      且$AB\ne BA$ \cite[p.709]{9}.
+
+      更一般地，如果$(x_n,y_n)\ne(1,0)$是Pell方程$x^2-dy^2=1,d\in\MN,d\ge2$的正整数解，且
+      \[
+        A = \begin{pmatrix}
+          0 & \pi \\
+          -\pi & 0
+        \end{pmatrix}\quad \text{以及}\quad
+        B = \begin{pmatrix}
+          0 & (x_n+\sqrt dy_n) \pi \\
+          (-x_n+\sqrt dy_n)\pi & 0
+        \end{pmatrix},
+      \]
+      则$\ee^A=\ee^B=-I_2$且$AB\ne BA$. 进一步，如果$1+x_n=2k^2,k\in\MN$，则$\ee^{A+B}=I_2$，所以$\ee^A\ee^B=\ee^B\ee^A=\ee^{A+B}$.
+    \end{nota}
+  \end{problem}
+\end{mybox}
+
+\begin{mybox}
+  \begin{problem}[\cite{25} 指数矩阵何时成为整数矩阵?]
+
+    设$A\in\MM_2(\MZ)$，证明：$\ee^A\in\MM_2(\MZ)$当且仅当$A^2=O_2$.
+  \end{problem}
+\end{mybox}
+
+\begin{mybox}
+  \begin{problem}[一个矩阵分析的瑰宝.]
+
+    设$A\in\MM_2(\MZ)$，证明：
+    \begin{itemize}
+      \item $\sin A\in\MM_2(\MZ)$当且仅当$A^2=O_2$；
+      \item $\cos A\in\MM_2(\MZ)$当且仅当$A^2=O_2$.
+    \end{itemize}
+  \end{problem}
+\end{mybox}
+
+\begin{mybox}
+  \begin{problem}[另一个矩阵分析的瑰宝.]
+
+    设$A\in\MM_2(\MQ)$满足$\rho(A)<1$，证明：
+    \begin{itemize}
+      \item $\ln(I_2-A)\in\MM_2(\MQ)$当且仅当$A^2=O_2$；
+      \item $\ln(I_2+A)\in\MM_2(\MQ)$当且仅当$A^2=O_2$.
+    \end{itemize}
+  \end{problem}
+\end{mybox}
+
+\begin{problem}
+  设$A,B,C\in\MM_2(\MR)$是可交换的矩阵，证明：如果$\cos A+\cos B+\cos C=O_2$且$\sin A+\sin B+\sin C=O_2$，则
+  \begin{enum}
+    \item $\cos(2A)+\cos(2B)+\cos(2C)=O_2$；
+    \item $\sin(2A)+\sin(2B)+\sin(2C)=O_2$；
+    \item\label{prob4.31c} $\cos(3A)+\cos(3B)+\cos(3C)=O_2$；
+    \item\label{prob4.31d} $\sin(3A)+\sin(3B)+\sin(3C)=O_2$。
+  \end{enum}
+\end{problem}
+
+\begin{problem}
+  证明：
+  \begin{enum}
+    \item\label{prob4.32a} $\ee^{\begin{pmatrix}
+      a & b \\
+      b & a
+    \end{pmatrix}}=\ee^a\begin{pmatrix}
+      \cosh b & \sinh b \\
+      \sinh b & \cosh b
+    \end{pmatrix},a,b\in\MC$；
+    \item\label{prob4.32b} $\ee^{\begin{pmatrix}
+      0 & a \\
+      b & 0
+    \end{pmatrix}}=\begin{pmatrix}
+      \cosh\sqrt{ab} & \frac a{\sqrt{ab}}\sinh \sqrt{ab} \\
+      \frac b{\sqrt{ab}}\sinh \sqrt{ab} & \cosh\sqrt{ab}
+    \end{pmatrix},a,b\in\MR,ab>0$；
+    \item\label{prob4.32c} $\ee^{\begin{pmatrix}
+      1 & 1 \\
+      1 & 0
+    \end{pmatrix}}=\frac1{\sqrt5}\begin{pmatrix}
+      \alpha\ee^\alpha -\beta\ee^\beta & \ee^\alpha-\ee^\beta \\
+      \ee^\alpha-\ee^\beta & \alpha\ee^\beta-\beta\ee^\alpha
+    \end{pmatrix},\alpha=\frac{1+\sqrt5}2,\beta=
+    \frac{1-\sqrt5}2$；
+    \item\label{prob4.32d} $\sum_{n=1}^\infty \frac1{(2n-1)^A}=(I_2-2^{-A})\zeta(A)$，其中$A\in\MM_2(\MC),\Re(\lambda_1)>1,\Re(\lambda_2)
+        >1$.
+  \end{enum}
+\end{problem}
+
+\begin{mybox}
+  \begin{problem}[旋转矩阵的函数.]
+
+    设$\theta\in\MR$，且函数$f$在0处的泰勒级数展开式为
+    \[
+      f(z) = \sum_{n=0}^\infty \frac{f^{(n)}(0)}{n!}z^n,\; |z|<R,
+    \]
+    其中$R>1$. 证明：
+    \[
+      f\begin{pmatrix}
+        \cos\theta & -\sin\theta \\
+        \sin\theta & \cos\theta
+      \end{pmatrix} = \frac12 \begin{pmatrix}
+        f(\ee^{\ii\theta}) + f(\ee^{-\ii\theta}) &
+        f(\ee^{-\ii\theta}) - f(\ee^{-\ii\theta}) \\
+        f(\ee^{\ii\theta}) - f(\ee^{-\ii\theta})
+        & f(\ee^{\ii\theta}) + f(\ee^{-\ii\theta})
+      \end{pmatrix}.
+    \]
+  \end{problem}
+\end{mybox}
+
+\begin{mybox}
+  \begin{problem}[循环矩阵的函数.]
+    \begin{enum}
+      \item 设$\alpha,\beta\in\MR$，证明：
+      \[
+        \cos \begin{pmatrix}
+          \alpha & \beta \\
+          \beta & \alpha
+        \end{pmatrix} = \begin{pmatrix}
+          \cos\alpha\cos\beta & -\sin\alpha\sin\beta \\
+          -\sin\alpha \sin\beta & \cos\alpha\cos\beta
+        \end{pmatrix}.
+      \]
+      \item 设函数$f$在0处的泰勒级数展开式为
+    \[
+      f(z) = \sum_{n=0}^\infty \frac{f^{(n)}(0)}{n!}z^n,\; |z|<R,
+    \]
+    其中$R\in(0,+\infty]$，且设$\alpha,\beta\in\MR$满足$|\alpha\pm\beta|<R$. 证明：
+    \[
+      f\begin{pmatrix}
+        \alpha & \beta \\
+        \beta & \alpha
+      \end{pmatrix} = \frac12 \begin{pmatrix}
+        f(\alpha+\beta) + f(\alpha-\beta) & f(\alpha+\beta) - f(\alpha-\beta) \\
+        f(\alpha+\beta) - f(\alpha-\beta) & f(\alpha+\beta) + f(\alpha-\beta)
+      \end{pmatrix}.
+    \]
+    \end{enum}
+  \end{problem}
+\end{mybox}
+
+\begin{mybox}
+  \begin{problem}[复数与矩阵公式. 承蒙定理 \ref{thm1.3}.]
+
+  根据定理 \ref{thm1.3}， 复数$z=x+\ii y,x,y\in\MR$可以表示成实矩阵$A=\begin{pmatrix}
+    x & -y \\
+    y & x
+  \end{pmatrix}$.
+  \begin{enum}
+    \item 相应于共轭复数$\bar z=x-\ii y$的矩阵是伴随矩阵$A_\ast=\begin{pmatrix}
+          x & y \\
+          -y & x
+        \end{pmatrix}$.
+    \item $(x+\ii y)(x-\ii y)=x^2+y^2$且
+      \[
+        \begin{pmatrix}
+          x & -y \\
+          y & x
+        \end{pmatrix}\begin{pmatrix}
+          x & y \\
+          -y & x
+        \end{pmatrix} = (x^2+y^2)I_2.
+      \]
+    \item $(x+\ii y)(a+\ii b)=xa-yb+\ii(xb+ya)$且
+      \[
+        \begin{pmatrix}
+          x & -y \\
+          y & x
+        \end{pmatrix}\begin{pmatrix}
+          a & -b \\
+          b & a
+        \end{pmatrix} = \begin{pmatrix}
+          xa - yb & -(xb + ya) \\
+          xb + ya & xa - yb
+        \end{pmatrix}.
+      \]
+    \item $\frac1{x+\ii y}=\frac{x-\ii y}{x^2+y^2},x^2+y^2\ne0$且
+      \[
+        \begin{pmatrix}
+          x & -y \\
+          y & x
+        \end{pmatrix}^{-1} = \frac1{x^2+y^2}\begin{pmatrix}
+          x & y \\
+          -y & x
+        \end{pmatrix}.
+      \]
+    \item $\ii^n=\cos\frac{n\pi}2+\ii\sin\frac{n\pi}2$且
+        \[
+          \begin{pmatrix}
+            0 & -1 \\
+            1 & 0
+          \end{pmatrix}^n = \begin{pmatrix}
+            \cos\frac{n\pi}2 & - \sin\frac{n\pi}2 \\
+            \sin\frac{n\pi}2 & \cos\frac{n\pi}2
+          \end{pmatrix}.
+        \]
+    \item {\bfseries de Moivre公式.} $(\cos\theta+\ii\sin\theta)^n=\cos(n\theta)+\ii
+        \sin(n\theta),n\in\MN,\theta\in\MR$且
+        \[
+          \begin{pmatrix}
+            \cos\theta & -\sin\theta \\
+            \sin\theta & \cos\theta
+          \end{pmatrix}^n = \begin{pmatrix}
+            \cos(n\theta) & -\sin(n\theta) \\
+            \sin(n\theta) & \cos(n\theta)
+          \end{pmatrix}.
+        \]
+    \item $(x+\ii y)^n=\rho^n\big(\cos(n\theta)+\ii
+        \sin(n\theta)\big),\rho=\sqrt{x^2+y^2},\theta\in
+        [0,2\pi)$且
+        \[
+          \begin{pmatrix}
+            x & -y \\
+            y & x
+          \end{pmatrix}^n = \rho^n\begin{pmatrix}
+            \cos(n\theta) & -\sin(n\theta) \\
+            \sin(n\theta) & \cos(n\theta)
+          \end{pmatrix}.
+        \]
+    \item {\bfseries Euler公式.} $\ee^ {\ii\theta}=\cos\theta+\ii\sin\theta,\theta\in\MR$且
+        \[
+          \ee^{\begin{pmatrix}
+            0 & -\theta \\
+            \theta & 0
+          \end{pmatrix}} = \begin{pmatrix}
+            \cos\theta & -\sin\theta \\
+            \sin\theta & \cos\theta
+          \end{pmatrix}.
+        \]
+    \item $\ee^{x+\ii y}=\ee^x(\cos y+ \ii\sin y)$且
+        \[
+          \ee^{\begin{pmatrix}
+            x & -y \\
+            y & x
+          \end{pmatrix}} = \ee^x \begin{pmatrix}
+            \cos y & -\sin y \\
+            \sin y & \cos y
+          \end{pmatrix}.
+        \]
+    \item $\sinh(x+\ii y)=\sinh x\cos y+\ii\cosh x\sin y$且
+        \[
+          \sinh \begin{pmatrix}
+            x & -y \\
+            y & x
+          \end{pmatrix} = \begin{pmatrix}
+            \sinh x\cos y & -\cosh x\sin y\\
+            \cosh x\sin y & \sinh x \cos y
+          \end{pmatrix}.
+        \]
+    \item $\cosh(x+\ii y)=\cosh x\cos y+\ii\sinh x\sin y$且
+        \[
+          \cosh \begin{pmatrix}
+            x & -y \\
+            y & x
+          \end{pmatrix} = \begin{pmatrix}
+            \cosh x\cos y & -\sinh x \sinh y \\
+            \sinh x\sin y & \cosh x\cos y
+          \end{pmatrix}.
+        \]
+    \item $\sin(x+\ii y)=\sin x\cosh y+\ii \cos x\sinh y$且
+        \[
+          \sin \begin{pmatrix}
+            x & -y \\
+            y & x
+          \end{pmatrix} = \begin{pmatrix}
+            \sin x\cosh y & -\cos x\sinh y \\
+            \cos x\sinh y & \sin x\cosh y
+          \end{pmatrix}.
+        \]
+    \item $\cos(x+\ii y)=\cos x\cosh y-\ii\sin x\sinh y$且
+        \[
+          \cos \begin{pmatrix}
+            x & -y \\
+            y & x
+          \end{pmatrix} = \begin{pmatrix}
+            \cos x\cosh y & \sin x \sinh y \\
+            -\sin x\sinh y & \cos x \cosh y
+          \end{pmatrix}.
+        \]
+    \item 如果$f(x+\ii y)=u(x,y)+\ii v(x,y)$，则
+        \[
+          f\begin{pmatrix}
+            x & -y \\
+            y & x
+          \end{pmatrix} = \begin{pmatrix}
+            u(x,y) & -v(x,y) \\
+            v(x,y) & u(x,y)
+          \end{pmatrix}.
+        \]
+  \end{enum}
+  \end{problem}
+\end{mybox}
+
+\begin{problem}
+  在$\MM_2(\MC)$中解方程$\ee^A=\alpha I_2,\alpha\in\MC^\ast$.
+\end{problem}
+
+\begin{problem}
+  在$\MM_2(\MC)$中解方程$\ee^A=\begin{pmatrix}
+    a & 0 \\
+    0 & b
+  \end{pmatrix},a,b\in\MC^\ast,a\ne b$.
+\end{problem}
+
+\begin{mybox}
+  \begin{problem}[一个循环指数方程.]
+
+    在$\MM_2(\MC)$中解方程$\ee^A=\begin{pmatrix}
+      0 & 1 \\
+      1 & 0
+    \end{pmatrix}$.
+  \end{problem}
+\end{mybox}
+
+\begin{mybox}
+  \begin{problem}[一个三角形指数方程.]
+
+    在$\MM_2(\MC)$中解方程$\ee^A=\begin{pmatrix}
+      a & a \\
+      0 & a
+    \end{pmatrix},a\in\MC^\ast$.
+  \end{problem}
+\end{mybox}
+
+\begin{problem}
+  验证恒等式$\sin(2A)=2\sin A\cos A$，其中$A=\begin{pmatrix}
+    \pi-1 & 1 \\
+    -1 & \pi+1
+  \end{pmatrix}$.
+\end{problem}
+
+\begin{problem}
+  如果$A\in\MM_2(\MC)$是一个幂等矩阵且$k\in\MZ$，则$\sin(k\pi A)=O_2$.
+\end{problem}
+
+\begin{problem}
+  \begin{enumerate*}[left=0pt,label=(\alph*),itemjoin=\\]
+    \item 是否存在矩阵$A\in\MM_2(\MC)$满足$\sin A=\begin{pmatrix}
+          1 & 2016 \\
+          0 & 1
+        \end{pmatrix}$?
+    \item 是否存在矩阵$A\in\MM_2(\MC)$使得$\cosh A=\begin{pmatrix}
+          1 & \alpha \\
+          0 & 1
+        \end{pmatrix},\alpha\ne0$?
+  \end{enumerate*}
+\end{problem}
+
+\begin{problem}
+  设矩阵$A\in\MM_2(\MC)$满足$\det A=0$，证明：
+  \begin{itemize}
+    \item 如果$\Tr(A)=0$，则$2^A=I_2+(\ln2)A$；
+    \item 如果$\Tr(A)\ne0$，则$2^A=I_2+\frac{2^{\Tr(A)}-1}{\Tr(A)}A$.
+  \end{itemize}
+\end{problem}
+
+\begin{mybox}
+  \begin{problem}
+    设$A=\begin{pmatrix}
+      a & b \\
+      c & d
+    \end{pmatrix}\in\MM_2(\MR)$，证明：
+    \[
+      A^n = \begin{pmatrix}
+        a^n & b^n \\
+        c^n & d^n
+      \end{pmatrix},\; \forall n\in\MN
+    \]
+    当且仅当$A$具有以下形式：
+    \[
+      \begin{pmatrix}
+        \alpha & 0 \\
+        \alpha & 0
+      \end{pmatrix},\quad
+      \begin{pmatrix}
+        0 & \alpha \\
+        0 & \alpha
+      \end{pmatrix},\quad
+      \begin{pmatrix}
+        0 & 0 \\
+        \alpha & \alpha
+      \end{pmatrix}, \quad
+      \begin{pmatrix}
+        \alpha & \alpha \\
+        0 & 0
+      \end{pmatrix},\quad
+      \begin{pmatrix}
+        \alpha & 0 \\
+        0 & \beta
+      \end{pmatrix},\quad
+      \alpha,\beta\in\MR.
+    \]
+
+    {\kaishu 挑战性问题.}
+    \begin{itemize}
+      \item 求出所有矩阵$A=\begin{pmatrix}
+        a & b \\
+        c & d
+      \end{pmatrix}\in\MM_2(\MR)$满足$\sin A=\begin{pmatrix}
+        \sin a & \sin b\\
+        \sin c & \sin d
+      \end{pmatrix}$. 所有以上列出的矩阵都满足这个方程，是否还有其他矩阵呢?
+      \item 求出所有矩阵$A=\begin{pmatrix}
+        a & b \\
+        c & d
+      \end{pmatrix}\in\MM_2(\MR)$满足$\cos A=\begin{pmatrix}
+        \cos a & \cos b \\
+        \cos c & \cos d
+      \end{pmatrix}$.
+    \end{itemize}
+  \end{problem}
+\end{mybox}
+
+\begin{problem}
+  \cite{31} 是否存在矩阵$A=\begin{pmatrix}
+    a & b \\
+    c & d
+  \end{pmatrix}$满足$\ee^A=\begin{pmatrix}
+    \ee^a & \ee^b \\
+    \ee^c & \ee^d
+  \end{pmatrix}$?
+\end{problem}
+
+\begin{mybox}
+  \begin{problem}[矩阵的导数.]
+    \begin{enum}
+      \item\label{prob4.46a} 设方阵$A,B$的每一项都是可微的函数，证明：$(AB)'=A'B+AB'$.
+      \item\label{prob4.46b} 可以证明，如果$A$是可微的可逆矩阵，则$A^{-1}$也是可微的.
+      \begin{itemize}
+        \item 证明：$(A^{-1})'=-A^{-1}A'A^{-1}$.
+        \item 计算$A^{-n}=(A^{-1})^n$的导数，其中整数$n\ge2$.
+      \end{itemize}
+    \end{enum}
+  \end{problem}
+\end{mybox}
+
+\begin{problem}
+  \cite[p.205]{6} 如果$A(t)$是一个$t$的数量值函数，$\ee^{A(t)}$的导数是$\ee^{A(t)}A'(t)$. 当$A(t)=\begin{pmatrix}
+    1 & t \\
+    0 & 0
+  \end{pmatrix}$时，计算$\ee^{A(t)}$的导数，并说明此时的结果既不等于$\ee^{A(t)}A'(t)$也不等于$A'(t)\ee^{A(t)}$.
+\end{problem}
+
+{\kaishu 微分方程组}
+
+\begin{problem}
+  解微分方程组
+  \[
+    \left\{
+      \begin{aligned}
+        & x_1' = x_1 - 4x_2 \\
+        & x_2' = -2x_1 + 3x_2
+      \end{aligned}
+    \right..
+  \]
+\end{problem}
+
+\begin{problem}
+  设实数$a>0$，且令$A=\begin{pmatrix}
+    1 & 1 \\
+    -a & 1
+  \end{pmatrix}$.
+  \begin{enum}
+    \item 计算$\ee^{At},t\in\MR$.
+    \item 解微分方程组
+    \[
+      \left\{
+        \begin{aligned}
+          & x' = x + y \\
+          & y' = -ax + y
+        \end{aligned}
+      \right..
+    \]
+  \end{enum}
+\end{problem}
+\begin{remark}
+  这个问题启发于 \cite[Example 5.2.5, p.238]{52}.
+\end{remark}
+
+\begin{problem}
+  令$A=\begin{pmatrix}
+    2 & 1 \\
+    3 & 4
+  \end{pmatrix}$.
+  \begin{enum}
+    \item 计算$\ee^{At},t\in\MR$.
+    \item 解微分方程组
+    \[
+      \left\{
+        \begin{aligned}
+          & x' = 2x + y \\
+          & y' = 3x + 4y
+        \end{aligned}
+      \right.,
+    \]
+    初值条件为$x(0)=2,y(0)=4$.
+  \end{enum}
+\end{problem}
+
+\begin{problem}
+  令$A=\begin{pmatrix}
+    -4 & 1 \\
+    -1 & -2
+  \end{pmatrix}$.
+  \begin{enum}
+    \item 计算$\ee^{At},t\in\MR$.
+    \item 解微分方程组
+    \[
+      \left\{
+        \begin{aligned}
+          & x' = -4x + 2y \\
+          & y' = -x - 2y + \ee^t
+        \end{aligned}
+      \right.,
+    \]
+    初值条件为$x(0)=1,y(0)=7$.
+  \end{enum}
+\end{problem}
+
+\begin{problem}
+  \begin{enumerate*}[left=0cm,label=(\alph*),
+  itemjoin=\\]
+    \item 证明：线性微分方程组$\mathscr S_0:tX'(t)=AX(t)$，其中$A\in\MM_2(\MR),t>0$的解为$X(t)=t^AC$，其中$C$是一个常向量.
+    \item 求非齐次线性微分方程组$\mathscr S:tX'(t)=AX(t)+F(t)$的解，其中$F$是一个连续的函数向量.
+  \end{enumerate*}
+\end{problem}
+
+\begin{problem}
+  解微分方程组
+    \[
+      \left\{
+        \begin{aligned}
+          & tx' = -x + 3y + 1 \\
+          & ty' = x + y + 1
+        \end{aligned}
+      \right.,
+    \]
+    初值条件为$x(0)=\frac12,y(0)=\frac32$.
+\end{problem}
+
+{\kaishu 齐次线性微分方程组的稳定性}
+
+\begin{problem}
+  根据参数$a,b,c,d\in\MR$的值，讨论以下方程组的稳定性：
+  \[
+    \left\{
+      \begin{aligned}
+        & x' = ax + by \\
+        & y' = cx + dy
+      \end{aligned}
+    \right..
+  \]
+\end{problem}
+
+\begin{problem}
+  根据参数$a\in\MR$的值，讨论以下方程组的稳定性：
+  \[
+    \left\{
+      \begin{aligned}
+        & x' = -a^2x + ay \\
+        & y' = x - y
+      \end{aligned}
+    \right..
+  \]
+\end{problem}
+
+\begin{problem}
+  根据参数$a\in\MR$的值，讨论以下方程组的稳定性：
+  \[
+    \left\{
+      \begin{aligned}
+        & x' = -ax + (a-1)y \\
+        & y' = x
+      \end{aligned}
+    \right..
+  \]
+\end{problem}
+
+\begin{problem}
+  根据参数$b,c\in\MR$的值，讨论以下方程组的稳定性：
+  \[
+    \left\{
+      \begin{aligned}
+        & x' = by \\
+        & y' = cx
+      \end{aligned}
+    \right..
+  \]
+\end{problem}
+
+\begin{problem}
+  根据参数$a,b\in\MR$的值，讨论以下方程组的稳定性：
+  \[
+    \left\{
+      \begin{aligned}
+        & x' = -x + ay \\
+        & y' = bx - y
+      \end{aligned}
+    \right..
+  \]
+\end{problem}
+
+\begin{problem}
+  根据参数$a,b\in\MR$的值，讨论以下方程组的稳定性：
+  \[
+    \left\{
+      \begin{aligned}
+        & x' = ax + y \\
+        & y' = bx + ay
+      \end{aligned}
+    \right..
+  \]
+\end{problem}
+
+{\kaishu 矩阵级数}
+\begin{problem}
+  设$x\in\MR,A=\begin{pmatrix}
+    -1 & x \\
+    0 & -1
+  \end{pmatrix}$，证明：
+  \[
+    \sum_{n=1}^\infty \frac{A^n}{n^2} = \begin{pmatrix}
+    -\frac{\pi^2}{12} & x\ln2 \\
+    0 & -\frac{\pi^2}{12}
+    \end{pmatrix}.
+  \]
+\end{problem}
+\begin{remark}
+  这个问题启发于 \cite[problem12, p.65]{63}.
+\end{remark}
+
+\begin{problem}
+  设$A\in\MM_2(\MC)$，证明：
+  \[
+    \sum_{n=0}^\infty \frac{A^{3n}}{(3n)!}  = \frac13 \left( \ee^A + 2\ee^{-\frac A2}\cos \frac{\sqrt3A}2 \right).
+  \]
+\end{problem}
+
+\begin{mybox}
+  \begin{problem}[矩阵的Abel分部求和公式.]
+
+    设$(a_n)_{n\ge1}$是一列复数，$(B_n)_{n\ge1}\in\MM_2(\MC)$是一列矩阵，且令$A_n=\sum_{k=1}^na_k$，则
+    \begin{enum}
+      \item\label{prob4.62a} {\kaishu 有限形式}
+      \[
+        \sum_{k=1}^na_kB_k = A_nB_{n+1} + \sum_{k=1}^{n-1}A_k(B_k - B_{k+1});
+      \]
+      \item\label{prob4.62b} {\kaishu 无限形式}
+      \[
+        \sum_{k=1}^\infty a_kB_k = \lim_{n\to\infty}A_nB_{n+1} + \sum_{k=1}^\infty A_k(B_k - B_{k+1}),
+      \]
+      如果右边的极限是有限的，且级数是收敛的.
+    \end{enum}
+  \end{problem}
+\end{mybox}
+\begin{remark}
+  我们提及一下，实数或者复数的{\kaishu Abel 分部求和公式}的应用可以参考 \cite[p.55]{11}，\cite[p.258]{22}，\cite[p.26]{57}.
+\end{remark}
+
+\begin{problem}[Fibonacci数列的“矩阵母函数”.]
+
+  设$(F_n)_{n\ge0}$表示Fibonacci数列，定义为$F_0=0,F_1=1,F_{n+1}=F_n+F_{n-1},\forall n\ge1$. 证明：
+  \[
+    \sum_{n=1}^\infty F_nA^{n-1} = (I_2-A-A^2)^{-1},\quad \forall A\in\MM_2(\MC)\,\text{满足$\rho(A)<\frac{
+    \sqrt5-1}2$}.
+  \]
+\end{problem}
+
+\begin{problem}
+  设整数$n\ge1$，第$n$个调和数$H_n$定义为
+  \[
+    H_n = 1 + \frac12 + \frac13 + \cdots + \frac1n.
+  \]
+  设$x$是一个实数，$\alpha\in(-1,1)$，且令$A=\begin{pmatrix}
+    \alpha & x \\
+    0 & \alpha
+  \end{pmatrix},B=\begin{pmatrix}
+    0 & x \\
+    0 & 0
+  \end{pmatrix}$.
+  \begin{enum}
+    \item 证明：
+    \[
+      \sum_{n=1}^\infty H_nA^n = -\frac{\ln(1-\alpha)}{1-\alpha}I_2 +
+      \frac{1-\ln(1-\alpha)}{(1-\alpha)^2}B.
+    \]
+    \item 证明：
+    \[
+      \sum_{n=1}^\infty \frac{H_n}{n+1}A^n = \frac{\ln^2(1-\alpha)}{2\alpha}I_2 - \left( \frac{\ln(1-\alpha)}{\alpha(1-\alpha)} + \frac{\ln^2(1-\alpha)}{2\alpha^2} \right)B,\quad \alpha\ne0.
+    \]
+  \end{enum}
+\end{problem}
+
+\begin{problem}[两个调和数的母函数.]
+
+  设$A\in\MM_2(\MC)$满足$\rho(A)<1$，且设$H_n$表示第$n$个调和数. 证明：
+  \begin{enum}
+    \item $\sum_{n=1}^\infty H_nA^n=-(I_2-A)^{-1}\ln(I_2-A)$；
+    \item $\sum_{n=1}^\infty nH_nA^n=A\big(I_2-\ln(I_2-A)\big)(I_2-A)^{-2}$.
+  \end{enum}
+\end{problem}
+
+\begin{mybox}
+  \begin{problem}[截尾$\ln\frac12$的一个幂级数.]
+
+    设$A\in\MM_2(\MR)$满足$\rho(A)<1$，且设$\lambda_1,\lambda_2$是$A$的实特征值. 证明：
+    \begin{align*}
+      & \sum_{n=1}^\infty \left( \ln\frac12 + 1 - \frac12 + \cdots + \frac{(-1)^{n-1}}n \right) A^n \\
+      = {}& \begin{cases}
+        (I_2-A)^{-1}\big( \ln(I_2+A) - (\ln2)A \big) , & \text{如果}\, 0<|\lambda_1|,|\lambda_2|<1 \\
+        \frac1{1-\Tr(A)} \left( \frac{\ln\big(1+\Tr(A)\big)}{\Tr(A)} - \ln2 \right)A, & \text{如果}\, \lambda_1=0,0<|\lambda_2|<1
+      \end{cases}.
+    \end{align*}
+  \end{problem}
+\end{mybox}
+
+\begin{mybox}
+  \begin{problem}[一个对数级数的截尾求和.]
+
+    设矩阵$A\in\MM_2(\MR)$的特征值都在区间$(-1,1)$内.
+    \begin{enum}
+      \item\label{prob4.67a} 证明：
+      \[
+        \lim_{n\to\infty}n\left( \ln(I_2-A) + A + \frac{A^2}2 + \cdots + \frac{A^n}n \right) = O_2.
+      \]
+      \item\label{prob4.67b} 证明：
+      \[
+        \sum_{n=1}^\infty \left( \ln(I_2-A) + A + \frac{A^2}2 + \cdots + \frac{A^n}n \right) = - \ln(I_2-A) - A(I_2-A)^{-1}.
+      \]
+    \end{enum}
+  \end{problem}
+\end{mybox}
+
+\begin{mybox}
+  \begin{problem}[对数级数与调和数.]
+
+    设$A\in\MM_2(\MC)$满足$\rho(A)<1$，证明：
+    \begin{enum}
+      \item $H_1+H_2+\cdots+H_n=(n+1)H_n-n,\forall n\ge1$；
+      \item $\sum_{n=1}^\infty H_n\left( \ln(I_2-A) + A + \frac{A^2}2 + \cdots + \frac{A^n}n \right) = \big( A+\ln(I_2-A) \big)(I_2-A)^{-1}$.
+    \end{enum}
+  \end{problem}
+\end{mybox}
+
+\begin{mybox}
+  \begin{problem}[一个反正切级数]
+
+    设矩阵$A\in\MM_2(\MR)$的特征值都在区间$(-1,1)$内.
+    \begin{enum}
+      \item 证明：
+      \[
+        \lim_{n\to\infty}n\left( \arctan A - A + \frac{A^3}3 + \cdots + (-1)^n\frac{A^{2n-1}}{2n-1} \right) = O_2.
+      \]
+      \item 证明：
+      \[
+        \sum_{n=1}^\infty \left( \arctan A - A + \frac{A^3}3 + \cdots + (-1)^n\frac{A^{2n-1}}{2n-1} \right) = \frac A2(I_2+A^2)^{-1} - \frac{\arctan A}2.
+      \]
+    \end{enum}
+  \end{problem}
+\end{mybox}
+
+\begin{mybox}
+  \begin{problem}[$\ee^A$的截尾求和.]
+
+    设$A\in\MM_2(\MC)$，证明：
+    \begin{enum}
+      \item\label{prob4.70a} $\sum_{n=0}^\infty \left( \ee^A - I_2 - \frac A{1!} - \frac{A^2}{2!} - \cdots - \frac{A^n}{n!}\right)=A\ee^A$；
+      \item $\sum_{n=0}^\infty n\left( \ee^A - I_2 - \frac A{1!} - \frac{A^2}{2!} - \cdots - \frac{A^n}{n!}\right)=\frac{A^2}2\ee^A$.
+    \end{enum}
+  \end{problem}
+\end{mybox}
+
+\begin{remark}[\kaishu 一个矩阵级数和Touchard多项式.]
+
+  一般地，如果整数$p\ge1$，且$A\in\MM_2(\MC)$，则
+  \[
+    \sum_{n=0}^\infty n^p\left( \ee^A - I_2 - \frac A{1!} - \frac{A^2}{2!} - \cdots - \frac{A^n}{n!}\right) = \ee^A\sum_{k=1}^p \frac{S(p,k)}{k+1}A^{k+1},
+  \]
+  其中$S(p,k)$是{\kaishu 第二类Stirling数}\cite[p.58]{59}.\index{S!Stirling数}
+
+  多项式$Q_p(x)=\sum_{k=1}^nS(p,k)x^k$，其中$S(p,k)$是第二类Stirling数，$Q_p(x)$在数学文献中就是著名的{Touchard 多项式} \cite{13}.\index{T!Touchard 多项式}
+
+  这个问题启发于计算级数
+  \[
+    \sum_{n=0}^\infty n^p\left( \ee^x - 1 - \frac 1{1!} - \cdots - \frac{x^n}{n!}\right),
+  \]
+  其中整数$p\ge1$而$x\in\MR$（见 \cite{24}），解答参见 \cite{44}.
+\end{remark}
+
+\begin{mybox}
+  \begin{problem}
+    设整数$k\ge0$，且设$A\in\MM_2(\MC)$，证明：
+    \[
+      \sum_{n=0}^\infty \Binom nk\left( \ee^A - I_2 - \frac A{1!} - \frac{A^2}{2!} - \cdots - \frac{A^n}{n!}\right) = \frac{A^{k+1}}{(k+1)!}\ee^A.
+    \]
+  \end{problem}
+\end{mybox}
+
+\begin{mybox}
+  \begin{problem}
+    设$A\in\MM_2(\MC)$，证明：
+    \begin{enum}
+      \item $\sum_{n=1}^\infty (-1)^{\lfloor \frac n2\rfloor}\left( \ee^A - I_2 - \frac A{1!} - \frac{A^2}{2!} - \cdots - \frac{A^n}{n!}\right) = I_2-\cos A$；
+      \item $\sum_{n=1}^\infty (-1)^{\lfloor \frac n2\rfloor}\left( \ee^A - I_2 - \frac A{1!} - \frac{A^2}{2!} - \cdots - \frac{A^{n-1}}{(n-1)!}\right) = \sin A$.
+    \end{enum}
+    这里$\lfloor a\rfloor$表示$a$的整数部分.
+  \end{problem}
+\end{mybox}
+
+\begin{mybox}
+  \begin{problem}
+    设函数$f$在0处的Taylor级数展开式为
+    \[
+      f(z) = \sum_{n=0}^\infty \frac{f^{(n)}(0)}{n!}z^n,\quad |z|<R,
+    \]
+    其中$R\in(0,+\infty]$，且设$A\in\MM_2(\MC)$满足$\rho(A)<R$. 证明：
+    \begin{enum}
+      \item $\sum_{n=0}^\infty \left(f(A)-f(0)I_2-\frac{f'(0)}{1!}A-\cdots-
+          \frac{f^{(n)}(0)}{n!}A^n\right)=Af'(A)$；
+      \item $\sum_{n=0}^\infty n\left(f(A)-f(0)I_2-\frac{f'(0)}{1!}A-\cdots-
+          \frac{f^{(n)}(0)}{n!}A^n\right)=\frac{A^2}2 f''(A)$.
+    \end{enum}
+  \end{problem}
+\end{mybox}
+
+\begin{mybox}
+  \begin{problem}[一个指数幂级数.]
+
+    设$A\in\MM_2(\MC),x\in\MR$.
+    \begin{enum}
+      \item\label{prob4.74a} 证明：
+      \[
+        \sum_{n=1}^\infty x^n\left( \ee^A - I_2 - \frac A{1!} - \frac{A^2}{2!} - \cdots - \frac{A^n}{n!}\right) = \begin{cases}
+          \frac{x\ee^A-\ee^{Ax}}{1-x} + I_2, & \text{如果}\, x\ne 1\\
+          A\ee^A+I_2-\ee^A, & \text{如果}\, x=1
+        \end{cases}.
+      \]
+      \item 证明：
+      \[
+        \sum_{n=1}^\infty (-1)^{n-1}\left( \ee^A - I_2 - \frac A{1!} - \frac{A^2}{2!} - \cdots - \frac{A^n}{n!}\right) = \cosh A - I_2.
+      \]
+    \end{enum}
+  \end{problem}
+\end{mybox}
+
+\begin{problem}[同一主题的变体.]
+
+  设$A\in\MM_2(\MC)$，$\lambda_1,\lambda_2$是$A$的特征值，且令
+  \[
+    S(A) = \sum_{n=1}^\infty \left( \ee -1 -\frac1{1!} - \frac1{2!} - \cdots - \frac1{n!} \right) A^n.
+  \]
+  证明：
+  \begin{enum}
+    \item $S(A)=I_2+\frac{\ee^{\lambda_2}-\ee\lambda_2}{
+        (\lambda_2-1)^2}(A-I_2)$，如果$\lambda_1=1,\lambda_2\ne1$；
+    \item $S(A)=I_2+\frac{\ee^{\lambda_1}-\ee\lambda_1}{
+        (\lambda_1-\lambda_2)(\lambda_1-1)}
+        (A-\lambda_2I_2)+\frac{\ee^{\lambda_2}-\ee\lambda_2}{
+        (\lambda_2-\lambda_1)(\lambda_2-1)}
+        (A-\lambda_1I_2)$，如果$\lambda_1\ne1,\lambda_2\ne1,\lambda_1\ne\lambda_2$.
+    \item $S(A)=\left(1-\frac\ee2\right)I_2+\frac\ee2A$，如果$\lambda_1=\lambda_2=1$；
+    \item $S(A)=\left(\frac{\ee^\lambda-\ee\lambda}{
+        \lambda-1}+1\right)I_2+
+        \frac{\lambda\ee^\lambda-2\ee^\lambda+\ee}{
+        (\lambda-1)^2}(A-\lambda I_2)$，如果$\lambda_1=\lambda_2=\lambda\ne1$.
+  \end{enum}
+\end{problem}
+
+\begin{mybox}
+  \begin{problem}[正弦和余弦级数.]
+
+    设$A\in\MM_2(\MC)$，证明：
+    \begin{enum}
+      \item $\sum_{n=0}^\infty\left( \cos A-I_2+\frac{A^2}{2!}-\cdots-(-1)^n
+          \frac{A^{2n}}{(2n)!}\right)=-\frac{A\sin A}2$；
+      \item $\sum_{n=1}^\infty\left( \sin A - A + \frac{A^3}{3!}-\cdots-(-1)^{n-1}
+          \frac{A^{2n-1}}{(2n-1)!}\right)=
+          \frac{A\cos A-\sin A}2$.
+    \end{enum}
+  \end{problem}
+\end{mybox}
+
+\begin{mybox}
+  \begin{problem}
+    \begin{inparaenum}[(a)]
+      \item 设$A=\begin{pmatrix}
+        -1 & x \\
+        0 & -1
+      \end{pmatrix}\in\MM_2(\MR)$，证明：
+      \[
+        \sum_{n=1}^\infty \left(\zeta(3) - 1 - \frac1{2^3} - \cdots - \frac1{n^3}\right)A^n =
+        \begin{pmatrix}
+          -\frac{\zeta(3)}8 & \left(\frac{7\zeta(3)}{16}
+          -\frac{\zeta(2)}4\right)x \\
+          0 & - \frac{\zeta(3)}8
+        \end{pmatrix},
+      \]
+      其中$\zeta$表示Riemann zeta函数.
+
+      \item 设$A\in\MM_2(\MC)$满足$\rho(A)<1$，证明：
+          \[
+            \sum_{n=1}^\infty \left(\zeta(3) - 1 - \frac1{2^3} - \cdots - \frac1{n^3}\right)A^n = \big( \zeta(3)A - \Li_3(A) \big)(I_2-A)^{-1},
+          \]
+      其中$\Li_3$表示多重对数函数.
+    \end{inparaenum}
+  \end{problem}
+\end{mybox}
+
+\begin{remark}
+  一般地，如果$A\in\MM_2(\MC)$满足$\rho(A)<1$，则
+  \[
+    \sum_{n=1}^\infty \left(\zeta(k) - 1 - \frac1{2^k} - \cdots - \frac1{n^k}\right)A^n = \big( \zeta(k)A-\Li_k(A) \big)(I_2-A)^{-1},
+  \]
+  其中整数$k\ge3$，$\Li_k$表示多重对数函数.
+\end{remark}
+
+\begin{problem}
+  \begin{inparaenum}[(a)]
+    \item 如果$a\in\MC$满足$\Re(a)>2$，则$\sum_{n=1}^\infty\frac n{n^{aI_2}}=\zeta(a-1)I_2$.
+
+    \item 如果$\alpha,\beta\in\MC$满足$\Re(\alpha)>2$，则
+        \[
+          \sum_{n=1}^\infty \frac n{n^{\begin{pmatrix}
+            \alpha & \beta \\
+            0 & \alpha
+          \end{pmatrix}}} =
+          \begin{pmatrix}
+            \zeta(\alpha-1) & \beta\zeta'(\alpha-1) \\
+            0 & \zeta(\alpha-1)
+          \end{pmatrix}。
+        \]
+  \end{inparaenum}
+\end{problem}
+
+\begin{mybox}
+  \begin{problem}[计算$\zeta(A-I_2)$.]
+
+    设$A\in\MM_2(\MC)$，$\lambda_1,\lambda_2$是其特征值，则
+    \begin{enum}
+      \item 如果$\lambda_1\ne\lambda_2,\Re(\lambda_1)>2,
+          \Re(\lambda_2)>2$，则
+          \[
+            \sum_{n=1}^\infty \frac n{n^A} = \frac{\zeta(\lambda_1-1)-\zeta(\lambda_2-1)}{
+            \lambda_1-\lambda_2}A + \frac{
+            \lambda_1\zeta(\lambda_2-1)-\lambda_2\zeta
+            (\lambda_1-1)}{\lambda_1-\lambda_2}I_2.
+          \]
+      \item 如果$\lambda_1=\lambda_2=\lambda,\Re(\lambda)>2$，则
+          \[
+            \sum_{n=1}^\infty \frac n{n^A} = \zeta'(\lambda-1)A + \big( \zeta(\lambda-1)-\lambda\zeta'(\lambda-1) \big)I_2.
+          \]
+    \end{enum}
+  \end{problem}
+\end{mybox}
+\begin{remark}
+  如果整数$k\ge1$，由定理 \ref{thm4.14}，我们也可以将矩阵zeta函数
+  \[
+    \zeta(A-kI_2) = \sum_{n=1}^\infty \frac{n^k}{n^A}
+  \]
+  用$A$的特征值来表示，其中$A\in\MM_2(\MC)$满足$\Re(\lambda_1)>k+1$且$\Re(\lambda_2)>k+1$.
+\end{remark}
+
+\begin{mybox}
+  \begin{problem}[$\zeta(A)$的截尾求和.]
+
+   设$A\in\MM_2(\MC)$，$\lambda_1,\lambda_2$是其特征值.
+   \begin{enum}
+     \item 证明：如果矩阵$A$满足$\Re(\lambda_i)>2,i=1,2$，则
+         \[
+           \sum_{n=1}^\infty \left(\zeta(A) - \frac1{1^A} - \frac1{2^A} - \cdots - \frac1{n^A} \right) = \zeta(A-I_2)-\zeta(A).
+         \]
+     \item 证明：如果矩阵$A$满足$\Re(\lambda_1)>3,i=1,2$，则
+         \[
+           \sum_{n=1}^\infty n\left(\zeta(A) - \frac1{1^A} - \frac1{2^A} - \cdots - \frac1{n^A} \right) = \frac{\zeta(A-2I_2)-\zeta(A-I_2)}2.
+         \]
+   \end{enum}
+  \end{problem}
+\end{mybox}
+
+{\kaishu 矩阵积分}
+\begin{problem}
+  {\kaishu 二重对数函数}\index{E!二重对数函数}$\Li_2$是一个特殊函数，对$|z|\le1$，其定义为
+  \[
+    \Li_2(z) = \sum_{n=1}^\infty \frac{z^n}{n^2} = -\int_0^z\frac{\ln(1-t)}t \dif t.
+  \]
+
+  设$a\in[-1,1)\backslash\{0\},b\in\MR$，且设$A=\begin{pmatrix}
+    a & b \\
+    0 & a
+  \end{pmatrix}$，证明：
+  \[
+    \int_0^1 \frac{\ln(I_2-Ax)}x\dif x = \begin{pmatrix}
+      -\Li_2(a) & \frac{b\ln(1-a)}a \\
+      0 & - \Li_2(a)
+    \end{pmatrix}.
+  \]
+\end{problem}
+
+\begin{problem}
+  设$A\in\MM_2(\MC)$，$\lambda_1,\lambda_2$是$A$的特征值，证明：
+  \[
+    \int_0^1 \frac{\ln(I_2-Ax)}x \dif x = \begin{cases}
+      -A, & \text{如果}\, \lambda_1=\lambda_2=0 \\
+      -\zeta(2)A, & \text{如果}\, \lambda_1=0,\lambda_2=1
+    \end{cases},
+  \]
+  其中$\zeta$表示Riemann zeta函数.
+\end{problem}
+
+\begin{problem}
+  设$A\in\MM_2(\MC)$，$\lambda_1,\lambda_2$是其特征值，且$\rho(A)<1$. 证明：
+  \begin{align*}
+    & \int_0^1\frac{\ln(I_2-Ax)}x\dif x \\
+    = {}& \begin{cases}
+      \frac{\Li_2(\lambda_2)-\Li_2(\lambda_1)}{\lambda_1
+      -\lambda_2}A + \frac{\lambda_2\Li_2(\lambda_1)-
+      \lambda_1\Li_2(\lambda_2)}{\lambda_1
+      -\lambda_2} I_2 , &\text{如果}\, \lambda_1 \ne \lambda_2 \\
+      -A, & \text{如果}\, \lambda_1=\lambda_2=0 \\
+      \frac{\ln(1-\lambda)}\lambda A-\big( \Li_2(\lambda) + \ln(1-\lambda) \big)I_2, &\text{如果}\, \lambda_1=\lambda_2=\lambda\ne0
+    \end{cases}.
+  \end{align*}
+\end{problem}
+
+\begin{problem}
+  \begin{inparaenum}[(a)]
+    \item 设矩阵$A\in\MM_2(\MC)$的特征值均为0，证明：
+    \[
+      \int_0^1\frac{\ln^2(I_2-Ax)}x \dif x = O_2.
+    \]
+    \item {\kaishu 一个矩阵对数积分与Ap\'ery常数.} 设矩阵$A\in\MM_2(\MC)$的特征值为0和1，证明：
+    \[
+      \int_0^1\frac{\ln^2(I_2-Ax)}x \dif x = 2\zeta(3)A,
+    \]
+    其中$\zeta$表示Riemann zeta函数.
+  \end{inparaenum}
+
+  \begin{nota}
+    常数$\zeta(3)=\sum_{n=1}^\infty \frac1{n^3}=1.2020569031\cdots$在数学文献中称为{\kaishu Ap\'ery常数}. \index{A!Ap\'ery常数} 1979年，Ap\'ery \cite{5} 神奇地证明了 $\zeta(3)$ 是无理数而震惊了数学界.
+  \end{nota}
+\end{problem}
+
+\begin{problem}
+  设$A\in\MM_2(\MC)$满足$\rho(A)<1$，$\lambda_1,\lambda_2$是其特征值，证明：
+  \begin{align*}
+    & \int_0^1\ln(I_2-Ax)\dif x \\
+    = {} & \begin{cases}
+      -\frac A2, & \text{如果}\, \lambda_1=\lambda_2=0 \\
+      -\left( \frac{\big( 1-\Tr(A) \big)\ln\big( 1-\Tr(A) \big)}{\Tr^2(A)} + \frac1{\Tr(A)} \right) A , & \text{如果}\, \lambda_1=0,0<|\lambda_2|<1 \\
+      (I_2-A^{-1})\ln(I_2-A) - I_2, & \text{如果}\, 0<|\lambda_1|,|\lambda_2|<1
+    \end{cases}.
+  \end{align*}
+\end{problem}
+
+\begin{problem}
+  设$A\in\MM_2(\MR)$，$\lambda_1,\lambda_2$是其特征值，证明：
+  \[
+    \int_0^1 \ee^{Ax}\dif x = \begin{cases}
+      I_2 + \frac A2, & \text{如果}\, \lambda_1=\lambda_2=0 \\
+      I_2 + \frac{\ee^{\Tr(A)}-1-\Tr(A)}{\Tr^2(A)}A, & \text{如果}\,\lambda_1=0,\lambda_2\ne0 \\
+      (\ee^A-I_2)A^{-1}, & \text{如果}\, \lambda_1,\lambda_2\ne0
+    \end{cases},
+  \]
+\end{problem}
+
+\begin{problem}
+  设$A\in\MM_2(\MR)$，$\lambda_1,\lambda_2$是其特征值.
+  \begin{enum}
+    \item\label{prob4.87a} 证明：
+    \[
+      \int_0^1\cos(Ax)\dif x = \begin{cases}
+        I_2, & \text{如果}\, \lambda_1=\lambda_2=0 \\
+        I_2 + \frac{\sin\Tr(A)-\Tr(A)}{\Tr^2(A)}A, & \text{如果}\, \lambda_1=0,\lambda_2\ne0 \\
+        A^{-1}\sin A, & \text{如果}\, \lambda_1,\lambda_2\ne0
+      \end{cases}.
+    \]
+    \item\label{prob4.87b} 证明：
+    \[
+      \int_0^1\sin(Ax)\dif x = \begin{cases}
+        \frac A2, & \text{如果}\, \lambda_1=\lambda_2=0 \\
+        \frac{1-\cos\Tr(A)}{\Tr^2(A)}A, & \text{如果}\, \lambda_1=0,\lambda_2\ne0 \\
+        A^{-1}(I_2-\cos A), & \text{如果}\, \lambda_1,\lambda_2\ne0
+      \end{cases}.
+    \]
+    \item\label{4.87c} 证明：
+    \[
+      \int_0^1\int_0^1\sin A(x+y)\dif x\dif y = \begin{cases}
+        A, & \text{如果}\, \lambda_1=\lambda_2=0 \\
+        \frac{2\sin\Tr(A)-\sin2\Tr(A)}{\Tr^3(A)}, & \text{如果}\, \lambda_1=0,\lambda_2\ne0 \\
+        A^{-2}\big(2\sin A-\sin(2A)\big), & \text{如果}\, \lambda_1,\lambda_2\ne0
+      \end{cases}.
+    \]
+  \end{enum}
+\end{problem}
+
+\begin{problem}
+  设$A\in\MM_2(\MR)$，证明：
+  \[
+    \iint_{\MR^2}v\TT Av \ee^{-v\TT v}\dif x\dif y =\frac\pi2\Tr(A),\quad \text{其中}\quad v =\begin{pmatrix}
+      x \\ y
+    \end{pmatrix}.
+  \]
+\end{problem}
+
+\begin{problem}
+  设对称矩阵$A\in\MM_2(\MR)$的特征值均为正数.
+  \begin{enum}
+    \item 证明：
+    \[
+      \iint_{\MR^2} \ee^{-v\TT Av}\dif x\dif y = \frac\pi{\sqrt{\det A}}.
+    \]
+    \item\label{prob4.89b} 设实数$\alpha>-1$，证明：
+    \[
+      \iint_{\MR^2} (v\TT Av)^\alpha\ee^{-v\TT Av}\dif x\dif y = \frac{\pi\Gamma(\alpha+1)}{\sqrt{\det A}},
+    \]
+    其中$\Gamma$表示Gamma函数.
+  \end{enum}
+\end{problem}
+
+\begin{problem}
+  设对称矩阵$A\in\MM_2(\MR)$的特征值均为正数，且设函数$f:\MR^2\to\MR$定义为
+  \[
+    f(x,y) = \frac{\ee^{-\frac12v\TT A^{-1}v}}{2\pi\sqrt{\det A}}, \quad \text{其中}\quad v =\begin{pmatrix}
+      x \\ y
+    \end{pmatrix} \in \MR^2.
+  \]
+  证明：
+  \[
+    \iint_{\MR^2} f(x,y)\ln f(x,y) \dif x\dif y = -\ln\left( 2\pi\ee\sqrt{\det A} \right).
+  \]
+\end{problem}
+
+\begin{problem}
+  设$A\in\MM_2(\MC)$，而$\alpha$是一个正实数，证明：
+  \[
+    \int_{-\infty}^{+\infty}\ee^{Ax}\ee^{-\alpha x^2} \dif x = \sqrt{\frac\pi\alpha}\ee^{\frac{A^2}{4\alpha}}.
+  \]
+\end{problem}
+
+\begin{problem}
+  设$A\in\MM_2(\MC)$，而$\alpha$是一个正实数，证明：
+  \begin{enum}
+    \item $\int_{-\infty}^{+\infty}\cos(Ax)\ee^{-\alpha x^2}\dif x =\sqrt{\frac\pi\alpha}\ee^{-\frac{A^2}{4\alpha}}$；
+    \item $\int_{-\infty}^{+\infty}\sin(Ax)\ee^{-\alpha x^2}\dif x=O_2$.
+  \end{enum}
+\end{problem}
+
+\begin{problem}
+  设$A\in\MM_2(\MR)$满足$\rho(A)<\alpha$，而$\alpha$ 是一个正实数，证明：
+  \begin{enum}
+    \item\label{prob4.93a} $\int_0^{+\infty}\sin(Ax)\ee^{-\alpha x}\dif x = A(A^2+\alpha^2I_2)^{-1}$；
+    \item\label{prob4.93b} $\int_0^{+\infty}\cos(Ax)\ee^{-\alpha x}\dif x = \alpha(A^2+\alpha^2I_2)^{-1}$.
+  \end{enum}
+\end{problem}
+
+\begin{mybox}
+  \begin{problem}[Euler--Poisson矩阵积分.]
+    \begin{enum}
+      \item 如果$A=\begin{pmatrix}
+        1 & 1 \\
+        -1 & 3
+      \end{pmatrix}$，计算$\int_0^{+\infty}\ee^{-Ax^2}\dif x$.
+      \item 设$A=\begin{pmatrix}
+        a & b \\
+        b & a
+      \end{pmatrix}\in\MM_2(\MR)$，满足$a>\pm b$，且设$n\in\MN$. 证明：
+      \[
+        \int_0^{+\infty}\ee^{-Ax^n}\dif x = \frac{\Gamma\left(1+\frac1n\right)}2
+        \begin{pmatrix}
+          \frac1{\sqrt[n]{a+b}} + \frac1{\sqrt[n]{a-b}} & \frac1{\sqrt[n]{a+b}} - \frac1{\sqrt[n]{a-b}} \\
+          \frac1{\sqrt[n]{a+b}} - \frac1{\sqrt[n]{a-b}} &
+          \frac1{\sqrt[n]{a+b}} + \frac1{\sqrt[n]{a-b}}
+        \end{pmatrix},
+      \]
+      其中$\Gamma$表示Gamma函数.
+    \end{enum}
+  \end{problem}
+\end{mybox}
+
+\begin{mybox}
+  \begin{problem}[该Laplace表演了!]
+
+    设$A=\begin{pmatrix}
+      a & b \\
+      b & a
+    \end{pmatrix}\in\MM_2(\MR)$.
+    \begin{enum}
+      \item 证明：
+      \[
+        \int_0^{+\infty} \frac{\cos(Ax)}{x^2+1} \dif x = \frac\pi4 \begin{pmatrix}
+          \ee^{-|a+b|} + \ee^{-|a-b|} & \ee^{-|a+b|} - \ee^{-|a-b|} \\
+          \ee^{-|a+b|} - \ee^{-|a-b|} & \ee^{-|a+b|} + \ee^{-|a-b|}
+        \end{pmatrix}.
+      \]
+      {\kaishu 挑战一下.} 计算$\int_0^{+\infty}\frac{x\sin(Ax)}{x^2+1}\dif x$.
+      \item\label{prob4.95b} 证明：
+      \[
+        \int_0^{+\infty}\ee^{-x^2}\cos(Ax) \dif x = \frac{\sqrt\pi}4 \begin{pmatrix}
+          \ee^{-\frac{(a+b)^2}4} + \ee^{-\frac{(a-b)^2}4} & \ee^{-\frac{(a+b)^2}4} - \ee^{-\frac{(a-b)^2}4} \\
+          \ee^{-\frac{(a+b)^2}4} -  \ee^{-\frac{(a-b)^2}4} & \ee^{-\frac{(a+b)^2}4} + \ee^{-\frac{(a-b)^2}4}
+        \end{pmatrix}.
+      \]
+    \end{enum}
+  \end{problem}
+\end{mybox}
+
+\begin{mybox}
+  \begin{problem}[别忘了Frenel.]
+
+    设$A=\begin{pmatrix}
+      a & b \\
+      b & a
+    \end{pmatrix}\in\MM_2(\MR)$.满足$a\ne \pm b$.
+    \begin{enum}
+      \item 证明：
+      \[
+        \int_0^{+\infty}\cos(Ax^2) \dif x = \frac14\sqrt{\frac\pi2}
+        \begin{pmatrix}
+          \frac1{\sqrt{|a+b|}} + \frac1{\sqrt{|a-b|}} & \frac1{\sqrt{|a+b|}} - \frac1{\sqrt{|a-b|}} \\
+          \frac1{\sqrt{|a+b|}} - \frac1{\sqrt{|a-b|}} & \frac1{\sqrt{|a+b|}} + \frac1{\sqrt{|a-b|}}
+        \end{pmatrix}.
+      \]
+      \item 如果$a=\pm b$且$a\ne 0$，则$\int_0^{+\infty}\cos(Ax^2)\dif x=\frac1{8a}\sqrt{\frac\pi{|a|}}A$.
+
+      {\kaishu 挑战一下.} 计算$\int_0^{+\infty}\cos(Ax^n)\dif x$，其中整数$n\ge2$.
+    \end{enum}
+  \end{problem}
+\end{mybox}
+
+\begin{mybox}
+  \begin{problem}[指数矩阵积分.]
+    \begin{enum}
+      \item\label{prob4.97a} 设矩阵$A\in\MM_2(\MR)$的特征值均为正数，计算
+          \[
+            \int_0^{+\infty}\ee^{-Ax} \dif x.
+          \]
+      \item\label{prob4.97b} 设$\alpha>0$，且矩阵$A\in\MM_2(\MR)$的特征值均$\lambda_1,\lambda_2>\alpha$为实数，计算
+          \[
+            \int_0^{+\infty} \ee^{-Ax}\ee^{\alpha x}\dif x.
+          \]
+      \item\label{prob4.97c} 设整数$n\ge0$，矩阵$A\in\MM_2(\MR)$的特征值均为实数，计算
+          \[
+            \int_0^{+\infty}\ee^{-Ax}x^n \dif x.
+          \]
+    \end{enum}
+  \end{problem}
+\end{mybox}
+
+\begin{problem}[\kaishu Dirichlet矩阵积分.]
+  \begin{enum}
+    \item 设矩阵$A\in\MM_2(\MR)$有两个相异的实特征值，且$\lambda_1\lambda_2>0$，证明：
+        \[
+          \int_0^{+\infty} \frac{\sin(Ax)}x \dif x = \begin{cases}
+            \frac\pi2I_2, & \text{如果}\, \lambda_1,\lambda_2>0 \\
+            -\frac\pi2I_2, & \text{如果}\, \lambda_1,\lambda_2<0
+          \end{cases}.
+        \]
+    \item\label{prob4.98b} 设矩阵$A\in\MM_2(\MR)$的特征值均为实数，且$\lambda_1\lambda_2>0$，证明：
+        \[
+          \int_0^{+\infty} \frac{\sin^2(Ax)}{x^2} \dif x = \begin{cases}
+            \frac\pi2I_2, & \text{如果}\, \lambda_1,\lambda_2>0 \\
+            -\frac\pi2I_2, & \text{如果}\, \lambda_1,\lambda_2<0
+          \end{cases}.
+        \]
+  \end{enum}
+\end{problem}
+
+\begin{problem}
+  设矩阵$A\in\MM_2(\MR)$有两个相异的实特征值，且$\rho(A)>1$，计算
+  \[
+    \int_0^{+\infty}\frac{\sin(Ax)\cos x}x \dif x.
+  \]
+\end{problem}
+
+有一个漂亮的Frullani积分公式如下：
+\[
+  \int_0^{+\infty} \frac{f(ax) - f(bx)}x \dif x = \big( f(0) - f(+\infty)\big) \ln \frac ba,\; a,b>0,
+\]
+其中$f:[0,+\infty)\to\MR$是连续函数（也可假定在任意区间$0<A\le x\le B<+\infty$上Lebesgue可积）且$f(+\infty)=\lim_{x\to+\infty}f(x)$存在且有限.
+
+在接下来的两个问题中，我们将此公式推广到$2\times2$方阵.
+
+\begin{problem}[\kaishu 一个指数Frullani积分.]
+
+  设矩阵$A\in\MM_2(\MR)$的特征值均为实数，且设$\alpha,\beta>0$，证明：
+  \[
+    \int_0^{+\infty} \frac{\ee^{-\alpha Ax}-\ee^{-\beta Ax}}x \dif x = \left(\ln\frac\beta \alpha\right)I_2.
+  \]
+\end{problem}
+
+\begin{mybox}
+  \begin{problem}
+    \begin{inparaenum}[(a)]
+      \item\label{prob4.101a} {\bfseries Frullani矩阵积分.}
+
+      设函数$f:[0<+\infty)\to\MR$连续可微，且满足$\lim_{x\to+\infty}=f(+\infty)$存在且有限. 设$\alpha,\beta$为正实数，矩阵$A\in\MM_2(\MR)$的特征值均为实数，证明：
+      \[
+        \int_0^{+\infty} \frac{f(\alpha Ax)-f(\beta Ax)}x \dif x = \left[  \big(f(0)-f(+\infty)\big)\ln\frac\beta\alpha \right]I_2.
+      \]
+
+      \item\label{prob4.101b} {\bfseries 两个正弦矩阵积分.}
+
+      设矩阵$A\in\MM_2(\MR)$的特征值均为实数，计算
+      \[
+        \int_0^{+\infty} \frac{\sin^4(Ax)}{x^3} \dif x \quad \text{和} \quad \int_0^{+\infty} \frac{\sin^3(Ax)}{x^2} \dif x.
+      \]
+
+      \item\label{prob4.101c} {\bfseries 一个二次Frullani积分.}
+
+      设矩阵$A\in\MM_2(\MR)$的特征值均为实数，计算
+      \[
+        \int_0^{+\infty} \left( \frac{I_2-\ee^{-Ax}}x \right)^2 \dif x.
+      \]
+    \end{inparaenum}
+  \end{problem}
+\end{mybox}
+
+\begin{mybox}
+  \begin{problem}[一个壮丽的二重积分.]
+
+    设矩阵$A\in\MM_2(\MR)$的特征值为相异的正数，证明：
+    \[
+      \int_0^{+\infty} \int_0^{+\infty} \left( \frac{\ee^{-Ax} - \ee^{-Ay}}{x-y}\right)^2 \dif x\dif y = (\ln4)I_2.
+    \]
+  \end{problem}
+\end{mybox}
+
+\section{解答}
+\setcounter{solution}{1}
+\begin{solution}
+  {\kaishu 解法一.} 由定理 \ref{thm3.1}，我们有
+  \[
+    A^n = \begin{cases}
+      \lambda_1^n B + \lambda_2^n C, & \text{如果}\, \lambda_1\ne\lambda_2 \\
+      \lambda^nB + n\lambda^{n-1}C, & \text{如果}\,\lambda_1=\lambda_2=\lambda
+    \end{cases},
+  \]
+  于是
+  \[
+    \lim_{n\to\infty}A^n = O_2 \Leftrightarrow \begin{cases}
+      \lim_ {n\to\infty}\lambda_1^n = \lim_{n\to\infty}\lambda_2^n = 0, & \text{如果}\, \lambda_1\ne\lambda_2 \\
+      \lim_ {n\to\infty}\lambda^n = \lim_ {n\to\infty}n\lambda^{n-1} = 0, & \text{如果}\, \lambda_1=\lambda_2=\lambda
+    \end{cases}.
+  \]
+  在前面两种情形下，极限为零当且仅当$|\lambda_1|,|\lambda_2|<1$.
+
+  {\kaishu 解法2.} 由定理 \ref{thm2.9}，存在非奇异矩阵$P$使得$A=PJ_AP^{-1}$，这意味着$A^n=PJ_A^nP^{-1}$. 因此
+  \[
+    A^n = \begin{cases}
+      P\begin{pmatrix}
+        \lambda_1^n & 0 \\
+        0 & \lambda_2^n
+      \end{pmatrix}P^{-1}, & \text{如果}\, \lambda_1\ne \lambda_2 \\
+      P\begin{pmatrix}
+        \lambda^n & n\lambda^{n-1} \\
+        0 & \lambda^n
+      \end{pmatrix}P^{-1}, & \text{如果}\,\lambda_1=\lambda_2=\lambda
+    \end{cases}.
+  \]
+  问题约化到计算极限$\lim_{n\to\infty}\lambda^n$和$\lim_{n\to\infty}n\lambda^{n-1}$，当且仅当$|\lambda|<1$时两者才都等于0.
+\end{solution}
+
+\begin{solution}
+  见问题 \ref{problem4.2} 的解答.
+\end{solution}
+
+\begin{solution}
+  由问题 \ref{problem4.2}，我们有$\rho(A)<1$且$\rho(B)<1$. 利用定理 \ref{thm2.1} 可知$\lambda_{AB}=\lambda_A\lambda_B$，这意味着$|\lambda_{AB}|=|\lambda_A||\lambda_B|<1$. 因此$\rho(AB)<1$，且由问题 \ref{problem4.2}，我们有$\lim_{n\to\infty}(AB)^n=O_2$.
+\end{solution}
+
+\begin{solution}
+  设$P$是一个非奇异矩阵，满足$A=PJ_AP^{-1}$，我们有
+  \begin{align*}
+    \left( I_2 + \frac An \right)^n & = P \left( I_2 + \frac {J_A}n \right)^n P^{-1} \\
+    & = \begin{cases}
+      P \begin{pmatrix}
+        \left(1+\frac{\lambda_1}n\right)^n & 0 \\
+        0 & \left(1+\frac{\lambda_2}n\right)^n
+        \end{pmatrix}
+        P^{-1}, & \text{如果}\, J_A = \begin{pmatrix}
+          \lambda_1 & 0 \\
+          0 & \lambda_2
+        \end{pmatrix} \\
+        P \begin{pmatrix}
+        \left(1+\frac{\lambda}n\right)^n & \left(1+\frac{\lambda}n\right)^{n-1} \\
+        0 & \left(1+\frac{\lambda}n\right)^n
+        \end{pmatrix} P^{-1} ,& \text{如果}\,
+        J_A = \begin{pmatrix}
+          \lambda & 1 \\
+          0 & \lambda
+        \end{pmatrix}
+    \end{cases}.
+  \end{align*}
+  于是
+  \begin{align*}
+    \lim_{n\to\infty} \left( I_2 + \frac An \right)^n & = \begin{cases}
+      P \begin{pmatrix}
+        \ee^{\lambda_1} & 0 \\
+        0 & \ee^{\lambda_2}
+      \end{pmatrix}P^{-1}, & \text{如果}\, J_A = \begin{pmatrix}
+        \lambda_1 & 0 \\
+        0 & \lambda_2
+      \end{pmatrix} \\
+      P \begin{pmatrix}
+        \ee^\lambda & \ee^\lambda \\
+        0 & \ee^\lambda
+      \end{pmatrix} P^{-1}, & \text{如果}\, J_A = \begin{pmatrix}
+        \lambda & 1 \\
+        0 & \lambda
+      \end{pmatrix}
+    \end{cases} \\
+    & = \ee^A.
+  \end{align*}
+  第二个极限只需要在第一个极限中将$A$换成$-A$即可.
+\end{solution}
+
+\begin{solution}
+  {\kaishu 解法1.} 归纳证明$A^n=I_2+\frac{1-(1-a-b)^n}{a+b}B,n\in\MN$.
+
+  {\kaishu 解法2.} 注意到$A$的特征值为1和$1-a-b$，利用定理 \ref{thm3.1}. 另一方面，
+  \[
+    \lim_{n\to\infty} A^n = I_2 + \frac1{a+b}B = \frac1{a+b} \begin{pmatrix}
+      b & b \\
+      a & a
+    \end{pmatrix}.
+  \]
+\end{solution}
+
+\begin{solution}
+  我们证明
+  \[
+    M(t) = \frac12 \begin{pmatrix}
+      \frac{\zeta(t)}{\zeta(2t)} + \frac1{\zeta(t)} & \frac{\zeta(t)}{\zeta(2t)} - \frac1{\zeta(t)} \\
+      \frac{\zeta(t)}{\zeta(2t)} - \frac1{\zeta(t)} & \frac{\zeta(t)}{\zeta(2t)} + \frac1{\zeta(t)}
+    \end{pmatrix},
+  \]
+  其中$\zeta$表示Riemann zeta函数. 特别地，$M(2)=\frac3{2\pi^2}\begin{pmatrix}
+    7 & 3 \\
+    3 & 7
+  \end{pmatrix}$.
+
+  计算可知矩阵$B(x)$的特征值为$1+x$和$1-x$，相应的特征向量分别为$(\alpha,\alpha)\TT$和$(-\beta,\beta)\TT$. 因此，$B(x)=PJ_B(x)P^{-1}$，其中$J_B(x)$表示$B(x)$的Jordan标准形，$P$是由$B(x)$的特征向量构成的矩阵，即
+  \[
+    J_B(x) = \begin{pmatrix}
+      1 + x & 0 \\
+      0 & 1 - x
+    \end{pmatrix}\quad \text{且}\quad
+    \begin{pmatrix}
+      1 & -1 \\
+      1 & 1
+    \end{pmatrix}.
+  \]
+  因此，
+  \begin{align*}
+    M(t) & = \prod_p B(p^{-t}) = \prod_pPJ_B(p^{-t})P^{-1} = P \left( \prod_pJ_B(p^{-t}) \right) P^{-1} \\
+    & = P \prod_p\begin{pmatrix}
+      1 + p^{-t} & 0 \\
+      0 & 1 - p^{-t}
+    \end{pmatrix} P^{-1} \\
+    & = P \begin{pmatrix}
+      \prod_p(1+p^{-t}) & 0 \\
+      0 & \prod_p(1-p^{-t})
+    \end{pmatrix} P^{-1}.
+  \end{align*}
+
+  利用Euler乘积公式 \cite[p.272]{61}，当$\Re(s)>1$时，
+  $1/\zeta(s)=\prod_p(1-1/p^s)$，我们得到
+  \[
+    \frac1{\zeta(2t)} = \prod_p\left( 1 - \frac1{p^{2t}} \right) = \prod_p\left( 1 - \frac1{p^t} \right) \prod_p \left( 1 + \frac1{p^t} \right) = \frac1{\zeta(t)}\prod_p \left( 1 + \frac1{p^t} \right),
+  \]
+  这就意味着$\prod_p(1+p^{-t})=\zeta(t)/\zeta(2t)$.
+
+  因此，
+  \begin{align*}
+    M(t) & = P \begin{pmatrix}
+      \zeta(t)/\zeta(2t) & 0 \\
+      0 & 1/\zeta(t)
+    \end{pmatrix}P^{-1} \\
+    & = \frac12 \begin{pmatrix}
+      1 & -1 \\
+      1 & 1
+    \end{pmatrix} \begin{pmatrix}
+      \zeta(t)/\zeta(2t) & 0 \\
+      0 & 1/\zeta(t)
+    \end{pmatrix}
+    \begin{pmatrix}
+      1 & 1 \\
+      -1 & 1
+    \end{pmatrix} \\
+    & = \frac12 \begin{pmatrix}
+      \frac{\zeta(t)}{\zeta(2t)} + \frac1{\zeta(t)} & \frac{\zeta(t)}{\zeta(2t)} - \frac1{\zeta(t)} \\
+      \frac{\zeta(t)}{\zeta(2t)} - \frac1{\zeta(t)} & \frac{\zeta(t)}{\zeta(2t)} + \frac1{\zeta(t)}
+    \end{pmatrix}.
+  \end{align*}
+\end{solution}
+
+\begin{solution}
+  极限等于$-1$. 首先我们证明极限与$n$无关. 设$A\in\MM_2(\MR),A=\begin{pmatrix}
+    a & b \\
+    c & d
+  \end{pmatrix}$满足$c\ne0$，且设$A^n=\begin{pmatrix}
+    a_n & b_n \\
+    c_n & d_n
+  \end{pmatrix}$. 由于$AA^n=A^nA=A^{n+1},n\in\MN$，我们有
+  \[
+    \left\{
+      \begin{aligned}
+        & aa_n + bc_n = aa_n + cb_n \\
+        & ab_n + bd_n = ba_n + db_n
+      \end{aligned}
+    \right. \quad \Leftrightarrow \quad
+      \left\{
+        \begin{aligned}
+          & bc_n = cb_n \\
+          & (a_n-d_n)b = (a-d)b_n
+        \end{aligned}
+      \right.
+    \Rightarrow \frac{a_n-d_n}{c_n} = \frac{a-d}c.
+  \]
+  因此，我们需要计算$\lim_{x\to1}\frac{x^{x^x}-x^x}{(1-x)^3}$.
+
+  更一般地 \cite{20}，我们设自然数$n\ge1$，且设
+  \[
+    f_n(x) = x^{x^{\iddots^x}},
+  \]
+  其中在$f_n$的定义中有$n$个$x$. 例如，
+  \[
+    f_1(x) = x,\quad f_2(x) = x^x,\quad f_3(x) = x^{x^x},\quad .
+  \]
+  则
+  \[
+    L_n = \lim_{x\to1} \frac{f_n(x) - f_{n-1}(x)}{(1-x)^n} = (-1)^n.
+  \]
+  由中值定理可得
+  \begin{align*}
+    f_n(x) - f_{n=1}(x) & = \ee^{\ln f_n(x)} - \ee^{\ln f_{n-1}(x)} \\
+    & = \ee^{f_{n-1}(x)\ln x} - \ee^{f_{n-2}(x) \ln x} \\
+    & = \big(f_{n-1}(x) - f_{n-2}(x) \big)\cdot \ln x\cdot \ee^{\theta_n(x)},
+  \end{align*}
+  其中$\theta_n(x)$介于$f_{n-1}(x)\ln x$和$f_{n-2}(x)\ln x$之间， 这意味着$\lim_{x\to1}\theta_n(x)=0$. 因此
+  \[
+    L_n = \lim_{x\to1} \frac{f_n(x)-f_{n-1}(x)}{(1-x)^n} = \lim_{x\to1} \left( \frac{f_{n-1}(x) - f_{n-2}(x)}{(1-x)^{n-1}}\cdot \frac{\ln x}{1-x} \cdot \ee^{\theta_n(x)} \right) =- L_{n-1}.
+  \]
+  由于$L_2=\lim_{x\to1}\frac{x^x-x}{(1-x)^2}=1$，于是$L_n=(-1)^{n-2}L_2=(-1)^n$.
+\end{solution}
+
+\begin{solution}
+  设$\alpha=\frac{1+\sqrt5}2,\beta=\frac{1-\sqrt5}2$，我们证明
+  \[
+    \begin{pmatrix}
+      1 + \frac1n & \frac1n \\
+      \frac1n & 1
+    \end{pmatrix}^n =
+    \frac1{\sqrt5} \begin{pmatrix}
+      \alpha \left(1+\frac\alpha n\right)^n - \beta\left(1 + \frac\beta n\right)^n &  \left(1+\frac\alpha n\right)^n - \left(1 + \frac\beta n\right)^n \\
+      \left(1+\frac\alpha n\right)^n - \left(1 + \frac\beta n\right)^n & \frac1\alpha \left(1+\frac\alpha n\right)^n - \frac1\beta\left(1 + \frac\beta n\right)^n
+    \end{pmatrix}.
+  \]
+
+  设$B=\begin{pmatrix}
+    1 & 1 \\
+    1 & 0
+  \end{pmatrix}$. 由二项式定理，问题 \ref{problem1.29} 的 \ref{prob1.29.b} 和Fibonacci数列的定义，我们有
+  \[
+    \begin{pmatrix}
+      1 + \frac1n & \frac1n \\
+      \frac1n & 1
+    \end{pmatrix}^n = \left( I_2 + \frac1nB\right)^n = \sum_{i=0}^n\Binom ni \frac1{n^i}B^i = I_2 + \sum_{i=1}^n\Binom ni\frac1{n^i} \begin{pmatrix}
+      F_{i+1} & F_i \\
+      F_i & F_{i-1}
+    \end{pmatrix},
+  \]
+  结论可通过直接计算得到.
+\end{solution}
+
+\begin{solution}
+  {\kaishu 解法一.} 如果$A$和$B$是两个可交换的矩阵，则$\ee^A\ee^B=\ee^{A+B}=\ee^B\ee^A$. 但此公式当$AB\ne BA$时不成立. 矩阵的李氏乘积公式 \cite{37} 指出，如果$A,B\in\MM_k(\MC)$，则
+  \[
+    \lim_{n\to\infty} \left( \ee^{\frac An} \ee^{\frac Bn} \right)^n = \ee^{A+B}.
+  \]
+
+  我们的问题只需要取$A=\begin{pmatrix}
+    0 & 0 \\
+    1 & 0
+  \end{pmatrix}$和$B=\begin{pmatrix}
+    0 & 1 \\
+    0 & 0
+  \end{pmatrix}$即得.
+
+  {\kaishu 解法二.} 设$n\in\MN$，多项式函数$f(x)=\left(1+\frac xn\right)^n$，且令$A=\begin{pmatrix}
+    0 & 1 \\
+    1 & \frac1n
+  \end{pmatrix}$. 计算可知$A$的特征值为$\lambda_1=\frac1{2n}+\sqrt{1+\frac1{4n^2}},\lambda_2
+  =\frac1{2n}-\sqrt{1+\frac1{4n^2}}$. 由定理 \ref{thm4.7}，我们有
+  \begin{align*}
+    \begin{pmatrix}
+      1 & \frac1n \\
+      \frac1n & 1+\frac1{n^2}
+    \end{pmatrix}^n = {}& \frac{
+      \left( 1+\frac1{2n^2} + \frac1n\sqrt{1+\frac1{4n^2}} \right)^n - \left( 1+\frac1{2n^2} - \frac1n\sqrt{1+\frac1{4n^2}} \right)^n
+    }{\sqrt{4+\frac1{n^2}}} \begin{pmatrix}
+      0 & 1 \\
+      1 & \frac1n
+    \end{pmatrix} \\
+    & + \left[ \frac12 \left(1 + \frac1{\sqrt{4n^2+1}}\right) \left( 1+\frac1{2n^2} - \frac1n\sqrt{1+\frac1{4n^2}} \right)^n \right. \\
+    & + \left. \frac12 \left(1 - \frac1{\sqrt{4n^2+1}}\right) \left( 1+\frac1{2n^2} + \frac1n\sqrt{1+\frac1{4n^2}} \right)^n  \right]I_2.
+  \end{align*}
+  在上述等式中令$n\to\infty$，我们得到
+  \[
+    \lim_{n\to\infty} \begin{pmatrix}
+      1 & \frac1n \\
+      \frac1n & 1+\frac1{n^2}
+    \end{pmatrix}^n = \sinh 1\begin{pmatrix}
+      0 & 1 \\
+      1 & 0
+    \end{pmatrix} + \cosh 1 \begin{pmatrix}
+      1 & 0 \\
+      0 & 1
+    \end{pmatrix}.
+  \]
+\end{solution}
+
+\begin{solution}
+  设$n\in\MN$，多项式函数$f(x)=\left(1+\frac xn\right)^n$，且令$A=\begin{pmatrix}
+    -\frac1n & 1 \\
+    1 & \frac1n
+  \end{pmatrix}$. $A$的特征值为$\lambda_1=\sqrt{1+\frac1{n^2}},\lambda_2=
+  -\sqrt{1+\frac1{n^2}}$. 由定理 \ref{thm4.7}，我们有
+  \begin{align*}
+    \begin{pmatrix}
+      1-\frac1{n^2} & \frac1n \\
+      \frac1n & 1+\frac1{n^2}
+    \end{pmatrix}^n = {}& \frac{
+      \left(1+\frac1n\sqrt{1+\frac1{n^2}} \right)^n - \left(1-\frac1n\sqrt{1+\frac1{n^2}} \right)^n
+    }{2\sqrt{1+\frac1{n^2}}}\begin{pmatrix}
+      -\frac1n & 1 \\
+      1 & \frac1n
+    \end{pmatrix} \\
+    & + \frac{
+      \left(1+\frac1n\sqrt{1+\frac1{n^2}} \right)^n - \left(1-\frac1n\sqrt{1+\frac1{n^2}} \right)^n
+    }2I_2.
+  \end{align*}
+  所以
+  \[
+    \lim_{n\to\infty} \begin{pmatrix}
+      1-\frac1{n^2} & \frac1n \\
+      \frac1n & 1+\frac1{n^2}
+    \end{pmatrix}^n =
+    \sinh 1\begin{pmatrix}
+      0 & 1 \\
+      1 & 0
+    \end{pmatrix} + \cosh 1 \begin{pmatrix}
+      1 & 0 \\
+      0 & 1
+    \end{pmatrix}.
+  \]
+\end{solution}
+
+\begin{solution}
+  第一个极限等于$\ee\begin{pmatrix}
+    2 & 1 \\
+    -4 & -2
+  \end{pmatrix}$.
+
+  首先，我们注意到$A$的特征值均为1. 设非奇异矩阵$P$满足$P^{-1}AP=J_A=\begin{pmatrix}
+    1 & 1 \\
+    0 & 1
+  \end{pmatrix}$. 计算可知$P=\begin{pmatrix}
+    1 & 0 \\
+    -2 & 1
+  \end{pmatrix}$，且$P^{-1}=\begin{pmatrix}
+    1 & 0 \\
+    2 & 1
+  \end{pmatrix}$. 我们有
+  \[
+    \frac1n \left( I_2 + \frac{A^n}n \right)^n = P\left[ \frac1n \left( I_2 + \frac1nJ_A^n \right)^n \right] P^{-1}.
+  \]
+
+  另一方面，由于$J_A^n=\begin{pmatrix}
+    1 & n \\
+    0 & 1
+  \end{pmatrix}$，我们得到
+  \begin{align*}
+    \frac1n \left( I_2 + \frac1nJ_A^n \right)^n & = \frac1n \left[ \begin{pmatrix}
+      1 & 0 \\
+      0 & 1
+    \end{pmatrix} + \begin{pmatrix}
+      \frac1n & 1 \\
+      0 & \frac1n
+    \end{pmatrix} \right]^n \\
+    & = \frac1n \begin{pmatrix}
+      1 + \frac1n & 1 \\
+      0 & 1 + \frac1n
+    \end{pmatrix} \\
+    & = \frac1n\begin{pmatrix}
+      \left(1+\frac1n\right)^n & n \left(1+\frac1n\right)^{n-1} \\
+      0 & \left(1+\frac1n\right)^n
+    \end{pmatrix},
+  \end{align*}
+  这意味着
+  \begin{align*}
+    \lim_{n\to\infty} \frac1n \left( I_2 + \frac{A^n}n \right)^n & = \lim_{n\to\infty} P\left[  \frac1n\begin{pmatrix}
+      \left(1+\frac1n\right)^n & n \left(1+\frac1n\right)^{n-1} \\
+      0 & \left(1+\frac1n\right)^n
+    \end{pmatrix} \right] P^{-1} \\
+    & = P \begin{pmatrix}
+      0 & \ee \\
+      0 & 0
+    \end{pmatrix} P^{-1} \\
+    & = \ee\begin{pmatrix}
+      2 & 1 \\
+      -4 & -2
+    \end{pmatrix}.
+  \end{align*}
+  类似地，我们可以证明第二个极限等于$\frac1{\ee}\begin{pmatrix}
+    -2 & -1 \\
+    4 & 2
+  \end{pmatrix}$.
+
+  本题的另一种解法可以利用定理 \ref{thm4.7}.
+\end{solution}
+
+\begin{remark}
+  令$f_n(x)=\frac1n\left(1+\frac{x^n}n\right)^n,n\in\MN$. 如果$A$的特征值$\lambda_1=\lambda_2=\lambda$均为实数，且$A\ne \lambda I_2$，由定理 \ref{thm4.7}，我们有
+  \[
+    f_n(A) = \left(1 + \frac{\lambda^n}n\right)^{n-1} \lambda^{n-1}A + \left[ \frac1n\left(1 + \frac{\lambda^n}n\right)^n - \lambda^n
+    \left(1 + \frac{\lambda^n}n\right)^{n-1} \right]I_2.
+  \]
+
+  于是当$|\lambda|<1$时，$\lim_{n\to\infty}f_n(A)=O_2$；当$\lambda=1$时，
+  $\lim_{n\to\infty}f_n(A)=\ee(A-I_2)$.
+
+  如果$A=\lambda I_2,\lambda\in\MR$，则$f_n(A)=\frac1n\left(1 + \frac{\lambda^n}n\right)^nI_2$，那么当$\lambda>1$时，极限为$\infty$；当$\lambda\le-1$时，极限不存在；当$-1<\lambda\le1$时，极限为$O_2$.
+\end{remark}
+
+\begin{solution}
+  极限为$(\ln\sqrt2)I_2$. 只需要利用当$\lambda\in\MR,\lambda\ne k\pi,k\in\MZ$时，
+  \[
+    \lim_{n\to\infty} \left( \frac{\cos(2\lambda)}{n+1} + \frac{\cos(4\lambda)}{n+1} + \cdots +
+    \frac{\cos(2n\lambda)}{n+1} \right) = 0.
+  \]
+\end{solution}
+
+\begin{solution}
+  利用定理 \ref{thm3.1} 和公式
+  \[
+    \lim_{n\to\infty}\sqrt[n]{|a|^n+|b|^n+|c|^n+|d|^n}
+    = \max \{|a|,|b|,|c|,|d|\},\quad \text{其中}\;a,b,c,d\in\MC.
+  \]
+\end{solution}
+
+\begin{solution}
+  \begin{inparaenum}[(a)]
+    \item $A=PJ_AP^{-1}$，其中$J_A=\begin{pmatrix}
+      2 & 0 \\
+      0 & -1
+    \end{pmatrix},P=\begin{pmatrix}
+      1 & 1 \\
+      1 & 4
+    \end{pmatrix}$，且$P^{-1}=\frac13\begin{pmatrix}
+      4 & -1 \\
+      -1 & 1
+    \end{pmatrix}$. 我们有
+    \begin{align*}
+      A(A + I_2)(A + 2I_2) \cdots (A + nI_2) & = PJ_A(J_A + I_2) (J_A + 2I_2) \cdots (J_A + nI_2) P^{-1} \\
+      & = P \begin{pmatrix}
+        (n+2)! & 0 \\
+        0 & 0
+      \end{pmatrix} P^{-1} \\
+      & = \frac{(n+2)!}3\begin{pmatrix}
+        4 & -1 \\
+        4 & -1
+      \end{pmatrix}.
+    \end{align*}
+    于是
+    \[
+      \lim_{n\to\infty} \frac{\sqrt[n]{\|
+        A(A+I_2)(A+2I_2)\cdots(A+nI_2)
+      \|}}n = \lim_{n\to\infty} \frac{\sqrt[n]{(n+2)!}}n \sqrt[\uproot{15}n]{\frac{\sqrt{34}}3} = \frac1\ee.
+    \]
+
+    \item 极限为2. 利用Cauchy--d'Alembert准则 \footnote{Cauchy--d'Alembert准则指出，如果正实数列$(a_n)_{n\ge1}$满足$\lim_{n\to\infty}\frac{a_{n+1}}{a_n}=l\in\bar{\MR}$，
+        则$\lim_{n\to\infty}\sqrt[n]{a_n}=l$.}，问题约化为计算极限
+        \[
+          \lim_{n\to\infty} \frac{
+            \| A(A+2I_2)(A+4I_2)\cdots(A+(2n+2)I_2) \|
+          }{(n+1)\|(A+2I_2)(A+4I_2)\cdots(A+2nI_2)\|} = 2.
+        \]
+
+    \item 我们有
+    \begin{align*}
+      & (A+(n+1)I_2)(A+(n+4)I_2) \cdots (A+(4n-2)I_2) \\
+      = {}& P(J_A+(n+1)I_2)(J_A+(n+4)I_2) \cdots (J_A+(4n-2)I_2) P^{-1} \\
+      = {}& P \begin{pmatrix}
+        (n+3)(n+6)\cdots(4n) & 0 \\
+        0 & n(n+3)\cdots(4n-3)
+      \end{pmatrix} P^{-1} \\
+      & = \frac13 \begin{pmatrix}
+        4\alpha_n - \beta_n & -\alpha_n + \beta_n \\
+        4\alpha_n - 4\beta_n & -\alpha_n + 4\beta_n
+      \end{pmatrix},
+    \end{align*}
+    其中$\alpha_n=(n+3)(n+6)\cdots(4n),\beta_n=
+    n(n+3)\cdots(4n-3)$. 于是
+    \[
+      \|(A+(n+1)I_2)(A+(n+4)I_2)\cdots (A+(4n-2)I_2)\| = \frac13\sqrt{34\alpha_n^2+34\beta_n^2-
+      50\alpha_n\beta_n}.
+    \]
+
+    类似地，
+    \[
+      (A+nI_2)(A+(n+3)I_2)\cdots(A+(4n-3)I_2) = \frac13 \begin{pmatrix}
+        4u_n - v_n & -u_n + v_n \\
+        4u_n - v_n & -u_n + 4v_n
+      \end{pmatrix},
+    \]
+    其中$u_n=(n+2)(n+5)\cdots(4n-1),v_n=(n-1)(n+2)\cdots(4n-4)$. 这意味着
+    \[
+      \|(A+nI_2)(A+(n+3)I_2)\cdots(A+(4n-3)I_2)\| = \frac13\sqrt{34u_n^2+34v_n^2-50u_nv_n}.
+    \]
+    所以
+    \begin{align*}
+      & \lim_{n\to\infty} \frac{\|
+      (A+(n+1)I_2)(A+(n+4)I_2)\cdots (A+(4n-2)I_2)
+      \|}{\|
+      (A+nI_2)(A+(n+3)I_2)\cdots (A+(4n-3)I_2)
+      \|} \\
+      = {}& \lim_{n\to\infty} \frac{(n+3)(n+6)\cdots(4n)}{(n+2)(n+5)\cdots(4n-1)}
+      \SQRT{\frac{34+\frac{34}{4^2}-\frac{50}4}{
+      34 + 34\frac{(n-1)^2}{(4n-1)^2} - 50 \frac{n-1}{4n-1}
+      }} \\
+      = & {} \sqrt[3]4,
+    \end{align*}
+    其中（证明之!）
+    \[
+      \lim_{n\to\infty} \frac{(n+3)(n+6)\cdots(4n)}{(n+2)(n+5)\cdots(4n-1)}
+      = \sqrt[3]4.
+    \]
+  \end{inparaenum}
+\end{solution}
+\begin{remark}
+  我们提到了美丽的极限，就像前面的公式一样，涉及等差数列中整数序列的乘积，可以用基于夹逼定理的初等方法来解决，见 \cite[problem 59, p.19]{53}，\cite{54,55,56}.
+\end{remark}
+
+\begin{solution}
+  $A=\Re(A)+\ii\Im(A)$且$A^\ast=\Re(A)\TT-\ii\Im(A)\TT$. 于是
+  \begin{align*}
+    \|A\|^2 & = \Tr\big[ \big( \Re(A) + \ii\Im(A) \big)\big( \Re(A)\TT - \ii\Im(A)\TT \big) \big] \\
+    & = \Tr\big[ \Re(A)\Re(A)\TT + \Im(A)\Im(A)\TT + \ii \big( \Re(A)\TT \Im(A) - \Im(A)\TT\Re(A) \big) \big] \\
+    & = \Tr\big( \Re(A)\Re(A)\TT \big) + \Tr\big( \Im(A)\Im(A)\TT \big) \\
+    & = \|\Re(A)\|^2 + \|\Im(A)\|^2.
+  \end{align*}
+\end{solution}
+
+\begin{solution}
+  {\kaishu 解法一.} 利用$(A-I_2)^2=O_2$.
+
+  {\kaishu 解法二.} \begin{inparaenum}[(a)]
+    \item 利用数学归纳法.
+
+    \item 在 \ref{prob4.17.c} 中取$x=1$ 可得 \ref{prob4.17.b}.
+
+    \item 由 \ref{prob4.17.a}，我们有
+    \[
+      \ee^{Ax} = \sum_{n=0}^\infty \frac{A^nx^n}{n!} = \begin{pmatrix}
+        \sum_{n=0}^\infty \frac{x^n(n+1)}{n!} & \sum_{n=1}^\infty \frac{x^n}{(n-1)!} \\
+        -\sum_{n=1}^\infty \frac{x^n}{(n-1)!} & \sum_{n=0}^\infty \frac{x^n(1-n)}{n!}
+      \end{pmatrix} = \ee^x \begin{pmatrix}
+        x+1 & x \\
+        -x & 1-x
+      \end{pmatrix}.
+    \]
+  \end{inparaenum}
+\end{solution}
+
+\begin{solution}
+  \begin{inparaenum}[(a)]
+    \item $\ee^A=\ee^2\begin{pmatrix}
+      2 & -1 \\
+      1 & 0
+    \end{pmatrix}$. 我们有$A^2-4A+4I_2=O_2\Leftrightarrow (A-2I_2)^2=O_2$. 令$B=A-2I_2$，这意味着$B^2=O_2$且$A=B+2I_2$. 我们有
+    \[
+      \ee^{2I_2} = \ee^2I_2\quad \text{且} \quad
+      \ee^B = I_2 + \frac B{1!} + \frac{B^2}{2!} + \cdots + \frac{B^n}{n!} + \cdots = I_2 + B.
+    \]
+    由于$2I_2$与$B$可交换，则
+    \[
+      \ee^A = \ee^{2I_2+B} = \ee^{2I_2}\ee^B = \ee^2(I_2 + B) = \ee^2{I_2 + B} = \ee^2(A - I_2) = \ee^2\begin{pmatrix}
+        2 & -1 \\
+        1 & 0
+      \end{pmatrix}.
+    \]
+
+    \item $\ee^A=\begin{pmatrix}
+      4\ee-3 & 2-2\ee \\
+      6\ee-6 & 4-3\ee
+    \end{pmatrix}$. 由定理 \ref{thm2.2}，我们有$A^2=A\Rightarrow A^n=A$对任意$n\ge1$成立，于是
+    \begin{align*}
+      \ee^A & = I_2 + \frac A{1!} + \frac {A^2}{2!} + \cdots + \frac {A^n}{n!} + \cdots \\
+      & = I_2 + A \left( \frac1{1!} + \frac1{2!} + \cdots + \frac1{n!} + \cdots  \right)\\
+      & = I_2 + (\ee-1)A \\
+      & = \begin{pmatrix}
+      4\ee-3 & 2-2\ee \\
+      6\ee-6 & 4-3\ee
+    \end{pmatrix}.
+    \end{align*}
+  \end{inparaenum}
+\end{solution}
+
+\begin{solution}
+  令$A=\begin{pmatrix}
+    0 & 1 \\
+    1 & 0
+  \end{pmatrix}$. 注意到$A=E_p$是一个置换矩阵，计算可知$A^{2n}=I_2,A^{2n-1}=A$对任意$n\in\MN$成立. 于是
+  \begin{align*}
+    \ee^A & = \sum_{n=0}^\infty \frac{A^n}{n!} = \sum_{n=0}^\infty \frac{A^{2n}}{(2n)!} + \sum_{n=1}^\infty \frac{A^{2n-1}}{(2n-1)!} \\
+    & = \sum_{n=0}^\infty\frac1{(2n)!}I_2 + \sum_{n=1}^\infty \frac1{(2n-1)!}A \\
+    & = (\cosh1)I_2 + (\sinh1)A \\
+    & = \begin{pmatrix}
+      \cosh 1 & \sinh 1\\
+      \sinh 1 & \cosh 1
+    \end{pmatrix}.
+  \end{align*}
+\end{solution}
+
+\setcounter{solution}{20}
+
+\begin{solution}
+  {\kaishu 解法一.} 我们有$J_2^{2k}=(-1)^kI_2,J_2^{2k-1}=(-1)^{k-1}J_2$对任意$k\ge1$成立，于是
+  \begin{align*}
+    \ee^{-\theta J_2} & = \sum_{n=0}^\infty \frac{(-\theta J_2)^n}{n!} \\
+    & = \sum_{k=0}^\infty \frac{(-\theta J_2)^{2k}}{(2k)!} + \sum_{k=1}^\infty \frac{(-\theta J_2)^{2k-1}}{(2k-1)!} \\
+    & = \sum_{k=0}^\infty(-1)^k \frac{\theta^{2k}}{(2k)!}I_2 + \sum_{k=1}^\infty(-1)^k \frac{\theta^{2k-1}}{(2k-1)!}J_2 \\
+    & = (\cos\theta)I_2 - (\sin\theta)J_2 \\
+    & = \begin{pmatrix}
+      \cos\theta & - \sin\theta \\
+      \sin\theta & \cos\theta
+    \end{pmatrix}.
+  \end{align*}
+
+  {\kaishu 解法二.} 注意到
+  \[
+    -J_2 = \begin{pmatrix}
+      \cos\frac\pi2 & -\sin\frac\pi2 \\
+      \sin\frac\pi2 & \cos\frac\pi2
+    \end{pmatrix} \quad \text{且} \quad
+    J_2^n = (-1)^n \begin{pmatrix}
+      \cos\frac{n\pi}2 & -\sin\frac{n\pi}2 \\
+      \sin\frac{n\pi}2 & \cos\frac{n\pi}2
+    \end{pmatrix}.
+  \]
+  于是
+  \begin{align*}
+    \ee^{-\theta J_2} & = \sum_{n=0}^\infty \frac{(\theta J_2)^n}{n!} = \sum_{n=0}^\infty \frac{\theta^n}{n!} \begin{pmatrix}
+      \cos\frac{n\pi}2 & -\sin\frac{n\pi}2 \\
+      \sin\frac{n\pi}2 & \cos\frac{n\pi}2
+    \end{pmatrix} \\
+    & = \begin{pmatrix}
+      \sum_{n=0}^\infty \frac{\theta^n}{n!}\cos\frac{n\pi}2 & -\sum_{n=0}^\infty \frac{\theta^n}{n!}\sin\frac{n\pi}2 \\
+      \sum_{n=0}^\infty\frac{\theta^n}{n!}\sin\frac{n\pi}2 &
+      \sum_{n=0}^\infty\frac{\theta^n}{n!}\cos\frac{n\pi}2
+    \end{pmatrix}.
+  \end{align*}
+
+  令$S_1=\sum_{n=0}^\infty\frac{\theta^n}{n!}\cos\frac{n\pi}2,
+  S_2=\sum_{n=0}^\infty\frac{\theta^n}{n!}\sin\frac{n\pi}2$，我们有
+  \[
+    S_1 + \ii S_2 = \sum_{n=0}^\infty \frac{\theta^n}{n!} \left( \cos\frac\pi2 + \ii\sin\frac\pi2 \right)^n = \ee^{\ii\theta} = \cos\theta + \ii\sin\theta,
+  \]
+  于是可知$S_1=\cos\theta,S_2=\sin\theta$.
+\end{solution}
+
+\begin{solution}
+  \begin{inparaenum}[(a)]
+    \item 利用$\ee^A=\alpha A+\beta I_2$对任意$\alpha,\beta\in\MC$成立.
+
+    \item 令$A=\begin{pmatrix}
+      0 & -\pi \\
+      \pi & 0
+    \end{pmatrix}$，则$\ee^A=-I_2$（见问题 \ref{problem4.21}）.
+  \end{inparaenum}
+\end{solution}
+
+\begin{solution}
+  见问题 \ref{problem4.24} 的解答.
+\end{solution}
+
+\begin{solution}
+  注意到$A=aI_2+bJ_2$，由于矩阵$aI_2$和$bJ_2$可交换，我们有
+  \[
+    \ee^A = \ee^{aI_2+bJ_2} = \ee^{aI_2}\ee^{bJ_2} = \ee^aI_2\begin{pmatrix}
+      \cos(-b) & - \sin(-b) \\
+      \sin(-b) & \cos(-b)
+    \end{pmatrix} = \ee^a \begin{pmatrix}
+      \cos b & \sin b \\
+      -\sin b & \cos b
+    \end{pmatrix}.
+  \]
+  在计算中，我们已经运用了问题 \ref{problem4.21} 的结论，其中$\theta=-b$.
+\end{solution}
+
+\begin{solution}
+  首先我们考虑$t=1$的情形，由于$A(1)=I_2$，我们有$\ee^{A(1)}=\ee^{I_2}=\ee I_2=\ee A(\ee^0)$.
+
+  现在我们考虑$t\ne1$的情形，$A(t)$的特征值为1和$t$. 我们有$A(t)=PJ_{A(t)}P^{-1}$，其中
+  \[
+    J_{A(t)} = \begin{pmatrix}
+      1 & 0 \\
+      0 & t
+    \end{pmatrix}, \quad P = \begin{pmatrix}
+      -1 & 1 \\
+      1 & 0
+    \end{pmatrix} \quad \text{且} \quad
+    P^{-1} = \begin{pmatrix}
+      0 & 1 \\
+      1 & 1
+    \end{pmatrix}.
+  \]
+  于是
+  \[
+    \ee^{A(t)} = PA^{J_{A(t)}}P^{-1} = P \begin{pmatrix}
+      \ee & 0 \\
+      0 & \ee^t
+    \end{pmatrix} P^{-1} = \begin{pmatrix}
+      \ee^t & \ee^t - \ee \\
+      0 & \ee
+    \end{pmatrix} = \ee A(\ee^{t-1}).
+  \]
+\end{solution}
+
+\begin{solution}
+  见定理 \ref{problem4.6}. 另一种“解法”是基于正规的计算. 如果$\lambda$是$A$的一个特征值，存在非零向量$X$使得$AX=\lambda X$，我们有
+  \[
+    \ee^AX = \left( \sum_{n=0}^\infty \frac{A^n}{n!} \right)X = \sum_{n=0}^\infty \frac{A^nX}{n!} = \sum_{n=0}^\infty \frac{\lambda^nX}{n!} = \left( \sum_{n=0}^\infty \frac{\lambda^n}{n!} \right) X = \ee^\lambda X,
+  \]
+  这说明$\ee^\lambda$是$\ee^A$的一个特征值，且$X$是相应的特征向量.
+
+  回顾矩阵的行列式等于特征值的乘积，矩阵的迹等于特征值的和， 我们有$\det(\ee^A)=\ee^{\lambda_1}\ee^{\lambda_2}=\ee^{\lambda_1+\lambda_2}
+  =\ee^{\Tr(A)}$.
+\end{solution}
+
+\begin{solution}
+  $\ee^A\ee^B=\ee^B\ee^A$. 我们考虑下面两种情形：
+
+  $\ee^A=\alpha I_2,\alpha\in\MC$的情形. 如果$J_A$是$A$的Jordan标准形，我们得到$\ee^{J_A}=\alpha I_2$，而这意味着$J_A$是对角阵. 如果$J_A=\begin{pmatrix}
+    \lambda_1 & 0 \\
+    0 & \lambda_2
+  \end{pmatrix}\in\MM_2(\MR)$，我们有$\ee^{\lambda_1}=\ee^{\lambda_2}=\alpha$，由于$\lambda_1,\lambda_2\in\MR$，这说明$\alpha\in\MR,\alpha>0$，$\lambda_1=\lambda_2=
+  \ln\alpha$，且$A=(\ln\alpha)I_2$. 显然，此时矩阵$A$与$B$可交换.
+
+  $\ee^A\ne\alpha I_2,\alpha\in\MC$的情形. 由定理 \ref{thm1.1}，我们有$\ee^B=a\ee^A+bI_2$对某个$a,b\in\MC$成立. 如果$a=0$，我们得到$\ee^B=bI_2$，和第一种情形一样，我们得到$b\in\MR,b>0$，且$B=(\ln b)I_2$. 显然此时$B$与$A$可交换.
+
+  如果$a\ne0$，由于$B$与$\ee^B$可交换，我们有$a(B\ee^A-\ee^AB)=O_2\Rightarrow B\ee^A=\ee^AB$. 由定理 \ref{thm1.1}，存在$c,d\in\MC$，使得$B=c\ee^A+dI_2$. 因此，$AB=A(c\ee^A+dI_2)=(c\ee^A+dI_2)A=BA$.
+\end{solution}
+
+\begin{solution}
+  首先我们证明，如果$A^2=O_2$，则$\ee^A\in\MM_2(\MZ)$，我们有
+  \[
+    \ee^A = I_2 + \frac A{1!} + \frac{A^2}{2!} + \frac{A^n}{n!} + \cdots + \frac{A^n}{n!} + \cdots = I_2 + A \in\MM_2(\MZ).
+  \]
+
+  现在我们证明，如果$\ee^A\in\MM_2(\MZ)$，则$A^2=O_2$. 如果$\lambda_1,\lambda_2$是$A$的特征值，则$\ee^A$的特征值为$\ee^{\lambda_1},\ee^{\lambda_2}$. 注意到$\lambda_1$和$\lambda_2$都是代数数，是$A$的特征方程的根，其系数均为整数. 另一方面，$\ee^{\lambda_1}$和$\ee^{\lambda_2}$也是代数数，因为它们都是$\ee^A$的特征方程的根，其系数均为整数. 于是$\lambda_1$和$\lambda_2$均为0，因为Lindemann--Weierstrass定理指出，如果$\alpha$是一个非零的代数数，则$\ee^\alpha$是超越数. 因此， $\lambda_1=\lambda_2=0$，由定理 \ref{thm2.2}，我们有$A^2=O_2$.
+\end{solution}
+
+\begin{solution}
+  我们只解决问题的第一部分，第二部分同理.
+
+  我们需要下面的引理.
+  \begin{mybox}
+    \begin{lemma}
+      如果$q\in\MQ^\ast$，则$\cos q$是超越数.
+    \end{lemma}
+  \end{mybox}
+  \begin{proof}
+    我们假定$\cos q=a$是代数数，则$\sin q=\pm\sqrt{1-a^2}$也是代数数. 由于两个代数数的和仍然是代数数，则$\ee^{\ii q}=\cos q+\ii\sin q$也是代数数. 然而，这和Lindemann--Weierstrass定理矛盾.
+  \end{proof}
+
+  首先我们证明，如果$A^2=O_2$，则$\sin A\in\MM_2(\MZ)$. 我们有
+  \[
+    \sin A = \sum_{n=0}^\infty (-1)^n \frac{A^{2n+1}}{(2n+1)!} = A - \frac{A^3}{3!} + \cdots = A\in\MM_2(\MZ).
+  \]
+
+  现在我们来证明必要性. 设$\lambda_1=c+\ii d$和$\lambda_2=c-\ii d$是$A$的特征值，设$\sin \lambda_1=a+\ii b$和$\sin\lambda_2=a-\ii b$是$\sin A$的特征值. 注意到$c=\frac12\Tr(A)\in\MQ$且$d=\frac12\sqrt{4\det A-\Tr^2(A)}$是一个代数数. 我们有$\lambda_1+\lambda_2=2c\in\MZ,\lambda_1\lambda_2
+  =c^2+d^2\in\MZ,\sin\lambda_1+\sin\lambda_2=2a\in\MZ $，且$\sin\lambda_1\sin\lambda_2=a^2+b^2=v\in\MZ$. 计算可得
+  \[
+    \sin\lambda_1 + \sin\lambda_2 = 2\sin\frac{\lambda_1+\lambda_2}2\cos\frac{\lambda_1
+    -\lambda_2}2 = 2\sin c\cos\frac{\lambda_1-\lambda_2}2 = 2a,
+  \]
+  这意味着$\sin c\cos\frac{\lambda_1-\lambda_2}2=a$. 另一方面，
+  \[
+    \sin \lambda_1 \sin\lambda_2 = \frac{\cos(\lambda_1-\lambda_2)-\cos(\lambda_1
+    +\lambda_2)}2 = v \in \MZ.
+  \]
+  这意味着$\cos^2\frac{\lambda_1-\lambda_2}2-\cos^2c=v$.
+
+  如果$\sin c\ne0$，由于$c\in\MQ,c\ne0$，则$\cos\frac{\lambda_1-\lambda_2}2
+  =\frac a{\sin c}$. 通过简单计算，可得$\cos^4c+(v-1)\cos^2c+a^2-v=0$，这意味着$\cos c$是代数数，这与引理 \ref{lemma4.7} 矛盾. 因此$c=0\Rightarrow\lambda_1=\ii d,\lambda_2=-\ii d$. 于是$\sin\lambda_1\sin\lambda_2=\sin(\ii d)\sin(-\ii d)=\frac{(\ee^d-\ee^{-d})^2}4=v\in\MZ$， 这说明$\ee^d$是方程$x^4-(2+4v)x^2+1=0$的解，因此$\ee^d$是代数数，所以$d=0\Rightarrow\lambda_1=\lambda_2=0\Rightarrow A^2=O_2$.
+\end{solution}
+
+\begin{remark}
+  这个问题有一个等价的结论. 如果$A\in\MM_2(\MZ)$，则：
+  \begin{itemize}
+    \item $\sin A\in\MM_2(\MZ)$当且仅当$\sin A=A$；
+    \item $\cos A\in\MM_2(\MZ)$当且仅当$\cos A=I_2$.
+  \end{itemize}
+\end{remark}
+
+\begin{solution}
+  我们只解决问题的第一部分. 如果$A^2=O_2$，则
+  \[
+    \ln(I_2 - A) = - \sum_{n=1}^\infty \frac{A^n}n = -A \in\MM_2(\MQ).
+  \]
+
+  现在我们证明必要性. 设$\lambda_1,\lambda_2$是$A$的特征值. 我们有$\lambda_1+\lambda_2=k\in\MQ,\lambda_1\lambda_2
+  =i\in\MQ $. 注意到$\ln(I_2-A)$的特征值为$\ln(1-\lambda_1)$和$\ln(1-\lambda_2)$，由于$\ln(I_2-A)\in\MM_2(\MQ)$，我们得到
+  \[
+    \ln(1-\lambda_1) + \ln(1-\lambda_2) = \ln[(1-\lambda_1)(1-\lambda_2)] \in \MQ,\quad
+    \ln(1-\lambda_1) \ln(1-\lambda_2) \in \MQ.
+  \]
+  我们有
+  \[
+    \ln [(1-\lambda_1)(1-\lambda_2)] = \ln(1-\lambda_1-\lambda_2+\lambda_1\lambda_2) = \ln(1-k+i) = a\in\MQ.
+  \]
+
+  我们有$\ee^a=1-k+i\in\MQ\Rightarrow \ee^a$是代数数，因此$a=0\Rightarrow1-k+i=1\Rightarrow(1-\lambda_1)(1-\lambda_2)=1$. 这意味着$-\ln^2(1-\lambda_1)\in\MQ$. 设$\ln^2(1-\lambda_1)=b\in\MQ\Rightarrow\ln(1-\lambda_1)
+  =\pm\sqrt b\Rightarrow\lambda_1=1-\ee^{\pm\sqrt b}\Rightarrow\lambda_2=1-\frac1{1-\lambda_1}=1-
+  \ee^{\mp\sqrt b}$. 由于$\lambda_1+\lambda_2=k\in\MQ$，我们得到$2-k=\ee^{\pm\sqrt b}+\ee^{\mp\sqrt b} $，这反过来又说明$\ee^{\pm\sqrt b}$是代数数，因此$b=0$，进一步有$\lambda_1=\lambda_2=0$. 由于$A$的特征值均为0，那么由Cayley--Hamilton定理可知$A^2=O_2$.
+
+  问题的第二部分可以类似解决.
+\end{solution}
+
+\begin{remark}
+  这个问题有一个等价的公式. 如果$A\in\MM_2(\MQ)$满足$\rho(A)<1$，则：
+  \begin{itemize}
+    \item $\ln(I_2-A)\in\MM_2(\MQ)$当且仅当$\ln(I_2-A)=-A$；
+    \item $\ln(I_2+A)\in\MM_2(\MQ)$当且仅当$\ln(I_2+A)=A$.
+  \end{itemize}
+\end{remark}
+
+\begin{solution}
+  我们有$\ee^{\ii A}+\ee^{\ii B}+\ee^{\ii C}=O_2,\ee^{-\ii A}+\ee^{-\ii B}+\ee^{-\ii C}=O_2$. 于是
+  \[
+    O_2 = (\ee^{\ii A}+\ee^{\ii B}+\ee^{\ii C})^2 = \ee^{2\ii A} + \ee^{2\ii B} + \ee^{2\ii C} + 2\ee^{\ii(A+B+C)}
+    (\ee^{-\ii A}+\ee^{-\ii B}+\ee^{-\ii C}).
+  \]
+  这意味着$\ee^{2\ii A}+\ee^{2\ii B}+\ee^{2\ii C}=O_2\Rightarrow\cos(2A)+\cos(2B)+\cos(2C)=O_2$，且
+  $\sin(2A)+\sin(2B)+\sin(2C)=O_2$. 另一方面，$O_2=\ee^{3\ii A}+\ee^{3\ii B}+\ee^{3\ii C}-3\ee^{\ii(A+B+C)}$，于是 \ref{prob4.31c} 和 \ref{prob4.31d} 就可以证明了.
+\end{solution}
+
+\begin{solution}
+  \begin{inparaenum}[(a)]
+    \item 设$A=\begin{pmatrix}
+      a & b \\
+      b & a
+    \end{pmatrix}$，注意到$A=aI_2+bE_p$，其中$E_p=\begin{pmatrix}
+      0 & 1 \\
+      1 & 0
+    \end{pmatrix}$是置换矩阵. 我们利用和问题 \ref{problem4.19} 中一样的技巧可得
+    \[
+      \ee^A = \ee^{aI_2+bE_p} = \ee^{aI_2} \ee^{bE_p} = \ee^a \begin{pmatrix}
+        \cosh b & \sinh b \\
+        \sinh b & \cosh b
+      \end{pmatrix}.
+    \]
+
+    \ref{prob4.32b} 和 \ref{prob4.32c} 可以利用定理 \ref{thm4.10} 解决.
+    \setcounter{enumi}{3}
+
+    \item 我们有
+    \begin{align*}
+      \sum_{n=1}^\infty \frac1{(2n-1)^A} & = \sum_{n=1}^\infty \frac1{n^A} - \sum_{n=1}^\infty \frac1{(2n)^A} \\
+      & = \zeta(A) - 2^{-A} \sum_{n=1}^\infty\frac1{n^A} \\
+      & = \zeta(A) - 2^{-A} \zeta(A) \\
+      & = (I_2-2^{-A})\zeta(A).
+    \end{align*}
+  \end{inparaenum}
+\end{solution}
+
+\setcounter{solution}{35}
+\begin{solution}
+  设$\alpha=\rho(\cos t+\ii\sin t),\rho>0,t\in(-\pi,\pi]$，则
+  \[
+    A = P\begin{pmatrix}
+      \ln\rho + (t+2k\pi)\ii & 0 \\
+      0 & \ln\rho + (t+2l\pi)\ii
+    \end{pmatrix} P^{-1},
+  \]
+  其中$k,l\in\MZ$且$P\in\GL_2(\MC)$.
+\end{solution}
+
+\begin{solution}
+  设$a=\rho_a(\cos t_a+\ii\sin t_a),\rho_a>0,t_a\in(-\pi,\pi]$，且$b=\rho_b(\cos t_b+\ii\sin t_b),\rho_b>0,t_b\in(-\pi,\pi]$，则
+  \[
+    A = \begin{pmatrix}
+      \ln\rho_a + (t_a+2k\pi)\ii & 0 \\
+      0 & \ln\rho_b + (t_b+2l\pi)\ii
+    \end{pmatrix},
+  \]
+  其中$k,l\in\MZ$.
+\end{solution}
+
+\begin{solution}
+  $A=\begin{pmatrix}
+    \left(2k+\frac12\right)\pi\ii & \left(2n-\frac12\right)\pi\ii \\
+    \left(2n-\frac12\right)\pi\ii &
+    \left(2k+\frac12\right)\pi\ii
+  \end{pmatrix}$或$A=\begin{pmatrix}
+    \left(2k-\frac12\right)\pi\ii & \left(2n+\frac12\right)\pi\ii \\
+    \left(2n+\frac12\right)\pi\ii &
+    \left(2k-\frac12\right)\pi\ii
+  \end{pmatrix}$，其中$k,n\in\MZ$.
+
+  注意到$A$与$\ee^A$可交换，利用定理 $\ref{thm1.1}$ 可推出$A$是循环矩阵，即$A=\begin{pmatrix}
+    \beta & \alpha \\
+    \alpha & \beta
+  \end{pmatrix},\alpha,\beta\in\MC$. 由问题 \ref{problem4.32} 的 \ref{prob4.32a}，可得
+  \[
+    \ee^A = \ee^\beta \begin{pmatrix}
+      \cosh \alpha & \sinh \alpha \\
+      \sinh \alpha & \cosh \alpha
+    \end{pmatrix} =
+    \begin{pmatrix}
+      0 & 1 \\
+      1 & 0
+    \end{pmatrix}.
+  \]
+  这意味着$\ee^\beta\cosh\alpha=0$且$\ee^\beta\sinh\alpha=1$. 第一个等式说明$\cosh\alpha=0\Rightarrow\ee^{2\alpha}=-1\Rightarrow\alpha=\frac{2p+1}2\pi\ii,p\in\MZ$. 于是$\sin\alpha=(-1)^p\ii$. 而第二个方程意味着$\ee^\beta=(-1)^{p-1}\ii$，分别讨论$p$为偶数或奇数的情形，得到对应的解.
+\end{solution}
+
+\begin{solution}
+  设$a=\rho(\cos\theta+\ii\sin\theta),\rho>0$，
+  且$\theta\in(-\pi,\pi]$，则
+  \[
+    A = \begin{pmatrix}
+      \ln\rho + (\theta+2k\pi)\ii & 0 \\
+      0 & \ln\rho + (\theta+2k\pi)\ii
+    \end{pmatrix},\quad k\in\MZ.
+  \]
+\end{solution}
+
+\begin{solution}
+  我们注意到$A=\pi I_2+B$，其中$B=\begin{pmatrix}
+    -1 & 1 \\
+    -1 & 1
+  \end{pmatrix}$，且$B^2=O_2$. 我们有
+  \begin{gather*}
+    \sin A = \sin(\pi I_2 +B) = \sin(\pi I_2)\cos B + \cos(\pi I_2)\sin B = \cos(\pi I_2)\sin B = - B, \\
+    \cos A = \cos(\pi I_2 + B) = \cos(\pi I_2)\cos B - \sin(\pi I_2)\sin B = \cos(\pi I_2)\cos B = -I_2,
+  \end{gather*}
+  类似可得$\sin(2A)=2B$.
+\end{solution}
+
+\begin{solution}
+  由于$A^2=A$，我们有
+  \[
+    \sin(k\pi A) = \sum_{n=0}^\infty \frac{(-1)^n}{(2n+1)!} (k\pi A)^{2n+1} =
+    \sum_{n=0}^\infty \frac{(-1)^n}{(2n+1)!} (k\pi)^{2n+1}A = \sin(k\pi) A = O_2.
+  \]
+  类似地，如果$A$是幂等矩阵，则$\cos(k\pi A=I_2+\big((_1)^k-1\big)A$对任意$k\in\MZ$成立.
+\end{solution}
+
+\begin{solution}
+  \begin{inparaenum}[(a)]
+    \item 如果存在这样的矩阵，则$\sin^2A=\begin{pmatrix}
+          1 & 4032 \\
+          0 & 1
+        \end{pmatrix}$，于是$\cos^2A=I_2-\sin^2A=\begin{pmatrix}
+          0 & -4032 \\
+          0 & 0
+        \end{pmatrix}$. 然而，不存在矩阵$X\in\MM_2(\MC)$使得$X^2=\begin{pmatrix}
+          0 & a \\
+          0 & 0
+        \end{pmatrix}$，其中$a\ne0$.
+
+    \item 如果存在这样的矩阵，则$\cosh^2A=\begin{pmatrix}
+          1 & 2\alpha \\
+          0 & 1
+        \end{pmatrix}$，于是$\sinh^2A=\cosh^2A-I_2
+        =\begin{pmatrix}
+          0 & 2\alpha \\
+          0 & 0
+        \end{pmatrix}$. 然而，不存在矩阵$X\in\MM_2(\MC)$使得$X^2=\begin{pmatrix}
+          0 & a \\
+          0 & 0
+        \end{pmatrix}$，其中$a\ne0$.
+  \end{inparaenum}
+\end{solution}
+
+\begin{solution}
+  如果$\Tr(A)=0$，由Cayley--Hamilton定理，我们有$A^2=O_2$，因此
+  \[
+    2^A = \ee^{(\ln2)A} = \sum_{n=0}^\infty \frac{\big((\ln2)A\big)^n}{n!} = I_2 + (\ln2)A.
+  \]
+
+  如果$\Tr(A)\ne0$，则Cayley--Hamilton定理说明$A^2=\Tr(A)A$，这进一步说明$A^n=\Tr^{n-1}(A)A$对任意$n\in\MN$成立. 于是
+  \[
+    2^A = \ee^{(\ln2)A} = \sum_{n=0}^\infty \frac{\big((\ln2)A\big)^n}{n!} = I_2 + \frac1{\Tr(A)}
+    \sum_{n=1}^\infty \frac{\Tr^n(A)\ln^n2}{n!}A
+    = I_2 + \frac{2^{\Tr(A)}-1}{\Tr(A)}A.
+  \]
+\end{solution}
+
+\setcounter{solution}{44}
+
+\begin{solution}
+  不存在这样的矩阵. 如果$\lambda_1,\lambda_2$是$A$的特征值，则$\ee^{\lambda_1},\ee^{\lambda_2}$是$\ee^A$的特征值. 我们有
+  \[
+    \ee^{a+d} = \ee^{\Tr(A)} = \ee^{\lambda_1+\lambda_2} = \ee^{\lambda_1}\ee^{\lambda_2} = \det(\ee^A) = \ee^a\ee^d - \ee^b\ee^c = \ee^{a+d} - \ee^{b+c}.
+  \]
+  这意味着$\ee^{b+c}=0$，这是不可能的.
+\end{solution}
+
+\begin{solution}
+  \begin{inparaenum}[(a)]
+    \item 令$A=(a_{ij})_{i,j=1,2},B=(b_{ij})_{i,j=1,2},C
+        =(c_{ij})_{i,j=1,2}$，其中$C=AB$. 我们有$(c_{ij})'=(a_{i1}b_{1j}+a_{i2}b_{2j})'=
+        a_{i1}'b_{1j}+a_{i1}b_{1j}'+a_{i2}'b_{2j}
+        +a_{i2}b_{2j}'$对所有的$i,j=1,2$成立，这意味着$(AB)'=A'B+AB'$.
+
+    \item 我们有$A^{-1}A=I_2$，于是由 \ref{prob4.46a}，可知$(A^{-1}A)'=O_2$. 所以$(A^{-1})'A+A^{-1}A'=O_2\Rightarrow (A^{-1})'A=-A^{-1}A'\Rightarrow (A^{-1})'=-A^{-1}A'A^{-1}$.
+
+        由 \ref{prob4.46a} 和 \ref{prob4.46b} 的第一个公式，我们有
+        \begin{align*}
+          (A^{-n})' & = ( A^{-(n-1)} A^{-1} )' \\
+          & = (A^{-(n-1)})'A^{-1} + A^{-(n-1)}(A^{-1})' \\
+          & = (A^{-(n-1)})'A^{-1} - A^{-n}A'A^{-1} .
+        \end{align*}
+
+        令$Y_n=A^{-n}$，上面的公式意味着$Y_n'=Y_{n-1}'A^{-1}-A^{-n}A'A^{-1}\Rightarrow Y_n'A^n=Y_{n-1}'A^{n-1}-A^{-n}A'A^{n-1}$，于是
+        \[
+          Y_n'A^n = - \left( A^{-1}A' + A^{-2}A'A + A^{-3}A'A^2 + \cdots + A^{-n}A'A^{n-1} \right),
+        \]
+        这意味着
+        \[
+          (A^{-n})' = - \left( A^{-1}A' + A^{-2}A'A + A^{-3}A'A^2 + \cdots + A^{-n}A'A^{n-1} \right)A^{-n}.
+        \]
+  \end{inparaenum}
+\end{solution}
+
+\begin{solution}
+  首先我们注意到$A^2(t)=A(t)$，这意味着$A^n(t)=A(t)$对任意$n\ge1$成立，于是
+  \begin{align*}
+    \ee^{A(t)} & = I_2 + \sum_{n=1}^\infty \frac{A^n(t)}{n!}  = I_2 + \left( \sum_{n=1}^\infty \frac1{n!} \right) A(t) \\
+    & = I_2 + (\ee-1)A(t) = \begin{pmatrix}
+      \ee & (\ee-1)t \\
+      0 & 1
+    \end{pmatrix},
+  \end{align*}
+  这意味着
+  \[
+    \left( \ee^{A(t)} \right)' = \begin{pmatrix}
+      0 & \ee-1\\
+      0 & 0
+    \end{pmatrix}.
+  \]
+  另一方面，
+  \[
+    \ee^{A(t)}A'(t) = \begin{pmatrix}
+      \ee & (\ee-1)t \\
+      0 & 1
+    \end{pmatrix} \begin{pmatrix}
+      0 & 1 \\
+      0 & 0
+    \end{pmatrix} = \begin{pmatrix}
+      0 & \ee \\
+      0 & 0
+    \end{pmatrix} \ne \left( \ee^{A(t)} \right)' ,
+  \]
+  且
+  \[
+    A'(t) \ee^{A(t)} = \begin{pmatrix}
+      0 & 1 \\
+      0 & 0
+    \end{pmatrix}\begin{pmatrix}
+      \ee & (\ee-1)t \\
+      0 & 1
+    \end{pmatrix} = \begin{pmatrix}
+      0 & 1 \\
+      0 & 0
+    \end{pmatrix} \ne  \left( \ee^{A(t)} \right)'.
+  \]
+\end{solution}
+
+\begin{solution}
+  方程组的解为
+  \[
+    \left\{
+      \begin{aligned}
+        & x_1(t) = (2\ee^{-t}+\ee^{5t})c_1 + (2\ee^{-t}-2\ee^{5t})c_2 \\
+        & x_2(t) = (\ee^{-t}-\ee^{5t})c_1 + (\ee^{-t}+2\ee^{5t})c_2
+      \end{aligned}
+    \right.,
+  \]
+  其中$c_1,c_2\in\MR$.
+\end{solution}
+
+\begin{solution}
+  \begin{inparaenum}[(a)]
+    \item $A$的特征方程为$(x-1)^2+a=0$，于是$(A-I_2)^2+aI_2=O_2$. 令$B=A-I_2$，我们有$B^2=-aI_2$，这意味着$B^{2k}=(-1)^ka^kI_2$，而$B^{2k-1}=(-1)^{k-1}a^{k-1}B$对任意$k\ge1$成立 ，我们有$\ee^{At}=\ee^{I_2t+Bt}=\ee^t\ee^{Bt}$. 另一方面，
+        \begin{align*}
+          \ee^{Bt} & = \sum_{k=0}^\infty \frac{(Bt)^{2k}}{(2k)!} + \sum_{k=1}^\infty \frac{(Bt)^{2k-1}}{(2k-1)!} \\
+          & = \sum_{k=0}^\infty(-1)^k\frac{(t\sqrt a)^{2k}}{(2k)!}I_2 + \frac1{\sqrt a}\sum_{k=1}^\infty (-1)^{k-1}\frac{(t\sqrt a)^{2k-1}}{(2k-1)!}B \\
+          & = \cos(t\sqrt a)I_2 + \frac{\sin(t\sqrt a)}{\sqrt a}B \\
+          & = \begin{pmatrix}
+            \cos(t\sqrt a) & \frac{\sin(t\sqrt a)}{\sqrt a} \\
+            -\sqrt a\sin(t\sqrt a) & \cos(t\sqrt a)
+          \end{pmatrix}.
+        \end{align*}
+        这意味着
+        \[
+          \ee^{At} = \ee^t \begin{pmatrix}
+            \cos(t\sqrt a) & \frac{\sin(t\sqrt a)}{\sqrt a} \\
+            -\sqrt a\sin(t\sqrt a) & \cos(t\sqrt a)
+          \end{pmatrix}.
+        \]
+
+    \item 方程组可写成$X'=AX$，我们有$X(t)=\ee^{At}C$，其中$C$是一个常向量，这意味着
+        \[
+          \left\{
+            \begin{aligned}
+              & x(t) = c_1\ee^t\cos(t\sqrt a) + \frac{c_2}{\sqrt a}\ee^t\sin(t\sqrt a) \\
+              & y(t) = -c_1\sqrt a\ee^t\sin(t\sqrt a) + c_2\ee^t \cos(t\sqrt a)
+            \end{aligned}
+          \right.,
+        \]
+        其中$c_1,c_2\in\MR$.
+  \end{inparaenum}
+\end{solution}
+
+\setcounter{solution}{51}
+\begin{solution}
+  \begin{inparaenum}[(a)]
+    \item $tX'(t)=AX(t)\Rightarrow X'(t)-\frac AtX(t)=0$，我们将此方程乘以$t^{-A}=\ee^{-(\ln t)A}$，可得$\big(\ee^{-(\ln t)A}X(t) \big)'
+        =0\Leftrightarrow \big(t^{-A}X(t)\big)'=0\Rightarrow t^{-A}X(t)=C\Rightarrow X(t)=t^AC$，其中$C$是一个常向量.
+
+    \item 方程组两边除以$t$，然后再乘以$t^{-A}=\ee^{-(\ln t)A}$，我们有
+        \[
+          \big( t^{-A}X(t) \big)' = \frac1tt^{-A}F(t) \quad \Leftrightarrow \quad \big( t^{-A}X(t) \big)' = t^{-(A+I_2)}F(t),
+        \]
+        这意味着
+        \[
+          t^{-A}X(t) = \int_{t_0}^t u^{-(A+I_2)}F(u) \dif u.
+        \]
+        因此
+        \[
+          X(t) = t^A\int_{t_0}^t u^{-(A+I_2)}F(u) \dif u.
+        \]
+  \end{inparaenum}
+\end{solution}
+
+\begin{solution}
+  由问题 \ref{problem4.52}，我们有
+  \[
+    \left\{
+      \begin{aligned}
+        & x(t) = \frac74t^2 - \frac3{4t^2} - \frac12 \\
+        & y(t) = \frac74t^2 + \frac1{4t^2} - \frac12
+      \end{aligned}
+    \right..
+  \]
+\end{solution}
+
+\begin{solution}
+  方程组的系数矩阵$A$的特征方程为$\lambda^2-(a+d)\lambda+ad-bc=0$，即$\lambda^2-\Tr(A)\lambda+\det A=0$. 由注 \ref{remark4.7} 和 \ref{remark4.8}，我们有下面的几种情形：
+  \begin{itemize}
+    \item 如果$\lambda_1,\lambda_2\in\MR,\lambda_1,\lambda_2<0$，
+        即$\Tr(A)<0,\varDelta\ge0$且$\det A>0$，则零解是渐近稳定的；
+    \item 如果$\lambda_1,\lambda_2\in\MC\backslash\MR,\lambda_{1,2}=r\pm\ii s,r\in\MR,s\in\MR^\ast$且$r<0$，即$\Tr(A)<0,\varDelta<0$且$\det A>0$，则零解是渐近稳定的. 把这种情形与前面的情形合并起来，可知方程组是渐近稳定的当且仅当$\Tr(A)<0$且$\det A>0$；
+    \item 由注 \ref{remark4.8} 的 \ref{remark4.8c} 和 \ref{remark4.8d}，我们可得零解是不稳定的当且仅当特征方程的一个根具有正的实部或两个都为0（但$A\ne O_2$）. 我们有下面的几种可能：$\det A<0\Leftrightarrow\lambda_1,\lambda_2\in\MR,
+        \lambda_1<0<\lambda_2$，或$\det A>0$且$\Tr(A)>0\Leftrightarrow \lambda_1,\lambda_2\in\MC\backslash\MR$且$\lambda_1
+        +\lambda_2>0$，或$\Tr(A)=\det A=0\Leftrightarrow\lambda_1=\lambda_2=0$. 所以，方程组是不稳定的当且仅当$\det A<0$或$\Tr(A)>0$或$\Tr(A)=\det A=0$；
+    \item 如果$\Tr(A)=0,\det A>0$或$\Tr(A)>0,\det A=0$，方程组是稳定的但不是渐近稳定的.
+  \end{itemize}
+
+  综上所述我们有：
+  \begin{itemize}
+    \item 如果$\Tr(A)<0$且$\det A>0$，则方程组是渐近稳定的；
+    \item 如果$\Tr(A)=0,\det A>0$或$\Tr(A)<0,\det A=0$，则方程组是稳定的；
+    \item 如果$\Tr(A)>0$或$\det A<0$或$\Tr(A)=\det A=0$，则方程组是不稳定的.
+  \end{itemize}
+\end{solution}
+
+\begin{solution}
+  $\Tr(A)=-(a^2+1)$且$\det A=a^2-a$. 由问题 \ref{problem4.54}，我们有：
+  \begin{itemize}
+    \item 对$a\in(-\infty,0)\cup(1,+\infty)$，方程组是渐近稳定的；
+    \item 对$a\in\{0,1\}$，方程组是稳定的；
+    \item 对$a\in(0,1)$，方程组是不稳定的.
+  \end{itemize}
+\end{solution}
+
+\begin{solution}
+  $\Tr(A)=-a$且$\det A=1-a$. 由问题 \ref{problem4.54}，我们有：
+  \begin{itemize}
+    \item 对$a\in(0,1)$，方程组是渐近稳定的；
+    \item 对$a\in\{0,1\}$，方程组是稳定的；
+    \item 对$a\in(-\infty,0)\cup(1,+\infty)$，方程组是不稳定的.
+  \end{itemize}
+\end{solution}
+
+\begin{solution}
+  $\Tr(A)=0$且$\det A=-bc$，于是由问题 \ref{problem4.54}，当$bc<0$时，方程组是稳定的，当$bc\ge0$时，方程组是不稳定的.
+\end{solution}
+
+\begin{solution}
+  $\Tr(A)=-2$且$\det A=1-ab$. 由问题 \ref{problem4.54}，我们有：
+  \begin{itemize}
+    \item 如果$ab<1$，则方程组是渐近稳定的；
+    \item 如果$ab=1$，方程组是稳定的；
+    \item 如果$ab>1$，方程组是不稳定的.
+  \end{itemize}
+\end{solution}
+
+\begin{solution}
+  $\Tr(A)=2a$且$\det A=a^2-b$. 由问题 \ref{problem4.54}，我们有：
+  \begin{itemize}
+    \item 如果$a<0$且$a^2-b>0$，则方程组是渐近稳定的；
+    \item 如果$a=0,b<0$或$a<0,a^2=b$，则方程组是稳定的；
+    \item 如果$a>0$或$a^2-b<0$或$a=b=0$，方程组是不稳定的.
+  \end{itemize}
+\end{solution}
+
+\begin{solution}
+  注意到$A=-I_2+B$，其中$B=\begin{pmatrix}
+    0 & x \\
+    0 & 0
+  \end{pmatrix}$，且$B^2=O_2$. 由二项式定理，我们有
+  \[
+    A^n = (-1)^nI_2 + n(-1)^{n-1}B = \begin{pmatrix}
+      (-1)^n & nx(-1)^{n-1} \\
+      0 & (-1)^n
+    \end{pmatrix}.
+  \]
+  于是
+  \[
+    \sum_{n=1}^\infty \frac{A^n}{n^2} = \begin{pmatrix}
+      \sum_{n=1}^\infty \frac{(-1)^n}{n^2} & x \sum_{n=1}^\infty \frac{(-1)^{n-1}}n \\
+      0 & \sum_{n=1}^\infty \frac{(-1)^n}{n^2}
+    \end{pmatrix} =
+    \begin{pmatrix}
+      -\frac{\pi^2}{12} & x\ln2 \\
+      0 & -\frac{\pi^2}{12}
+    \end{pmatrix}.
+  \]
+\end{solution}
+
+\begin{solution}
+  令$\varepsilon=\frac{-1+\ii\sqrt3}2$，我们有
+  \[
+    \sum_{n=0}^\infty \frac{A^{3n}}{(3n)!} = \frac13\left(\ee^A + \ee^{\varepsilon A} + \ee^{\varepsilon^2A}\right).
+  \]
+  计算可知$\varepsilon^2=\frac{-1-\ii\sqrt3}2$，这意味着
+  \[
+    \ee^{\varepsilon A} + \ee^{\varepsilon^2A} = \ee^{-\frac A2+\ii\frac{\sqrt3A}2} + \ee^{-\frac A2-\ii\frac{\sqrt3A}2} = 2\ee^{-\frac A2}\cos\frac{\sqrt3A}2.
+  \]
+\end{solution}
+
+\begin{solution}
+  \ref{prob4.62a} 可以直接用数学归纳法证明，而 \ref{prob4.62b} 则可以在 \ref{prob4.62a} 中令$n\to\infty$得到.
+\end{solution}
+
+\begin{solution}
+  我们有
+  \begin{align*}
+    f(A) & = \sum_{n=1}^\infty F_nA^{n-1} = I_2 + \sum_{n=2}^\infty F_nA^{n-1} = I_2 + \sum_{m=1}^\infty F_{m+1}A^m \\
+    & = I_2 + \sum_{m=1}^\infty (F_m + F_{m-1})A^m = I_2 + \sum_{m=1}^\infty F_mA^m + \sum_{m=1}^\infty F_{m-1}A^m \\
+    & = I_2 + Af(A) + \sum_{m=2}^\infty F_{m-1}A^m = I_2 + Af(A) + \sum_{k=1}^\infty F_kA^{k+1} \\
+    & = I_2 + Af(A) + A^2f(A),
+  \end{align*}
+  于是可得$f(A)(I_2-A-A^2)=I_2$.
+\end{solution}
+
+\begin{solution}
+  回顾调和数的母函数为
+  \begin{equation}\label{eq4.6}
+    \sum_{n=1}^\infty H_nx^n = -\frac{\ln(1-x)}{1-x},\; -1<x<1,
+  \end{equation}
+  于是通过逐项微分和逐项积分可得
+  \begin{equation}\label{eq4.7}
+    \sum_{n=1}^\infty nH_nx^{n-1} = \frac{1-\ln(1-x)}{(1-x)^2},\; -1<x<1
+  \end{equation}
+  以及
+  \begin{equation}\label{eq4.8}
+    \sum_{n=1}^\infty \frac{H_n}{n+1}x^{n+1} = \frac{\ln^2(1-x)}2,\; -1\le x<1.
+  \end{equation}
+
+  我们有$A=\alpha I_2+B,B^2=O_2$，于是由二项式定理可得$A^n=\alpha^nI_2+n\alpha^{n-1}B$对任意$n\ge1$成立.
+
+  \begin{inparaenum}[(a)]
+    \item 由 \eqref{eq4.6} 和 \eqref{eq4.7}，我们有
+    \begin{align*}
+      \sum_{n=1}^\infty H_nA^n & = \sum_{n=1}^\infty H_n\alpha^nI_2 + \sum_{n=1}^\infty nH_n\alpha^{n-1}B \\
+      & = - \frac{\ln(1-\alpha)}{1-\alpha}I_2 +
+      \frac{1-\ln(1-\alpha)}{(1-\alpha)^2}B.
+    \end{align*}
+
+    \item 如果$\alpha=0$，则$A=B$且$B^2=O_2$，于是$
+    \sum_{n=1}^\infty\frac{H_n}{n+1}A^n=\frac B2$.
+
+    设$\alpha\ne0$，由 \eqref{eq4.6}，\eqref{eq4.7} 和 \eqref{eq4.8}，我们有
+    \begin{align*}
+      \sum_{n=1}^\infty \frac{H_n}{n+1}A^n & = \sum_{n=1}^\infty \frac{H_n}{n+1}\alpha^nI_2 + \sum_{n=1}^\infty \frac{nH_n}{n+1}\alpha^{n-1}B \\
+      & = \frac{\ln^2(1-\alpha)}{2\alpha}I_2 + \left( \sum_{n=1}^\infty H_n\alpha^{n-1} - \sum_{n=1}^\infty \frac{H_n}{n+1}\alpha^{n-1} \right) B \\
+      & = \frac{\ln^2(1-\alpha)}{2\alpha}I_2 - \left( \frac{\ln(1-\alpha)}{\alpha(1-\alpha)} + \frac{\ln^2(1-\alpha)}{2\alpha^2} \right)B
+    \end{align*}
+  \end{inparaenum}
+\end{solution}
+
+\begin{solution}
+  利用$A$的Jordan标准形结合$A$的幂级数公式
+  \begin{enum}
+    \item $\sum_{n=1}^\infty H_nz^n=-\frac{\ln(1-z)}{1-z},|z|<1$；
+    \item $\sum_{n=1}^\infty nH_nz^n=-\frac{z\left(1-\ln(1-z)\right)}{
+        (1-z)^2},|z|<1$.
+  \end{enum}
+\end{solution}
+
+\begin{solution}
+  我们利用下面的结论 \cite{32}，其证明见附录 \ref{chapA}.
+  \begin{mybox}
+    {\bfseries 截尾$\ln\frac12$的一个幂级数.}
+
+    设$x\in\MR$，则成立如下等式：
+    \[
+      \sum_{n=1}^\infty \left( \ln\frac12 + 1 - \frac12 + \cdots + \frac{(-1)^{n-1}}n \right)x^n =
+      \begin{cases}
+        \ln2 - \frac12, & \text{如果}\, x = 1 \\
+        \frac{\ln(1+x)-x\ln2}{1-x}, & \text{如果}\, x\in(-1,1)
+      \end{cases}.
+    \]
+  \end{mybox}
+
+  首先我们考虑$\lambda_1=0,0<|\lambda_2|<1$的情形. 设$t=\lambda_2=\Tr(A)$，则Cayley--Hamilton定理说明$A^2=tA=O_2\Rightarrow A^n=t^{n-1}A$对任意$n\ge1$成立.
+
+  令$a_n=\ln\frac12 + 1 - \frac12 + \cdots + \frac{(-1)^{n-1}}n$，我们有
+  \[
+    \sum_{n=1}^\infty a_nA^n = \frac1t\sum_{n=1}^\infty a_nt^nA = \frac1{1-t} \left( \frac{\ln(1+t)}t - \ln2 \right)A.
+  \]
+
+  现在我们考虑$0<|\lambda_1|,|\lambda_2|<1$的情形，设$J_A=\begin{pmatrix}
+    \lambda_1 & 0 \\
+    0 & \lambda_2
+  \end{pmatrix}$，我们有$A=PJ_AP^{-1}\Rightarrow A^n=PJ_A^nP^{-1}$，其中$J_A^n=\begin{pmatrix}
+    \lambda_1^n & 0 \\
+    0 & \lambda_2^n
+  \end{pmatrix}$. 于是
+  \begin{align*}
+    \sum_{n=1}^\infty a_nA^n & = P \left( \sum_{n=1}^\infty a_nJ_A^n \right) P^{-1} = P
+    \begin{pmatrix}
+      \sum_{n=1}^\infty a_n\lambda_1^n & 0 \\
+      0 & \sum_{n=1}^\infty a_n\lambda_2^n
+    \end{pmatrix} P^{-1} \\
+    & = P \begin{pmatrix}
+      \frac{\ln(1+\lambda_1)-\lambda_1\ln2}{1-\lambda_1}
+      & 0 \\
+      0 & \frac{\ln(1+\lambda_2)-\lambda_2\ln2}{1-\lambda_2}
+    \end{pmatrix} P^{-1} \\
+    & = (I_2-A)^{-1}\big( \ln(I_2+A) - (\ln2)A \big).
+  \end{align*}
+
+  如果$J_A=\begin{pmatrix}
+    \lambda & 1 \\
+    0 & \lambda
+  \end{pmatrix}$，我们有$A^n=PJ_A^nP^{-1}$，其中$J_A^n=\begin{pmatrix}
+    \lambda^n & n\lambda^{n-1} \\
+    0 & \lambda^n
+  \end{pmatrix}$.
+
+  令$f(x)=\sum_{n=1}^\infty a_nx^n=\frac{\ln(1+x)-x\ln2}{1-x},x\in(-1,1)$，我们有
+  \[
+    \sum_{n=1}^\infty a_nA^n = P \left( \sum_{n=1}^\infty a_nJ_A^n\right)P^{-1} = P
+    \begin{pmatrix}
+      f(\lambda) & f'(\lambda) \\
+      0 & f(\lambda)
+    \end{pmatrix}P^{-1} = f(A).
+  \]
+\end{solution}
+
+\begin{solution}
+  \begin{inparaenum}[(a)]
+    \item 令$f_n(x)=\ln(1-x)+x+\frac{x^2}2+\cdots
+        +\frac{x^n}n,x\in(-1,1)$，我们可以证明
+  \end{inparaenum}
+  \begin{itemize}
+    \item $\lim_{n\to\infty}nf_n(x)=\lim_{n\to\infty}
+        n\left(\ln(1-x)+x+\frac{x^2}2+\cdots
+        +\frac{x^n}n\right)=0$；
+    \item $\lim_{n\to\infty}nf_n'(x)=\lim_{n\to\infty}
+        n\left(\frac{-1}{1-x}+x+x^2+\cdots+x^{n-1}
+        \right)=0$.
+  \end{itemize}
+
+  设$\lambda_1,\lambda_2$是$A$的特征值，且设$A=PJ_AP^{-1} $，如果
+  \[
+    J_A = \begin{pmatrix}
+      \lambda_1 & 0 \\
+      0 & \lambda_2
+    \end{pmatrix} \quad \Rightarrow \quad
+    nf_n(A) = P
+    \begin{pmatrix}
+      nf_n(\lambda_1) & 0 \\
+      0 & nf_n(\lambda_2)
+    \end{pmatrix} P^{-1},
+  \]
+  由上面的第一个极限，可得$\lim_{n\to\infty}nf_n(A)=O_2$.
+
+  如果
+  \[
+    J_A = \begin{pmatrix}
+      \lambda & 1 \\
+      0 & \lambda
+    \end{pmatrix} \quad \Rightarrow \quad
+    nf_n(A) = P \begin{pmatrix}
+      nf_n(\lambda) & nf_n'(\lambda) \\
+      0 & nf_n(\lambda)
+    \end{pmatrix} P^{-1},
+  \]
+  由上面的极限公式，可得$\lim_{n\to\infty}nf_n(A)=O_2$.
+
+  \begin{inparaenum}[(a)]
+    \setcounter{enumi}{1}
+    \item 我们利用Abel求和公式来计算此级数，由问题 \ref{problem4.62} 的 \ref{prob4.62b}，取$a_n=1,B_n=\ln(I_2-A)+A+
+        \frac{A^2}2+\cdots+\frac{A^n}n$，由 \ref{prob4.67a}，我们有
+        \begin{align*}
+          & \sum_{n=1}^\infty \left( \ln(I_2-A) + A + \frac{A^2}2 + \cdots + \frac{A^n}n \right) \\
+          = {}& \lim_{n\to\infty} n \left( \ln(I_2 - A) + A + \frac{A^2}2 + \cdots + \frac{A^{n+1}}{n+1} \right) - \sum_{n=1}^\infty \frac n{n+1}A^{n+1} \\
+          = {}& \sum_{n=1}^\infty \left( \frac{A^{n+1}}{n+1} - A^{n+1} \right) \\
+          = {}& \sum_{m=1}^\infty \left( \frac{A^m}m - A^m \right) \\
+          = {}& - \ln(I_2-A) - A(I_2 - A)^{-1}.
+        \end{align*}
+  \end{inparaenum}
+\end{solution}
+
+\begin{solution}
+  \begin{inparaenum}[(a)]
+    \item 由数学归纳法即可.
+
+    \item 我们利用问题 \ref{problem4.62} 的 \ref{prob4.62b}，取$a_n=H_n$和$B_n=\ln(I_2-A)
+        +A+\frac{A^2}+\cdots+\frac{A^n}n$，我们有
+        \begin{align*}
+          & \sum_{n=1}^\infty H_n\left( \ln(I_2-A) + A + \frac{A^2}2 + \cdots + \frac{A^n}n \right) \\
+          = {}& \lim_{n\to\infty} \big( (n+1)H_n- n \big) \left( \ln(I_2-A) + A + \frac{A^2}2 + \cdots + \frac{A^{n+1}}{n+1} \right) \\
+          & - \sum_{n=1}^\infty \big( (n+1)H_n- n \big) \frac{A^{n+1}}{n+1} \\
+          = {}& -A\sum_{n=1}^\infty H_nA^n + \sum_{n=1}^\infty A^{n+1} - \sum_{n=1}^\infty \frac{A^{n+1}}{n+1} \\
+          = {}& A(I_2-A)^{-1}\ln(I_2-A) + A^2(I_2-A)^{-1} + \ln(I_2-A) + A \\
+          = {}& \big( A + \ln(I_2-A) \big) (I_2 - A)^{-1}.
+        \end{align*}
+    其中我们用了
+        \[
+          \lim_{n\to\infty} \big( (n+1)H_n- n \big) \left( \ln(I_2-A) + A + \frac{A^2}2 + \cdots + \frac{A^{n+1}}{n+1} \right) = 0,
+        \]
+    以及结合了问题 \ref{problem4.65} 的第一个公式.
+  \end{inparaenum}
+\end{solution}
+
+\begin{solution}
+  \begin{inparaenum}[(a)]
+    \item 见问题 \ref{problem4.67} 的 \ref{prob4.67a} 的解答中的想法.
+
+    \item 利用问题 \ref{problem4.62} 中的 \ref{prob4.62b} 的Abel求和公式，取$a_n=1$，和$B_n=\arctan A-A+\frac{A^3}3+\cdots+(-1)^n
+        \frac{A^{2n-1}}{2n-1}$.
+  \end{inparaenum}
+\end{solution}
+
+\begin{solution}
+  \begin{inparaenum}[(a)]
+    \item 首先，我们可以证明，如果$A\in\MM_2(\MC)$，则
+    \[
+      \lim_{n\to\infty} n\left( \ee^A - I_2 - \frac A{1!} - \frac{A^2}{2!} - \cdots - \frac{A^n}{n!} \right) = O_2.
+    \]
+
+    利用问题 \ref{problem4.62} 中的 \ref{prob4.62b} 的Abel求和公式，取$a_n=1$，和$B_n=\ee^A- I_2 - \frac A{1!} - \frac{A^2}{2!} - \cdots - \frac{A^n}{n!}$，我们有
+    \begin{align*}
+      &\sum_{n=1}^\infty \left( \ee^A - I_2 - \frac A{1!} - \frac{A^2}{2!} - \cdots - \frac{A^n}{n!} \right) \\
+      = {}& \lim_{n\to\infty} n \left( \ee^A - I_2 - \frac A{1!} - \frac{A^2}{2!} - \cdots - \frac{A^{n+1}}{(n+1)!} \right) + \sum_{n=1}^\infty n \frac{A^{n+1}}{(n+1)!} \\
+      = {}& \sum_{n=1}^\infty \frac{A^{n+1}}{n!} - \sum_{n=1}^\infty \frac{A^{n+1}}{(n+1)!} \\
+      = {}& A\ee^A - \ee^A + I_2.
+    \end{align*}
+
+    \item 如果$A\in\MM_2(\MC)$，则（证明之!）
+    \[
+      \lim_{n\to\infty} n^2\left( \ee^A - I_2 - \frac A{1!} - \frac{A^2}{2!} - \cdots - \frac{A^n}{n!} \right) = O_2.
+    \]
+
+    利用问题 \ref{problem4.62} 中的 \ref{prob4.62b} 的Abel求和公式，取$a_n=n$，和$B_n=\ee^A- I_2 - \frac A{1!} - \frac{A^2}{2!} - \cdots - \frac{A^n}{n!}$，我们有
+    \begin{align*}
+      & \sum_{n=1}^\infty n\left( \ee^A - I_2 - \frac A{1!} - \frac{A^2}{2!} - \cdots - \frac{A^n}{n!} \right) \\
+      = {}&  \lim_{n\to\infty} \frac{n(n+1)}2 \left( \ee^A - I_2 - \frac A{1!} - \frac{A^2}{2!} - \cdots - \frac{A^{n+1}}{(n+1)!} \right) + \sum_{n=1}^\infty \frac{n(n+1)}2 \cdot  \frac{A^{n+1}}{(n+1)!} \\
+      = {}& \frac{A^2}2 \sum_{n=1}^\infty \frac{A^{n-1}}{(n-1)!} \\
+      = {}& \frac{A^2}2\ee^A.
+    \end{align*}
+  \end{inparaenum}
+\end{solution}
+
+\setcounter{solution}{72}
+
+\begin{solution}
+  由Abel求和公式，对第一个级数，取$a_n=1$和$B_n=f(A)-f(0)I_2-\frac{f'(0)}{1!}A-\cdots-\frac{f^{(n)}(0)}{n!}A^n$；对第二个级数，取$a_n=n$和$B_n=f(A)-f(0)I_2-\frac{f'(0)} {1!}A-\cdots-\frac{f^{(n)}(0)}{n!}A^n$.
+\end{solution}
+
+\begin{solution}
+  \begin{inparaenum}[(a)]
+    \item 首先我们可以证明，如果$x,y\in\MC$，则
+    \[
+      \lim_{n\to\infty}x^n \left( \ee^y - 1 - \frac y{1!} - \frac{y^2}{2!} - \cdots - \frac{y^n}{n!}\right) = 0.
+    \]
+
+    当$x=1$时，这就是问题 \ref{problem4.70} 的 \ref{prob4.70a}，所以我们来解决$x\ne1$的情形.
+
+    利用问题 \ref{problem4.62} 中的 \ref{prob4.62b} 的Abel求和公式，取$a_n=x^n$，和$B_n=\ee^A- I_2 - \frac A{1!} - \frac{A^2}{2!} - \cdots - \frac{A^n}{n!}$，我们有
+    \begin{align*}
+      & \sum_{n=1}^\infty x^n \left( \ee^A- I_2 - \frac A{1!} - \frac{A^2}{2!} - \cdots - \frac{A^n}{n!} \right) \\
+      = {}& \lim_{n\to\infty} x \frac{1-x^n}{1-x} \left( \ee^A- I_2 - \frac A{1!} - \frac{A^2}{2!} - \cdots - \frac{A^{n+1}}{(n+1)!} \right) + \sum_{n=1}^\infty x\frac{1-x^n}{1-x}\cdot \frac{A^{n+1}}{(n+1)!} \\
+      = {}& \frac x{1-x} \sum_{n=1}^\infty \frac{A^{n+1}}{(n+1)!} - \frac1{1-x} \sum_{n=1}^\infty \frac{(Ax)^{n+1}}{(n+1)!} \\
+      = {}& \frac x{1-x} (\ee^A - I_2 - A) - \frac1{1-x} (\ee^{Ax} - I_2 - Ax) \\
+      = {}& \frac{x\ee^A-\ee^{Ax}}{1-x} + I_2.
+    \end{align*}
+
+  \item 只需要在 \ref{prob4.74a} 中取$x=-1$即可.
+  \end{inparaenum}
+\end{solution}
+
+\begin{solution}
+  利用Abel求和公式（见附录 \ref{chapA}），如果$z\in\MC$，则成立如下公式：
+  \[
+    \sum_{n=1}^\infty \left( \ee -1 -\frac1{1!} - \frac1{2!} - \cdots - \frac1{n!} \right) z^n = \begin{cases}
+      \frac{\ee^z - \ee z}{z-1} + 1 & \text{如果}\, z\ne 1 \\
+      1, & \text{如果}\, z = 1
+    \end{cases}.
+  \]
+  逐项微分可得
+  \[
+    \sum_{n=1}^\infty n \left( \ee -1 -\frac1{1!} - \frac1{2!} - \cdots - \frac1{n!} \right)z^{n-1} = \begin{cases}
+      \frac{z\ee^z-2\ee^z+\ee}{(z-1)^2}, & \text{如果}\, z \ne 1 \\
+      \frac{\ee}2, & \text{如果}\, z = 1
+    \end{cases}.
+  \]
+
+  利用以上两个公式结合定理 \ref{thm3.1} 即可计算出这里的矩阵级数.
+\end{solution}
+
+\begin{solution}
+  利用Abel求和公式.
+\end{solution}
+
+\begin{solution}
+  我们需要下面的两个结论（见附录 \ref{chapA}）
+  \begin{mybox}
+    设整数$k\ge3$，且设$x\in[-1,1]$，则成立以下公式：
+    \[
+      \sum_{n=1}^\infty \left(\zeta(k) - 1 - \frac1{2^k} - \cdots - \frac1{n^k}\right)x^n =
+      \begin{cases}
+        \frac{x\zeta(k)-\Li_k(x)}{1-x} , & \text{如果}\, x\in[-1,1) \\
+        \zeta(k-1) - \zeta(k), & \text{如果}\, x = 1
+      \end{cases},
+    \]
+    其中$\Li_k$表示多重对数函数.
+  \end{mybox}
+  \begin{mybox}
+    设整数$k\ge3$，且设$x\in[-1,1]$，则成立以下公式：
+    \[
+      \sum_{n=1}^\infty n\left(\zeta(k) - 1 - \frac1{2^k} - \cdots - \frac1{n^k}\right)x^{n-1} =
+      \frac{\zeta(k)-\frac{1-x}x\Li_{k-1}(x)-\Li_k(x)}{
+      (1-x)^2},
+    \]
+    其中$\Li_k$表示多重对数函数.
+  \end{mybox}
+
+  \begin{inparaenum}[(a)]
+    \item 利用$A^n=\begin{pmatrix}
+      (-1)^n & n(-1)^{n-1}x \\
+      0 & (-1)^n
+    \end{pmatrix}$和前面两个公式，取$k=3$和$x=-1$.
+
+    \item 利用定理 \ref{thm4.7} 将$A^n$用$A$的特征值来表示，再应用前面的两个公式.
+  \end{inparaenum}
+\end{solution}
+
+\begin{solution}
+  \begin{inparaenum}[(a)]
+    \item 注意到$\sum_{n=1}^\infty \frac n{n^{aI_2}}\zeta\big((a-1)I_2\big)$，再利用 推论 \ref{coro4.8}.
+
+    \item 我们有
+    \[
+      \sum_{n=1}^\infty \frac n{n^{\begin{pmatrix}
+            \alpha & \beta \\
+            0 & \alpha
+          \end{pmatrix}}} = \zeta\begin{pmatrix}
+            \alpha - 1 & \beta \\
+            0 & \alpha - 1
+          \end{pmatrix}，
+    \]
+    再利用推论 \ref{coro4.9} 的 \ref{coro4.9b}.
+  \end{inparaenum}
+\end{solution}
+
+\begin{solution}
+  注意到$\sum_{n=1}^\infty\frac n{n^A}=\zeta(A-I_2)$，利用定理 \ref{thm4.14} 即可.
+\end{solution}
+
+\begin{solution}
+  \begin{inparaenum}[(a)]
+    \item 利用Abel求和公式，取$a_n=1$和$B_n=\zeta(A)-\frac1{1^A}-
+        \frac1{2^A}-\cdots-\frac1{n^A}$.
+
+    \item 利用Abel求和公式，取$a_n=n$和$B_n=\zeta(A)-\frac1{1^A}-
+        \frac1{2^A}-\cdots-\frac1{n^A}$.
+  \end{inparaenum}
+\end{solution}
+
+\begin{solution}
+  $A^n=\begin{pmatrix}
+    a^n & na^{n-1}b \\
+    0 & a^n
+  \end{pmatrix}$，于是
+  \begin{align*}
+    \int_0^1 \frac{\ln(I_2-Ax)}x \dif x & = - \int_0^1 \left( \sum_{n=1}^\infty \frac{x^{n-1}}n A^n \right) \dif x \\
+    & = -\sum_{n=1}^\infty \frac{A^n}{n^2} \\
+    & = - \sum_{n=1}^\infty \frac1{n^2} \begin{pmatrix}
+      a^n & na^{n-1}b \\
+      0 & a^n
+    \end{pmatrix} \\
+    & = \begin{pmatrix}
+      -\Li_2(a) & \frac{b\ln(1-a)}a \\
+      0 & - \Li_2(a)
+    \end{pmatrix}.
+  \end{align*}
+\end{solution}
+
+\begin{solution}
+  如果$\lambda_1=0,\lambda_2=1$，我们有$A^2=A$，且这意味着$A^n=A$对任意$n\ge1$成立，所以
+  \[
+    \int_0^1\frac{\ln(I_2-Ax)}x \dif x = - \sum_{n=1}^\infty \frac{A^n}{n^2} = -A\sum_{n=1}^\infty \frac1{n^2} = -A\zeta(2).
+  \]
+
+  如果$\lambda_1=\lambda_2=0$，则$A^2=O_2$，这意味着$A^n=O_2$对任意$n\ge2$成立，因此
+  \[
+    \int_0^1\frac{\ln(I_2-Ax)}x \dif x = - \sum_{n=1}^\infty \frac{A^n}{n^2} = -A.
+  \]
+\end{solution}
+
+\begin{solution}
+  利用定理 \ref{thm4.7}，取$f(x)=\ln(1-x)$，将$A$替换为$xA$，注意到$xA$的特征值为$x\lambda_1$和$x\lambda_2$.
+\end{solution}
+
+\begin{solution}
+  我们利用下面的级数公式.
+  \begin{mybox}
+    {\bfseries 二次对数函数.}
+
+    如下等式成立：
+    \[
+      \ln^2(I_2 - A) = 2 \sum_{n=1}^\infty \frac{H_n}{n+1} A^{n+1},
+    \]
+    其中$H_n$表示第$n$个调和数，且$A\in\MM_2(\MC)$满足$\rho(A)<1$.
+  \end{mybox}
+
+  我们有
+  \[
+    \int_0^1\frac{\ln^2(I_2-Ax)}x \dif x = \int_0^1 \left( 2\sum_{n=1}^\infty \frac{H_n}{n+1}x^nA^{n+1} \right)\dif x = 2\sum_{n=1}^\infty \frac{H_n}{(n+1)^2} A^{n+1}.
+  \]
+
+  \begin{inparaenum}[(a)]
+    \item 如果$\lambda_1=\lambda_2=0$，则$A^2=O_2\Rightarrow
+        A^n=O_2,\forall n\ge2$. 由前面的公式，我们有
+        \[
+          \int_0^1\frac{\ln^2(I_2-Ax)}x \dif x = O_2.
+        \]
+
+    \item 如果$\lambda_1=0,\lambda_2=1$，则$A^2=A\Rightarrow
+        A^n=A,\forall n\ge1$. 由前面的公式可得
+        \[
+          \int_0^1\frac{\ln^2(I_2-Ax)}x \dif x = 2\sum_{n=1}^\infty \frac{H_n}{(n+1)^2}A = 2\zeta(3)A.
+        \]
+        要证明最后的等式，我们注明一下
+        \[
+          \sum_{n=1}^\infty \frac{H_n}{(n+1)^2} = \sum_{n=1}^\infty \frac{H_{n+1}-\frac1{n+1}}{(n+1)^2} =
+          \sum_{n=1}^\infty \frac{H_n}{n^2} - \sum_{n=1}^\infty \frac1{n^3} = \zeta(3),
+        \]
+        其中$\sum_{n=1}^\infty \frac{H_n}{n^2}=\zeta(3)$（见
+        \cite[Problem3.55, p.148]{22}）.
+  \end{inparaenum}
+\end{solution}
+
+\begin{solution}
+  我们有
+  \[
+    \int_0^1\ln(I_2-Ax)\dif x = - \int_0^1 \left( \sum_{n=1}^\infty \frac{x^nA^n}{n} \right) \dif x = - \sum_{n=1}^\infty \frac{A^n}{n(n+1)}.
+  \]
+
+  如果$\lambda_1=\lambda_2=0$，则$A^2=O_2\Rightarrow
+        A^n=O_2,\forall n\ge2$. 由前面的公式，我们有
+        \[
+          \int_0^1 \ln(I_2 - Ax) \dif x = - \frac A2.
+        \]
+
+  如果$\lambda_1=0$，且$0<|\lambda_2|<1$，则$A^2=tA$，其中$t=\Tr(A)$，这意味着$A^n=t^{n-1}A,\forall n\ge1$. 于是
+  \begin{align*}
+    \int_0^1 \ln(I_2 - Ax) \dif x & = - \sum_{n=1}^\infty \frac{t^{n-1}}{n(n+1)} A \\
+    & = - \left( \frac1t\sum_{n=1}^\infty \frac {t^n}n - \frac1{t^2}\sum_{n=1}^\infty \frac{t^{n+1}}{n+1} \right) A \\
+    & = - \left( \frac{(1-t)\ln(1-t)}{t^2} + \frac1t \right)A.
+  \end{align*}
+
+  如果$0<|\lambda_1|,|\lambda_2|<1$，则
+  \begin{align*}
+    \int_0^1 \ln(I_2 - Ax) \dif x & = - \sum_{n=1}^\infty \frac{A^n}{n(n+1)} \\
+    & = - \sum_{n=1}^\infty\left( \frac{A^n}n - \frac{A^n}{n+1} \right) \\
+    & = \ln(I_2 - A) + A^{-1} \big( -\ln(I_2 - A) - A \big) \\
+    & = (I_2 - A^{-1})\ln(I_2 - A) - I_2.
+  \end{align*}
+\end{solution}
+
+\begin{solution}
+  我们有
+  \[
+    \int_0^1 \ee^{Ax} \dif x = \int_0^1\left( \sum_{n=0}^\infty \frac{(xA)^n}{n!} \right) \dif x = \sum_{n=0}^\infty \frac{A^n}{(n+1)!}.
+  \]
+
+  如果$\lambda_1=\lambda_2=0$，则$A^2=O_2\Rightarrow
+        A^n=O_2,\forall n\ge2$，因此
+  \[
+    \int_0^1 \ee^{Ax} \dif x = \sum_{n=0}^\infty \frac{A^n}{(n+1)!} = I_2 + \frac A2.
+  \]
+
+  如果$\lambda_1=0$且$\lambda_2\ne0$，则$A^2=tA$，其中$t=\Tr(A)$. 这意味着$A^n=t^{n-1}A,\forall n\ge1$，于是
+  \[
+    \int_0^1 \ee^{xA} \dif x = \sum_{n=0}^\infty \frac{A^n}{(n+1)!} = I_2 + \sum_{n=1}^\infty \frac{t^{n-1}}{(n+1)!} A = I_2 + \frac{\ee^t-1-t}{t^2}A.
+  \]
+
+  如果$\lambda_1,\lambda_2\ne0$，则
+  \[
+    \int_0^1\ee^{Ax} \dif x = \sum_{n=0}^\infty \frac{A^n}{(n+1)!} = (\ee^A - I_2) A^{-1}.
+  \]
+\end{solution}
+
+\begin{solution}
+  \begin{inparaenum}[(a)]
+    \item 我们有
+    \[
+      \int_0^1\cos(Ax) \dif x = \int_0^1\left(
+        \sum_{n=0}^\infty (-1)^n \frac{(xA)^{2n}}{(2n)!}
+      \right)\dif x = \sum_{n=0}^\infty (-1)^n \frac{A^{2n}}{(2n+1)!}.
+    \]
+
+    如果$\lambda_1=\lambda_2=0$，则$A^2=O_2\Rightarrow
+        A^n=O_2,\forall n\ge2$，因此
+    \[
+      \int_0^1\cos(Ax) \dif x = \sum_{n=0}^\infty (-1)^n \frac{A^{2n}}{(2n+1)!} = I_2.
+    \]
+
+    如果$\lambda_1=0$且$\lambda_2\ne0$，则$A^2=tA$，其中$t=\Tr(A)$. 这意味着$A^n=t^{n-1}A,\forall n\ge1$，于是
+    \begin{align*}
+      \int_0^1 \cos(Ax) \dif x & = I_2 + \sum_{n=1}^\infty(-1)^n\frac{A^{2n}}{(2n+1)!} \\
+      & = I_2 + \sum_{n=1}^\infty(-1)^n\frac{t^{2n-1}}{(2n+1)!}A \\
+      & = I_2 + \frac{\sin t-t}{t^2}A.
+    \end{align*}
+
+    如果$\lambda_1,\lambda_2\ne0$，则
+    \[
+      \int_0^1\cos(Ax) \dif x = \sum_{n=0}^\infty (-1)^n \frac{A^{2n}}{(2n+1)!} =A^{-1}\sin A.
+    \]
+
+    \item 这里可以类似解决.
+
+    \item 利用公式$\sin A(x+y)=\sin Ax\cos Ay+\cos Ax\sin Ay$，我们得到
+        \begin{align*}
+          \int_0^1\int_0^1\sin A(x+y)\dif x\dif y & = \int_0^1\int_0^1(\sin Ax\cos Ay+\cos Ax\sin Ay)\dif x\dif y \\
+          & = 2\int_0^1\sin Ax\dif x \int_0^1\cos Ay \dif y,
+        \end{align*}
+    结论由 \ref{prob4.87a} 和 \ref{prob4.87b} 得到.
+  \end{inparaenum}
+\end{solution}
+
+\setcounter{solution}{88}
+
+\begin{solution}
+  我们只解决问题的 \ref{prob4.89b}. 设$\lambda_1,\lambda_2$是$A$的特征值，且令
+  \[
+    J_A = \begin{pmatrix}
+      \lambda_1 & 0 \\
+      0 & \lambda_2
+    \end{pmatrix}\quad \text{以及} \quad
+    P = \begin{pmatrix}
+      \cos\beta & - \sin\beta \\
+      \sin\beta & \cos \beta
+    \end{pmatrix}.
+  \]
+
+  \begin{nota}
+    我们有$A=PJ_AP^{-1}$，且$P$是一个旋转矩阵. 这里提及一下，可逆矩阵$P$的列是相应于$A$的特征值$\lambda_1,\lambda_2$的特征向量，我们将其单位化以后得到一个旋转矩阵（见定理 \ref{thm2.5}）.
+  \end{nota}
+
+  我们通过换元公式$X=PY$，即
+  \[
+    \begin{pmatrix}
+      x \\ y
+    \end{pmatrix} = \begin{pmatrix}
+      \cos\beta & - \sin\beta \\
+      \sin\beta & \cos \beta
+    \end{pmatrix}\begin{pmatrix}
+      u \\ v
+    \end{pmatrix}
+  \]
+  来计算这个二重积分，我们有
+  \begin{align*}
+    I(\alpha) & = \int_{-\infty}^{+\infty}\int_{-\infty}^{+\infty} (v\TT Av)^\alpha\ee^{-v\TT Av}\dif x\dif y \\
+    & = \int_{-\infty}^{+\infty}\int_{-\infty}^{+\infty}
+    \left( \lambda_1u^2 + \lambda_2v^2 \right) \ee^{-(\lambda_1u^2+\lambda_2v^2)}
+    \left|\frac{D(x,y)}{D(u,v)}\right|\dif u \dif v \\
+    & = \int_{-\infty}^{+\infty}\int_{-\infty}^{+\infty}
+    \left( \lambda_1u^2 + \lambda_2v^2 \right) \ee^{-(\lambda_1u^2+\lambda_2v^2)} \dif u\dif v,
+  \end{align*}
+  其中$\frac{D(x,y)}{D(u,v)}$是变换的Jacobi行列式.
+
+  利用变换$u=\frac{x'}{\sqrt{\lambda_1}},v=\frac{y'}{\sqrt{\lambda_2}}$，我们得到
+  \begin{align*}
+    I(\alpha) & = \frac1{\sqrt{\lambda_1\lambda_2}} \int_{-\infty}^{+\infty}\int_{-\infty}^{+\infty}
+    (x'^2+y'^2)^\alpha \ee^{-(x'^2+y'^2)}\dif x'\dif y' \\
+    & = \frac1{\sqrt{\det A}} \int_0^{+\infty}\int_0^{2\pi} \rho^{2\alpha}\ee^{-\rho^2}\rho \dif \rho \dif\theta \\
+    & = \frac{2\pi}{\sqrt{\det A}}\int_0^{+\infty}
+    \rho^{2\alpha}\ee^{-\rho^2}\rho \dif\rho\quad (\rho^2=t) \\
+    & = \frac\pi{\sqrt{\det A}}\int_0^{+\infty}t^\alpha \ee^{-t} \dif t\\
+    & = \frac{\pi\Gamma(\alpha+1)}{\sqrt{\det A}}.
+  \end{align*}
+
+  当$\alpha=0$且$A=\begin{pmatrix}
+    2 & -1 \\
+    -1 & 2
+  \end{pmatrix}$时，我们得到 \cite[Problem 2.3.3, P.40]{58}
+  \[
+    \int_{-\infty}^{+\infty}\int_{-\infty}^{+\infty}
+    \ee^{-(x^2+(x-y)^2+y^2)}\dif x \dif y = \frac\pi{\sqrt3}.
+  \]
+\end{solution}
+
+\begin{solution}
+  如果$\lambda_1,\lambda_2$是$A$的特征值，则$\frac1{\lambda_1},\frac1{\lambda_2}$是$A^{-1}$的特征值. 设旋转矩阵$P$满足$A^{-1}=PJ_AP^{-1}$，我们通过代换$X=PY$来计算此积分，即
+  \[
+    \begin{pmatrix}
+      x \\ y
+    \end{pmatrix} =
+    \begin{pmatrix}
+      \cos\theta & -\sin\theta \\
+      \sin\theta & \cos\theta
+    \end{pmatrix}
+    \begin{pmatrix}
+      x' \\ y'
+    \end{pmatrix},
+  \]
+  且我们有
+  \begin{align*}
+    & \iint_{\MR^2} \ee^{-\frac12v\TT A^{-1}v}\left( -\frac12v\TT A^{-1}v - \ln\big( 2\pi\sqrt{\det A} \big) \right) \dif x\dif y \\
+    = {}& \iint_{\MR^2} \ee^{-\frac12\left( \frac{x'^2}{\lambda_1}+\frac{y'^2}{\lambda_2}
+    \right)} \left[
+      -\frac12\left( \frac{x'^2}{\lambda_1}+\frac{y'^2}{\lambda_2}
+    \right) - \ln\big( 2\pi\sqrt{\det A} \big)
+    \right]\left| \frac{D(x,y)}{D(x',y')} \right| \dif x' \dif y' \\
+    = {}& \iint_{\MR^2} \ee^{-\frac12\left( \frac{x'^2}{\lambda_1}+\frac{y'^2}{\lambda_2}
+    \right)} \left[
+      -\frac12\left( \frac{x'^2}{\lambda_1}+\frac{y'^2}{\lambda_2}
+    \right) - \ln\big( 2\pi\sqrt{\det A} \big)
+    \right] \dif x' \dif y' \quad \begin{pmatrix}
+      x' = \sqrt{\lambda_1}u \\
+      y' = \sqrt{\lambda_2}v
+    \end{pmatrix} \\
+    = {}& \iint_{\MR^2}\ee^{-\frac12(u^2+v^2)}\left(
+      -\frac12(u^2+v^2) - \ln\big( 2\pi\sqrt{\det A} \big)
+    \right) \sqrt{\lambda_1\lambda_2}\dif u \dif v \\
+    = {}& \sqrt{\det A} \int_0^{+\infty}\int_0^{2\pi} \ee^{-\frac12\rho^2}\left( -\frac12\rho^2 - \ln\big( 2\pi\sqrt{\det A} \big) \right)\rho\dif \rho \dif\alpha \\
+    = {}& 2\pi\sqrt{\det A}\left[
+      -\frac12\int_0^{+\infty}\ee^{-\frac12\rho^2}\rho^3
+      \dif \rho - \ln \big( 2\pi\sqrt{\det A} \big) \int_0^{+\infty}\ee^{\frac12\rho^2}\rho\dif \rho \right] \\
+    = {}& -2\pi\sqrt{\det A}\left[ 1 + \ln \big( 2\pi\sqrt{\det A} \big) \right].
+  \end{align*}
+\end{solution}
+
+\begin{solution}
+  设$\lambda_1,\lambda_2$是$A$的特征值，且可逆矩阵$P$满足$A=PJ_AP^{-1}$，我们有
+  \[
+    \ee^{Ax} = \begin{cases}
+      P \begin{pmatrix}
+        \ee^{\lambda_1x} & 0 \\
+        0 & \ee^{\lambda_2x}
+      \end{pmatrix}P^{-1} , & \text{如果}\, J_A = \begin{pmatrix}
+        \lambda_1 & 0 \\
+        0 & \lambda_2
+      \end{pmatrix} \\
+      P \begin{pmatrix}
+        \ee^{\lambda x} & x\ee^{\lambda x} \\
+        0 & \ee^{\lambda x}
+      \end{pmatrix}P^{-1} , & \text{如果}\, J_A = \begin{pmatrix}
+        \lambda & 1 \\
+        0 & \lambda
+      \end{pmatrix}
+    \end{cases}.
+  \]
+
+  在我们接下来的计算中会用到下面的积分公式，其可以直接通过计算证明.
+
+  如果$\lambda\in\MC$且$\alpha>0$，则：
+  \[
+    \int_{-\infty}^{+\infty} \ee^{-\alpha x^2+\lambda x} \dif x = \sqrt{\frac\pi\alpha}
+    \ee^{\frac{\lambda^2}{4\alpha}} \quad \text{且} \quad
+    \int_{-\infty}^{+\infty} x\ee^{-\alpha x^2+\lambda x} \dif x = \sqrt{\frac\pi\alpha}
+    \frac\lambda{2\alpha}\ee^{\frac{\lambda^2}{4\alpha}}.
+  \]
+
+  如果$J_A=\begin{pmatrix}
+    \lambda_1 & 0 \\
+    0 & \lambda_2
+  \end{pmatrix}$，我们有
+  \begin{align*}
+    \int_{-\infty}^{+\infty} \ee^{Ax}\ee^{-\alpha x^2} \dif x & = P \left( \int_{-\infty}^{+\infty} \ee^{J_Ax}\ee^{-\alpha x^2} \dif x\right) P^{-1} \\
+    & = P \left( \int_{-\infty}^{+\infty} \begin{pmatrix}
+      \ee^{\lambda_1x} & 0 \\
+      0 & \ee^{\lambda_2x}
+    \end{pmatrix}\ee^{-\alpha x^2}\dif x \right) P^{-1} \\
+    & = P \begin{pmatrix}
+      \int_{-\infty}^{+\infty} \ee^{-\alpha x^2+\lambda_1x}\dif x & 0 \\
+      0 & \int_{-\infty}^{+\infty} \ee^{-\alpha x^2+\lambda_2x}\dif x
+    \end{pmatrix} P^{-1} \\
+    & = \sqrt{\frac\pi\alpha} P \begin{pmatrix}
+      \ee^{\frac{\lambda_1^2}{4\alpha}} & 0 \\
+      0 & \ee^{\frac{\lambda_2^2}{4\alpha}}
+    \end{pmatrix} P^{-1} \\
+    & = \sqrt{\frac\pi\alpha} \ee^{\frac{A^2}{4\alpha}}.
+  \end{align*}
+
+  如果$J_A=\begin{pmatrix}
+    \lambda & 1 \\
+    0 & \lambda
+  \end{pmatrix}$，则
+  \begin{align*}
+    \int_{-\infty}^{+\infty} \ee^{Ax} \ee^{-\alpha x^2} \dif x & = P \left( \int_{-\infty}^{+\infty} \ee^{J_Ax}\ee^{-\alpha x^2} \right) P^{-1} \\
+    & = P \left( \int_{-\infty}^{+\infty} \begin{pmatrix}
+      \ee^{\lambda x} & x\ee^{\lambda x} \\
+      0 & \ee^{\lambda x}
+    \end{pmatrix}\ee^{-\alpha x^2}\dif x \right) P^{-1} \\
+    & = P \begin{pmatrix}
+      \int_{-\infty}^{+\infty} \ee^{-\alpha x^2+\lambda x}\dif x & \int_{-\infty}^{+\infty} x\ee^{-\alpha x^2+\lambda x}\dif x  \\
+      0 & \int_{-\infty}^{+\infty} \ee^{-\alpha x^2+\lambda x}\dif x
+    \end{pmatrix} P^{-1} \\
+    & = \sqrt{\frac\pi\alpha} P \begin{pmatrix}
+      \ee^{\frac{\lambda^2}{4\alpha}} & \frac\lambda{2\alpha}\ee^{\frac{\lambda^2}{4\alpha}}\\
+      0 & \ee^{\frac{\lambda^2}{4\alpha}}
+    \end{pmatrix}P^{-1} \\
+    & = \sqrt{\frac\pi\alpha}\ee^{\frac{A^2}{4\alpha}}.
+  \end{align*}
+\end{solution}
+
+\begin{solution}
+  {\kaishu 解法一.} 在问题 \ref{problem4.91} 中把$A$换为$\ii A$，我们得到
+  \[
+    \int_{-\infty}^{+\infty} \ee^{\ii Ax} \ee^{-\alpha x^2} = \sqrt{\frac\pi\alpha} \ee^{-\frac{A^2}{4\alpha}},
+  \]
+  由于$\ee^{\ii Ax}=\cos(Ax)+\ii\sin(Ax)$，我们有
+  \[
+    \int_{-\infty}^{+\infty} \big( \cos(Ax) + \ii\sin (Ax) \big) \ee^{-\alpha x^2} = \sqrt{\frac\pi\alpha} \ee^{-\frac{A^2}{4\alpha}}.
+  \]
+  将此等式等式中的实部和虚部提取出来，问题就解决了.
+
+  {\kaishu 解法二.} 利用类似于问题 \ref{problem4.91} 中的技巧.
+\end{solution}
+
+\begin{solution}
+  我们需要下面的公式，其可以直接计算证明.
+  \begin{mybox}
+    {\bfseries 三个包含正弦和余弦的指数积分.}
+
+    如果$\alpha$是正实数，$\beta\in\MC$满足$\alpha>|\Im(\beta)|$，则
+    \begin{enum}
+      \item $\int_0^{+\infty}\ee^{-\alpha x}\cos(\beta x)\dif x =\frac\alpha{\alpha^2+\beta^2}$；
+      \item $\int_0^{+\infty}\ee^{-\alpha x}\sin(\beta x)\dif x =\frac\beta{\alpha^2+\beta^2}$；
+      \item $\int_0^{+\infty}x\ee^{-\alpha x}\cos(\beta x)\dif x =\frac{\alpha^2-\beta^2}{
+          (\alpha^2+\beta^2)^2}$.
+    \end{enum}
+  \end{mybox}
+
+  \begin{inparaenum}[(a)]
+    \item 设$\lambda_1,\lambda_2$是$A$的特征值，如果$J_A=\begin{pmatrix}
+          \lambda_1 & 0 \\
+          0 & \lambda_2
+        \end{pmatrix}$，且非奇异矩阵$P$满足$A=PJ_AP^{-1}$. 这意味着$\sin(Ax)=P\sin(J_Ax)P^{-1}$，其中$\sin(J_Ax)=\begin{pmatrix}
+          \sin(\lambda_1x) & 0 \\
+          0 & \sin(\lambda_2x)
+        \end{pmatrix}$，于是
+        \begin{align*}
+          \int_0^{+\infty}\sin(Ax)\ee^{-\alpha x}\dif x & = P \left( \int_0^{+\infty} \sin(J_Ax) \ee^{-\alpha x} \dif x\right) P^{-1} \\
+          & = P \begin{pmatrix}
+            \int_0^{+\infty}\sin(\lambda_1x)\ee^{-\alpha x}\dif x & 0 \\
+            0 & \int_0^{+\infty}\sin(\lambda_2x)\ee^{-\alpha x}\dif x
+          \end{pmatrix} P^{-1} \\
+          & = P \begin{pmatrix}
+            \frac{\lambda_1}{\lambda_1^2+\alpha^2} & 0 \\
+            0 & \frac{\lambda_2}{\lambda_2^2+\alpha^2}
+          \end{pmatrix} P^{-1} \\
+          & = A(A^2 + \alpha^2I_2)^{-1}.
+        \end{align*}
+
+        如果$J_A=\begin{pmatrix}
+          \lambda & 1 \\
+          0 & \lambda
+        \end{pmatrix}$，则$\sin(J_Ax)=\begin{pmatrix}
+          \sin(\lambda x) & x\cos(\lambda x) \\
+          0 & \sin(\lambda x)
+        \end{pmatrix}$，我们有
+        \begin{align*}
+          \int_0^{+\infty}\sin(Ax)\ee^{-\alpha x}\dif x & = P \left( \int_0^{+\infty} \sin(J_Ax) \ee^{-\alpha x} \dif x\right) P^{-1} \\
+          & = P \begin{pmatrix}
+            \int_0^{+\infty}\sin(\lambda x)\ee^{-\alpha x}\dif x & \int_0^{+\infty}x\cos(\lambda x)\ee^{-\alpha x}\dif x \\
+            0 & \int_0^{+\infty}\sin(\lambda x)\ee^{-\alpha x}\dif x
+          \end{pmatrix} P^{-1} \\
+          & = P \begin{pmatrix}
+            \frac\lambda{\lambda^2+\alpha^2} & \frac{\alpha^2-\lambda^2}{(\alpha^2+\lambda^2)^2}\\
+            0 & \frac\lambda{\lambda^2+\alpha^2}
+          \end{pmatrix}P^{-1} \\
+          & = A(A^2+\alpha^2 I_2)^{-1}.
+        \end{align*}
+
+        问题的 \ref{prob4.93b} 也是类似解决.
+  \end{inparaenum}
+\end{solution}
+
+\begin{solution}
+  \begin{inparaenum}[(a)]
+    \item 我们需要下面的公式，其可以直接计算证明.
+  \end{inparaenum}
+  \begin{mybox}
+      {\bfseries Euler--Poisson积分.} 设$\lambda>0$，成立如下公式：
+      \begin{enum}
+        \item $\int_0^{+\infty}\ee^{-\lambda x^2}\dif x=\frac{\sqrt{\pi}}{2\sqrt{\lambda}}$；
+        \item $\int_0^{+\infty}x^2\ee^{-\lambda x^2}\dif x=\frac{\sqrt\pi}{4\lambda\sqrt\lambda}$；
+        \item\label{sol4.94c} $\int_0^{+\infty}\ee^{-\lambda x^n}\dif x=\frac{\Gamma\left(1+\frac1n
+            \right)}{\sqrt[n]\lambda}$，其中$\Gamma$表示Gamma函数，$n\in\MN$.
+      \end{enum}
+    \end{mybox}
+
+    设$J_A$是$A$的Jordan标准形，且可逆矩阵$P$满足$A=PJ_AP^{-1}$. 计算可得$J_A=\begin{pmatrix}
+      2 & 1 \\
+      0 & 2
+    \end{pmatrix},P=\begin{pmatrix}
+      1 & 0 \\
+      1 & 1
+    \end{pmatrix}$，且$P^{-1}=\begin{pmatrix}
+      1 & 0 \\
+      -1 & 1
+    \end{pmatrix}$. 我们有
+    \[
+      \ee^{-Ax^2} = P \begin{pmatrix}
+        \ee^{-2x^2} & -x^2\ee^{-2x^2} \\
+        0 & \ee^{-2x^2}
+      \end{pmatrix} P^{-1},
+    \]
+    于是
+    \begin{align*}
+      \int_0^{+\infty}\ee^{-Ax^2}\dif x & = P
+      \begin{pmatrix}
+        \int_0^{+\infty}\ee^{-2x^2}\dif x & -\int_0^{+\infty}x^2\ee^{-2x^2}\dif x \\
+        0 & \int_0^{+\infty}\ee^{-2x^2}\dif x
+      \end{pmatrix}P^{-1} \\
+      & = \frac{\sqrt\pi}2P
+      \begin{pmatrix}
+        \frac1{\sqrt2} & - \frac1{4\sqrt2} \\
+        0 & \frac1{\sqrt2}
+      \end{pmatrix} P^{-1} \\
+      & = \frac{\sqrt\pi}2
+      \begin{pmatrix}
+        1 & 0 \\
+        1 & 1
+      \end{pmatrix}
+      \begin{pmatrix}
+        \frac1{\sqrt2} & - \frac1{4\sqrt2} \\
+        0 & \frac1{\sqrt2}
+      \end{pmatrix} \begin{pmatrix}
+        1 & 0 \\
+        -1 & 1
+      \end{pmatrix} \\
+      & = \frac{\sqrt\pi}2
+      \begin{pmatrix}
+        \frac5{4\sqrt2} & - \frac1{4\sqrt2} \\
+        \frac1{4\sqrt2} & - \frac3{4\sqrt2}
+      \end{pmatrix}.
+    \end{align*}
+
+    注意到如果$B=\begin{pmatrix}
+        \frac5{4\sqrt2} & - \frac1{4\sqrt2} \\
+        \frac1{4\sqrt2} & - \frac3{4\sqrt2}
+      \end{pmatrix}$，则$B^2=A^{-1}$.
+      
+    \begin{inparaenum}[(a)]
+      \setcounter{enumi}{1}
+      \item $A=aI_2+bJ$，其中$J=\begin{pmatrix}
+      0 & 1 \\
+      1 & 0
+    \end{pmatrix}$. 于是
+    \[
+      \ee^{-Ax^n} = \ee^{-(aI_2+bJ)x^n} = \ee^{-ax^nI_2}\ee^{-bx^nJ} = \ee^{-ax^n}\ee^{-bx^nJ}.
+    \]
+    计算可得$\ee^{-bx^nJ}=\cosh(bx^n)I_2-\sinh(bx^n)J$，于是
+    \[
+      \ee^{-Ax^n} = \frac{\ee^{-(a-b)x^n}+\ee^{-(a+b)x^n}}2I_2 - \frac{\ee^{-(a-b)x^n}-\ee^{-(a+b)x^n}}2J.
+    \]
+    那么这里的问题通过积分以及Euler--Poisson积分的 \ref{sol4.94c} 即得. 计算$\ee^{-Ax^n}$的另一种方法是利用问题 \ref{problem4.32} 的 \ref{prob4.32a}.
+    \end{inparaenum}
+\end{solution}
+
+\begin{solution}
+  我们需要下面的Laplace积分公式.
+  \begin{mybox}
+    {\bfseries 三个Laplace积分.}
+    \begin{enum}
+      \item 以下公式成立：
+      \[
+        \int_0^{+\infty} \frac{\cos ax}{1+x^2} \dif x = \frac\pi2\ee^{-|a|} \quad \text{以及} \quad
+        \int_0^{+\infty}\frac{x\sin ax}{1+x^2} \dif x = \frac\pi2\ee^{-|a|}\operatorname{sign}a,\quad a\in\MR.
+      \]
+      \item 如果$a\in\MR$，则
+      \[
+        \int_0^{+\infty} \ee^{-x^2}\cos 2ax \dif x = \frac{\sqrt\pi}2\ee^{-a^2}.
+      \]
+    \end{enum}
+  \end{mybox}
+
+  \begin{inparaenum}[(a)]
+    \item 注意到$A=aI_2+bJ$，其中$J=\begin{pmatrix}
+      0 & 1 \\
+      1 & 0
+    \end{pmatrix}$，于是
+    \[
+      \cos(Ax) = \cos(aI_2+bJ)x = \cos(ax)\cos(bxJ) - \sin(ax) \sin (bxJ).
+    \]
+    计算可知$\cos(bxJ)=\cos(bx)I_2,\sin(bxJ)=\sin(bx)J$，这意味着
+    \begin{align*}
+      \cos(Ax) & = \cos(ax) \cos(bx)I_2 - \sin(ax)\sin(bx)J \\
+      & = \big( \cos(a+b)x + \cos(a-b)x \big)\frac{I_2}2 - \big( \cos(a-b)x - \cos(a+b)x \big)\frac{J}2,
+    \end{align*}
+    于是我们有
+    \begin{align*}
+       \int_0^{+\infty}\frac{\cos(Ax)}{1+x^2} \dif x
+      = {}& \left( \int_0^{+\infty} \frac{\cos(a+b)x+\cos(a-b)x}{1+x^2} \dif x \right) \frac{I_2}2 \\
+      &- \left( \int_0^{+\infty} \frac{\cos(a-b)x-\cos(a+b)x}{1+x^2} \dif x \right) \frac{J}2  \\
+      = {}& \frac\pi4 \begin{pmatrix}
+          \ee^{-|a+b|} + \ee^{-|a-b|} & \ee^{-|a+b|} - \ee^{-|a-b|} \\
+          \ee^{-|a+b|} - \ee^{-|a-b|} & \ee^{-|a+b|} + \ee^{-|a-b|}
+        \end{pmatrix}.
+    \end{align*}
+  \end{inparaenum}
+
+  挑战性问题和 \ref{prob4.95b} 都可以类似地解决.
+\end{solution}
+
+\begin{remark}
+  如果$A\in\MM_2(\MR)$，读者可能希望利用定理 \ref{thmA.2} 和 \ref{thmA.3} 来计算积分
+  \[
+    \int_0^{+\infty}\frac{\cos(Ax)}{1+x^2} \dif x ,\quad \int_0^{+\infty}\frac{x\sin(Ax)}{1+x^2} \dif x,\quad \text{和}\quad
+    \int_0^{+\infty}\ee^{-x^2}\cos(Ax) \dif x.
+  \]
+\end{remark}
+
+\begin{solution}
+  注意到$A=aI_2+bJ$，其中$J=\begin{pmatrix}
+    0 & 1 \\
+    1 & 0
+  \end{pmatrix}$，利用{\bfseries Fresnel 积分}
+  \begin{mybox}
+    \[
+      \int_0^{+\infty} \sin x^2 \dif x = \int_0^{+\infty} \cos x^2 \dif x = \frac12\sqrt{\frac\pi2}.
+    \]
+  \end{mybox}
+
+    挑战性问题可以利用Fresnel 积分
+    \begin{mybox}
+      \[
+        \int_0^{+\infty} \cos x^n \dif x = \Gamma \left( 1 + \frac1n \right) \cos\frac\pi{2n}.
+      \]
+
+      我们将细节留给感兴趣的读者.
+    \end{mybox}
+\end{solution}
+
+\begin{solution}
+  \begin{inparaenum}[(a)]
+    \item 设$J_A$是$A$的Jordan标准形，可逆矩阵$P$满足$A=PJ_AP^{-1}$. 如果$J_A=\begin{pmatrix}
+          \lambda_1 & 0\\
+          0 & \lambda_2
+        \end{pmatrix}$，则$\ee^{-Ax}=P\begin{pmatrix}
+          \ee^{-\lambda_1x} & 0 \\
+          0 & \ee^{-\lambda_2x}
+        \end{pmatrix}P^{-1}$，于是
+        \begin{align*}
+          \int_0^{+\infty} \ee^{-Ax} \dif x & = P
+          \begin{pmatrix}
+            \int_0^{+\infty}\ee^{-\lambda_1x} \dif x & 0 \\
+            0 & \int_0^{+\infty}\ee^{-\lambda_2x} \dif x
+          \end{pmatrix}P^{-1} \\
+          & = P \begin{pmatrix}
+            \frac1{\lambda_1} & 0 \\
+            0 & \frac1{\lambda_2}
+          \end{pmatrix} P^{-1} \\
+          & = A^{-1}.
+        \end{align*}
+
+    如果$J_A=\begin{pmatrix}
+      \lambda & 1 \\
+      0 & \lambda
+    \end{pmatrix}$，则$\ee^{-Ax}=P\begin{pmatrix}
+          \ee^{-\lambda x} & x\ee^{-\lambda x} \\
+          0 & \ee^{-\lambda x}
+        \end{pmatrix}P^{-1}$，于是
+        \begin{align*}
+          \int_0^{+\infty} \ee^{-Ax} \dif x & = P
+          \begin{pmatrix}
+            \int_0^{+\infty}\ee^{-\lambda x} \dif x & -\int_0^{+\infty}\ee^{-\lambda x}x\dif x \\
+            0 & \int_0^{+\infty}\ee^{-\lambda_2x} \dif x
+          \end{pmatrix}P^{-1} \\
+          & = P \begin{pmatrix}
+            \frac1{\lambda} & -\frac1{\lambda^2} \\
+            0 & \frac1{\lambda}
+          \end{pmatrix} P^{-1} \\
+          & = A^{-1}.
+        \end{align*}
+
+    \item 由 \ref{prob4.97a}，我们有
+    \[
+      \int_0^{+\infty} \ee^{-Ax}\ee^{\alpha x} \dif x = \int_0^{+\infty}\ee^{-(A-\alpha I_2)x} \dif x = (A - \alpha I_2)^{-1}.
+    \]
+
+    \item 如果$J_A=\begin{pmatrix}
+      \lambda_1 & 0 \\
+      0 & \lambda_2
+    \end{pmatrix}$，则
+    \begin{align*}
+      \int_0^{+\infty} \ee^{-Ax}x^n \dif x & = P
+          \begin{pmatrix}
+            \int_0^{+\infty}\ee^{-\lambda_1x}x^n \dif x & 0 \\
+            0 & \int_0^{+\infty}\ee^{-\lambda_2x}x^n \dif x
+          \end{pmatrix}P^{-1} \\
+          & = P \begin{pmatrix}
+            \frac{n!}{\lambda_1^{n+1}} & 0 \\
+            0 & \frac{n!}{\lambda_2^{n+1}}
+          \end{pmatrix} P^{-1} \\
+          & = n!A^{-(n+1)}.
+      \end{align*}
+
+      如果$J_A=\begin{pmatrix}
+        \lambda & 1 \\
+        0 & \lambda
+      \end{pmatrix}$，则
+      \begin{align*}
+      \int_0^{+\infty} \ee^{-Ax}x^n \dif x & = P
+          \begin{pmatrix}
+            \int_0^{+\infty}\ee^{-\lambda x}x^n \dif x & -\int_0^{+\infty}\ee^{-\lambda x}x^{n+1} \dif x \\
+            0 & \int_0^{+\infty}\ee^{-\lambda x}x^n \dif x
+          \end{pmatrix}P^{-1} \\
+          & = P \begin{pmatrix}
+            \frac{n!}{\lambda^{n+1}} & -\frac{(n+1)!}{\lambda^{n+2}} \\
+            0 & \frac{n!}{\lambda^{n+1}}
+          \end{pmatrix} P^{-1} \\
+          & = n!A^{-(n+1)}.
+      \end{align*}
+  \end{inparaenum}
+\end{solution}
+
+\begin{solution}
+  \begin{inparaenum}[(a)]
+    \item 设$J_A=\begin{pmatrix}
+      \lambda_1 & 0 \\
+      0 & \lambda_2
+    \end{pmatrix}$是$A$的Jordan标准形，可逆矩阵$P$满足$A=PJ_AP^{-1}$，我们有
+    \begin{align*}
+      \int_0^{+\infty} \frac{\sin(Ax)}x \dif x & = P \begin{pmatrix}
+        \int_0^{+\infty} \frac{\sin(\lambda_1x)}x \dif x & 0 \\
+        0 & \int_0^{+\infty} \frac{\sin(\lambda_2x)}x \dif x
+      \end{pmatrix} P^{-1} \\
+      & = P \begin{pmatrix}
+        \operatorname{sign}(\lambda_1)\frac\pi2 & 0 \\
+        0 & \operatorname{sign}(\lambda_2)\frac\pi2
+      \end{pmatrix} P^{-1} \\
+      & = \begin{cases}
+        \frac\pi2 I_2 , & \text{如果}\, \lambda_1,\lambda_2>0 \\
+        -\frac\pi2I_2, & \text{如果}\, \lambda_1,\lambda_2<0
+      \end{cases}.
+    \end{align*}
+    在计算中我们已经利用了Dirichlet积分$\int_0^{+\infty}\frac{\sin(\lambda x)}x\dif x=\operatorname{sign}(\lambda)\frac\pi2,\lambda\in\MR$.
+
+    \item 如果$J_A=\begin{pmatrix}
+      \lambda_1 & 0 \\
+      0 & \lambda_2
+    \end{pmatrix}$，则
+    \begin{align*}
+      \int_0^{+\infty} \frac{\sin^2(Ax)}{x^2} \dif x & = P\begin{pmatrix}
+        \int_0^{+\infty} \frac{\sin^2(\lambda_1x)}{x^2} \dif x & 0 \\
+        0 & \int_0^{+\infty} \frac{\sin^2(\lambda_2x)}{x^2} \dif x
+      \end{pmatrix} P^{-1} \\
+      & = P \begin{pmatrix}
+        \operatorname{sign}(\lambda_1)\lambda_1\frac\pi2 & 0 \\
+        0 & \operatorname{sign}(\lambda_2)\lambda_2\frac\pi2
+      \end{pmatrix} P^{-1} \\
+      & = \begin{cases}
+        \frac\pi2 A , & \text{如果}\, \lambda_1,\lambda_2>0 \\
+        -\frac\pi2 A, & \text{如果}\, \lambda_1,\lambda_2<0
+      \end{cases}.
+    \end{align*}
+
+    如果$J_A=\begin{pmatrix}
+      \lambda & 1 \\
+      0 & \lambda
+    \end{pmatrix}$，则
+    \begin{align*}
+      \int_0^{+\infty} \frac{\sin^2(Ax)}{x^2} \dif x & = P\begin{pmatrix}
+        \int_0^{+\infty} \frac{\sin^2(\lambda x)}{x} \dif x & \int_0^{+\infty} \frac{\sin(2\lambda x)}{x^2} \dif x \\
+        0 & \int_0^{+\infty} \frac{\sin^2(\lambda x)}{x^2} \dif x
+      \end{pmatrix} P^{-1} \\
+      & = P \begin{pmatrix}
+        \operatorname{sign}(\lambda)\lambda\frac\pi2 & \operatorname{sign}(\lambda)\frac\pi2 \\
+        0 & \operatorname{sign}(\lambda)\lambda\frac\pi2
+      \end{pmatrix} P^{-1} \\
+      & = \begin{cases}
+        \frac\pi2 A , & \text{如果}\, \lambda>0 \\
+        -\frac\pi2 A, & \text{如果}\, \lambda<0
+      \end{cases}.
+    \end{align*}
+
+    在计算中我们已经利用了Dirichlet积分$\int_0^{+\infty}\frac{\sin^2(\lambda x)}{x^2}\dif x=\operatorname{sign}(\lambda)\lambda\frac\pi2$.
+  \end{inparaenum}
+\end{solution}
+
+\begin{solution}
+  设$\lambda_1,\lambda_2$是 $A$ 的相异特征值，则$A+I_2$的特征值为正实数$\lambda_1+1$和$\lambda_2+1$，而$A-I_2$的特征值为负实数$\lambda_1-1$和$\lambda_2-1$. 由问题 \ref{problem4.98} 的 \ref{prob4.98b}，我们有
+  \begin{align*}
+    \int_0^{+\infty} \frac{\sin(Ax)\cos x}x \dif x & = \int_0^{+\infty} \frac{\sin(Ax)\cos (I_2x)}x \dif x \\
+    & = \int_0^{+\infty} \frac{\sin(A+I_2)x + \sin(A-I_2)x}{2x} \dif x \\
+    & = \frac12 \left( \frac\pi2I_2 - \Big( -\frac\pi2I_2 \Big) \right) \\
+    & = \frac\pi2I_2.
+  \end{align*}
+\end{solution}
+
+\begin{solution}
+  设$\lambda_1,\lambda_2$是$A$的特征值，$J_A$是$A$的Jordan标准形，可逆矩阵$P$满足$A=PJ_AP^{-1}$.
+
+  如果$J_A=\begin{pmatrix}
+    \lambda_1 & 0 \\
+    0 & \lambda_2
+  \end{pmatrix}$，则
+  \begin{align*}
+    \int_0^{+\infty} \frac{\ee^{-\alpha Ax} - \ee^{-\beta Ax}}x \dif x & = P
+    \begin{pmatrix}
+      \int_0^{+\infty} \frac{\ee^{-\alpha \lambda_1 x} - \ee^{-\beta\lambda_1 x}}x \dif x & 0 \\
+      0 & \int_0^{+\infty} \frac{\ee^{-\alpha \lambda_2 x} - \ee^{-\beta \lambda_2 x}}x \dif x
+    \end{pmatrix} P^{-1} \\
+    & = P\begin{pmatrix}
+      \ln\frac\beta\alpha & 0 \\
+      0 & \ln\frac\beta\alpha
+    \end{pmatrix}P^{-1} \\
+    & = \left( \ln\frac\beta\alpha\right)I_2.
+  \end{align*}
+
+  如果$J_A=\begin{pmatrix}
+    \lambda & 1 \\
+    0 & \lambda
+  \end{pmatrix}$，则
+  \begin{align*}
+    \int_0^{+\infty} \frac{\ee^{-\alpha Ax} - \ee^{-\beta Ax}}x \dif x & = P
+    \begin{pmatrix}
+      \int_0^{+\infty} \frac{\ee^{-\alpha \lambda x} - \ee^{-\beta\lambda x}}x \dif x & \int_0^{+\infty} \frac{-\alpha x\ee^{-\alpha \lambda x} +\beta x \ee^{-\beta \lambda x}}x \dif x \\
+      0 & \int_0^{+\infty} \frac{\ee^{-\alpha \lambda x} - \ee^{-\beta \lambda x}}x \dif x
+    \end{pmatrix} P^{-1} \\
+    & = P\begin{pmatrix}
+      \ln\frac\beta\alpha & 0 \\
+      0 & \ln\frac\beta\alpha
+    \end{pmatrix}P^{-1} \\
+    & = \left( \ln\frac\beta\alpha\right)I_2.
+  \end{align*}
+\end{solution}
+
+\begin{solution}
+  \begin{inparaenum}[(a)]
+    \item 设$\lambda_1,\lambda_2$是$A$的特征值，$J_A$是$A$的Jordan标准形，可逆矩阵$P$满足$A=PJ_AP^{-1}$.
+
+        如果$J_A=\begin{pmatrix}
+         \lambda_1 & 0 \\
+         0 & \lambda_2
+        \end{pmatrix}$，则
+        \begin{align*}
+              & \int_0^{+\infty} \frac{f(\alpha Ax)-f(\beta Ax)}x \dif x \\
+          = {}&
+          P \left( \int_0^{+\infty} \frac{f(\alpha J_Ax)-f(\beta J_Ax)}x \dif x  \right) P^{-1} \\
+          = {}& P \begin{pmatrix}
+            \int_0^{+\infty} \frac{f(\alpha \lambda_1 x)-f(\beta \lambda_1 x)} x\dif x & 0 \\
+            0 & \int_0^{+\infty} \frac{f(\alpha \lambda_2 x)-f(\beta \lambda_2 x)} x \dif x
+          \end{pmatrix} P^{-1} \\
+          = {}& P \begin{pmatrix}
+            \big( f(0) - f(+\infty) \big)\ln\frac\beta\alpha & 0 \\
+            0 & \big( f(0) - f(+\infty) \big)\ln\frac\beta\alpha
+          \end{pmatrix} P^{-1} \\
+          = {}& \left[  \big(f(0)-f(+\infty)\big)\ln\frac\beta\alpha \right]I_2.
+        \end{align*}
+
+        如果$J_A=\begin{pmatrix}
+          \lambda & 1 \\
+          0 & \lambda
+        \end{pmatrix}$，我们有
+        \[
+          f(\alpha Ax) - f(\beta Ax) =
+          \begin{pmatrix}
+            f(\alpha\lambda x) - f(\beta\lambda x) & \alpha xf'(\alpha\lambda x) - \beta xf'(\beta\lambda x) \\
+            0 & f(\alpha\lambda x) - f(\beta\lambda x).
+          \end{pmatrix}
+        \]
+        因此，
+        \begin{align*}
+          \int_0^{+\infty} \frac{f(\alpha Ax)-f(\beta Ax)}x \dif x & =
+          P \left( \int_0^{+\infty} \frac{f(\alpha J_Ax)-f(\beta J_Ax)}x \dif x  \right) P^{-1} \\
+          & = P \begin{pmatrix}
+            \int_0^{+\infty} \frac{f(\alpha \lambda x)-f(\beta \lambda x)} x\dif x & \int_0^{+\infty}\big( \alpha f'(\alpha\lambda x) - \beta f'(\beta\lambda x) \big) \dif x\\
+            0 & \int_0^{+\infty} \frac{f(\alpha \lambda x)-f(\beta \lambda x)} x\dif x
+          \end{pmatrix} P^{-1} \\
+          & = P \begin{pmatrix}
+            \big( f(0) - f(+\infty) \big)\ln\frac\beta\alpha & 0 \\
+            0 & \big( f(0) - f(+\infty) \big)\ln\frac\beta\alpha
+          \end{pmatrix} P^{-1} \\
+          & = \left[  \big(f(0)-f(+\infty)\big)\ln\frac\beta\alpha \right]I_2.
+        \end{align*}
+
+    \item 设函数$f:[0,+\infty)\to\MR$定义为$f(x)=\frac{\sin^2x}{x^2},x\ne0$，而$f(0)=1$. 注意到
+        \[
+          \frac{\sin^4(Ax)}{x^3} = \frac{\frac{\sin^2(Ax)}{x^2} - \frac{\sin^2(2Ax)}{4x^2}}x = \frac{f(Ax) - f(2Ax)}x A^2.
+        \]
+        由 (\ref{prob4.101a})，我们有
+        \[
+          \int_0^{+\infty} \frac{\sin^4(Ax)}{x^3} \dif x = A^2\ln2.
+        \]
+
+        要计算第二个积分，我们设函数$g:[0,+\infty)\to\MR$定义为$g(x)=\frac{\sin x}x,x\ne0$，而$g(0)=1$. 我们有
+        \[
+          \frac{\sin^3(Ax)}{x^2} = \frac{g(Ax) - g(3Ax)}x \cdot \frac{3A}4.
+        \]
+        于是由 (\ref{prob4.101a})，我们有
+        \[
+          \int_0^{+\infty} \frac{\sin^3(Ax)}{x^2} \dif x = \frac{3\ln3}4A.
+        \]
+
+        \item 定义函数$f:[0,+\infty)\to\MR$为$f(x)=\frac{1-\ee^{-x}}x,x\ne0$，
+            而$f(0)=1$，计算可知
+            \[
+              \left( \frac{I_2 - \ee^{-Ax}}x \right)^2 = 2A \frac{f(Ax) - f(2Ax)}x,
+            \]
+        由 (\ref{prob4.101a})，我们有$\int_0^{+\infty}\left( \frac{I_2 - \ee^{-Ax}}x \right)^2 \dif x=(2\ln2)A$.
+  \end{inparaenum}
+
+  我们提及一下，问题的 (\ref{prob4.101b}) 和 (\ref{prob4.101c}) 启发于{\kaishu 正弦Frullani积分}
+  \[
+    \int_0^{+\infty} \frac{\sin^4x}{x^3}\dif x = \ln2 \quad \text{和} \quad
+    \int_0^{+\infty} \frac{\sin^3x}{x^2}\dif x = \frac{3\ln3}4,
+  \]
+  第一个积分属于Mircea Ivan，而{\kaishu 二次Frullani积分}则属于Furdui和S\^int\v am\v arian \cite{33}.
+  \[
+    \int_0^{+\infty} \left( \frac{1 - \ee^{-x}}x \right)^2 \dif x = 2\ln2.
+  \]
+\end{solution}
+
+\begin{solution}
+  设$\lambda_1,\lambda_2$是$A$的特征值，$J_A=\begin{pmatrix}
+    \lambda_1 & 0 \\
+    0 & \lambda_2
+  \end{pmatrix}$是$A$的Jordan标准形，可逆矩阵$P$满足$A=PJ_AP^{-1}$，则
+  \[
+    \left( \frac{\ee^{-Ax} - \ee^{-Ay}}{x-y}\right)^2 = P
+    \begin{pmatrix}
+      \left( \frac{\ee^{-\lambda_1 x} - \ee^{- \lambda_1 y}}{x-y}\right)^2 & 0 \\
+      0 & \left( \frac{\ee^{-\lambda_2 x} - \ee^{- \lambda_2 y}}{x-y}\right)^2
+    \end{pmatrix} P^{-1},
+  \]
+  由引理 \ref{lemmaA.4}，这说明
+  \begin{align*}
+    & \int_0^{+\infty} \int_0^{+\infty} \left( \frac{\ee^{-Ax} - \ee^{-Ay}}{x-y}\right)^2 \dif x\dif y \\
+    = {}& P\begin{pmatrix}
+       \int_0^{+\infty}\int_0^{+\infty}\left(
+      \frac{\ee^{-\lambda_1 x} - \ee^{- \lambda_1 y}}{x-y}\right)^2 \dif x\dif y & 0 \\
+      0 & \int_0^{+\infty}\int_0^{+\infty}\left(
+      \frac{\ee^{-\lambda_2 x} - \ee^{- \lambda_2 y}}{x-y}\right)^2 \dif x\dif y
+    \end{pmatrix} P^{-1} \\
+    = {}&P \begin{pmatrix}
+      \ln 4 & 0 \\
+      0 & \ln4
+    \end{pmatrix} P^{-1} \\
+    = {}&(\ln4)I_2.
+  \end{align*}
+\end{solution}
+
+
+
+
